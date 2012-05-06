@@ -1,0 +1,22 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% block title %}Add new organization{% endblock%}
+
+{% block body %}
+    <header>
+        <h1>Add new organization</h1>
+    </header>
+
+    {% if app.session.hasFlash('back-notice') %}
+        <div class="back-notice">
+            {{ app.session.flash('back-notice') }}
+        </div>
+    {% endif %}
+
+    <p>Fill the form to create a new organization</p>
+
+    <form action="{{ path('PFCDTourismBundle_back_organization_create') }}" method="post" {{ form_enctype(form) }} class="tourism">
+        {{ form_widget(form) }}
+        <input type="submit" value="Submit" />
+    </form>
+{% endblock %}

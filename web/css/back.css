@@ -1,0 +1,196 @@
+/******************************************************************************/
+/***** GENERIC STYLES *********************************************************/
+/******************************************************************************/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    border: 0 none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none outside none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/******************************************************************************/
+/***** SPECIFIC STYLES ********************************************************/
+/******************************************************************************/
+body {
+    background-color: #ECE8D9;
+    color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    height: 100%;
+    line-height: 1;
+    width: 100%;
+}
+.clear {
+    clear: both;
+}
+#wrapper {
+    margin: 10px auto;
+    width: 1000px;
+}
+#wrapper a {
+    color: #F48A00;
+    text-decoration: none;
+}
+#wrapper span.highlight {
+    color: #F48A00;
+}
+#header {
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 20px;
+}
+#header .top {
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 10px;
+}
+#header ul.navigation {
+    display: inline-block;
+    list-style: none outside none;
+    text-align: right;
+}
+#header .navigation li {
+    display: inline;
+}
+#header .navigation li a {
+    border-right: 1px solid #CCCCCC;
+    display: inline-block;
+    padding: 10px 15px;
+}
+#header ul.login {
+    display: inline-block;
+    float: right;
+    list-style: none outside none;
+    text-align: right;
+}
+#header .login li {
+    display: inline;
+}
+#header .login li a {
+    border-left: 1px solid #CCCCCC;
+    display: inline-block;
+    padding: 10px 15px;
+}
+#header .login li input {
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 10px;
+    padding: 2px 4px;
+    width: 100px;
+}
+#header h2 {
+    font-family: 'Gloria Hallelujah',cursive;
+    font-size: 92px;
+    line-height: 110px;
+    text-align: center;
+}
+#header h2 a {
+    color: #000000;
+    display: block;
+    line-height: 110px;
+}
+#header h3 {
+    font-family: 'Gloria Hallelujah',cursive;
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.main-col {
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 100%;
+}
+.main-col a {
+    color: #F48A00;
+}
+.main-col h1, .main-col h2 {
+    color: #F48A00;
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 1.2em;
+    margin-bottom: 10px;
+}
+.main-col p {
+    line-height: 1.5em;
+    margin-bottom: 20px;
+}
+#footer {
+    border-top: 1px solid #CCCCCC;
+    clear: both;
+    color: #AAAAAA;
+    padding: 10px;
+    text-align: center;
+}
+
+/* CONTACT FORM */
+
+.back-notice {
+    background: none repeat scroll 0 0 #DFF2BF;
+    border: 1px solid;
+    color: #4F8A10;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: center;
+}
+form {
+    font-size: 16px;
+}
+form div {
+    clear: left;
+    margin-bottom: 10px;
+}
+form label {
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    padding-top: 5px;
+    text-align: right;
+    vertical-align: top;
+    width: 100px;
+}
+form input[type="text"], form.tourism input[type="email"] {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    min-height: 20px;
+    padding: 2px 4px;
+    width: 500px;
+}
+form textarea {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    height: 150px;
+    line-height: 20px;
+    padding: 2px 4px;
+    width: 500px;
+}
+form input[type="submit"] {
+    font-size: 20px;
+    line-height: 26px;
+    margin-left: 110px;
+    min-height: 26px;
+    width: 508px;
+}
+form ul li {
+    color: #FF0000;
+    margin-bottom: 5px;
+}

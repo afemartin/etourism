@@ -10,6 +10,10 @@ web/bundles/*
 
 # Configuration files
 app/config/parameters.ini
+app/config/parameters_prod.ini
+
+# Test public logos
+web/img/*
 
 # Netbeans files
 nbproject/*

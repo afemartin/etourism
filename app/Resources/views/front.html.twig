@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>{% block title %}Home{% endblock %} - CooperationTourism.org</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% block stylesheets %}
+            <link href="{{ asset('css/front.css') }}" type="text/css" rel="stylesheet" />
+            <link href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <section id="wrapper">
+            <header id="header">
+                <div class="top">
+                    {% block navigation %}
+                        <nav>
+                            <ul class="navigation">
+                                <li><a href="{{ path('PFCDTourismBundle_front_home') }}">Home</a></li>
+                                <li><a href="{{ path('PFCDTourismBundle_front_organizations') }}">Organizations</a></li>
+                                <li><a href="{{ path('PFCDTourismBundle_front_contact') }}">Contact</a></li>
+                                <li><a href="{{ path('PFCDTourismBundle_front_about') }}">About Us</a></li>
+                            </ul>
+                            <ul class="login">
+                                <li><a>Login:</a></li>
+                                <li><input type="text" value="username" /></li>
+                                <li><input type="password" value="password" /></li>
+                                <li><a href="#">Register</a></li>
+                            </ul>
+                        </nav>
+                    {% endblock %}
+                </div>
+                <hgroup>
+                    <h2>{% block blog_title %}<a href="{{ path('PFCDTourismBundle_front_home') }}">E-Tourism</a>{% endblock %}</h2>
+                    <h3>{% block blog_tagline %}<a href="{{ path('PFCDTourismBundle_front_home') }}">Online platform for cooperation tourism</a>{% endblock %}</h3>
+                </hgroup>
+            </header>
+            <section class="main-col">
+                {% block body %}{% endblock %}
+            </section>
+            <aside class="sidebar">
+                {% block sidebar %}{% endblock %}
+            </aside>
+            <footer id="footer">
+                {% block footer %}
+                    E-Tourism Platform - created by <a href="https://github.com/afemartin">afemartin</a>
+                {% endblock %}
+            </footer>
+        </section>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
