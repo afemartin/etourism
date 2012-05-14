@@ -1,0 +1,40 @@
+################################################################################
+##### LOGIN SECURITY ###########################################################
+################################################################################
+    
+front_login_check:
+    pattern:   /login_check
+    
+front_logout:
+    pattern:   /logout
+    
+front_register:
+    pattern:   /register
+    defaults: { _controller: PFCDTourismBundle:User:new }
+
+################################################################################
+##### FRONT CONTROLLER #########################################################
+################################################################################
+
+front_index:
+    pattern:  /
+    defaults: { _controller: PFCDTourismBundle:Front:index }
+    requirements: { _method: get }
+        
+front_contact:
+    pattern:  /contact
+    defaults: { _controller: PFCDTourismBundle:Front:contact }
+        
+front_about:
+    pattern:  /about
+    defaults: { _controller: PFCDTourismBundle:Front:about }
+    requirements: { _method: get }
+    
+################################################################################
+##### USER CONTROLLER ##########################################################
+################################################################################
+
+front_user_create:
+    pattern:  /user/create
+    defaults: { _controller: "PFCDTourismBundle:User:create" }
+    requirements: { _method: post }

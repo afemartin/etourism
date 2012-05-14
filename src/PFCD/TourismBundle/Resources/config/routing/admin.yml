@@ -1,0 +1,96 @@
+################################################################################
+##### LOGIN SECURITY ###########################################################
+################################################################################
+    
+admin_login:
+    pattern:   /login
+    defaults: { _controller: PFCDTourismBundle:Admin:login }
+    
+admin_login_check:
+    pattern:   /login_check
+    
+admin_logout:
+    pattern:   /logout
+
+################################################################################
+##### ADMIN CONTROLLER #########################################################
+################################################################################
+
+admin_index:
+    pattern:  /
+    defaults: { _controller: PFCDTourismBundle:Admin:index }
+    requirements: { _method: get }
+        
+################################################################################
+##### USER CONTROLLER ##########################################################
+################################################################################
+
+admin_user_index:
+    pattern:  /user
+    defaults: { _controller: "PFCDTourismBundle:User:adminIndex" }
+
+admin_user_new:
+    pattern:  /user/new
+    defaults: { _controller: "PFCDTourismBundle:User:adminNew" }
+
+admin_user_create:
+    pattern:  /user/create
+    defaults: { _controller: "PFCDTourismBundle:User:adminCreate" }
+    requirements: { _method: post }
+
+admin_user_show:
+    pattern:  /user/{id}
+    defaults: { _controller: "PFCDTourismBundle:User:adminShow" }
+    requirements: { id: \d+ }
+
+admin_user_edit:
+    pattern:  /user/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:User:adminEdit" }
+    requirements: { id: \d+ }
+
+admin_user_update:
+    pattern:  /user/{id}/update
+    defaults: { _controller: "PFCDTourismBundle:User:adminUpdate" }
+    requirements: { _method: post, id: \d+ }
+
+admin_user_delete:
+    pattern:  /user/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:User:adminDelete" }
+    requirements: { _method: post, id: \d+ }
+    
+################################################################################
+##### ORGANIZATION CONTROLLER ##################################################
+################################################################################
+
+admin_organization_index:
+    pattern:  /organization
+    defaults: { _controller: "PFCDTourismBundle:Organization:adminIndex" }
+
+admin_organization_new:
+    pattern:  /organization/new
+    defaults: { _controller: "PFCDTourismBundle:Organization:adminNew" }
+
+admin_organization_create:
+    pattern:  /organization/create
+    defaults: { _controller: "PFCDTourismBundle:Organization:adminCreate" }
+    requirements: { _method: post }
+
+admin_organization_show:
+    pattern:  /organization/{id}
+    defaults: { _controller: "PFCDTourismBundle:Organization:adminShow" }
+    requirements: { id: \d+ }
+
+admin_organization_edit:
+    pattern:  /organization/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Organization:adminEdit" }
+    requirements: { id: \d+ }
+
+admin_organization_update:
+    pattern:  /organization/{id}/update
+    defaults: { _controller: "PFCDTourismBundle:Organization:adminUpdate" }
+    requirements: { _method: post, id: \d+ }
+
+admin_organization_delete:
+    pattern:  /organization/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Organization:adminDelete" }
+    requirements: { _method: post, id: \d+ }

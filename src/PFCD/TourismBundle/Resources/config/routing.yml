@@ -1,69 +1,11 @@
-################################################################################
-##### FRONT END ################################################################
-################################################################################
-
-PFCDTourismBundle_front_home:
-    pattern:  /
-    defaults: { _controller: PFCDTourismBundle:FrontMain:home }
-    requirements:
-        _method:  GET
-        
-PFCDTourismBundle_front_contact:
-    pattern:  /contact
-    defaults: { _controller: PFCDTourismBundle:FrontMain:contact }
-    requirements:
-        _method:  GET|POST
-        
-PFCDTourismBundle_front_about:
-    pattern:  /about
-    defaults: { _controller: PFCDTourismBundle:FrontMain:about }
-    requirements:
-        _method:  GET
-        
-PFCDTourismBundle_front_organizations:
-    pattern:  /organizations
-    defaults: { _controller: PFCDTourismBundle:FrontOrg:home }
-    requirements:
-        _method:  GET
-
-PFCDTourismBundle_front_organization:
-    pattern:  /org/{name}
-    defaults: { _controller: PFCDTourismBundle:FrontOrg:show }
-    requirements:
-        _method:  GET
-
-################################################################################
-##### BACK END #################################################################
-################################################################################
-
-PFCDTourismBundle_back_home:
-    pattern:  /back
-    defaults: { _controller: PFCDTourismBundle:BackMain:home }
-    requirements:
-        _method:  GET
-
-PFCDTourismBundle_back_organizations:
-    pattern:  /back/organizations
-    defaults: { _controller: PFCDTourismBundle:BackOrg:showAll }
-    requirements:
-        _method:  GET
-
-PFCDTourismBundle_back_organization_create:
-    pattern:  /back/org_c
-    defaults: { _controller: PFCDTourismBundle:BackOrg:create }
-    requirements:
-        _method:  GET|POST
-
-PFCDTourismBundle_back_organization_update:
-    pattern:  /back/org_u/{id}
-    defaults: { _controller: PFCDTourismBundle:BackOrg:update }
-    requirements:
-        _method:  GET|POST
-        id: \d+
-
-PFCDTourismBundle_back_organization_delete:
-    pattern:  /back/org_d/{id}
-    defaults: { _controller: PFCDTourismBundle:BackOrg:delete }
-    requirements:
-        _method:  GET
-        id: \d+
+PFCDTourismBundle_admin:
+    resource: "@PFCDTourismBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin
+    
+PFCDTourismBundle_back:
+    resource: "@PFCDTourismBundle/Resources/config/routing/back.yml"
+    prefix:   /back
+    
+PFCDTourismBundle_front:
+    resource: "@PFCDTourismBundle/Resources/config/routing/front.yml"
+    prefix:   /

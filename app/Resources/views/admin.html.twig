@@ -18,9 +18,9 @@
             <div class="navbar-inner">
                 <div class="container">
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
-                    <a class="brand" href="{{ path('back_index') }}">CooperationTourism.com</a>
-                    {% if is_granted('ROLE_ORGANIZATION') %}
-                    <div class="pull-right">Welcome {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div> 
+                    <a class="brand" href="{{ path('admin_index') }}">CooperationTourism.com</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <div class="pull-right">Welcome SuperAdmin ;) <a class="btn btn-danger" href="{{ path('admin_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div> 
                     {% endif %}
                 </div>
             </div>
@@ -33,12 +33,12 @@
                         <div style="padding: 8px 0;" class="well">
                             <ul class="nav nav-list">
                                 <li class="nav-header">Main menu</li>
-                                <li class="active"><a href="{{ path('back_index') }}"><i class="icon-white icon-home"></i> Home</a></li>
-                                <li><a href="{{ path('back_organization_show') }}"><i class="icon-user"></i> Profile</a></li>
-                                <li><a href="#"><i class="icon-pencil"></i> News</a></li>
-                                <li><a href="#"><i class="icon-pencil"></i> Activities</a></li>
-                                <li><a href="#"><i class="icon-user"></i> Reservations</a></li>
-                                <li><a href="#"><i class="icon-cog"></i> Stats</a></li>
+                                <li class="active"><a href="{{ path('admin_index') }}"><i class="icon-white icon-home"></i> Home</a></li>
+                                <li><a href="{{ path('admin_user_index') }}"><i class="icon-user"></i> Users</a></li>
+                                <li><a href="{{ path('admin_organization_index') }}"><i class="icon-pencil"></i> Organizations</a></li>
+                                <li class="nav-header">Another list header</li>
+                                <li><a href="#"><i class="icon-user"></i> Profile</a></li>
+                                <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#"><i class="icon-flag"></i> Help</a></li>
                             </ul>
@@ -47,8 +47,8 @@
                 </div>
                 <div class="span10">
                     <header class="well">
-                        <h2>{% block blog_title %}<a href="{{ path('back_index') }}">Administrator</a>{% endblock %}</h2>
-                        <h3>{% block blog_tagline %}<a href="{{ path('back_index') }}">Organization Panel</a>{% endblock %}</h3>
+                        <h2>{% block blog_title %}<a href="{{ path('admin_index') }}">Administrator</a>{% endblock %}</h2>
+                        <h3>{% block blog_tagline %}<a href="{{ path('admin_index') }}">SuperAdmin Panel</a>{% endblock %}</h3>
                     </header>
                     {% block body %}{% endblock %}
                 </div>

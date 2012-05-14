@@ -1,0 +1,19 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% block title %}Administrator Panel{% endblock %}
+
+{% block container %}
+    {% if error %}
+        <div class="alert alert-error span4 offset4">{{ error.message }}</div>
+    {% endif %}
+    <div class="well span4 offset4">
+        <form action="{{ path('back_login_check') }}" method="post">
+            <label for="username">Username:</label>
+            <input name="_username" type="text" placeholder="username" value="{{ last_username }}"/>
+            <label for="username">Password:</label>
+            <input name="_password" type="password" placeholder="password" />
+            <hr />
+            <button class="btn btn-primary pull-right" type="submit"><i class="icon-user icon-white"></i> Login</button>
+        </form>
+    </div>
+{% endblock %}

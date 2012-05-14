@@ -7,6 +7,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -29,7 +31,7 @@ class Organization implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(name="password", type="string", length=32)
+     * @ORM\Column(name="password", type="string", length=40)
      */
     private $password;
 
@@ -130,6 +132,7 @@ class Organization implements UserInterface
 
     public function __construct()
     {
+        $this->salt = md5(uniqid(null, true));
         $this->status = 1;
         $this->activities = new ArrayCollection();
         $this->news = new ArrayCollection();
@@ -212,7 +215,10 @@ class Organization implements UserInterface
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        if ($this->password != $password)
+        {
+            $this->password = sha1($password);
+        }
     }
 
     /**

@@ -1,0 +1,39 @@
+################################################################################
+##### LOGIN SECURITY ###########################################################
+################################################################################
+    
+back_login:
+    pattern:   /login
+    defaults: { _controller: PFCDTourismBundle:Back:login }
+    
+back_login_check:
+    pattern:   /login_check
+    
+back_logout:
+    pattern:   /logout
+
+################################################################################
+##### BACK CONTROLLER ##########################################################
+################################################################################
+
+back_index:
+    pattern:  /
+    defaults: { _controller: PFCDTourismBundle:Back:index }
+    requirements: { _method: get }
+
+################################################################################
+##### ORGANIZATION CONTROLLER ##################################################
+################################################################################
+
+back_organization_show:
+    pattern:  /profile
+    defaults: { _controller: "PFCDTourismBundle:Organization:backShow" }
+
+back_organization_edit:
+    pattern:  /profile/edit
+    defaults: { _controller: "PFCDTourismBundle:Organization:backEdit" }
+
+back_organization_update:
+    pattern:  /profile/update
+    defaults: { _controller: "PFCDTourismBundle:Organization:backUpdate" }
+    requirements: { _method: post }

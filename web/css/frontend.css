@@ -1,0 +1,19 @@
+/******************************************************************************/
+/***** SPECIFIC STYLES TO OVERRIDE BOOTSTRAP.CSS ******************************/
+/******************************************************************************/
+
+body {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.logo {
+    padding: 4px 8px;
+}
+
+.footer {
+    border-top: 1px solid #E5E5E5;
+    margin-top: 45px;
+    padding-top: 25px;
+    text-align: center;
+}

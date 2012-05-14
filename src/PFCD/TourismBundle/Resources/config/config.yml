@@ -1,3 +1,2 @@
 parameters:
-    # Tourism contact email address
-    pfcd_tourism.emails.contact_email: andresmartin8787@gmail.com
+    pfcd_tourism.emails.contact_email: %contact_mail%

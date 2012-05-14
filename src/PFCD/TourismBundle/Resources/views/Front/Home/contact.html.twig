@@ -1,0 +1,30 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block title %}Contact{% endblock%}
+
+{% block body %}
+    <header>
+        <h1>Contact us</h1>
+    </header>
+
+    {% if app.session.hasFlash('tourism-notice') %}
+        <div class="alert alert-success">
+            {{ app.session.flash('tourism-notice') }}
+        </div>
+    {% endif %}
+
+    <p>Want to send us feedback or report some error?</p>
+
+    <form action="{{ path('front_contact') }}" method="post" {{ form_enctype(form) }} class="tourism">
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.message) }}
+
+        {{ form_rest(form) }}
+
+        <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> Send</button>
+    </form>
+{% endblock %}

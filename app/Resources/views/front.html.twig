@@ -8,49 +8,59 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         {% block stylesheets %}
-            <link href="{{ asset('css/front.css') }}" type="text/css" rel="stylesheet" />
-            <link href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
+            <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/frontend.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <section id="wrapper">
-            <header id="header">
-                <div class="top">
-                    {% block navigation %}
-                        <nav>
-                            <ul class="navigation">
-                                <li><a href="{{ path('PFCDTourismBundle_front_home') }}">Home</a></li>
-                                <li><a href="{{ path('PFCDTourismBundle_front_organizations') }}">Organizations</a></li>
-                                <li><a href="{{ path('PFCDTourismBundle_front_contact') }}">Contact</a></li>
-                                <li><a href="{{ path('PFCDTourismBundle_front_about') }}">About Us</a></li>
-                            </ul>
-                            <ul class="login">
-                                <li><a>Login:</a></li>
-                                <li><input type="text" value="username" /></li>
-                                <li><input type="password" value="password" /></li>
-                                <li><a href="#">Register</a></li>
-                            </ul>
-                        </nav>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
+                    <a class="brand" href="{{ path('front_index') }}">CooperationTourism.com</a>
+                    <ul class="nav">
+                        <li><a href="{{ path('front_contact') }}">Contact</a></li>
+                        <li><a href="{{ path('front_about') }}">About Us</a></li>
+                    </ul>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="pull-right">Welcome {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('front_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div>
+                    {% else %}
+                        <a class="btn btn-warning pull-right" href="{{ path('front_register') }}"><i class="icon-globe icon-white"></i> Register</a>
+                        <span class="navbar-text pull-right">or</span>
+                        <form class="navbar-form pull-right" action="{{ path('front_login_check') }}" method="post">
+                            <input class="input-small" name="_username" type="text" placeholder="username" />
+                            <input class="input-small" name="_password" type="password" placeholder="password" />
+                            <button class="btn btn-primary pull-right" type="submit"><i class="icon-user icon-white"></i> Login</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+            {% block container %}
+                <div class="span10">
+                    <header class="well">
+                        <h2>{% block blog_title %}<a href="{{ path('front_index') }}">E-Tourism</a>{% endblock %}</h2>
+                        <h3>{% block blog_tagline %}<a href="{{ path('front_index') }}">Online platform for cooperation tourism</a>{% endblock %}</h3>
+                    </header>
+                    {% block body %}{% endblock %}
+                </div>
+                <div class="span2">
+                    {% block sidebar %}
+                        Sidebar
                     {% endblock %}
                 </div>
-                <hgroup>
-                    <h2>{% block blog_title %}<a href="{{ path('PFCDTourismBundle_front_home') }}">E-Tourism</a>{% endblock %}</h2>
-                    <h3>{% block blog_tagline %}<a href="{{ path('PFCDTourismBundle_front_home') }}">Online platform for cooperation tourism</a>{% endblock %}</h3>
-                </hgroup>
-            </header>
-            <section class="main-col">
-                {% block body %}{% endblock %}
-            </section>
-            <aside class="sidebar">
-                {% block sidebar %}{% endblock %}
-            </aside>
-            <footer id="footer">
-                {% block footer %}
-                    E-Tourism Platform - created by <a href="https://github.com/afemartin">afemartin</a>
-                {% endblock %}
-            </footer>
-        </section>
-        {% block javascripts %}{% endblock %}
+            {% endblock %}
+            </div>
+            <footer class="footer">
+                E-Tourism Platform - created by <a href="https://github.com/afemartin">afemartin</a>
+            </footer>    
+        </div>
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

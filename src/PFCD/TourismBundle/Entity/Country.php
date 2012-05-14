@@ -87,7 +87,7 @@ class Country
         $metadata->addPropertyConstraint('name', new NotBlank());
         $metadata->addPropertyConstraint('locale', new NotBlank());
         $metadata->addPropertyConstraint('continent', new NotBlank());
-        $metadata->addPropertyConstraint('sortDesc', new NotBlank());
+        $metadata->addPropertyConstraint('shortDesc', new NotBlank());
     }
 
     /**
