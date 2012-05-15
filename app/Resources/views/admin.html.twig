@@ -20,7 +20,7 @@
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
                     <a class="brand" href="{{ path('admin_index') }}">CooperationTourism.com</a>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <div class="pull-right">Welcome SuperAdmin ;) <a class="btn btn-danger" href="{{ path('admin_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div> 
+                    <div class="pull-right">Welcome Admin ;) <a class="btn btn-danger" href="{{ path('admin_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div> 
                     {% endif %}
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <div class="span10">
                     <header class="well">
                         <h2>{% block blog_title %}<a href="{{ path('admin_index') }}">Administrator</a>{% endblock %}</h2>
-                        <h3>{% block blog_tagline %}<a href="{{ path('admin_index') }}">SuperAdmin Panel</a>{% endblock %}</h3>
+                        <h3>{% block blog_tagline %}<a href="{{ path('admin_index') }}">Admin Panel</a>{% endblock %}</h3>
                     </header>
                     {% block body %}{% endblock %}
                 </div>

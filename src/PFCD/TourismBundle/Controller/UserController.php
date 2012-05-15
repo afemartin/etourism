@@ -252,11 +252,10 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('front_register', array('id' => $entity->getId())));
-            
+            return $this->redirect($this->generateUrl('front_register'));
         }
 
-        return $this->render('PFCDTourismBundle:Admin/User:new.html.twig', array(
+        return $this->render('PFCDTourismBundle:Front/User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView()
         ));

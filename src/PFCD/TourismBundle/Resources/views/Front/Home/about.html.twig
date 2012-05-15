@@ -10,3 +10,10 @@
         <p>This project want to help organizations to have some incom of money because of blablabla...</p>
     </article>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#navbar-tab-about').addClass("active");
+    </script>
+{% endblock %}

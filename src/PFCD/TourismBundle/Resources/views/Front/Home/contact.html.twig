@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
+{% form_theme form 'PFCDTourismBundle:Other:customFields.html.twig' %}
+
 {% block title %}Contact{% endblock%}
 
 {% block body %}
@@ -7,24 +9,26 @@
         <h1>Contact us</h1>
     </header>
 
-    {% if app.session.hasFlash('tourism-notice') %}
+    <p>Want to send us feedback or report some error?</p>
+
+    {% if app.session.hasFlash('alert-success') %}
         <div class="alert alert-success">
-            {{ app.session.flash('tourism-notice') }}
+            <button class="close" data-dismiss="alert">×</button>
+            {{ app.session.flash('alert-success') }}
         </div>
     {% endif %}
 
-    <p>Want to send us feedback or report some error?</p>
-
-    <form action="{{ path('front_contact') }}" method="post" {{ form_enctype(form) }} class="tourism">
-        {{ form_errors(form) }}
-
-        {{ form_row(form.name) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.subject) }}
-        {{ form_row(form.message) }}
-
-        {{ form_rest(form) }}
-
-        <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> Send</button>
+    <form class="form-horizontal" action="{{ path('front_contact') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> Send</button>
+        </div>
     </form>
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#navbar-tab-contact').addClass("active");
+    </script>
 {% endblock %}

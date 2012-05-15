@@ -1,26 +1,20 @@
 {% extends 'PFCDTourismBundle:Admin:layout.html.twig' %}
 
+{% form_theme edit_form 'PFCDTourismBundle:Other:customFields.html.twig' %}
+
 {% block body %}
 <h1>User edit</h1>
 
-<form action="{{ path('admin_user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<form class="form-horizontal" action="{{ path('admin_user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> Save changes</button>
+        <a class="btn btn-inverse" href="{{ path('admin_user_index') }}"><i class="icon-remove icon-white"></i> Cancel changes</a>
+    </div>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_user_index') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('admin_user_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+<form action="{{ path('admin_user_delete', { 'id': entity.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Delete</button>
+</form>
 {% endblock %}

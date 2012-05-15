@@ -35,8 +35,6 @@ class BackController extends Controller
         }
 
         return $this->render('PFCDTourismBundle:Back/Home:login.html.twig', array(
-            // last username entered by the user
-            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
         ));
     }

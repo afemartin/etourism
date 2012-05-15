@@ -3,3 +3,10 @@
 {% block body %}
     Homepage
 {% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#navbar-tab-home').addClass("active");
+    </script>
+{% endblock %}

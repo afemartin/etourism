@@ -31,13 +31,13 @@ class FrontController extends Controller
             if ($form->isValid()) {
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Contact enquiry from CooperationTourism.com')
+                    ->setSubject('[CooperationTourism] Contact enquiry from ' . $enquiry->getName())
                     ->setFrom($enquiry->getEmail())
                     ->setTo($this->container->getParameter('pfcd_tourism.emails.contact_email'))
                     ->setBody($this->renderView('PFCDTourismBundle:Front/Home:contactEmail.txt.twig', array('enquiry' => $enquiry)));
                 $this->get('mailer')->send($message);
 
-                $this->get('session')->setFlash('tourism-notice', 'Your contact enquiry was successfully sent. Thank you!');
+                $this->get('session')->setFlash('alert-success', 'Your contact enquiry was successfully sent. Thank you!');
 
                 // Redirect - This is important to prevent users re-posting
                 // the form if they refresh the page

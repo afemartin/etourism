@@ -9,12 +9,9 @@
             <th>Id</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Phone</th>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Birthday</th>
-            <th>Gender</th>
-            <th>Postalcode</th>
             <th>City</th>
             <th>Locale</th>
             <th>Created</th>
@@ -29,16 +26,13 @@
             <td><a href="{{ path('admin_user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.username }}</td>
             <td>{{ entity.email }}</td>
-            <td>{{ entity.phone }}</td>
             <td>{{ entity.firstname }}</td>
             <td>{{ entity.lastname }}</td>
-            <td>{% if entity.birthday %}{{ entity.birthday|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{{ entity.gender }}</td>
-            <td>{{ entity.postalCode }}</td>
+            <td>{% if entity.birthday %}{{ entity.birthday|date('Y-m-d') }}{% endif%}</td>
             <td>{{ entity.city }}</td>
             <td>{{ entity.locale }}</td>
-            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif%}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d') }}{% endif%}</td>
             <td>{{ entity.status }}</td>
             <td>
                 <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i></a>
@@ -48,11 +42,5 @@
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('admin_user_new') }}">
-            Create a new user
-        </a>
-    </li>
-</ul>
+<a class="btn btn-primary" href="{{ path('admin_user_new') }}"><i class="icon-plus icon-white"></i> Create a new user</a>
 {% endblock %}

@@ -2,13 +2,21 @@
 /***** SPECIFIC STYLES TO OVERRIDE BOOTSTRAP.CSS ******************************/
 /******************************************************************************/
 
+html {
+    overflow-y: scroll;
+}
+
 body {
-    padding-top: 60px;
     padding-bottom: 20px;
+    padding-top: 60px;
 }
 
 .logo {
     padding: 4px 8px;
+}
+
+.navbar-form input, .navbar-form select, .navbar-form .radio, .navbar-form .checkbox {
+    margin-top: 0px;
 }
 
 .footer {
@@ -16,4 +24,45 @@ body {
     margin-top: 45px;
     padding-top: 25px;
     text-align: center;
+}
+
+.alert {
+    font-weight: bold;
+}
+
+.controls .alert {
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.alert ul, .alert ol {
+    margin: 0 0 0 10px;
+}
+
+.form-actions {
+    margin-bottom: 0px;
+}
+
+#login {
+    margin-top: 20px;
+}
+
+#login.form-horizontal .control-label {
+    width: 80px;
+}
+
+#login.form-horizontal .controls {
+    margin-left: 100px;
+}
+
+#login.form-horizontal .form-actions {
+    padding-left: 100px;
+}
+
+textarea {
+    height: 100px;
+}
+
+.table td {
+    white-space: nowrap;
 }

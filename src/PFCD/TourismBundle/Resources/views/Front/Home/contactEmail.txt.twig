@@ -1,6 +1,4 @@
-A contact enquiry was made by {{ enquiry.name }} at {{ "now" | date("Y-m-d H:i") }}.
+A contact enquiry was made by {{ enquiry.name }} ({{ enquiry.email }}) at {{ "now" | date("Y-m-d H:i") }}
 
-Reply-To: {{ enquiry.email }}
 Subject: {{ enquiry.subject }}
-Message:
-{{ enquiry.message }}
+Message: {{ enquiry.message }}

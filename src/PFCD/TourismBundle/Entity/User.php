@@ -8,6 +8,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+//use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -95,6 +98,21 @@ class User implements UserInterface
      */
     private $locale;
 
+    /**
+     * @ORM\Column(name="avatar", type="string", length=31, nullable=true)
+     */
+    private $avatar;   
+    
+    /**
+     * Archivo fisico manejado en la subida
+     */
+    private $image;
+
+    /**
+     * A property used temporarily while deleting
+     */
+    private $filenameForRemove;
+    
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -433,6 +451,114 @@ class User implements UserInterface
     public function getLocale()
     {
         return $this->locale;
+    }
+    
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+    
+    /**
+     * Set image
+     *
+     * @param UploadedFile $file 
+     */
+    public function setImage(UploadedFile $file = null)
+    {
+        $this->image = $file;
+    }
+
+    /**
+     * Get image
+     *
+     * @return file 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->avatar ? null : $this->getUploadRootDir().'/'. $this->username.'.'.$this->avatar;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->avatar ? null : $this->getUploadDir().'/'.$this->avatar;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return 'uploads/avatar';
+    }
+    
+    /**
+     * ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->image) {
+            // do whatever you want to generate a unique name
+            $this->avatar = "user-" . $this->username . '.' . $this->image->guessExtension();
+        }
+    }
+
+    /**
+     * ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null !== $this->image) {
+            // if there is an error when moving the file, an exception will
+            // be automatically thrown by move(). This will properly prevent
+            // the entity from being persisted to the database on error
+            $this->image->move($this->getUploadRootDir(), $this->avatar);
+
+            $this->image = null;
+        }
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->filenameForRemove = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($this->filenameForRemove) {
+            unlink($this->filenameForRemove);
+        }
     }
 
     /**
