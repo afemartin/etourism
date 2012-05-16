@@ -61,3 +61,13 @@
     git=http://github.com/symfony/AsseticBundle.git
     target=/bundles/Symfony/Bundle/AsseticBundle
     version=v1.0.1
+
+; Extra bundles installed to make easier development
+
+[JMSI18nRoutingBundle]
+    git=git://github.com/schmittjoh/JMSI18nRoutingBundle.git
+    target=bundles/JMS/I18nRoutingBundle
+
+[JMSTranslationBundle]
+    git=git://github.com/schmittjoh/JMSTranslationBundle.git
+    target=bundles/JMS/TranslationBundle
