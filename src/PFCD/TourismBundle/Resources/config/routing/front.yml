@@ -17,9 +17,9 @@ front_register:
 ################################################################################
 
 front_index:
-    pattern:  /
-    defaults: { _controller: PFCDTourismBundle:Front:index }
-    requirements: { _method: get }
+    pattern:  /{_locale}/
+    defaults: { _controller: PFCDTourismBundle:Front:index, _locale: en }
+    requirements: { _method: get, _locale: en|es }
         
 front_contact:
     pattern:  /contact

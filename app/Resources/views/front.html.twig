@@ -10,6 +10,7 @@
         {% block stylesheets %}
             <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('css/frontend.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/flags.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -20,14 +21,14 @@
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
                     <a class="brand" href="{{ path('front_index') }}">CooperationTourism.com</a>
                     {% if is_granted('ROLE_USER') %}
-                        <div class="pull-right">Welcome {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('front_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div>
+                        <div class="pull-right">{% trans %}Welcome{% endtrans %} {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('front_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div>
                     {% else %}
-                        <a class="btn btn-warning pull-right" href="{{ path('front_register') }}"><i class="icon-globe icon-white"></i> Register</a>
-                        <span class="navbar-text pull-right">or</span>
+                        <a class="btn btn-warning pull-right" href="{{ path('front_register') }}"><i class="icon-globe icon-white"></i> {% trans %}Register{% endtrans %}</a>
+                        <span class="navbar-text pull-right">{% trans %}or{% endtrans %}</span>
                         <form class="navbar-form pull-right" action="{{ path('front_login_check') }}" method="post">
                             <input class="input-small" name="_username" type="text" placeholder="username" required="required" />
                             <input class="input-small" name="_password" type="password" placeholder="password" required="required" />
-                            <button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> Login</button>
+                            <button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> {% trans %}Login{% endtrans %}</button>
                         </form>
                     {% endif %}
                 </div>
@@ -47,6 +48,15 @@
                                 <li id="navbar-tab-home"><a href="{{ path('front_index') }}">Home</a></li>
                                 <li id="navbar-tab-contact"><a href="{{ path('front_contact') }}">Contact</a></li>
                                 <li id="navbar-tab-about"><a href="{{ path('front_about') }}">About Us</a></li>
+                            </ul>
+                            <ul class="nav pull-right">
+                                <li class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">Language <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('front_index', { '_locale': 'en' }) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-gb" alt="select English language" /> English</a></li>
+                                        <li><a href="{{ path('front_index', { '_locale': 'es' }) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-es" alt="select Spanish language" /> Spanish</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
