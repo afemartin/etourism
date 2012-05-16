@@ -43,8 +43,18 @@
     version=origin/2.0
 
 [JMSSecurityExtraBundle]
-    git=http://github.com/schmittjoh/JMSSecurityExtraBundle.git
+    git=git://github.com/schmittjoh/JMSSecurityExtraBundle.git
     target=/bundles/JMS/SecurityExtraBundle
+    version=origin/1.0.x
+
+[JMSI18nRoutingBundle]
+    git=git://github.com/schmittjoh/JMSI18nRoutingBundle.git
+    target=bundles/JMS/I18nRoutingBundle
+    version=origin/1.0.x
+
+[JMSTranslationBundle]
+    git=git://github.com/schmittjoh/JMSTranslationBundle.git
+    target=bundles/JMS/TranslationBundle
     version=origin/1.0.x
 
 [SensioDistributionBundle]
@@ -62,12 +72,5 @@
     target=/bundles/Symfony/Bundle/AsseticBundle
     version=v1.0.1
 
-; Extra bundles installed to make easier development
-
-[JMSI18nRoutingBundle]
-    git=git://github.com/schmittjoh/JMSI18nRoutingBundle.git
-    target=bundles/JMS/I18nRoutingBundle
-
-[JMSTranslationBundle]
-    git=git://github.com/schmittjoh/JMSTranslationBundle.git
-    target=bundles/JMS/TranslationBundle
+[php-parser]
+    git=https://github.com/nikic/PHP-Parser.git
