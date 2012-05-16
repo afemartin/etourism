@@ -43,19 +43,17 @@
     version=origin/2.0
 
 [JMSSecurityExtraBundle]
-    git=git://github.com/schmittjoh/JMSSecurityExtraBundle.git
+    git=http://github.com/schmittjoh/JMSSecurityExtraBundle.git
     target=/bundles/JMS/SecurityExtraBundle
     version=origin/1.0.x
 
 [JMSI18nRoutingBundle]
     git=git://github.com/schmittjoh/JMSI18nRoutingBundle.git
     target=bundles/JMS/I18nRoutingBundle
-    version=origin/1.0.x
 
 [JMSTranslationBundle]
     git=git://github.com/schmittjoh/JMSTranslationBundle.git
     target=bundles/JMS/TranslationBundle
-    version=origin/1.0.x
 
 [SensioDistributionBundle]
     git=http://github.com/sensio/SensioDistributionBundle.git
