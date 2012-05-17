@@ -1,2 +1,3 @@
 parameters:
-    pfcd_tourism.emails.contact_email: %contact_mail%
+    pfcd_tourism.emails.incoming_email: %incoming_email%
+    pfcd_tourism.emails.outgoing_email: %outgoing_email%

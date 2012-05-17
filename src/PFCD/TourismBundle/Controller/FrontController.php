@@ -32,8 +32,8 @@ class FrontController extends Controller
 
                 $message = \Swift_Message::newInstance()
                     ->setSubject('[CooperationTourism] Contact enquiry from ' . $enquiry->getName())
-                    ->setFrom($enquiry->getEmail())
-                    ->setTo($this->container->getParameter('pfcd_tourism.emails.contact_email'))
+                    ->setFrom($this->container->getParameter('pfcd_tourism.emails.outgoing_email'))
+                    ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
                     ->setBody($this->renderView('PFCDTourismBundle:Front/Home:contactEmail.txt.twig', array('enquiry' => $enquiry)));
                 $this->get('mailer')->send($message);
 
