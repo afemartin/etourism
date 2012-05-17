@@ -84,7 +84,7 @@ class News
     
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('org', new NotBlank());
+        $metadata->addPropertyConstraint('organization', new NotBlank());
         $metadata->addPropertyConstraint('title', new NotBlank());
         $metadata->addPropertyConstraint('shortDesc', new NotBlank());
     }
