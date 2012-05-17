@@ -51,10 +51,6 @@
     git=git://github.com/schmittjoh/JMSI18nRoutingBundle.git
     target=bundles/JMS/I18nRoutingBundle
 
-[JMSTranslationBundle]
-    git=git://github.com/schmittjoh/JMSTranslationBundle.git
-    target=bundles/JMS/TranslationBundle
-
 [SensioDistributionBundle]
     git=http://github.com/sensio/SensioDistributionBundle.git
     target=/bundles/Sensio/Bundle/DistributionBundle
@@ -69,6 +65,3 @@
     git=http://github.com/symfony/AsseticBundle.git
     target=/bundles/Symfony/Bundle/AsseticBundle
     version=v1.0.1
-
-[php-parser]
-    git=https://github.com/nikic/PHP-Parser.git
