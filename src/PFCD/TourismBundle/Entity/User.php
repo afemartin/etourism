@@ -2,25 +2,36 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-//use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
+use PFCD\TourismBundle\Entity\Reservation;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks()
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface
 {
+    const GENDER_UNKNOWN = 0;
+    const GENDER_MALE    = 1;
+    const GENDER_FEMALE  = 2;
+    
+    private $genderText = array('0'=>'Unknown', '1'=>'Male', '2'=>'Female');
+    
+    const STATUS_PENDING = 0;
+    const STATUS_ENABLED = 1;
+    const STATUS_LOCKED  = 2;
+    const STATUS_DELETED = 3;
+    
+    private $statusText = array('0'=>'Pending', '1'=>'Enabled', '2'=>'Locked', '3'=>'Deleted');
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -29,9 +40,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(name="username", type="string", length=16, unique=true)
+     * @ORM\Column(name="email", type="string", length=64, unique=true)
      */
-    private $username;
+    private $email;
 
     /**
      * @ORM\Column(name="password", type="string", length=40)
@@ -42,16 +53,6 @@ class User implements UserInterface
      * @ORM\Column(name="salt", type="string", length=32, nullable=true)
      */
     private $salt;
-
-    /**
-     * @ORM\Column(name="email", type="string", length=64, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
-     */
-    private $phone;
 
     /**
      * @ORM\Column(name="firstname", type="string", length=32, nullable=true)
@@ -69,16 +70,19 @@ class User implements UserInterface
     private $birthday;
 
     /**
-     * @var integer $gender 1=>male, 2=>female
-     *
-     * @ORM\Column(name="gender", type="smallint", nullable=true)
+     * @var integer $gender 0=>unknown, 1=>male, 2=>female (ISO/IEC 5218)
+     *      
+     * @ORM\Column(name="gender", type="smallint")
      */
     private $gender;
 
     /**
-     * @ORM\Column(name="postal_code", type="string", length=16, nullable=true)
+     * @var string $country ISO 3166-1 alpha-2
+     * @link http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     * 
+     * @ORM\Column(name="country", type="string", length=2, nullable=true)
      */
-    private $postalCode;
+    private $country;
 
     /**
      * @ORM\Column(name="city", type="string", length=32, nullable=true)
@@ -86,33 +90,28 @@ class User implements UserInterface
     private $city;
 
     /**
-     * @ORM\OneToOne(targetEntity="Country")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     * @ORM\Column(name="address", type="string", length=32, nullable=true)
      */
-    private $country;
+    private $address;
 
     /**
-     * @var string $locale
+     * @ORM\Column(name="postal_code", type="string", length=16, nullable=true)
+     */
+    private $postalCode;
+    
+    /**
+     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string $locale ISO 639-1
+     * @link http://en.wikipedia.org/wiki/ISO_639-1
      *
-     * @ORM\Column(name="locale", type="string", length=7, nullable=true)
+     * @ORM\Column(name="locale", type="string", length=2, nullable=true)
      */
     private $locale;
 
-    /**
-     * @ORM\Column(name="avatar", type="string", length=31, nullable=true)
-     */
-    private $avatar;   
-    
-    /**
-     * Archivo fisico manejado en la subida
-     */
-    private $image;
-
-    /**
-     * A property used temporarily while deleting
-     */
-    private $filenameForRemove;
-    
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -124,7 +123,7 @@ class User implements UserInterface
     private $updated;
 
     /**
-     * @var integer $status 0=>Pending activation, 1=>Active, 2=>Inactive, 3=>Deleted
+     * @var integer $status 0=>Pending activation, 1=>Enabled, 2=>Locked, 3=>Deleted
      * 
      * @ORM\Column(name="status", type="smallint")
      */
@@ -138,9 +137,10 @@ class User implements UserInterface
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
-        $this->status = 1;
+        $this->gender = self::GENDER_UNKNOWN;
+        $this->status = self::STATUS_PENDING;
         $this->reservations = new ArrayCollection();
-        
+
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
     }
@@ -150,14 +150,7 @@ class User implements UserInterface
      */
     public function setUpdatedValue()
     {
-       $this->setUpdated(new \DateTime());
-    }
-    
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('username', new NotBlank());
-        $metadata->addPropertyConstraint('password', new NotBlank());
-        $metadata->addPropertyConstraint('email', new NotBlank());
+        $this->setUpdated(new \DateTime());
     }
 
     /**
@@ -173,11 +166,15 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
+        
     }
-    
+
+    /**
+     * @inheritDoc
+     */
     public function equals(UserInterface $user)
     {
-        return $this->username === $user->getUsername();
+        return $this->email === $user->getEmail();
     }
 
     /**
@@ -191,66 +188,13 @@ class User implements UserInterface
     }
 
     /**
-     * Set username
-     *
-     * @param string $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    /**
      * Get username
      *
      * @return string 
      */
     public function getUsername()
     {
-        return $this->username;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        if ($this->password != $password)
-        {
-            $this->password = sha1($password);
-        }
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string 
-     */
-    public function getSalt()
-    {
-        return $this->salt;
+        return $this->getEmail();
     }
 
     /**
@@ -274,23 +218,54 @@ class User implements UserInterface
     }
 
     /**
-     * Set phone
+     * Set password
      *
-     * @param string $phone
+     * @param string $password
      */
-    public function setPhone($phone)
+    public function setPassword($password)
     {
-        $this->phone = $phone;
+        $encoder = new MessageDigestPasswordEncoder('sha1', false, 1);
+        $this->password = $encoder->encodePassword($password, $this->getSalt());
     }
 
     /**
-     * Get phone
+     * Get password
      *
      * @return string 
      */
-    public function getPhone()
+    public function getPassword()
     {
-        return $this->phone;
+        return $this->password;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Get key for reset password by mail (after change the password the link will be useless)
+     *
+     * @return string 
+     */
+    public function getResetKey()
+    {
+        return md5('reset-key-'.$this->password.'-salted-with-'.$this->salt);
+    }
+
+    /**
+     * Get key for activate users accouynt by mail (after change the status the link will be useless)
+     *
+     * @return string 
+     */
+    public function getActivationKey()
+    {
+        return md5('activation-key-'.$this->status.'-salted-with-'.$this->salt);
     }
 
     /**
@@ -331,6 +306,16 @@ class User implements UserInterface
     public function getLastname()
     {
         return $this->lastname;
+    }
+    
+    /**
+     * Get fullname
+     *
+     * @return string 
+     */
+    public function getFullname()
+    {
+        return trim($this->firstname . ' ' . $this->lastname);
     }
 
     /**
@@ -374,23 +359,33 @@ class User implements UserInterface
     }
 
     /**
-     * Set postalCode
+     * Get gender in human readable mode
      *
-     * @param string $postalCode
+     * @return string
      */
-    public function setPostalCode($postalCode)
+    public function getGenderText()
     {
-        $this->postalCode = $postalCode;
+        return $this->genderText[$this->gender];
     }
 
     /**
-     * Get postalCode
+     * Set country
      *
-     * @return string 
+     * @param string $country
      */
-    public function getPostalCode()
+    public function setCountry($country)
     {
-        return $this->postalCode;
+        $this->country = $country;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
     /**
@@ -414,23 +409,63 @@ class User implements UserInterface
     }
 
     /**
-     * Set country
+     * Set address
      *
-     * @param PFCD\TourismBundle\Entity\Country $country
+     * @param string $address
      */
-    public function setCountry(\PFCD\TourismBundle\Entity\Country $country)
+    public function setAddress($address)
     {
-        $this->country = $country;
+        $this->address = $address;
     }
 
     /**
-     * Get country
+     * Get address
      *
-     * @return PFCD\TourismBundle\Entity\Country 
+     * @return string 
      */
-    public function getCountry()
+    public function getAddress()
     {
-        return $this->country;
+        return $this->address;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string 
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 
     /**
@@ -451,114 +486,6 @@ class User implements UserInterface
     public function getLocale()
     {
         return $this->locale;
-    }
-    
-    /**
-     * Set avatar
-     *
-     * @param string $avatar
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
-    }
-
-    /**
-     * Get avatar
-     *
-     * @return string 
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-    
-    /**
-     * Set image
-     *
-     * @param UploadedFile $file 
-     */
-    public function setImage(UploadedFile $file = null)
-    {
-        $this->image = $file;
-    }
-
-    /**
-     * Get image
-     *
-     * @return file 
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->avatar ? null : $this->getUploadRootDir().'/'. $this->username.'.'.$this->avatar;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->avatar ? null : $this->getUploadDir().'/'.$this->avatar;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
-        return 'uploads/avatar';
-    }
-    
-    /**
-     * ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (null !== $this->image) {
-            // do whatever you want to generate a unique name
-            $this->avatar = "user-" . $this->username . '.' . $this->image->guessExtension();
-        }
-    }
-
-    /**
-     * ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        if (null !== $this->image) {
-            // if there is an error when moving the file, an exception will
-            // be automatically thrown by move(). This will properly prevent
-            // the entity from being persisted to the database on error
-            $this->image->move($this->getUploadRootDir(), $this->avatar);
-
-            $this->image = null;
-        }
-    }
-
-    /**
-     * @ORM\PreRemove()
-     */
-    public function storeFilenameForRemove()
-    {
-        $this->filenameForRemove = $this->getAbsolutePath();
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload()
-    {
-        if ($this->filenameForRemove) {
-            unlink($this->filenameForRemove);
-        }
     }
 
     /**
@@ -620,13 +547,23 @@ class User implements UserInterface
     {
         return $this->status;
     }
+    
+    /**
+     * Get status in human readable mode
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return $this->statusText[$this->status];
+    }
 
     /**
      * Add reservations
      *
-     * @param PFCD\TourismBundle\Entity\Reservation $reservations
+     * @param Reservation $reservations
      */
-    public function addReservation(\PFCD\TourismBundle\Entity\Reservation $reservations)
+    public function addReservation(Reservation $reservations)
     {
         $this->reservations[] = $reservations;
     }
@@ -639,6 +576,46 @@ class User implements UserInterface
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    /**
+     * Checks whether the user's account has expired.
+     *
+     * @return Boolean true if the user's account is non expired, false otherwise
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     *
+     * @return Boolean true if the user is not locked, false otherwise
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->status != self::STATUS_LOCKED;
+    }
+
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     *
+     * @return Boolean true if the user's credentials are non expired, false otherwise
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is enabled.
+     *
+     * @return Boolean true if the user is enabled, false otherwise
+     */
+    public function isEnabled()
+    {
+        return $this->status == self::STATUS_ENABLED;
     }
 
 }

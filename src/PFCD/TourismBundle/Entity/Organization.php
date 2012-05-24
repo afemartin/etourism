@@ -2,22 +2,31 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
+use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\News;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="organization")
  * @ORM\HasLifecycleCallbacks()
  */
-class Organization implements UserInterface
+class Organization implements AdvancedUserInterface
 {
+    const STATUS_PENDING = 0;
+    const STATUS_ENABLED = 1;
+    const STATUS_LOCKED = 2;
+    const STATUS_DELETED = 3;
+
+    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -31,6 +40,11 @@ class Organization implements UserInterface
     private $username;
 
     /**
+     * @ORM\Column(name="email", type="string", length=64, unique=true)
+     */
+    private $email;
+
+    /**
      * @ORM\Column(name="password", type="string", length=40)
      */
     private $password;
@@ -39,16 +53,6 @@ class Organization implements UserInterface
      * @ORM\Column(name="salt", type="string", length=32, nullable=true)
      */
     private $salt;
-
-    /**
-     * @ORM\Column(name="email", type="string", length=64, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
-     */
-    private $phone;
 
     /**
      * @ORM\Column(name="name", type="string", length=128)
@@ -71,29 +75,6 @@ class Organization implements UserInterface
     private $fullDesc;
 
     /**
-     * @ORM\Column(name="postal_code", type="string", length=16, nullable=true)
-     */
-    private $postalCode;
-
-    /**
-     * @ORM\Column(name="city", type="string", length=32, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Country")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
-     */
-    private $country;
-
-    /**
-     * @var string $locale
-     *
-     * @ORM\Column(name="locale", type="string", length=7, nullable=true)
-     */
-    private $locale;
-    
-    /**
      * @ORM\Column(name="foundation_year", type="smallint", nullable=true)
      */
     private $foundationYear;
@@ -102,6 +83,42 @@ class Organization implements UserInterface
      * @ORM\Column(name="geolocation", type="string", length=32, nullable=true)
      */
     private $geolocation;
+
+    /**
+     * @var string $country ISO 3166-1 alpha-2
+     * @link http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     * 
+     * @ORM\Column(name="country", type="string", length=2, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(name="city", type="string", length=32, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(name="address", type="string", length=32, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(name="postal_code", type="string", length=16, nullable=true)
+     */
+    private $postalCode;
+
+    /**
+     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string $locale ISO 639-1
+     * @link http://en.wikipedia.org/wiki/ISO_639-1
+     *
+     * @ORM\Column(name="locale", type="string", length=2, nullable=true)
+     */
+    private $locale;
 
     /**
      * @ORM\Column(name="created", type="datetime")
@@ -114,17 +131,17 @@ class Organization implements UserInterface
     private $updated;
 
     /**
-     * @var integer $status 0=>Pending activation, 1=>Active, 2=>Inactive, 3=>Deleted
+     * @var integer $status 0=>Pending, 1=>Enabled, 2=>Locked, 3=>Deleted
      * 
      * @ORM\Column(name="status", type="smallint")
      */
     private $status;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Activity", mappedBy="activity")
      */
     private $activities;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="News", mappedBy="news")
      */
@@ -133,10 +150,10 @@ class Organization implements UserInterface
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
-        $this->status = 1;
+        $this->status = self::STATUS_PENDING;
         $this->activities = new ArrayCollection();
         $this->news = new ArrayCollection();
-        
+
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
     }
@@ -146,16 +163,7 @@ class Organization implements UserInterface
      */
     public function setUpdatedValue()
     {
-       $this->setUpdated(new \DateTime());
-    }
-    
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('username', new NotBlank());
-        $metadata->addPropertyConstraint('password', new NotBlank());
-        $metadata->addPropertyConstraint('email', new NotBlank());
-        $metadata->addPropertyConstraint('name', new NotBlank());
-        $metadata->addPropertyConstraint('shortDesc', new NotBlank());
+        $this->setUpdated(new \DateTime());
     }
 
     /**
@@ -171,11 +179,12 @@ class Organization implements UserInterface
      */
     public function eraseCredentials()
     {
+        
     }
-    
-    public function equals(UserInterface $user)
+
+    public function equals(UserInterface $organization)
     {
-        return $this->username === $user->getUsername();
+        return $this->username === $organization->getUsername() || $this->email === $organization->getEmail();
     }
 
     /**
@@ -209,16 +218,34 @@ class Organization implements UserInterface
     }
 
     /**
+     * Set email
+     *
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * Set password
      *
      * @param string $password
      */
     public function setPassword($password)
     {
-        if ($this->password != $password)
-        {
-            $this->password = sha1($password);
-        }
+        $encoder = new MessageDigestPasswordEncoder('sha1', false, 1);
+        $this->password = $encoder->encodePassword($password, $this->getSalt());
     }
 
     /**
@@ -249,46 +276,6 @@ class Organization implements UserInterface
     public function getSalt()
     {
         return $this->salt;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string 
-     */
-    public function getPhone()
-    {
-        return $this->phone;
     }
 
     /**
@@ -372,86 +359,6 @@ class Organization implements UserInterface
     }
 
     /**
-     * Set postalCode
-     *
-     * @param string $postalCode
-     */
-    public function setPostalCode($postalCode)
-    {
-        $this->postalCode = $postalCode;
-    }
-
-    /**
-     * Get postalCode
-     *
-     * @return string 
-     */
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
-
-    /**
-     * Set city
-     *
-     * @param string $city
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string 
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set country
-     *
-     * @param PFCD\TourismBundle\Entity\Country $country
-     */
-    public function setCountry(\PFCD\TourismBundle\Entity\Country $country)
-    {
-        $this->country = $country;
-    }
-
-    /**
-     * Get country
-     *
-     * @return PFCD\TourismBundle\Entity\Country 
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set locale
-     *
-     * @param string $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * Get locale
-     *
-     * @return string 
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-    
-    /**
      * Set foundationYear
      *
      * @param smallint $foundationYear
@@ -489,6 +396,126 @@ class Organization implements UserInterface
     public function getGeolocation()
     {
         return $this->geolocation;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string 
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string 
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
     /**
@@ -552,11 +579,21 @@ class Organization implements UserInterface
     }
 
     /**
+     * Get status in human readable mode
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return $this->statusText[$this->status];
+    }
+
+    /**
      * Add activities
      *
-     * @param PFCD\TourismBundle\Entity\Activity $activities
+     * @param Activity $activities
      */
-    public function addActivity(\PFCD\TourismBundle\Entity\Activity $activities)
+    public function addActivity(Activity $activities)
     {
         $this->activities[] = $activities;
     }
@@ -574,9 +611,9 @@ class Organization implements UserInterface
     /**
      * Add news
      *
-     * @param PFCD\TourismBundle\Entity\News $news
+     * @param News $news
      */
-    public function addNews(\PFCD\TourismBundle\Entity\News $news)
+    public function addNews(News $news)
     {
         $this->news[] = $news;
     }
@@ -590,5 +627,45 @@ class Organization implements UserInterface
     {
         return $this->news;
     }
-    
+
+    /**
+     * Checks whether the user's account has expired.
+     *
+     * @return Boolean true if the user's account is non expired, false otherwise
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     *
+     * @return Boolean true if the user is not locked, false otherwise
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->status != self::STATUS_LOCKED;
+    }
+
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     *
+     * @return Boolean true if the user's credentials are non expired, false otherwise
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is enabled.
+     *
+     * @return Boolean true if the user is enabled, false otherwise
+     */
+    public function isEnabled()
+    {
+        return $this->status == self::STATUS_ENABLED;
+    }
+
 }
