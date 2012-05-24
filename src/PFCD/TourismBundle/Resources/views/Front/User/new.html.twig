@@ -5,23 +5,14 @@
 {% block title %}Registration{% endblock%}
 
 {% block body %}
-    <header>
-        <h1>User registration</h1>
-    </header>
+<h1>User registration</h1>
+<p>Please fill the following information to complete the registration</p>
 
-    <p>Please fill the following information to complete the registration</p>
-
-    {% if app.session.hasFlash('alert-success') %}
-        <div class="alert alert-success">
-            <button class="close" data-dismiss="alert">×</button>
-            {{ app.session.flash('alert-success') }}
-        </div>
-    {% endif %}
-
-    <form class="form-horizontal" action="{{ path('front_user_create') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit"><i class="icon-globe icon-white"></i> Register</button>
-        </div>
-    </form>
+<form class="form-horizontal" action="{{ path('front_user_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Register'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('front_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel registration'|trans }}</a>
+    </div>
+</form>
 {% endblock %}
