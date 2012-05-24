@@ -8,8 +8,9 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         {% block stylesheets %}
-            <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-            <link href="{{ asset('css/frontend.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/frontend.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/flags.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -20,47 +21,59 @@
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
                     <a class="brand" href="{{ path('admin_index') }}">CooperationTourism.com</a>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <div class="pull-right">Welcome Admin ;) <a class="btn btn-danger" href="{{ path('admin_logout') }}"><i class="icon-off icon-white"></i> Logout</a></div> 
+                    <div class="pull-right">{{ 'Welcome'|trans }} Admin ;) <a class="btn btn-danger" href="{{ path('admin_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div>
+                    {% else %}
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ 'Language'|trans }} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('admin_login', { '_locale': 'en' }) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-gb" /> {{ 'English'|trans }}</a></li>
+                                <li><a href="{{ path('admin_login', { '_locale': 'es' }) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-es" /> {{ 'Spanish'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                     {% endif %}
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container main">
             <div class="row">
             {% block container %}
-                <div class="span2">
-                    {% block sidebar %}
-                        <div style="padding: 8px 0;" class="well">
-                            <ul class="nav nav-list">
-                                <li class="nav-header">Main menu</li>
-                                <li class="active"><a href="{{ path('admin_index') }}"><i class="icon-white icon-home"></i> Home</a></li>
-                                <li><a href="{{ path('admin_user_index') }}"><i class="icon-user"></i> Users</a></li>
-                                <li><a href="{{ path('admin_organization_index') }}"><i class="icon-pencil"></i> Organizations</a></li>
-                                <li class="nav-header">Another list header</li>
-                                <li><a href="#"><i class="icon-user"></i> Profile</a></li>
-                                <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="icon-flag"></i> Help</a></li>
-                            </ul>
-                        </div>
-                    {% endblock %}
+            <div class="span2">
+                {% block sidebar %}
+                <div style="padding: 8px 0;" class="well">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Menu</li>
+                        <li id="sidebar-tab-home"><a href="{{ path('admin_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
+                        <li id="sidebar-tab-user"><a href="{{ path('admin_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
+                        <li id="sidebar-tab-organization"><a href="{{ path('admin_organization_index') }}"><i class="icon-globe"></i> {{ 'Organizations'|trans }}</a></li>
+                        <li class="divider"></li>
+                        <li id="sidebar-tab-settings"><a href="#"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
+                        <li id="sidebar-tab-help"><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>
+                    </ul>
                 </div>
-                <div class="span10">
-                    <header class="well">
-                        <h2>{% block blog_title %}<a href="{{ path('admin_index') }}">Administrator</a>{% endblock %}</h2>
-                        <h3>{% block blog_tagline %}<a href="{{ path('admin_index') }}">Admin Panel</a>{% endblock %}</h3>
-                    </header>
-                    {% block body %}{% endblock %}
-                </div>
+                {% endblock %}
+            </div>
+            <div class="span10">
+                <header class="well">
+                    <h2>{% block blog_title %}<a href="{{ path('admin_index') }}">Administrator</a>{% endblock %}</h2>
+                    <h3>{% block blog_tagline %}<a href="{{ path('admin_index') }}">Admin Panel</a>{% endblock %}</h3>
+                </header>
+                {% if app.session.hasFlash('alert-info') %}<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-info') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-success') %}<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-success') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-warning') %}<div class="alert fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-warning') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-error') %}<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-error') }}</div>{% endif %}
+                {% block body %}{% endblock %}
+            </div>
             {% endblock %}
             </div>
             <footer class="footer">
-                E-Tourism Platform - created by <a href="https://github.com/afemartin">afemartin</a>
+                © 2012 - CooperationTourism.com - {{ 'created by'|trans }} <a href="https://github.com/afemartin">afemartin</a>
             </footer>
         </div>
         {% block javascripts %}
-            <script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         {% endblock %}
     </body>
 </html>
