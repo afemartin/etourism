@@ -6,9 +6,8 @@ html {
     overflow-y: scroll;
 }
 
-body {
-    padding-bottom: 20px;
-    padding-top: 60px;
+.container.main {
+    padding: 60px 20px 20px 20px;
 }
 
 .logo {
@@ -65,4 +64,44 @@ textarea {
 
 .table td {
     white-space: nowrap;
+}
+
+.table tbody tr.status-0 td {
+  background-color: #fffff0;
+}
+
+.table tbody tr.status-0:hover td {
+  background-color: #ffffe0;
+}
+
+.table tbody tr.status-1 td {
+  background-color: #f5fff5;
+}
+
+.table tbody tr.status-1:hover td {
+  background-color: #f0fff0;
+}
+
+.table tbody tr.status-2 td {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr.status-2:hover td {
+  background-color: #f5f5f5;
+}
+
+.table tbody tr.status-3 td {
+  background-color: #fff5f5;
+}
+
+.table tbody tr.status-3:hover td {
+  background-color: #fff0f0;
+}
+
+.organization-container {
+    margin-left: 0;
+}
+
+.photo-container {
+    margin-left: 0;
 }
