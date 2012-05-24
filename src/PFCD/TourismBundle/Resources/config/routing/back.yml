@@ -8,9 +8,11 @@ back_login:
     
 back_login_check:
     pattern:   /login_check
+    options:   { i18n: false }
     
 back_logout:
     pattern:   /logout
+    options:   { i18n: false }
 
 ################################################################################
 ##### BACK CONTROLLER ##########################################################
