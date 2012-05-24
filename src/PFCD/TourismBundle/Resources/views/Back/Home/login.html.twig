@@ -11,23 +11,21 @@
             </div>
         {% endif %}
         <form id="login" class="well form-horizontal" action="{{ path('back_login_check') }}" method="post">
-            <fieldset>
-                <div class="control-group">
-                    <label class="control-label" for="username">Username:</label>
-                    <div class="controls">
-                        <input name="_username" type="text" placeholder="username" required="required" />
-                    </div>
+            <div class="control-group">
+                <label class="control-label" for="username">{{ 'Username'|trans }}</label>
+                <div class="controls">
+                    <input id="username" name="_username" type="text" placeholder="{{ 'Username'|trans }}" required="required" />
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="password">Password:</label>
-                    <div class="controls">
-                        <input name="_password" type="password" placeholder="password" required="required" />
-                    </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">{{ 'Password'|trans }}</label>
+                <div class="controls">
+                    <input id="password" name="_password" type="password" placeholder="{{ 'Password'|trans }}" required="required" />
                 </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> Login</button>
-                </div>
-            </fieldset>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> {{ 'Login'|trans }}</button>
+            </div>
         </form>
     </div>
 {% endblock %}
