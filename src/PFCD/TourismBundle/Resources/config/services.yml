@@ -2,6 +2,7 @@ parameters:
 #    pfcd_tourism.example.class: PFCD\TourismBundle\Example
 
 services:
+    # This extension manage to come back to the previous route after change the locale
     twig.localized.route.extension:
         class: PFCD\TourismBundle\Twig\Extension
         tags:
