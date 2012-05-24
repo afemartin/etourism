@@ -1,7 +1,66 @@
+################################################################################
+##### Login & Register (UI)
+################################################################################
+
 Welcome: Bienvenido
-Login: Acceder
+Logout: Desconexión
+Login: Acceso
 or: o
-Register: Registrarse
-Home: inicio
-About: Acerca de
-Contact us: Contacto
+Register: Registro
+
+################################################################################
+##### Login & Register (Form)
+################################################################################
+
+Username: Usuario
+Email: Email
+Password: Contraseña
+
+Repeat password: Repita contraseña
+Firstname: Nombre
+Lastname: Apellidos
+Gender: Sexo
+Male: Hombre
+Female: Mujer
+Country: País
+City: Ciudad
+Image: Imágen
+
+################################################################################
+##### Contact (Form)
+################################################################################
+
+Name: Nombre
+Email: Email
+Subject: Asunto
+Message: Mensaje
+Send: Enviar
+
+################################################################################
+##### Navbar
+################################################################################
+
+Home: Portada
+About: Acerca
+Contact: Contacto
+Language: Idioma
+
+################################################################################
+##### Languages
+################################################################################
+
+English: Inglés
+Spanish: Español
+
+################################################################################
+##### Informative messages
+################################################################################
+
+This website is a beta version only for development testing purpose: Esta web esta en versión de pruebas durante su desarrollo
+Online platform for cooperation tourism: Plataforma online para turismo de cooperación
+  
+################################################################################
+##### Footer
+################################################################################  
+
+created by: creado por
