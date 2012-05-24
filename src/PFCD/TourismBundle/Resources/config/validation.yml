@@ -1,9 +1,24 @@
 PFCD\TourismBundle\Entity\User:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
     properties:
         email:
-            - Email: ~
-        image:
-            - Image: ~             
+            - Email:    { groups: [Remember, Default] }
+        password:
+            - NotBlank: { groups: [Reset, Default] }
+            
+PFCD\TourismBundle\Entity\Organization:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        username:
+            - NotBlank: { groups: [Default] }            
+        email:
+            - Email:    { groups: [Default] }
+        password:
+            - NotBlank: { groups: [Default] }            
+        name:
+            - NotBlank: { groups: [Default] }            
+        shortDesc:
+            - NotBlank: { groups: [Default] }            
