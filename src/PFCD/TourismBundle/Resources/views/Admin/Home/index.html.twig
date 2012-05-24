@@ -5,3 +5,10 @@
 {% block body %}
     You are superadmin ;)
 {% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#sidebar-tab-home').addClass("active");
+    </script>
+{% endblock %}

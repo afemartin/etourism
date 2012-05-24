@@ -1,20 +1,23 @@
 {% extends 'PFCDTourismBundle:Admin:layout.html.twig' %}
 
+{% form_theme form 'PFCDTourismBundle:Other:customFields.html.twig' %}
+
 {% block body %}
 <h1>User creation</h1>
+<p>Use this form to create manually a new user</p>
 
-<form action="{{ path('admin_user_create') }}" method="post" {{ form_enctype(form) }}>
+<form class="form-horizontal" action="{{ path('admin_user_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create user'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('admin_user_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel user'|trans }}</a>
+    </div>
 </form>
+{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_user_index') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#sidebar-tab-user').addClass("active");
+    </script>
 {% endblock %}
