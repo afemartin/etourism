@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilder;
 
 use PFCD\TourismBundle\Entity\User;
 
-class UserType extends AbstractType
+class UserProfileType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
@@ -21,12 +21,11 @@ class UserType extends AbstractType
                 ->add('postalCode')
                 ->add('phone')
                 ->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish')))
-                ->add('status', 'choice', array('choices' => array(User::STATUS_PENDING => 'Pending', User::STATUS_ENABLED => 'Enabled', User::STATUS_LOCKED => 'Locked', User::STATUS_DELETED => 'Deleted')))
         ;
     }
 
     public function getName()
     {
-        return 'user';
+        return 'user_profile';
     }
 }
