@@ -3,9 +3,12 @@
 namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Form\UserType;
+use PFCD\TourismBundle\Form\UserProfileType;
+use PFCD\TourismBundle\Form\UserRegistrationType;
 
 /**
  * User controller.
@@ -138,7 +141,7 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_user_show', array('id' => $id)));
         }
 
         return $this->render('PFCDTourismBundle:Admin/User:edit.html.twig', array(
@@ -166,7 +169,8 @@ class UserController extends Controller
                 throw $this->createNotFoundException('Unable to find User entity.');
             }
 
-            $em->remove($entity);
+            $entity->setStatus(User::STATUS_DELETED);
+            $em->persist($entity);
             $em->flush();
         }
 
@@ -184,25 +188,9 @@ class UserController extends Controller
      **************************************************************************/
    
     /**
-     * Lists all User entities.
-     *
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('PFCDTourismBundle:User')->findAll();
-
-        return $this->render('PFCDTourismBundle:Front/User:index.html.twig', array(
-            'entities' => $entities
-        ));
-    }
-
-    /**
      * Finds and displays a User entity.
-     *
      */
-    public function showAction($id)
+    public function frontShowAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
@@ -223,12 +211,11 @@ class UserController extends Controller
 
     /**
      * Displays a form to create a new User entity.
-     *
      */
-    public function newAction()
+    public function frontNewAction()
     {
         $entity = new User();
-        $form   = $this->createForm(new UserType(), $entity);
+        $form   = $this->createForm(new UserRegistrationType(), $entity);
 
         return $this->render('PFCDTourismBundle:Front/User:new.html.twig', array(
             'entity' => $entity,
@@ -238,21 +225,28 @@ class UserController extends Controller
 
     /**
      * Creates a new User entity.
-     *
      */
-    public function createAction()
+    public function frontCreateAction()
     {
         $entity  = new User();
         $request = $this->getRequest();
-        $form    = $this->createForm(new UserType(), $entity);
+        $form    = $this->createForm(new UserRegistrationType(), $entity);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->flush();
+            
+            $message = \Swift_Message::newInstance()
+                        ->setSubject('[CooperationTourism] Activation of your account')
+                        ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
+                        ->setTo($entity->getEmail())
+                        ->setBody($this->renderView('PFCDTourismBundle:Mail:activation.txt.twig', array('user' => $entity)));
+            $this->get('mailer')->send($message);
 
-            return $this->redirect($this->generateUrl('front_register'));
+            $this->get('session')->setFlash('alert-success', 'You have register your account successfully. Before to login you should check your email inbox to follow the instructions in order to activate the account. Thank you!');
+            return $this->redirect($this->generateUrl('front_index'));
         }
 
         return $this->render('PFCDTourismBundle:Front/User:new.html.twig', array(
@@ -264,9 +258,12 @@ class UserController extends Controller
     /**
      * Displays a form to edit an existing User entity.
      *
+     * @Secure(roles="ROLE_USER")
      */
-    public function editAction($id)
+    public function frontEditAction()
     {
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('PFCDTourismBundle:User')->find($id);
@@ -275,7 +272,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createForm(new UserType(), $entity);
+        $editForm = $this->createForm(new UserProfileType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PFCDTourismBundle:Front/User:edit.html.twig', array(
@@ -288,9 +285,12 @@ class UserController extends Controller
     /**
      * Edits an existing User entity.
      *
+     * @Secure(roles="ROLE_USER")
      */
-    public function updateAction($id)
+    public function frontUpdateAction()
     {
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('PFCDTourismBundle:User')->find($id);
@@ -299,7 +299,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm   = $this->createForm(new UserType(), $entity);
+        $editForm   = $this->createForm(new UserProfileType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -310,7 +310,8 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+            $this->get('session')->setFlash('alert-success', 'Your changes have been saved successfully');
+            return $this->redirect($this->generateUrl('front_user_show', array('id'=>$id)));
         }
 
         return $this->render('PFCDTourismBundle:Front/User:edit.html.twig', array(
@@ -323,9 +324,12 @@ class UserController extends Controller
     /**
      * Deletes a User entity.
      *
+     * @Secure(roles="ROLE_USER")
      */
-    public function deleteAction($id)
+    public function frontDeleteAction()
     {
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
@@ -339,11 +343,12 @@ class UserController extends Controller
                 throw $this->createNotFoundException('Unable to find User entity.');
             }
 
-            $em->remove($entity);
+            $entity->setStatus(User::STATUS_DELETED);
+            $em->persist($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('user'));
+        return $this->redirect($this->generateUrl('front_user_edit'));
     }
 
     /**************************************************************************
