@@ -30,43 +30,47 @@ security:
         db_user:
             entity:
                 class: PFCD\TourismBundle\Entity\User
-                property: username
+                property: email
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         admin_secured_area:
-            pattern: ^/admin/.*
+            pattern: /admin/.*
             provider: in_memory
             anonymous: true
             form_login:
-                check_path: /admin/login_check
-                login_path: /admin/login
+                check_path: admin_login_check
+                login_path: admin_login
             logout:
-                path:   /admin/logout
-                target: /admin/
+                path:   admin_logout
+                target: admin_index
         organization_secured_area:
-            pattern: ^/back/.*
+            pattern: /back/.*
             provider: db_organization
             anonymous: true
             form_login:
-                check_path: /back/login_check
-                login_path: /back/login
+                check_path: back_login_check
+                login_path: back_login
+                username_parameter: _username
+                password_parameter: _password
             logout:
-                path:   /back/logout
-                target: /back/
+                path:   back_logout
+                target: back_index
         user_secured_area:
             pattern: ^/.*
             provider: db_user
             anonymous: true
             form_login:
-                check_path: /login_check
-                login_path: /
+                check_path: front_login_check
+                login_path: front_login
+                username_parameter: _email
+                password_parameter: _password
                 use_referer: true
             logout:
-                path:   /logout
-                target: /
+                path:   front_logout
+                target: front_index
 
     access_control:
         admin_login:
