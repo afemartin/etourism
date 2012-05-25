@@ -65,7 +65,7 @@ class Organization implements AdvancedUserInterface
     private $acronim;
 
     /**
-     * @ORM\Column(name="short_desc", type="string", length=512)
+     * @ORM\Column(name="short_desc", type="string", length=512, nullable=true)
      */
     private $shortDesc;
 
