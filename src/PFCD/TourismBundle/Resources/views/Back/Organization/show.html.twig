@@ -1,7 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
 {% block body %}
-<h1>Organization</h1>
+<h1>Profile</h1>
 <p>In this list there are detailed information stored about your organization</p>
 
 <table class="table table-striped table-bordered table-condensed">
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <th>{{ 'Country'|trans }}</th>
-            <td>{{ entity.countrycountry }}</td>
+            <td>{{ entity.country|country }}</td>
         </tr>
         <tr>
             <th>{{ 'City'|trans }}</th>
@@ -69,10 +69,5 @@
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="{{ path('back_organization_edit') }}"><i class="icon-pencil icon-white"></i> {{ 'Edit organization'|trans }}</a>
-<a class="btn btn-inverse" href="{{ path('back_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'Back to the list'|trans }}</a>
-<form class="pull-right" action="{{ path('back_organization_delete') }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'Delete this organization'|trans }}</button>
-</form>
+<a class="btn btn-primary" href="{{ path('back_organization_edit') }}"><i class="icon-pencil icon-white"></i> {{ 'Edit information'|trans }}</a>
 {% endblock %}

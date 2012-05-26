@@ -5,7 +5,7 @@ namespace PFCD\TourismBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class OrganizationType extends AbstractType
+class OrganizationProfileType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {

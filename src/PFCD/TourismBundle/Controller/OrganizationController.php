@@ -250,7 +250,7 @@ class OrganizationController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('back_organization_edit'));
+            return $this->redirect($this->generateUrl('back_organization_show'));
         }
 
         return $this->render('PFCDTourismBundle:Admin/Organization:edit.html.twig', array(

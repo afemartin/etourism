@@ -1,20 +1,24 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
 {% block body %}
-<h1>Organization edit</h1>
+<h1>Profile edit</h1>
+<p>Use this form to edit your profile information. Be carefull, the information you change will be visible for everyone</p>
 
-<form action="{{ path('back_organization_update') }}" method="post" {{ form_enctype(edit_form) }}>
+<form class="form-horizontal" action="{{ path('back_organization_update') }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Save changes'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('back_organization_show') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
+    </div>
 </form>
+{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('back_organization_show') }}">
-            Back to the profile
-        </a>
-    </li>
-</ul>
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#sidebar-tab-organization').addClass("active");
+        $('#sidebar-tab-organization i').addClass("icon-white");
+    </script>
 {% endblock %}
