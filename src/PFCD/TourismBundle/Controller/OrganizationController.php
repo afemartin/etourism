@@ -4,10 +4,10 @@ namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use PFCD\TourismBundle\Constants;
+
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Form\OrganizationType;
-use PFCD\TourismBundle\Form\OrganizationProfileType;
-use PFCD\TourismBundle\Form\OrganizationRegistrationType;
 
 /**
  * Organization controller.
@@ -61,7 +61,7 @@ class OrganizationController extends Controller
     public function adminNewAction()
     {
         $entity = new Organization();
-        $form   = $this->createForm(new OrganizationRegistrationType(), $entity);
+        $form   = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
 
         return $this->render('PFCDTourismBundle:Admin/Organization:new.html.twig', array(
             'entity' => $entity,
@@ -76,7 +76,7 @@ class OrganizationController extends Controller
     {
         $entity  = new Organization();
         $request = $this->getRequest();
-        $form    = $this->createForm(new OrganizationRegistrationType(), $entity);
+        $form    = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -107,7 +107,7 @@ class OrganizationController extends Controller
             throw $this->createNotFoundException('Unable to find Organization entity.');
         }
 
-        $editForm = $this->createForm(new OrganizationType(), $entity);
+        $editForm = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PFCDTourismBundle:Admin/Organization:edit.html.twig', array(
@@ -130,7 +130,7 @@ class OrganizationController extends Controller
             throw $this->createNotFoundException('Unable to find Organization entity.');
         }
 
-        $editForm   = $this->createForm(new OrganizationType(), $entity);
+        $editForm   = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -217,7 +217,7 @@ class OrganizationController extends Controller
             throw $this->createNotFoundException('Unable to find Organization entity.');
         }
 
-        $editForm = $this->createForm(new OrganizationProfileType(), $entity);
+        $editForm = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
 
         return $this->render('PFCDTourismBundle:Back/Organization:edit.html.twig', array(
             'entity'      => $entity,
@@ -240,7 +240,7 @@ class OrganizationController extends Controller
             throw $this->createNotFoundException('Unable to find Organization entity.');
         }
 
-        $editForm   = $this->createForm(new OrganizationProfileType(), $entity);
+        $editForm   = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
 
         $request = $this->getRequest();
 
@@ -270,7 +270,7 @@ class OrganizationController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('PFCDTourismBundle:Organization')->findAll();
+        $entities = $em->getRepository('PFCDTourismBundle:Organization')->findBy(array('status' => Organization::STATUS_ENABLED));
 
         return $this->render('PFCDTourismBundle:Front/Organization:index.html.twig', array(
             'entities' => $entities

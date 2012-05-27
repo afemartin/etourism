@@ -5,10 +5,10 @@ namespace PFCD\TourismBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
+use PFCD\TourismBundle\Constants;
+
 use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Form\UserType;
-use PFCD\TourismBundle\Form\UserProfileType;
-use PFCD\TourismBundle\Form\UserRegistrationType;
 
 /**
  * User controller.
@@ -62,7 +62,7 @@ class UserController extends Controller
     public function adminNewAction()
     {
         $entity = new User();
-        $form   = $this->createForm(new UserType(), $entity);
+        $form   = $this->createForm(new UserType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
 
         return $this->render('PFCDTourismBundle:Admin/User:new.html.twig', array(
             'entity' => $entity,
@@ -77,7 +77,7 @@ class UserController extends Controller
     {
         $entity  = new User();
         $request = $this->getRequest();
-        $form    = $this->createForm(new UserType(), $entity);
+        $form    = $this->createForm(new UserType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -107,7 +107,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createForm(new UserType(), $entity);
+        $editForm = $this->createForm(new UserType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PFCDTourismBundle:Admin/User:edit.html.twig', array(
@@ -130,7 +130,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm   = $this->createForm(new UserType(), $entity);
+        $editForm   = $this->createForm(new UserType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -215,7 +215,7 @@ class UserController extends Controller
     public function frontNewAction()
     {
         $entity = new User();
-        $form   = $this->createForm(new UserRegistrationType(), $entity);
+        $form   = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_CREATE));
 
         return $this->render('PFCDTourismBundle:Front/User:new.html.twig', array(
             'entity' => $entity,
@@ -230,7 +230,7 @@ class UserController extends Controller
     {
         $entity  = new User();
         $request = $this->getRequest();
-        $form    = $this->createForm(new UserRegistrationType(), $entity);
+        $form    = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_CREATE));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -272,7 +272,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createForm(new UserProfileType(), $entity);
+        $editForm = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PFCDTourismBundle:Front/User:edit.html.twig', array(
@@ -299,7 +299,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm   = $this->createForm(new UserProfileType(), $entity);
+        $editForm   = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
