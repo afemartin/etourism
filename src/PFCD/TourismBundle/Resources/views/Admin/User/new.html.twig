@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Admin:layout.html.twig' %}
 
-{% form_theme form 'PFCDTourismBundle:Other:customFields.html.twig' %}
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
 {% block body %}
 <h1>User creation</h1>
@@ -10,7 +10,7 @@
     {{ form_widget(form) }}
     <div class="form-actions">
         <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create user'|trans }}</button>
-        <a class="btn btn-inverse" href="{{ path('admin_user_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel user'|trans }}</a>
+        <a class="btn btn-inverse" href="{{ path('admin_user_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
     </div>
 </form>
 {% endblock %}
@@ -19,5 +19,6 @@
     {{ parent() }}
     <script type="text/javascript">
         $('#sidebar-tab-user').addClass("active");
+        $('#sidebar-tab-user i').addClass("icon-white");
     </script>
 {% endblock %}

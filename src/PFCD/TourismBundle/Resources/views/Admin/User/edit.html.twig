@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Admin:layout.html.twig' %}
 
-{% form_theme edit_form 'PFCDTourismBundle:Other:customFields.html.twig' %}
+{% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
 {% block body %}
 <h1>User edit</h1>
@@ -19,5 +19,6 @@
     {{ parent() }}
     <script type="text/javascript">
         $('#sidebar-tab-user').addClass("active");
+        $('#sidebar-tab-user i').addClass("icon-white");
     </script>
 {% endblock %}

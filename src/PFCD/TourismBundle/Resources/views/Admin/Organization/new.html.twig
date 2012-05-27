@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Admin:layout.html.twig' %}
 
-{% form_theme form 'PFCDTourismBundle:Other:customFields.html.twig' %}
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
 {% block body %}
 <h1>Organization creation</h1>
@@ -10,7 +10,7 @@
     {{ form_widget(form) }}
     <div class="form-actions">
         <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create organization'|trans }}</button>
-        <a class="btn btn-inverse" href="{{ path('admin_organization_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel organization'|trans }}</a>
+        <a class="btn btn-inverse" href="{{ path('admin_organization_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
     </div>
 </form>
 {% endblock %}
@@ -19,5 +19,6 @@
     {{ parent() }}
     <script type="text/javascript">
         $('#sidebar-tab-organization').addClass("active");
+        $('#sidebar-tab-organization i').addClass("icon-white");
     </script>
 {% endblock %}
