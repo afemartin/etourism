@@ -14,6 +14,7 @@
     </div>
     <div class="span6">
         <p>{{ entity.shortDesc }}</p>
+        <a class="btn pull-right" href="{{ path('front_organization_show', { 'id': entity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
     </div>
 </div>
 {% endfor %}
