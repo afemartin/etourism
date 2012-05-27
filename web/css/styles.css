@@ -62,10 +62,6 @@ textarea {
     height: 100px;
 }
 
-.table td {
-    white-space: nowrap;
-}
-
 .table tbody tr.status-0 td {
   background-color: #fffff0;
 }
