@@ -22,3 +22,10 @@ PFCD\TourismBundle\Entity\Organization:
             - NotBlank: { groups: [Default] }            
         shortDesc:
             - NotBlank: { groups: [Profile] }            
+            
+PFCD\TourismBundle\Entity\Activity:
+    properties:
+        title:
+            - NotBlank: { groups: [Default] }            
+        shortDesc:
+            - NotBlank: { groups: [Default] }            

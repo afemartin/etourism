@@ -9,7 +9,7 @@
         <![endif]-->
         {% block stylesheets %}
         <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ asset('css/frontend.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/styles.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('css/flags.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
@@ -47,6 +47,7 @@
                         <li id="sidebar-tab-home"><a href="{{ path('admin_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
                         <li id="sidebar-tab-user"><a href="{{ path('admin_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
                         <li id="sidebar-tab-organization"><a href="{{ path('admin_organization_index') }}"><i class="icon-globe"></i> {{ 'Organizations'|trans }}</a></li>
+                        <li id="sidebar-tab-activity"><a href="{{ path('admin_activity_index') }}"><i class="icon-leaf"></i> {{ 'Activities'|trans }}</a></li>
                         <li class="divider"></li>
                         <li id="sidebar-tab-settings"><a href="#"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
                         <li id="sidebar-tab-help"><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>

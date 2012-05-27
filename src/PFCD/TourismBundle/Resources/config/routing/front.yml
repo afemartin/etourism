@@ -3,28 +3,28 @@
 ################################################################################
     
 front_login:
-    pattern:   /login
+    pattern:  /login
     defaults: { _controller: PFCDTourismBundle:Front:login }    
     
 front_login_check:
-    pattern:   /login_check
-    options:   { i18n: false }
+    pattern:  /login_check
+    options:  { i18n: false }
     
 front_remember_password:
-    pattern:   /remember
+    pattern:  /remember
     defaults: { _controller: PFCDTourismBundle:Front:rememberPassword }        
     
 front_reset_password:
-    pattern:   /reset-{id}-key-{key}
+    pattern:  /reset-{id}-key-{key}
     defaults: { _controller: PFCDTourismBundle:Front:resetPassword }        
     
 front_activate_user:
-    pattern:   /activate-{id}-key-{key}
+    pattern:  /activate-{id}-key-{key}
     defaults: { _controller: PFCDTourismBundle:Front:activateUser }        
     
 front_logout:
-    pattern:   /logout
-    options:   { i18n: false }
+    pattern:  /logout
+    options:  { i18n: false }
 
 ################################################################################
 ##### FRONT CONTROLLER #########################################################
@@ -89,3 +89,17 @@ front_organization_show:
     pattern:  /organization/{id}
     defaults: { _controller: "PFCDTourismBundle:Organization:frontShow" }
     requirements: { id: \d+ }
+    
+    
+################################################################################
+##### ACTIVITY CONTROLLER ######################################################
+################################################################################
+    
+front_activity_index:
+    pattern:  /activities
+    defaults: { _controller: "PFCDTourismBundle:Activity:frontIndex" }
+
+front_activity_show:
+    pattern:  /activity/{id}
+    defaults: { _controller: "PFCDTourismBundle:Activity:frontShow" }
+    requirements: { id: \d+ }  

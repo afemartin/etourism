@@ -4,16 +4,26 @@ namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+
 use PFCD\TourismBundle\Entity\User;
+
 use PFCD\TourismBundle\Entity\Enquiry;
 use PFCD\TourismBundle\Form\EnquiryType;
+
+use PFCD\TourismBundle\Entity\Activity;
 
 class FrontController extends Controller
 {
 
     public function indexAction()
     {
-        return $this->render('PFCDTourismBundle:Front/Home:index.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $entities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('status' => Activity::STATUS_ENABLED));
+
+        return $this->render('PFCDTourismBundle:Front/Home:index.html.twig', array(
+            'entities' => $entities
+        ));
     }
 
     /**
@@ -154,7 +164,6 @@ class FrontController extends Controller
             $this->get('session')->setFlash('alert-success', 'Your account has been activated successfully. Use your email and password to login into the system');
             return $this->redirect($this->generateUrl('front_login'));
         }
-
     }
 
     public function aboutAction()
@@ -192,6 +201,17 @@ class FrontController extends Controller
         return $this->render('PFCDTourismBundle:Front/Home:contact.html.twig', array(
                     'form' => $form->createView()
                 ));
+    }
+    
+    public function sidebarAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('status' => Activity::STATUS_ENABLED));
+
+        return $this->render('PFCDTourismBundle:Front/Home:sidebar.html.twig', array(
+            'activities' => $activities
+        ));
     }
 
 }

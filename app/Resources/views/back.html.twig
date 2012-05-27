@@ -9,7 +9,7 @@
         <![endif]-->
         {% block stylesheets %}
         <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ asset('css/frontend.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/styles.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('css/flags.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
@@ -44,10 +44,10 @@
                 <div style="padding: 8px 0;" class="well">
                     <ul class="nav nav-list">
                         <li class="nav-header">Main menu</li>
-                        <li class="active"><a href="{{ path('back_index') }}"><i class="icon-white icon-home"></i> {{ 'Home'|trans }}</a></li>
+                        <li id="sidebar-tab-home"><a href="{{ path('back_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
                         <li><a href="{{ path('back_organization_show') }}"><i class="icon-user"></i> {{ 'Profile'|trans }}</a></li>
+                        <li id="sidebar-tab-activity"><a href="{{ path('back_activity_index') }}"><i class="icon-leaf"></i> {{ 'Activities'|trans }}</a></li>
                         <li><a href="#"><i class="icon-pencil"></i> {{ 'News'|trans }}</a></li>
-                        <li><a href="#"><i class="icon-pencil"></i> {{ 'Activities'|trans }}</a></li>
                         <li><a href="#"><i class="icon-user"></i> {{ 'Reservations'|trans }}</a></li>
                         <li><a href="#"><i class="icon-cog"></i> {{ 'Stats'|trans }}</a></li>
                         <li class="divider"></li>

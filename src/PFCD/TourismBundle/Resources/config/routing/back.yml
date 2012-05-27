@@ -3,16 +3,16 @@
 ################################################################################
     
 back_login:
-    pattern:   /login
+    pattern:  /login
     defaults: { _controller: PFCDTourismBundle:Back:login }
     
 back_login_check:
-    pattern:   /login_check
-    options:   { i18n: false }
+    pattern:  /login_check
+    options:  { i18n: false }
     
 back_logout:
-    pattern:   /logout
-    options:   { i18n: false }
+    pattern:  /logout
+    options:  { i18n: false }
 
 ################################################################################
 ##### BACK CONTROLLER ##########################################################
@@ -39,3 +39,40 @@ back_organization_update:
     pattern:  /profile/update
     defaults: { _controller: "PFCDTourismBundle:Organization:backUpdate" }
     requirements: { _method: post }
+    
+################################################################################
+##### ACTIVITY CONTROLLER ######################################################
+################################################################################
+    
+back_activity_index:
+    pattern:  /activities
+    defaults: { _controller: "PFCDTourismBundle:Activity:backIndex" }
+
+back_activity_show:
+    pattern:  /activity/{id}/show
+    defaults: { _controller: "PFCDTourismBundle:Activity:backShow" }
+    requirements: { id: \d+ }
+
+back_activity_new:
+    pattern:  /activity/new
+    defaults: { _controller: "PFCDTourismBundle:Activity:backNew" }
+
+back_activity_create:
+    pattern:  /activity/create
+    defaults: { _controller: "PFCDTourismBundle:Activity:backCreate" }
+    requirements: { _method: post }
+
+back_activity_edit:
+    pattern:  /activity/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Activity:backEdit" }
+    requirements: { id: \d+ }
+
+back_activity_update:
+    pattern:  /activity/{id}/update
+    defaults: { _controller: "PFCDTourismBundle:Activity:backUpdate" }
+    requirements: { _method: post, id: \d+ }
+
+back_activity_delete:
+    pattern:  /activity/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Activity:backDelete" }
+    requirements: { _method: post, id: \d+ }

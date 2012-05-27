@@ -1,0 +1,28 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block body %}
+<h1>Activity list</h1>
+<p>In this list there are all the activities registered in the system</p>
+
+{% for entity in entities %}
+<div class="row organization-container well">
+    <div class="span8">
+        <h1>{{ entity.title }}</h1>
+    </div>
+    <div class="span2">
+        <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/160x120"></a>
+    </div>
+    <div class="span6">
+        <p>{{ entity.shortDesc }}</p>
+        <a class="btn pull-right" href="{{ path('front_activity_show', { 'id': entity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#navbar-tab-activity').addClass("active");
+    </script>
+{% endblock %}

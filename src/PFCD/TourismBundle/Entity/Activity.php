@@ -2,11 +2,11 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
+use PFCD\TourismBundle\Entity\Organization;
+use PFCD\TourismBundle\Entity\ActivityComment;
 
 /**
  * @ORM\Entity
@@ -15,6 +15,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Activity
 {
+    const STATUS_PENDING = 0;
+    const STATUS_ENABLED = 1;
+    const STATUS_LOCKED  = 2;
+    const STATUS_DELETED = 3;
+
+    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
+    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -49,10 +56,12 @@ class Activity
     private $price;
 
     /**
-     * @ORM\OneToOne(targetEntity="Currency")
-     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     * @var string $currency ISO 4217
+     * @link http://en.wikipedia.org/wiki/ISO_4217
+     * 
+     * @ORM\Column(name="currency", type="string", length=3, nullable=true)
      */
-    private $currencyId;
+    private $currency;
 
     /**
      * @ORM\Column(name="date_start", type="date", nullable=true)
@@ -98,7 +107,7 @@ class Activity
 
     public function __construct()
     {
-        $this->status = 1;
+        $this->status = self::STATUS_PENDING;
         $this->comments = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
@@ -111,24 +120,6 @@ class Activity
     public function setUpdatedValue()
     {
        $this->setUpdated(new \DateTime());
-    }
-    
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('organization', new NotBlank());
-        $metadata->addPropertyConstraint('title', new NotBlank());
-        $metadata->addPropertyConstraint('shortDesc', new NotBlank());
-        $metadata->addPropertyConstraint('fullDesc', new NotBlank());
-    }
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -144,9 +135,9 @@ class Activity
     /**
      * Set organization
      *
-     * @param PFCD\TourismBundle\Entity\Organization $organization
+     * @param Organization $organization
      */
-    public function setOrganization(\PFCD\TourismBundle\Entity\Organization $organization)
+    public function setOrganization(Organization $organization)
     {
         $this->organization = $organization;
     }
@@ -154,7 +145,7 @@ class Activity
     /**
      * Get organization
      *
-     * @return PFCD\TourismBundle\Entity\Organization 
+     * @return Organization 
      */
     public function getOrganization()
     {
@@ -242,23 +233,23 @@ class Activity
     }
 
     /**
-     * Set currencyId
+     * Set currency
      *
-     * @param integer $currencyId
+     * @param integer $currency
      */
-    public function setCurrencyId($currencyId)
+    public function setCurrency($currency)
     {
-        $this->currencyId = $currencyId;
+        $this->currency = $currency;
     }
 
     /**
-     * Get currencyId
+     * Get currency
      *
      * @return integer 
      */
-    public function getCurrencyId()
+    public function getCurrency()
     {
-        return $this->currencyId;
+        return $this->currency;
     }
 
     /**
@@ -402,11 +393,21 @@ class Activity
     }
 
     /**
+     * Get status in human readable mode
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return $this->statusText[$this->status];
+    }
+    
+    /**
      * Add comments
      *
-     * @param PFCD\TourismBundle\Entity\ActivityComment $comments
+     * @param ActivityComment $comments
      */
-    public function addActivityComment(\PFCD\TourismBundle\Entity\ActivityComment $comments)
+    public function addActivityComment(ActivityComment $comments)
     {
         $this->comments[] = $comments;
     }

@@ -3,16 +3,16 @@
 ################################################################################
     
 admin_login:
-    pattern:   /login
+    pattern:  /login
     defaults: { _controller: PFCDTourismBundle:Admin:login }
     
 admin_login_check:
-    pattern:   /login_check
-    options:   { i18n: false }
+    pattern:  /login_check
+    options:  { i18n: false }
     
 admin_logout:
-    pattern:   /logout
-    options:   { i18n: false }
+    pattern:  /logout
+    options:  { i18n: false }
 
 ################################################################################
 ##### ADMIN CONTROLLER #########################################################
@@ -28,7 +28,7 @@ admin_index:
 ################################################################################
 
 admin_user_index:
-    pattern:  /user
+    pattern:  /users
     defaults: { _controller: "PFCDTourismBundle:User:adminIndex" }
 
 admin_user_new:
@@ -65,7 +65,7 @@ admin_user_delete:
 ################################################################################
 
 admin_organization_index:
-    pattern:  /organization
+    pattern:  /organizations
     defaults: { _controller: "PFCDTourismBundle:Organization:adminIndex" }
 
 admin_organization_new:
@@ -95,4 +95,41 @@ admin_organization_update:
 admin_organization_delete:
     pattern:  /organization/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Organization:adminDelete" }
+    requirements: { _method: post, id: \d+ }
+
+################################################################################
+##### ACTIVITY CONTROLLER ######################################################
+################################################################################
+    
+admin_activity_index:
+    pattern:  /activities
+    defaults: { _controller: "PFCDTourismBundle:Activity:adminIndex" }
+
+admin_activity_show:
+    pattern:  /activity/{id}/show
+    defaults: { _controller: "PFCDTourismBundle:Activity:adminShow" }
+    requirements: { id: \d+ }
+
+admin_activity_new:
+    pattern:  /activity/new
+    defaults: { _controller: "PFCDTourismBundle:Activity:adminNew" }
+
+admin_activity_create:
+    pattern:  /activity/create
+    defaults: { _controller: "PFCDTourismBundle:Activity:adminCreate" }
+    requirements: { _method: post }
+
+admin_activity_edit:
+    pattern:  /activity/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Activity:adminEdit" }
+    requirements: { id: \d+ }
+
+admin_activity_update:
+    pattern:  /activity/{id}/update
+    defaults: { _controller: "PFCDTourismBundle:Activity:adminUpdate" }
+    requirements: { _method: post, id: \d+ }
+
+admin_activity_delete:
+    pattern:  /activity/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Activity:adminDelete" }
     requirements: { _method: post, id: \d+ }

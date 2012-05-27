@@ -1,0 +1,54 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block body %}
+<h1>Activity</h1>
+<p>In this list there are detailed information stored about this activity</p>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tbody>
+        <tr>
+            <th>{{ 'Title'|trans }}</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Shortdesc'|trans }}</th>
+            <td>{{ entity.shortDesc }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Fulldesc'|trans }}</th>
+            <td>{{ entity.fullDesc }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Price'|trans }}</th>
+            <td>{{ entity.price }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Currency'|trans }}</th>
+            <td>{{ entity.currency }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Datestart'|trans }}</th>
+            <td>{{ entity.dateStart|date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Dateend'|trans }}</th>
+            <td>{{ entity.dateEnd|date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Timestart'|trans }}</th>
+            <td>{{ entity.timeStart|date('H:i') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Timeend'|trans }}</th>
+            <td>{{ entity.timeEnd|date('H:i') }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#navbar-tab-activity').addClass("active");
+    </script>
+{% endblock %}
