@@ -1,0 +1,77 @@
+{# Rows #}
+
+{% block field_row %}
+{% spaceless %}
+    <div class="control-group">
+        {{ form_label(form, label|default(null)) }}
+        <div class="controls">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock field_row %}
+
+
+{# Labels #}
+
+{% block generic_label %}
+{% spaceless %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' control-label'}) %}
+    {% if required %}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' required'}) %}
+    {% endif %}
+    <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans }}</label>
+{% endspaceless %}
+{% endblock %}
+    
+    
+{# Field types #}
+
+{# block money_widget %}
+{% spaceless %}
+    {% set widget_addon = widget_addon|merge({'text': money_pattern|replace({ '{{ widget }}': ''})}) %}
+    {{ block('form_widget_simple') }}
+{% endspaceless %}
+{% endblock money_widget %}
+
+{% block widget_addon %}
+{% spaceless %}
+{% from 'PFCDTourismBundle::icons.html.twig' import icon %}
+<span class="add-on">{{ (widget_addon.text ? widget_addon.text : icon(widget_addon.icon))|raw }}</span>
+{% endspaceless %}
+{% endblock widget_addon #}
+
+
+{# Misc #}
+
+{% block field_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <div class="alert alert-error fade in">
+        <button class="close" data-dismiss="alert">×</button>
+        {% if errors|length > 1 %}
+            <ul>
+                {% for error in errors %}
+                <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            {{ errors[0].messageTemplate|trans(errors[0].messageParameters, 'validators') }}
+        {% endif %}
+    </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock field_errors %}
+
+{# block field_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <span class="help-{{ block('error_type') }}">
+            {% for error in errors %}
+                {{ error.messageTemplate|trans(error.messageParameters, 'validators') }} <br>
+            {% endfor %}
+    </span>
+    {% endif %}
+{% endspaceless %}
+{% endblock field_errors #}
