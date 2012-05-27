@@ -18,6 +18,7 @@
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Organization'|trans }}</th>
             <th>{{ 'Edit'|trans }}</th>
         </tr>
     </thead>
@@ -32,9 +33,10 @@
             <td>{% if entity.dateEnd %}{{ entity.dateEnd|date('Y-m-d') }}{% endif%}</td>
             <td>{% if entity.timeStart %}{{ entity.timeStart|date('H:i') }}{% endif%}</td>
             <td>{% if entity.timeEnd %}{{ entity.timeEnd|date('H:i') }}{% endif%}</td>
-            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif%}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d') }}{% endif%}</td>
             <td>{{ entity.statusText }}</td>
+            <td><a href="{{ path('admin_organization_show', { 'id': entity.organization.id }) }}">{{ entity.organization.name }}</a></td>
             <td><a href="{{ path('admin_activity_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i></a></td>
         </tr>
     {% endfor %}

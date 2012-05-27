@@ -32,19 +32,19 @@
         </tr>
         <tr>
             <th>{{ 'Datestart'|trans }}</th>
-            <td>{{ entity.dateStart|date('Y-m-d') }}</td>
+            <td>{% if entity.dateStart %}{{ entity.dateStart|date('Y-m-d') }}{% endif%}</td>
         </tr>
         <tr>
             <th>{{ 'Dateend'|trans }}</th>
-            <td>{{ entity.dateEnd|date('Y-m-d') }}</td>
+            <td>{% if entity.dateEnd %}{{ entity.dateEnd|date('Y-m-d') }}{% endif%}</td>
         </tr>
         <tr>
             <th>{{ 'Timestart'|trans }}</th>
-            <td>{{ entity.timeStart|date('H:i') }}</td>
+            <td>{% if entity.timeStart %}{{ entity.timeStart|date('H:i') }}{% endif%}</td>
         </tr>
         <tr>
             <th>{{ 'Timeend'|trans }}</th>
-            <td>{{ entity.timeEnd|date('H:i') }}</td>
+            <td>{% if entity.timeEnd %}{{ entity.timeEnd|date('H:i') }}{% endif%}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>

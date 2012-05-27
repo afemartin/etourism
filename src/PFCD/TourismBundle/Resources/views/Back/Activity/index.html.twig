@@ -32,8 +32,8 @@
             <td>{% if entity.dateEnd %}{{ entity.dateEnd|date('Y-m-d') }}{% endif%}</td>
             <td>{% if entity.timeStart %}{{ entity.timeStart|date('H:i') }}{% endif%}</td>
             <td>{% if entity.timeEnd %}{{ entity.timeEnd|date('H:i') }}{% endif%}</td>
-            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d') }}{% endif%}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d') }}{% endif%}</td>
             <td>{{ entity.statusText }}</td>
             <td><a href="{{ path('back_activity_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i></a></td>
         </tr>
