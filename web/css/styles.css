@@ -101,3 +101,14 @@ textarea {
 .photo-container {
     margin-left: 0;
 }
+
+/* Fix navbar for small tablets and smartphones */
+@media (max-width: 767px) {
+    .navbar-fixed-top, .navbar-fixed-bottom {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+        width: 100%;
+    }
+}
