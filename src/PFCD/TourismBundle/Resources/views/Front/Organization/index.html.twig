@@ -5,20 +5,25 @@
 <p>In this list there are all the organizationes registered in the system</p>
 
 {% for entity in entities %}
-<div class="row organization-container well">
-    <div class="span8">
-        <h1>{{ entity.name }}</h1>
+<div class="info-container row">
+    <div class="info-title span9">
+        <h2>{{ entity.name }}</h2>
     </div>
-    <div class="span2">
-        <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/160x120"></a>
+    <div class="info-image span2 hidden-phone">
+        <img class="thumbnail" alt="{{ entity.name }}" src="{{ asset(entity.logo) }}" />
     </div>
-    <div class="span6">
+    <div class="info-desc span7">
         <p>{{ entity.shortDesc }}</p>
         <a class="btn pull-right" href="{{ path('front_organization_show', { 'id': entity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
     </div>
 </div>
+{% if not loop.last %}
+<div class="row">
+    <div class="info-divisor span9"></div>
+</div>
+{% endif %}
 {% endfor %}
-{% endblock%}
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

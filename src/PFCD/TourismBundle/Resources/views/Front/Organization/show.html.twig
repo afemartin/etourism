@@ -1,55 +1,41 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
 {% block body %}
-<h1>Organization</h1>
-<p>In this list there are detailed information stored about this organization</p>
+<div class="info-container row">
+    <div class="info-title span9">
+        <h1>{{ entity.name }} {% if entity.acronim %}({{ entity.acronim }}){% endif %}</h1>
+        <h6>{% if entity.country %}Working in {% if entity.city %}{{ entity.city }} ({{ entity.country|country }}){% else %}{{ entity.country|country }}{% endif %}{% if entity.foundationyear %} since {{ entity.foundationyear }}{% endif %}{% endif %}</h6>
+    </div>
+    <div class="info-desc span9">
+        <div class="info-video pull-right">
+            {{ entity.video|raw }}
+        </div>
+        <p>{{ entity.shortDesc }}</p>
+        <p>{{ entity.fullDesc }}</p>
+    </div>
+</div>
 
-<table class="table table-striped table-bordered table-condensed">
-    <tbody>
-        <tr>
-            <th>{{ 'Name'|trans }}</th>
-            <td>{{ entity.name }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Acronim'|trans }}</th>
-            <td>{{ entity.acronim }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Shortdesc'|trans }}</th>
-            <td>{{ entity.shortDesc }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Fulldesc'|trans }}</th>
-            <td>{{ entity.fullDesc }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Country'|trans }}</th>
-            <td>{{ entity.country|country }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'City'|trans }}</th>
-            <td>{{ entity.city }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Address'|trans }}</th>
-            <td>{{ entity.address }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Postalcode'|trans }}</th>
-            <td>{{ entity.postalCode }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Phone'|trans }}</th>
-            <td>{{ entity.phone }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Foundationyear'|trans }}</th>
-            <td>{{ entity.foundationYear }}</td>
-        </tr>
-    </tbody>
-</table>
 
-<a class="btn btn-inverse" href="{{ path('front_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'Back to the list'|trans }}</a>
+{% for activity in activities %}
+<div class="info-container row">
+    <div class="info-title span9">
+        <h2>{{ activity.title }}</h2>
+    </div>
+    <div class="info-image span2 hidden-phone">
+        <img class="thumbnail" alt="{{ activity.title }}" src="http://placehold.it/160x120" />
+    </div>
+    <div class="info-desc span7">
+        <p>{{ activity.shortDesc }}</p>
+        <a class="btn pull-right" href="{{ path('front_activity_show', { 'id': activity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+    </div>
+</div>
+{% if not loop.last %}
+<div class="row">
+    <div class="info-divisor span9"></div>
+</div>
+{% endif %}   
+{% endfor %}
+
 {% endblock %}
 
 {% block javascripts %}

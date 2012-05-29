@@ -300,9 +300,12 @@ class OrganizationController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Organization entity.');
         }
+        
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('organization' => $id));
 
         return $this->render('PFCDTourismBundle:Front/Organization:show.html.twig', array(
             'entity'      => $entity,
+            'activities'  => $activities,
         ));
     }
 
