@@ -46,7 +46,14 @@ class FrontController extends Controller
         }
         
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
-            return $this->redirect($this->generateUrl('front_index'));
+            
+            $locale = $this->container->get('security.context')->getToken()->getUser()->getLocale();
+            
+            if ($locale) {
+                return $this->redirect($this->generateUrl('front_index', array('_locale' => $locale)));
+            } else {
+                return $this->redirect($this->generateUrl('front_index'));
+            }
         }
 
         return $this->render('PFCDTourismBundle:Front/Home:login.html.twig', array(

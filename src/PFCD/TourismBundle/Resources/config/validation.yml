@@ -21,7 +21,9 @@ PFCD\TourismBundle\Entity\Organization:
         name:
             - NotBlank: { groups: [Default] }            
         shortDesc:
-            - NotBlank: { groups: [Profile] }            
+            - NotBlank: { groups: [Update] }
+        file:
+            - Image:    { maxSize: 32k }
             
 PFCD\TourismBundle\Entity\Activity:
     properties:

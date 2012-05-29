@@ -138,10 +138,15 @@ class OrganizationController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
+            
+            $entity->setLogo();
+            
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_organization_index'));
+        } else {
+            $entity->setFile(null);
         }
 
         return $this->render('PFCDTourismBundle:Admin/Organization:edit.html.twig', array(
@@ -240,20 +245,25 @@ class OrganizationController extends Controller
             throw $this->createNotFoundException('Unable to find Organization entity.');
         }
 
-        $editForm   = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
+        $editForm = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
 
         $request = $this->getRequest();
 
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
+            
+            $entity->setLogo();
+            
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('back_organization_show'));
+        } else {
+            $entity->setFile(null);
         }
-
-        return $this->render('PFCDTourismBundle:Admin/Organization:edit.html.twig', array(
+       
+        return $this->render('PFCDTourismBundle:Back/Organization:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
         ));

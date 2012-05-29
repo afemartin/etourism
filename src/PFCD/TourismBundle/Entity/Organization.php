@@ -5,6 +5,8 @@ namespace PFCD\TourismBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,7 +24,7 @@ class Organization implements AdvancedUserInterface
 {
     const STATUS_PENDING = 0;
     const STATUS_ENABLED = 1;
-    const STATUS_LOCKED = 2;
+    const STATUS_LOCKED  = 2;
     const STATUS_DELETED = 3;
 
     private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
@@ -119,6 +121,21 @@ class Organization implements AdvancedUserInterface
      * @ORM\Column(name="locale", type="string", length=2, nullable=true)
      */
     private $locale;
+
+    /**
+     * Uploaded file
+     */
+    private $file = null;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $logo;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $video;
 
     /**
      * @ORM\Column(name="created", type="datetime")
@@ -518,6 +535,90 @@ class Organization implements AdvancedUserInterface
         return $this->locale;
     }
 
+    /**
+     * Set file
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set logo
+     */
+    public function setLogo()
+    {
+        if ($this->file !== null)
+        {
+            $this->logo = 'org-' . $this->id . '.' . $this->file->guessExtension();
+            $this->file->move($this->getUploadRootDir(), $this->logo);
+            unset($this->file);
+        }
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string 
+     */
+    public function getLogo()
+    {
+        return null === $this->logo ? null : $this->getUploadDir().'/'.$this->logo;
+    }
+    
+    /**
+     * The absolute directory path where uploaded documents should be saved
+     * 
+     * @return type 
+     */
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * Get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view
+     * 
+     * @return string 
+     */
+    protected function getUploadDir()
+    {
+        return 'uploads/organizations/logos';
+    }
+
+    
+    /**
+     * Set video
+     *
+     * @param string $video
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+    }
+
+    /**
+     * Get video
+     *
+     * @return string 
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+    
     /**
      * Set created
      *
