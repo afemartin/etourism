@@ -6,7 +6,12 @@ html {
     overflow-y: scroll;
 }
 
+body {
+/*    background-image: url('../img/background.jpg');*/
+}
+
 .container.main {
+    background-color: #ffffff;
     padding: 60px 20px 20px 20px;
 }
 
@@ -14,12 +19,8 @@ html {
     padding: 4px 8px;
 }
 
-.navbar-form input, .navbar-form select, .navbar-form .radio, .navbar-form .checkbox {
-    margin-top: 0px;
-}
-
 .footer {
-    border-top: 1px solid #E5E5E5;
+    border-top: 1px solid #e5e5e5;
     margin-top: 45px;
     padding-top: 25px;
     text-align: center;
@@ -94,14 +95,6 @@ textarea {
   background-color: #fff0f0;
 }
 
-.organization-container {
-    margin-left: 0;
-}
-
-.photo-container {
-    margin-left: 0;
-}
-
 /* Fix navbar for small tablets and smartphones */
 @media (max-width: 767px) {
     .navbar-fixed-top, .navbar-fixed-bottom {
@@ -111,4 +104,44 @@ textarea {
     .navbar-fixed-top .container, .navbar-fixed-bottom .container {
         width: 100%;
     }
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+    font-weight: bold;
+}
+
+.nav-tabs > li > a {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.info-container {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.info-title {
+    margin-bottom: 10px;
+}
+
+.info-video {
+    margin-left: 20px;
+}
+
+.info-desc p {
+    text-align: justify;
+}
+
+.info-divisor {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.well.mini {
+    background-color: #f5f5f5;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 9px;
 }
