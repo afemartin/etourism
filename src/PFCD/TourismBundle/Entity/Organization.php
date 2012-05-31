@@ -562,7 +562,7 @@ class Organization implements AdvancedUserInterface
     {
         if ($this->file !== null)
         {
-            $this->logo = 'org-' . $this->id . '.' . $this->file->guessExtension();
+            $this->logo = 'org' . $this->id . '.' . $this->file->guessExtension();
             $this->file->move($this->getUploadRootDir(), $this->logo);
             unset($this->file);
         }
