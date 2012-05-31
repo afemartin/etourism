@@ -7,14 +7,15 @@
         <h6>{% if entity.country %}Working in {% if entity.city %}{{ entity.city }} ({{ entity.country|country }}){% else %}{{ entity.country|country }}{% endif %}{% if entity.foundationyear %} since {{ entity.foundationyear }}{% endif %}{% endif %}</h6>
     </div>
     <div class="info-desc span9">
+        {% if entity.video %}
         <div class="info-video pull-right">
             {{ entity.video|raw }}
         </div>
+        {% endif %}
         <p>{{ entity.shortDesc }}</p>
         <p>{{ entity.fullDesc }}</p>
     </div>
 </div>
-
 
 {% for activity in activities %}
 <div class="info-container row">
