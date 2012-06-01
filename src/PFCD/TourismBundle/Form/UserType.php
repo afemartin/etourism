@@ -16,11 +16,11 @@ class UserType extends AbstractType
         if ($options['type'] == Constants::FORM_CREATE)
         {
             $builder->add('email', 'email');
-            $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'The password fields must match', 'first_name' => 'Password', 'second_name' => 'Repeat password'));
+            $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'The password fields must match', 'first_name' => 'Password', 'second_name' => 'Repeatpassword'));
         }
         $builder->add('firstname');
         $builder->add('lastname');
-        $builder->add('birthday', 'date', array('widget' => 'single_text', 'format' => 'yyyy-MM-dd'));
+        $builder->add('birthday', 'birthday', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') - 5, date('Y') - 80), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
         $builder->add('gender', 'choice', array('choices' => array(User::GENDER_MALE => 'Male', User::GENDER_FEMALE => 'Female')));
         $builder->add('country', 'country');
         $builder->add('city');

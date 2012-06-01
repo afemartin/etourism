@@ -20,7 +20,7 @@ class OrganizationType extends AbstractType
         $builder->add('email');
         if ($options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'The password fields must match', 'first_name' => 'Password', 'second_name' => 'Repeat password'));
+            $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'The password fields must match', 'first_name' => 'Password', 'second_name' => 'Repeatpassword'));
         }
         $builder->add('name');
         $builder->add('acronim');
