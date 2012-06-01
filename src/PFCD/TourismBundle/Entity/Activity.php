@@ -5,6 +5,8 @@ namespace PFCD\TourismBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\ActivityComment;
 
@@ -83,6 +85,26 @@ class Activity
      */
     private $timeEnd;
 
+    /**
+     * @ORM\Column(name="geolocation", type="string", length=32, nullable=true)
+     */
+    private $geolocation;
+    
+    /**
+     * Uploaded file
+     */
+    private $file = null;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $video;
+    
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -330,6 +352,153 @@ class Activity
     public function getTimeEnd()
     {
         return $this->timeEnd;
+    }
+    
+    /**
+     * Set geolocation
+     *
+     * @param string $geolocation
+     */
+    public function setGeolocation($geolocation)
+    {
+        $address = urlencode($geolocation);
+        $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false");
+        $json = json_decode($json);
+
+        if ($json->{'status'} == 'OK')
+        {
+            $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+            $lng = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+
+            $this->geolocation = $lat . ',' . $lng;
+        }
+    }
+
+    /**
+     * Get geolocation
+     *
+     * @return string 
+     */
+    public function getGeolocation()
+    {
+        return $this->geolocation;
+    }
+    
+    /**
+     * Set file
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set image
+     */
+    public function setImage()
+    {
+        if ($this->file !== null)
+        {
+            $images = explode("|", $this->image);
+            $image = 'act' . $this->id . '-n' . count($images) . '.' . $this->file->guessExtension();
+            
+            $images[] = $image;
+            $this->image = implode("|", $images);
+            
+            $this->file->move($this->getUploadRootDir(), $image);
+            unset($this->file);
+        }
+    }
+
+    /**
+     * Get image
+     *
+     * @return string 
+     */
+    public function getImage()
+    {
+        $images = explode("|", $this->image);
+
+        if (!empty($images))
+        {
+            return $this->getUploadDir() . '/' . $images[0];
+        }
+        
+        return null;
+    }
+
+    /**
+     * Get images
+     *
+     * @return array 
+     */
+    public function getImages()
+    {
+        $images = explode("|", $this->image);
+        
+        if (!empty($images))
+        {
+            foreach ($images as &$image)
+            {
+                $image = $this->getUploadDir() . '/' . $image;
+            }
+            return $images;
+        }
+        
+        return null;
+    }
+    
+    /**
+     * The absolute directory path where uploaded documents should be saved
+     * 
+     * @return type 
+     */
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * Get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view
+     * 
+     * @return string 
+     */
+    protected function getUploadDir()
+    {
+        return 'uploads/activities/images';
+    }
+
+    
+    /**
+     * Set video
+     *
+     * @param string $video
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+    }
+
+    /**
+     * Get video
+     *
+     * @return string 
+     */
+    public function getVideo()
+    {
+        return $this->video;
     }
 
     /**

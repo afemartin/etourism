@@ -138,10 +138,15 @@ class ActivityController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
+            
+            $entity->setImage();
+            
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_activity_show', array('id' => $id)));
+        } else {
+            $entity->setFile(null);
         }
 
         return $this->render('PFCDTourismBundle:Admin/Activity:edit.html.twig', array(
@@ -307,10 +312,15 @@ class ActivityController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
+            
+            $entity->setImage();
+            
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('back_activity_show', array('id' => $id)));
+        } else {
+            $entity->setFile(null);
         }
 
         return $this->render('PFCDTourismBundle:Back/Activity:edit.html.twig', array(
