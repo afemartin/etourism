@@ -1,8 +1,11 @@
+{# THEME FOR TWITTER BOOTSTRAP OVERRIDE #}
+{# \vendor\symfony\src\Symfony\Bridge\Twig\Resources\views\Form\form_div_layout.html.twig #}
+
 {# Rows #}
 
 {% block field_row %}
 {% spaceless %}
-    <div class="control-group">
+    <div class="control-group {% if errors %}error{% endif%}">
         {{ form_label(form, label|default(null)) }}
         <div class="controls">
             {{ form_widget(form) }}
@@ -64,7 +67,8 @@
 {% endspaceless %}
 {% endblock field_errors %}
 
-{# block field_errors %}
+{# block field_errors EL PROBLEMA DE ESTE TIPO ES QUE NO SIEMPRE SI PINTA EL SPAN
+   DENTRO DEL CONTROL GROUP POR QUE CADA TYPO DE CAMPO SE COMPORTA DE MANERA DIFERENTE %}
 {% spaceless %}
     {% if errors|length > 0 %}
     <span class="help-{{ block('error_type') }}">
