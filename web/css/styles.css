@@ -59,8 +59,18 @@ body {
     padding-left: 100px;
 }
 
+.input-xxlarge {
+    width: 95%;
+    max-width: 530px;
+}
+
 textarea {
     height: 100px;
+    resize: none
+}
+
+textarea.wysiwyg {
+    height: 200px;
 }
 
 .table tbody tr.status-0 td {
@@ -115,9 +125,9 @@ textarea {
     padding-right: 8px;
 }
 
-.info-container {
+.info-container, .info-carrousel, .info-map {
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .info-title {
@@ -128,12 +138,34 @@ textarea {
     margin-left: 20px;
 }
 
-.info-desc p {
+.info-desc {
     text-align: justify;
+}
+
+.info-desc p, .info-desc h3, .info-desc h4 {
+    margin: 0 0 5px;
 }
 
 .info-divisor {
     border-bottom: 1px solid #eeeeee;
+}
+
+.info-carrousel img {
+    height: 120px;
+}
+
+#map_canvas {
+    height: 380px;
+}
+
+/* Fix required because twitter bootstrap spoil some google maps styles for images */
+#map_canvas img {
+    max-width: none;
+}
+
+#mapCanvas label {
+    width: auto;
+    display: inline;
 }
 
 .well.mini {
@@ -144,4 +176,36 @@ textarea {
     margin-bottom: 20px;
     min-height: 20px;
     padding: 9px;
+}
+
+.date-choice-compact select {
+    width: 68px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.date-choice-compact select:first-child {
+    margin-left: 0;
+    margin-right: 2px;
+}
+
+.date-choice-compact select:last-child {
+    margin-left: 2px;
+    margin-right: 0;
+}
+
+.time-choice-compact select {
+    width: 90px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.time-choice-compact select:first-child {
+    margin-left: 0;
+    margin-right: 3px;
+}
+
+.time-choice-compact select:last-child {
+    margin-left: 3px;
+    margin-right: 0;
 }
