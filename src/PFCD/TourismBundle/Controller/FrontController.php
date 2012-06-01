@@ -117,7 +117,7 @@ class FrontController extends Controller
         $entity = $em->getRepository('PFCDTourismBundle:User')->findOneBy(array('id' => $id));
 
         $form = $this->createFormBuilder($entity, array('validation_groups' => array('Reset')))
-                ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'The password fields must match', 'first_name' => 'New Password', 'second_name' => 'Repeat password'))
+                ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'The password fields must match', 'first_name' => 'New Password', 'second_name' => 'Repeatpassword'))
                 ->getForm();
 
         if (!$entity || $entity->getResetKey() !== $key)
