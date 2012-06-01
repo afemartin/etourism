@@ -31,3 +31,5 @@ PFCD\TourismBundle\Entity\Activity:
             - NotBlank: { groups: [Default] }            
         shortDesc:
             - NotBlank: { groups: [Default] }            
+        file:
+            - Image:    { maxSize: 512k }
