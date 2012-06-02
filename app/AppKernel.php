@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new Sonata\IntlBundle\SonataIntlBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new PFCD\TourismBundle\PFCDTourismBundle(),
         );
 

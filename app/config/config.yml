@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
-    - { resource: @PFCDTourismBundle/Resources/config/config.yml }
+    - { resource: "@PFCDTourismBundle/Resources/config/config.yml" }
 
 framework:
     #esi:             ~
@@ -67,3 +67,10 @@ jms_i18n_routing:
     default_locale: %locale%
     locales: [en, es]
     strategy: prefix_except_default
+
+# AvalancheImagine Configuration
+avalanche_imagine:
+    filters:
+        my_thumb:
+            type:    thumbnail
+            options: { size: [120, 90], mode: outbound, quality: 100, format: png }
