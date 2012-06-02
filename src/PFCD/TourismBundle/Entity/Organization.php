@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\News;
 
 /**
@@ -158,6 +159,11 @@ class Organization implements AdvancedUserInterface
      * @ORM\OneToMany(targetEntity="Activity", mappedBy="activity")
      */
     private $activities;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Resource", mappedBy="resource")
+     */
+    private $resources;
 
     /**
      * @ORM\OneToMany(targetEntity="News", mappedBy="news")
@@ -581,7 +587,7 @@ class Organization implements AdvancedUserInterface
     /**
      * The absolute directory path where uploaded documents should be saved
      * 
-     * @return type 
+     * @return string 
      */
     protected function getUploadRootDir()
     {
@@ -710,6 +716,26 @@ class Organization implements AdvancedUserInterface
     }
 
     /**
+     * Add resources
+     *
+     * @param Resource $resources
+     */
+    public function addResource(Resource $resources)
+    {
+        $this->resources[] = $resources;
+    }
+
+    /**
+     * Get resources
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+    /**
      * Add news
      *
      * @param News $news
@@ -768,5 +794,5 @@ class Organization implements AdvancedUserInterface
     {
         return $this->status == self::STATUS_ENABLED;
     }
-
+    
 }

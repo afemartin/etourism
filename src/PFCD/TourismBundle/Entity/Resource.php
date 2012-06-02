@@ -5,19 +5,26 @@ namespace PFCD\TourismBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use PFCD\TourismBundle\Entity\Organization;
+
 use PFCD\TourismBundle\Entity\ActivityResource;
-use PFCD\TourismBundle\Entity\ActivityComment;
+use PFCD\TourismBundle\Entity\ResourceVariation;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="activity")
+ * @ORM\Table(name="resource")
  * @ORM\HasLifecycleCallbacks()
  */
-class Activity
+class Resource
 {
+    const TYPE_UNKNOWN      = 0;
+    const TYPE_MATERIAL_INT = 1;
+    const TYPE_HUMAN_INT    = 2;
+    const TYPE_MATERIAL_EXT = 3;
+    const TYPE_HUMAN_EXT    = 4;
+
+    private $typeText = array('0' => 'Unknown', '1' => 'Material (internal)', '2' => 'Human (internal)', '3' => 'Material (external)', '4' => 'Human (external)');
+
     const STATUS_PENDING = 0;
     const STATUS_ENABLED = 1;
     const STATUS_LOCKED  = 2;
@@ -33,25 +40,20 @@ class Activity
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="activities")
+     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="resources")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      */
     private $organization;
 
     /**
-     * @ORM\Column(name="title", type="string", length=128)
+     * @ORM\Column(name="name", type="string", length=128)
      */
-    private $title;
+    private $name;
 
     /**
-     * @ORM\Column(name="short_desc", type="string", length=512)
+     * @ORM\Column(name="description", type="string", length=512)
      */
-    private $shortDesc;
-
-    /**
-     * @ORM\Column(name="full_desc", type="text", nullable=true)
-     */
-    private $fullDesc;
+    private $description;
 
     /**
      * @ORM\Column(name="price", type="float", nullable=true)
@@ -120,27 +122,21 @@ class Activity
      * @ORM\Column(name="sunday", type="boolean", nullable=true)
      */
     private $sunday;
+
+    /**
+     * @var integer $status 0=>Unknown, 1=>Material (internal), 2=>Human (internal), 3=>Material (external), 4=>Human (external)
+     * 
+     * @ORM\Column(name="type", type="smallint")
+     */
+    private $type;
     
     /**
-     * @ORM\Column(name="geolocation", type="string", length=32, nullable=true)
+     * @var integer
+     * 
+     * @ORM\Column(name="amount", type="smallint")
      */
-    private $geolocation;
-    
-    /**
-     * Uploaded file
-     */
-    private $file = null;
-    
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $image;
-    
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $video;
-    
+    private $amount;    
+   
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -150,7 +146,7 @@ class Activity
      * @ORM\Column(name="updated", type="datetime")
      */
     private $updated;
-
+    
     /**
      * @var integer $status 0=>Inactive, 1=>Active, 2=>Deleted
      * 
@@ -159,20 +155,21 @@ class Activity
     private $status;
     
     /**
-     * @ORM\OneToMany(targetEntity="ActivityResource", mappedBy="activity")
+     * @ORM\OneToMany(targetEntity="ActivityResource", mappedBy="resource")
      */
-    private $resources;
+    private $activities;
     
     /**
-     * @ORM\OneToMany(targetEntity="ActivityComment", mappedBy="activity")
+     * @ORM\OneToMany(targetEntity="ResourceVariation", mappedBy="resource")
      */
-    private $comments;
+    private $variations;
+    
 
     public function __construct()
     {
         $this->status = self::STATUS_PENDING;
-        $this->resources = new ArrayCollection();
-        $this->comments = new ArrayCollection();
+        $this->activities = new ArrayCollection();
+        $this->variations = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
@@ -197,83 +194,43 @@ class Activity
     }
 
     /**
-     * Set organization
+     * Set name
      *
-     * @param Organization $organization
+     * @param string $name
      */
-    public function setOrganization(Organization $organization)
+    public function setName($name)
     {
-        $this->organization = $organization;
+        $this->name = $name;
     }
 
     /**
-     * Get organization
-     *
-     * @return Organization 
-     */
-    public function getOrganization()
-    {
-        return $this->organization;
-    }
-    
-    /**
-     * Set title
-     *
-     * @param integer $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Get title
-     *
-     * @return integer 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set shortDesc
-     *
-     * @param string $shortDesc
-     */
-    public function setShortDesc($shortDesc)
-    {
-        $this->shortDesc = $shortDesc;
-    }
-
-    /**
-     * Get shortDesc
+     * Get name
      *
      * @return string 
      */
-    public function getShortDesc()
+    public function getName()
     {
-        return $this->shortDesc;
+        return $this->name;
     }
 
     /**
-     * Set fullDesc
+     * Set description
      *
-     * @param text $fullDesc
+     * @param string $description
      */
-    public function setFullDesc($fullDesc)
+    public function setDescription($description)
     {
-        $this->fullDesc = $fullDesc;
+        $this->description = $description;
     }
 
     /**
-     * Get fullDesc
+     * Get description
      *
-     * @return text 
+     * @return string 
      */
-    public function getFullDesc()
+    public function getDescription()
     {
-        return $this->fullDesc;
+        return $this->description;
     }
 
     /**
@@ -299,7 +256,7 @@ class Activity
     /**
      * Set currency
      *
-     * @param integer $currency
+     * @param string $currency
      */
     public function setCurrency($currency)
     {
@@ -309,7 +266,7 @@ class Activity
     /**
      * Get currency
      *
-     * @return integer 
+     * @return string 
      */
     public function getCurrency()
     {
@@ -535,152 +492,55 @@ class Activity
     {
         return $this->sunday;
     }
-    
+
     /**
-     * Set geolocation
+     * Set type
      *
-     * @param string $geolocation
+     * @param smallint $type
      */
-    public function setGeolocation($geolocation)
+    public function setType($type)
     {
-        $address = urlencode($geolocation);
-        $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false");
-        $json = json_decode($json);
-
-        if ($json->{'status'} == 'OK')
-        {
-            $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
-            $lng = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
-
-            $this->geolocation = $lat . ',' . $lng;
-        }
+        $this->type = $type;
     }
 
     /**
-     * Get geolocation
+     * Get type
      *
-     * @return string 
+     * @return smallint 
      */
-    public function getGeolocation()
+    public function getType()
     {
-        return $this->geolocation;
+        return $this->type;
     }
     
     /**
-     * Set file
+     * Get type in human readable mode
      *
-     * @param UploadedFile $file
+     * @return string
      */
-    public function setFile(UploadedFile $file = null)
+    public function getTypeText()
     {
-        $this->file = $file;
+        return $this->typeText[$this->type];
     }
 
     /**
-     * Get file
+     * Set amount
      *
-     * @return string 
+     * @param smallint $amount
      */
-    public function getFile()
+    public function setAmount($amount)
     {
-        return $this->file;
+        $this->amount = $amount;
     }
 
     /**
-     * Set image
-     */
-    public function setImage()
-    {
-        if ($this->file !== null)
-        {
-            $images = explode("|", $this->image);
-            $image = 'act' . $this->id . '-n' . count($images) . '.' . $this->file->guessExtension();
-            
-            $images[] = $image;
-            $this->image = implode("|", $images);
-            
-            $this->file->move($this->getUploadRootDir(), $image);
-            unset($this->file);
-        }
-    }
-
-    /**
-     * Get image
+     * Get amount
      *
-     * @return string 
+     * @return smallint 
      */
-    public function getImage()
+    public function getAmount()
     {
-        $images = explode("|", $this->image);
-
-        if (!empty($images))
-        {
-            return $this->getUploadDir() . '/' . $images[0];
-        }
-        
-        return null;
-    }
-
-    /**
-     * Get images
-     *
-     * @return array 
-     */
-    public function getImages()
-    {
-        $images = explode("|", $this->image);
-        
-        if (!empty($images))
-        {
-            foreach ($images as &$image)
-            {
-                $image = $this->getUploadDir() . '/' . $image;
-            }
-            return $images;
-        }
-        
-        return null;
-    }
-    
-    /**
-     * The absolute directory path where uploaded documents should be saved
-     * 
-     * @return type 
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
-    /**
-     * Get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view
-     * 
-     * @return string 
-     */
-    protected function getUploadDir()
-    {
-        return 'uploads/activities/images';
-    }
-
-    
-    /**
-     * Set video
-     *
-     * @param string $video
-     */
-    public function setVideo($video)
-    {
-        $this->video = $video;
-    }
-
-    /**
-     * Get video
-     *
-     * @return string 
-     */
-    public function getVideo()
-    {
-        return $this->video;
+        return $this->amount;
     }
 
     /**
@@ -726,7 +586,7 @@ class Activity
     /**
      * Set status
      *
-     * @param integer $status
+     * @param smallint $status
      */
     public function setStatus($status)
     {
@@ -736,7 +596,7 @@ class Activity
     /**
      * Get status
      *
-     * @return integer 
+     * @return smallint 
      */
     public function getStatus()
     {
@@ -754,43 +614,62 @@ class Activity
     }
 
     /**
-     * Add resources
+     * Set organization
      *
-     * @param ActivityResource $resources
+     * @param Organization $organization
      */
-    public function addActivityResource(ActivityResource $resources)
+    public function setOrganization(Organization $organization)
     {
-        $this->resources[] = $resources;
+        $this->organization = $organization;
     }
 
     /**
-     * Get resources
+     * Get organization
+     *
+     * @return Organization 
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * Add activities
+     *
+     * @param ActivityResource $activities
+     */
+    public function addActivityResource(ActivityResource $activities)
+    {
+        $this->activities[] = $activities;
+    }
+
+    /**
+     * Get activities
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getResources()
+    public function getActivities()
     {
-        return $this->resources;
-    }
-    
-    /**
-     * Add comments
-     *
-     * @param ActivityComment $comments
-     */
-    public function addActivityComment(ActivityComment $comments)
-    {
-        $this->comments[] = $comments;
+        return $this->activities;
     }
 
     /**
-     * Get comments
+     * Add variations
+     *
+     * @param ResourceVariation $variations
+     */
+    public function addResourceVariation(ResourceVariation $variations)
+    {
+        $this->variations[] = $variations;
+    }
+
+    /**
+     * Get variations
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getComments()
+    public function getVariations()
     {
-        return $this->comments;
+        return $this->variations;
     }
-
 }
