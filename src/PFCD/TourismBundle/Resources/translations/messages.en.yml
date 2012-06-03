@@ -1,5 +1,5 @@
 ################################################################################
-##### Topbar (Buttons)
+##### Topbar
 ################################################################################
 
 Welcome: Welcome
@@ -9,7 +9,7 @@ Register: Sign up
 
 
 ################################################################################
-##### Navbar (Buttons)
+##### Front Navbar + Back Sidebar
 ################################################################################
 
 Home: Home
@@ -19,6 +19,11 @@ News: News
 Contact: Contact
 About: About
 Language: Language
+
+Menu: Menu
+Reservations: Reservations
+Statistics: Statistics
+Users: Users
 
 
 ################################################################################
@@ -30,17 +35,44 @@ Spanish: Spanish
 
 
 ################################################################################
+##### Browser (Metas&Tags)
+################################################################################  
+
+front.browser.title: Home
+
+back.browser.title: Administration Panel
+
+
+################################################################################
 ##### Header
 ################################################################################  
 
-header.title: Online platform for cooperation tourism
+front.header.title: CooperationTourism.com
+front.header.subtitle: Your online platform for cooperation tourism
+
+back.header.title: CooperationTourism.com
+back.header.subtitle: Administration Panel
+
+
+################################################################################
+##### Body
+################################################################################  
+
+back.activity.index.title: Activity list
+back.activity.index.subtitle: In this list there are all the activities registered in the system
+back.activity.create.title: Activity creation
+back.activity.create.subtitle: Use this form to create manually a new activity
+back.activity.read.title: Activity details
+back.activity.read.subtitle: In this list there are detailed information stored about this activity
+back.activity.update.title: Activity edit
+back.activity.update.subtitle: Use this form to edit the activity information
 
 
 ################################################################################
 ##### Footer
 ################################################################################  
 
-footer.created.by: created by
+footer.created.by: © 2012 - CooperationTourism.com - created by <a href="https://github.com/afemartin">afemartin</a>
 
 
 ################################################################################
@@ -61,20 +93,93 @@ Repeatpassword: Repeat password
 
 
 ################################################################################
+##### Entities (singular&Plural)
+################################################################################
+
+User: User
+Users: Users
+
+Organization: Organization
+Organizations: Organizations
+
+Activity: Activity
+Activities: Activities
+
+News: News
+
+Resource: Resource
+Resources: Resources
+
+Reservation: Reservation
+Reservations: Reservations
+
+
+################################################################################
+##### Common entity fields (Form)
+################################################################################
+
+Id: ID
+Created: Created at
+Updated: Updated at
+Status: Status
+
+
+################################################################################
 ##### User (Form)
 ################################################################################
 
 Firstname: Firstname
 Lastname: Lastname
+Birthday: Birthday
 Gender: Gender
 Male: Male
 Female: Female
 Country: Country
 City: City
+Address: Address
+Postalcode: Postalcode
+Phone: Phone
+Locale: Language
 Day: Day
 Month: Month
 Year: Year
 
+
+################################################################################
+##### Organization (Form)
+################################################################################
+
+Username: Username
+Email: Email
+Name: Name
+Acronim: Acronim
+Country: Country
+City: City
+Address: Address
+Postalcode: Postalcode
+Phone: Phone
+Locale: Language
+Foundationyear: Foundation year
+Geolocation: Geolocation
+Image: Image
+
+
+################################################################################
+##### Activity (Form)
+################################################################################
+
+Title: Title
+Shortdesc: Short Description
+Fulldesc: Full Description
+Price: Price
+Currency: Currency
+Datestart: Start Date
+Dateend: End Date
+Timestart: Start Time
+Timeend: End Time
+Day: Day
+Month: Month
+Year: Year
 Image: Image
 
 
@@ -85,4 +190,19 @@ Image: Image
 Name: Name
 Subject: Subject
 Message: Message
+
+
+################################################################################
+##### Actions (Buttons&Links)
+################################################################################
+
+Create: Create
+Edit: Edit
+Cancel: Cancel
 Send: Send
+
+back.activity.button.index: Back to the list
+back.activity.button.create: Create a new activity
+back.activity.button.read: Show this activity
+back.activity.button.update: Edit this activity
+back.activity.button.delete: Delete this activity

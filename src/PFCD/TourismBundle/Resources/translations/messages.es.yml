@@ -1,5 +1,5 @@
 ################################################################################
-##### Barra superior (Botones)
+##### Barra superior
 ################################################################################
 
 Welcome: Bienvenido
@@ -9,7 +9,7 @@ Register: Registro
 
 
 ################################################################################
-##### Barra de navegacion (Botones)
+##### Barras de navegacion
 ################################################################################
 
 Home: Portada
@@ -19,6 +19,11 @@ News: Noticias
 Contact: Contacto
 About: Acerca
 Language: Idioma
+
+Menu: Menu
+Reservations: Reservas
+Statistics: Estadísticas
+Users: Usuarios
 
 
 ################################################################################
@@ -30,17 +35,44 @@ Spanish: Español
 
 
 ################################################################################
+##### Browser (Metas&Tags)
+################################################################################  
+
+front.browser.title: Portada
+
+back.browser.title: Panel de Administracion
+
+
+################################################################################
 ##### Cabecera
 ################################################################################  
 
-header.title: Plataforma online para turismo de cooperación
+front.header.title: CooperationTourism.com
+front.header.subtitle: Tu plataforma online para turismo de cooperación
+
+back.header.title: CooperationTourism.com
+back.header.subtitle: Panel de Administración
+
+
+################################################################################
+##### Cuerpo
+################################################################################  
+
+back.activity.index.title: Lista de actividades
+back.activity.index.subtitle: En esta lista se encuentran las actividades registradas en el sistema
+back.activity.create.title: Añadir actividad
+back.activity.create.subtitle: Rellene este formulario para crear una nueva actividad
+back.activity.read.title: Detalles de la actividad
+back.activity.read.subtitle: En esta lista se muestra informacion detallada sobre la actividad
+back.activity.update.title: Editar detalles
+back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
 
 ################################################################################
 ##### Pie
 ################################################################################  
 
-footer.created.by: created by
+footer.created.by: © 2012 - CooperationTourism.com - creado por <a href="https://github.com/afemartin">afemartin</a>
 
 
 ################################################################################
@@ -61,20 +93,93 @@ Repeatpassword: Repita contraseña
 
 
 ################################################################################
+##### Entidades (singular&Plural)
+################################################################################
+
+User: Usuario
+Users: Usuarios
+
+Organization: Organizacion
+Organizations: Organizaciones
+
+Activity: Actividad
+Activities: Actividades
+
+News: Noticias
+
+Resource: Recurso
+Resources: Recursos
+
+Reservation: Reserva
+Reservations: Reservas
+
+
+################################################################################
+##### Common entity fields (Form)
+################################################################################
+
+Id: ID
+Created: Hora de creación
+Updated: Última edición
+Status: Estado
+
+
+################################################################################
 ##### Usuario (Formulario)
 ################################################################################
 
 Firstname: Nombre
 Lastname: Apellidos
+Birthday: Fecha de nacimiento
 Gender: Sexo
 Male: Hombre
 Female: Mujer
 Country: País
 City: Ciudad
+Address: Dirección
+Postalcode: Codigo postal
+Phone: Telefono
+Locale: Idioma
 Day: Dia
 Month: Mes
 Year: Año
 
+
+################################################################################
+##### Organization (Form)
+################################################################################
+
+Username: Usuario
+Email: Email
+Name: Nombre
+Acronim: Siglas
+Country: País
+City: Ciudad
+Address: Dirección
+Postalcode: Codigo postal
+Phone: Telefono
+Locale: Idioma
+Foundationyear: Año de fundación
+Geolocation: Geolocalización
+Image: Imágen
+
+
+################################################################################
+##### Actividad (Formulario)
+################################################################################
+
+Title: Titulo
+Shortdesc: Descripción breve
+Fulldesc: Descripción completa
+Price: Precio
+Currency: Moneda
+Datestart: Fecha de inicio
+Dateend: Fecha de fin
+Timestart: Hora de inicio
+Timeend: Hora de fin
+Day: Dia
+Month: Mes
+Year: Año
 Image: Imágen
 
 
@@ -85,4 +190,19 @@ Image: Imágen
 Name: Nombre
 Subject: Asunto
 Message: Mensaje
+
+
+################################################################################
+##### Acciones (Botones&Enlaces)
+################################################################################
+
+Create: Crear
+Edit: Editar
+Cancel: Cancelar
 Send: Enviar
+
+back.activity.button.index: Volver atrás
+back.activity.button.create: Añadir una nueva actividad
+back.activity.button.read: Mostrar esta actividad
+back.activity.button.update: Editar esta actividad
+back.activity.button.delete: Eliminar esta actividad
