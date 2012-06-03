@@ -11,357 +11,193 @@ use PFCD\TourismBundle\Form\ActivityType;
 
 /**
  * Activity controller.
- *
  */
 class ActivityController extends Controller
 {
+
     /**************************************************************************
-     ***** ADMIN AREA *********************************************************
+     ***** BACK AREA **********************************************************
      **************************************************************************/
     
     /**
-     * Lists all Activity entities.
-     */
-    public function adminIndexAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('status' => Activity::STATUS_ENABLED));
-
-        return $this->render('PFCDTourismBundle:Admin/Activity:index.html.twig', array(
-            'entities' => $entities
-        ));
-    }
-
-    /**
-     * Finds and displays a Activity entity.
-     */
-    public function adminShowAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Activity entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PFCDTourismBundle:Admin/Activity:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-
-        ));
-    }
-
-    /**
-     * Displays a form to create a new Activity entity.
-     */
-    public function adminNewAction()
-    {
-        $entity = new Activity();
-        $form   = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
-
-        return $this->render('PFCDTourismBundle:Admin/Activity:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
-    }
-
-    /**
-     * Creates a new Activity entity.
-     */
-    public function adminCreateAction()
-    {
-        $entity  = new Activity();
-        $request = $this->getRequest();
-        $form    = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
-        $form->bindRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_activity_show', array('id' => $entity->getId())));
-            
-        }
-
-        return $this->render('PFCDTourismBundle:Admin/Activity:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing Activity entity.
-     */
-    public function adminEditAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Activity entity.');
-        }
-
-        $editForm = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PFCDTourismBundle:Admin/Activity:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Edits an existing Activity entity.
-     */
-    public function adminUpdateAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Activity entity.');
-        }
-
-        $editForm   = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
-        $deleteForm = $this->createDeleteForm($id);
-
-        $request = $this->getRequest();
-
-        $editForm->bindRequest($request);
-
-        if ($editForm->isValid()) {
-            
-            $entity->setImage();
-            
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_activity_show', array('id' => $id)));
-        } else {
-            $entity->setFile(null);
-        }
-
-        return $this->render('PFCDTourismBundle:Admin/Activity:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Deletes a Activity entity.
-     */
-    public function adminDeleteAction($id)
-    {
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->bindRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Activity entity.');
-            }
-
-            $entity->setStatus(Activity::STATUS_DELETED);
-            $em->persist($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_activity_index'));
-    }
-    
-    /**************************************************************************
-     ***** BACK AREA *********************************************************
-     **************************************************************************/
-    
-    /**
-     * Lists all Activity entities.
+     * Lists all Activity entities
      */
     public function backIndexAction()
     {
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $em = $this->getDoctrine()->getEntityManager();
         
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('status' => Activity::STATUS_ENABLED, 'organization' => $id));
-
-        return $this->render('PFCDTourismBundle:Back/Activity:index.html.twig', array(
-            'entities' => $entities
-        ));
-    }
-
-    /**
-     * Finds and displays a Activity entity.
-     */
-    public function backShowAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Activity entity.');
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            $activities = $em->getRepository('PFCDTourismBundle:Activity')->findAll();
+        }
+        else
+        {
+            $organization = $this->get('security.context')->getToken()->getUser()->getId();
+            $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByOrganization($organization);
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PFCDTourismBundle:Back/Activity:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-
+        return $this->render('PFCDTourismBundle:Back/Activity:index.html.twig', array(
+            'activities' => $activities
         ));
     }
 
     /**
-     * Displays a form to create a new Activity entity.
-     */
-    public function backNewAction()
-    {
-        $entity = new Activity();
-        $form   = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE));
-
-        return $this->render('PFCDTourismBundle:Back/Activity:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
-    }
-
-    /**
-     * Creates a new Activity entity.
+     * Displays a form to create a new Activity entity and store it when the form is submitted and valid
      */
     public function backCreateAction()
     {
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['type'] = Constants::FORM_CREATE;
         
-        $entity  = new Activity();
+        $activity = new Activity();
+        $form = $this->createForm(new ActivityType(), $activity, $options);
+        
         $request = $this->getRequest();
-        $form    = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE));
-        $form->bindRequest($request);
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            
-            $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-            $entity->setOrganization($organization);
-            
-            $em->persist($entity);
-            $em->flush();
+            if ($form->isValid())
+            {
+                $em = $this->getDoctrine()->getEntityManager();
 
-            return $this->redirect($this->generateUrl('back_activity_show', array('id' => $entity->getId())));
-        }
+                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+                {
+                    $id = $this->get('security.context')->getToken()->getUser()->getId();
+                    $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+                    $activity->setOrganization($organization);
+                }
 
-        return $this->render('PFCDTourismBundle:Back/Activity:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
+                $em->persist($activity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('back_activity_read', array('id' => $activity->getId())));
+            }
+        }    
+
+        return $this->render('PFCDTourismBundle:Back/Activity:create.html.twig', array(
+            'activity' => $activity,
+            'form'     => $form->createView()
         ));
     }
 
     /**
-     * Displays a form to edit an existing Activity entity.
+     * Finds and displays a Activity entity
      */
-    public function backEditAction($id)
+    public function backReadAction($id)
     {
+        $filter['id'] = $id;
+                
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
+        $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Activity entity.');
-        }
+        if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
-        $editForm = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('PFCDTourismBundle:Back/Activity:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('PFCDTourismBundle:Back/Activity:read.html.twig', array(
+            'activity'    => $activity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
+    
     /**
-     * Edits an existing Activity entity.
+     * Edits an existent Activity entity and store it when the form is submitted and valid
      */
     public function backUpdateAction($id)
     {
+        $filter['id'] = $id;
+                
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
+        $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Activity entity.');
-        }
+        if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
-        $editForm   = $this->createForm(new ActivityType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
-        $deleteForm = $this->createDeleteForm($id);
+        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['type'] = Constants::FORM_UPDATE;
+        
+        $editForm = $this->createForm(new ActivityType(), $activity, $options);
 
         $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $editForm->bindRequest($request);
 
-        $editForm->bindRequest($request);
+            if ($editForm->isValid())
+            {
+                $activity->setImage();
 
-        if ($editForm->isValid()) {
-            
-            $entity->setImage();
-            
-            $em->persist($entity);
-            $em->flush();
+                $em->persist($activity);
+                $em->flush();
 
-            return $this->redirect($this->generateUrl('back_activity_show', array('id' => $id)));
-        } else {
-            $entity->setFile(null);
-        }
+                return $this->redirect($this->generateUrl('back_activity_read', array('id' => $id)));
+            }
+            else
+            {
+                $activity->setFile(null);
+            }
+        }    
 
-        return $this->render('PFCDTourismBundle:Back/Activity:edit.html.twig', array(
-            'entity'      => $entity,
+        return $this->render('PFCDTourismBundle:Back/Activity:update.html.twig', array(
+            'activity'      => $activity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a Activity entity.
+     * Deletes a Activity entity
      */
     public function backDeleteAction($id)
     {
+        $filter['id'] = $id;
+                
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        
         $form = $this->createDeleteForm($id);
+        
         $request = $this->getRequest();
 
         $form->bindRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid())
+        {
             $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
+            $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Activity entity.');
-            }
+            if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
-            $entity->setStatus(Activity::STATUS_DELETED);
-            $em->persist($entity);
+            $activity->setStatus(Activity::STATUS_DELETED);
+            $em->persist($activity);
             $em->flush();
         }
 
         return $this->redirect($this->generateUrl('back_activity_index'));
     }
     
+    
     /**************************************************************************
      ***** FRONT AREA *********************************************************
      **************************************************************************/
    
     /**
-     * Lists all Organization entities.
+     * Lists all Activity entities
      */
     public function frontIndexAction()
     {
@@ -375,8 +211,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * Finds and displays a Organization entity.
-     *
+     * Finds and displays a Activity entity
      */
     public function frontShowAction($id)
     {
@@ -393,15 +228,14 @@ class ActivityController extends Controller
         ));
     }
     
+    
     /**************************************************************************
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/
     
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
     }
+    
 }

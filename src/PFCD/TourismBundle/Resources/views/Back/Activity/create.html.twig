@@ -3,22 +3,22 @@
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
 {% block body %}
-<h1>Activity creation</h1>
-<p>Use this form to create manually a new activity</p>
+<h1>{{ 'back.activity.create.title'|trans }}</h1>
+<p>{{ 'back.activity.create.subtitle'|trans }}</p>
 
 <form class="form-horizontal" action="{{ path('back_activity_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <div class="form-actions">
-        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create activity'|trans }}</button>
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create'|trans }}</button>
         <a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
     </div>
 </form>
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#sidebar-tab-activity').addClass("active");
-        $('#sidebar-tab-activity i').addClass("icon-white");
-    </script>
+{{ parent() }}
+<script type="text/javascript">
+    $('#sidebar-tab-activity').addClass("active");
+    $('#sidebar-tab-activity i').addClass("icon-white");
+</script>
 {% endblock %}
