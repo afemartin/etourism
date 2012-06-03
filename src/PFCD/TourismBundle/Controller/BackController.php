@@ -19,7 +19,7 @@ class BackController extends Controller
     }
     
     /**
-     * Show the login page of the organization administrator page
+     * Show the login page of the administrator page for organizations and admin
      */
     public function loginAction()
     {

@@ -1,10 +1,6 @@
-PFCDTourismBundle_admin:
-    resource: "@PFCDTourismBundle/Resources/config/routing/admin.yml"
-    prefix:   /admin
-    
 PFCDTourismBundle_back:
     resource: "@PFCDTourismBundle/Resources/config/routing/back.yml"
-    prefix:   /back
+    prefix:   /admin
     
 PFCDTourismBundle_front:
     resource: "@PFCDTourismBundle/Resources/config/routing/front.yml"

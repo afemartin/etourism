@@ -3,10 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
         <meta name="robots" content="noindex, nofollow" />
-        <title>{% block title %}Administrator Panel{% endblock %} - CooperationTourism.org</title>
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <title>{% block title %}{{ 'back.browser.title'|trans }}{% endblock %} - CooperationTourism.org</title>
+        <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         {% block stylesheets %}
         <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('css/styles.css') }}" type="text/css" rel="stylesheet" />
@@ -20,7 +18,9 @@
                 <div class="container">
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
                     <a class="brand" href="{{ path('back_index') }}">CooperationTourism.com</a>
-                    {% if is_granted('ROLE_ORGANIZATION') %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <div class="pull-right">{{ 'Welcome'|trans }} Admin ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div>
+                    {% elseif is_granted('ROLE_ORGANIZATION') %}
                     <div class="pull-right">{{ 'Welcome'|trans }} {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div> 
                     {% else %}
                     <ul class="nav pull-right">
@@ -31,8 +31,8 @@
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#"><img src="{{ asset('img/blank.gif') }}" class="flag flag-es" /> {{ 'Language'|trans }} <b class="caret"></b></a>
                             {% endif %}
                             <ul class="dropdown-menu">
-                                <li><a href="{{ path('back_index', { '_locale': 'en' }) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-gb" /> {{ 'English'|trans }}</a></li>
-                                <li><a href="{{ path('back_index', { '_locale': 'es' }) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-es" /> {{ 'Spanish'|trans }}</a></li>
+                                <li><a href="{{ localize_route('en') }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-gb" /> {{ 'English'|trans }}</a></li>
+                                <li><a href="{{ localize_route('es') }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-es" /> {{ 'Spanish'|trans }}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -47,23 +47,29 @@
                 {% block sidebar %}
                 <div style="padding: 8px 0;" class="well">
                     <ul class="nav nav-list">
-                        <li class="nav-header">Main menu</li>
+                        <li class="nav-header">{{ 'Menu'|trans }}</li>
                         <li id="sidebar-tab-home"><a href="{{ path('back_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
-                        <li><a href="{{ path('back_organization_show') }}"><i class="icon-user"></i> {{ 'Profile'|trans }}</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li id="sidebar-tab-organization"><a href="{{ path('back_organization_index') }}"><i class="icon-globe"></i> {{ 'Organizations'|trans }}</a></li>
+                        {% endif %}
                         <li id="sidebar-tab-activity"><a href="{{ path('back_activity_index') }}"><i class="icon-leaf"></i> {{ 'Activities'|trans }}</a></li>
-                        <li><a href="#"><i class="icon-pencil"></i> {{ 'News'|trans }}</a></li>
-                        <li><a href="#"><i class="icon-user"></i> {{ 'Reservations'|trans }}</a></li>
-                        <li><a href="#"><i class="icon-cog"></i> {{ 'Stats'|trans }}</a></li>
+                        <li id="sidebar-tab-news"><a href="#"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
+                        <li id="sidebar-tab-reservation"><a href="#"><i class="icon-book "></i> {{ 'Reservations'|trans }}</a></li>
+                        <li id="sidebar-tab-statistic"><a href="#"><i class="icon-tasks"></i> {{ 'Statistics'|trans }}</a></li>
+                        <li id="sidebar-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
+                        {% if is_granted('ROLE_ORGANIZATION') %}
                         <li class="divider"></li>
-                        <li><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>
+                        <li id="sidebar-tab-organization"><a href="{{ path('back_organization_read', { 'id' : app.user.id }) }}"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
+                        <li id="sidebar-tab-help"><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 {% endblock %}
             </div>
             <div class="span10">
                 <header class="well">
-                    <h2>{% block blog_title %}<a href="{{ path('back_index') }}">Administrator</a>{% endblock %}</h2>
-                    <h3>{% block blog_tagline %}<a href="{{ path('back_index') }}">Organization Panel</a>{% endblock %}</h3>
+                    <h1>{% block header_title %}{{ 'back.header.title'|trans }}{% endblock %}</h1>
+                    <h2>{% block header_subtitle %}{{ 'back.header.subtitle'|trans }}{% endblock %}</h2>
                 </header>
                 {% if app.session.hasFlash('alert-info') %}<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-info') }}</div>{% endif %}
                 {% if app.session.hasFlash('alert-success') %}<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-success') }}</div>{% endif %}
@@ -74,7 +80,7 @@
             {% endblock %}
             </div>
             <footer class="footer">
-                © 2012 - CooperationTourism.com - {{ 'created by'|trans }} <a href="https://github.com/afemartin">afemartin</a>
+                {{ 'footer.created.by'|trans|raw }}
             </footer>
         </div>
         {% block javascripts %}

@@ -18,6 +18,10 @@ security:
             encode_as_base64: false
 
     providers:
+        all_users:
+            providers: [in_memory, db_organization, db_user]
+        back_users:
+            providers: [in_memory, db_organization]
         in_memory:
             users:
                 %admin_username%:
@@ -36,29 +40,27 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        admin_secured_area:
-            pattern: /admin/.*
-            provider: in_memory
+        trans_secured_area:
+            pattern: /translation/.*
+            provider: all_users
             anonymous: true
             form_login:
-                check_path: admin_login_check
-                login_path: admin_login
+                check_path: translation_login_check
+                login_path: translation_login
             logout:
-                path:   admin_logout
-                target: admin_index
-        organization_secured_area:
-            pattern: /back/.*
-            provider: db_organization
+                path:   translation_logout
+                target: translation_index
+        back_secured_area:
+            pattern: /admin/.*
+            provider: back_users
             anonymous: true
             form_login:
                 check_path: back_login_check
                 login_path: back_login
-                username_parameter: _username
-                password_parameter: _password
             logout:
                 path:   back_logout
                 target: back_index
-        user_secured_area:
+        front_secured_area:
             pattern: ^/.*
             provider: db_user
             anonymous: true
@@ -66,25 +68,24 @@ security:
                 check_path: front_login_check
                 login_path: front_login
                 username_parameter: _email
-                password_parameter: _password
                 use_referer: true
             logout:
                 path:   front_logout
                 target: front_index
 
     access_control:
-        admin_login:
+        translation_login:
+            path: /translation/login
+            roles: IS_AUTHENTICATED_ANONYMOUSLY
+        translation_area:
+            path: /translation/.*
+            roles: [ROLE_USER, ROLE_ORGANIZATION, ROLE_ADMIN]
+        back_login:
             path: /admin/login
             roles: IS_AUTHENTICATED_ANONYMOUSLY
-        admin_area:
+        back_area:
             path: /admin/.*
-            roles: ROLE_ADMIN
-        organization_login:
-            path: /back/login
-            roles: IS_AUTHENTICATED_ANONYMOUSLY
-        organization_area:
-            path: /back/.*
-            roles: ROLE_ORGANIZATION
-        user_public_area:
+            roles: [ROLE_ORGANIZATION, ROLE_ADMIN]
+        front_public_area:
             path: /.*
             roles: IS_AUTHENTICATED_ANONYMOUSLY
