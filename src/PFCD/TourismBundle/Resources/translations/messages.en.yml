@@ -76,6 +76,15 @@ back.organization.read.subtitle: In this list there are detailed information sto
 back.organization.update.title: Organization edit
 back.organization.update.subtitle: Use this form to edit the organization information
 
+back.user.index.title: Organization list
+back.user.index.subtitle: In this list there are all the activities registered in the system
+back.user.create.title: Organization creation
+back.user.create.subtitle: Use this form to create manually a new user
+back.user.read.title: Organization details
+back.user.read.subtitle: In this list there are detailed information stored about this user
+back.user.update.title: Organization edit
+back.user.update.subtitle: Use this form to edit the user information
+
 
 ################################################################################
 ##### Footer
@@ -138,8 +147,8 @@ Status: Status
 ##### User (Form)
 ################################################################################
 
-Firstname: Firstname
-Lastname: Lastname
+Firstname: First name
+Lastname: Last name
 Birthday: Birthday
 Gender: Gender
 Male: Male
@@ -147,7 +156,7 @@ Female: Female
 Country: Country
 City: City
 Address: Address
-Postalcode: Postalcode
+Postalcode: Postal code
 Phone: Phone
 Locale: Language
 Day: Day
@@ -166,7 +175,7 @@ Acronim: Acronim
 Country: Country
 City: City
 Address: Address
-Postalcode: Postalcode
+Postalcode: Postal code
 Phone: Phone
 Locale: Language
 Foundationyear: Foundation year
@@ -226,3 +235,9 @@ back.organization.button.create: Create a new organization
 back.organization.button.read: Show this organization
 back.organization.button.update: Edit this organization
 back.organization.button.delete: Delete this organization
+
+back.user.button.index: Back to the list
+back.user.button.create: Create a new user
+back.user.button.read: Show this user
+back.user.button.update: Edit this user
+back.user.button.delete: Delete this user

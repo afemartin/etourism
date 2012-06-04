@@ -63,18 +63,27 @@ back.activity.index.subtitle: En esta lista se encuentran las actividades regist
 back.activity.create.title: Añadir actividad
 back.activity.create.subtitle: Rellene este formulario para crear una nueva actividad
 back.activity.read.title: Detalles de la actividad
-back.activity.read.subtitle: En esta lista se muestra informacion detallada sobre la actividad
+back.activity.read.subtitle: En esta lista se muestra información detallada sobre la actividad
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
-back.organization.index.title: Organization list
-back.organization.index.subtitle: In this list there are all the activities registered in the system
-back.organization.create.title: Organization creation
-back.organization.create.subtitle: Use this form to create manually a new organization
-back.organization.read.title: Organization details
-back.organization.read.subtitle: In this list there are detailed information stored about this organization
-back.organization.update.title: Organization edit
-back.organization.update.subtitle: Use this form to edit the organization information
+back.organization.index.title: Lista de organizaciones
+back.organization.index.subtitle: En esta lista se encuentran las organizaciones registradas en el sistema
+back.organization.create.title: Añadir organización
+back.organization.create.subtitle: Rellene este formulario para crear una nueva organización
+back.organization.read.title: Detalles de la organización
+back.organization.read.subtitle: En esta lista se muestra información detallada sobre la organización
+back.organization.update.title: Editar detalles
+back.organization.update.subtitle: Rellene este formulario para añadir o modificar detalles de la organización
+
+back.user.index.title: Lista de usuarios
+back.user.index.subtitle: En esta lista se encuentran los usuarios registrados en el sistema
+back.user.create.title: Añadir usuario
+back.user.create.subtitle: Rellene este formulario para crear un nuevo usuario
+back.user.read.title: Detalles del usuario
+back.user.read.subtitle: En esta lista se muestra información detallada sobre el usuario
+back.user.update.title: Editar detalles
+back.user.update.subtitle: Rellene este formulario para añadir o modificar detalles del usuario
 
 
 ################################################################################
@@ -221,8 +230,14 @@ back.activity.button.read: Mostrar esta actividad
 back.activity.button.update: Editar esta actividad
 back.activity.button.delete: Eliminar esta actividad
 
-back.organization.button.index: Back to the list
-back.organization.button.create: Create a new organization
-back.organization.button.read: Show this organization
-back.organization.button.update: Edit this organization
-back.organization.button.delete: Delete this organization
+back.organization.button.index: Volver atrás
+back.organization.button.create: Añadir una nueva organización
+back.organization.button.read: Mostrar esta organización
+back.organization.button.update: Editar esta organización
+back.organization.button.delete: Eliminar esta organización
+
+back.user.button.index: Volver atrás
+back.user.button.create: Añadir un nuevo usuario
+back.user.button.read: Mostrar este usuario
+back.user.button.update: Editar este usuario
+back.user.button.delete: Eliminar este usuario
