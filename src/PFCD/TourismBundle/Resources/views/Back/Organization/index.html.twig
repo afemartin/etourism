@@ -1,0 +1,51 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% block body %}
+<h1>{{ 'back.organization.index.title'|trans }}</h1>
+<p>{{ 'back.organization.index.subtitle'|trans }}</p>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Username'|trans }}</th>
+            <th>{{ 'Email'|trans }}</th>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'Acronim'|trans }}</th>
+            <th>{{ 'Country'|trans }}</th>
+            <th>{{ 'City'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Edit'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for organization in organizations %}
+    <tr class="status-{{ organization.status }}">
+        <td><a href="{{ path('back_organization_read', { 'id': organization.id }) }}">{{ organization.id }}</a></td>
+        <td>{{ organization.username }}</td>
+        <td>{{ organization.email }}</td>
+        <td>{{ organization.name }}</td>
+        <td>{{ organization.acronim }}</td>
+        <td>{{ organization.country|country }}</td>
+        <td>{{ organization.city }}</td>
+        <td>{% if organization.created %}{{ organization.created|date('Y-m-d') }}{% endif%}</td>
+        <td>{% if organization.updated %}{{ organization.updated|date('Y-m-d') }}{% endif%}</td>
+        <td>{{ organization.statusText }}</td>
+        <td><a href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-edit"></i></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_organization_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.organization.button.create'|trans }}</a>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#sidebar-tab-organization').addClass("active");
+    $('#sidebar-tab-organization i').addClass("icon-white");
+</script>
+{% endblock %}

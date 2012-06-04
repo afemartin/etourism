@@ -20,16 +20,16 @@ class OrganizationType extends AbstractType
         $builder->add('email');
         if ($options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'The password fields must match', 'first_name' => 'Password', 'second_name' => 'Repeatpassword'));
+            $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'password.match.error', 'first_name' => 'Password', 'second_name' => 'Repeat password'));
         }
         $builder->add('name');
         $builder->add('acronim');
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge')));
-            $builder->add('fullDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge')));
+            $builder->add('fullDesc', 'textarea', array('attr' => array('class' => 'wysiwyg input-xxlarge')));
         }
-        $builder->add('foundationYear', 'integer');
+        $builder->add('foundationYear', 'integer', array('required' => false));
         $builder->add('country', 'country');
         $builder->add('city');
         $builder->add('address');
@@ -49,7 +49,7 @@ class OrganizationType extends AbstractType
     
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => null, 'type' => null);
+        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE);
     }
 
     public function getName()

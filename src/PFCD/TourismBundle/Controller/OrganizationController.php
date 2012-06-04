@@ -3,6 +3,8 @@
 namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Constants;
 
@@ -15,259 +17,165 @@ use PFCD\TourismBundle\Form\OrganizationType;
  */
 class OrganizationController extends Controller
 {
-    /**************************************************************************
-     ***** ADMIN AREA *********************************************************
-     **************************************************************************/
-    
-    /**
-     * Lists all Organization entities.
-     */
-    public function adminIndexAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('PFCDTourismBundle:Organization')->findAll();
-
-        return $this->render('PFCDTourismBundle:Admin/Organization:index.html.twig', array(
-            'entities' => $entities
-        ));
-    }
-
-    /**
-     * Finds and displays a Organization entity.
-     */
-    public function adminShowAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PFCDTourismBundle:Admin/Organization:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-
-        ));
-    }
-
-    /**
-     * Displays a form to create a new Organization entity.
-     */
-    public function adminNewAction()
-    {
-        $entity = new Organization();
-        $form   = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
-
-        return $this->render('PFCDTourismBundle:Admin/Organization:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
-    }
-
-    /**
-     * Creates a new Organization entity.
-     */
-    public function adminCreateAction()
-    {
-        $entity  = new Organization();
-        $request = $this->getRequest();
-        $form    = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_CREATE));
-        $form->bindRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_organization_show', array('id' => $entity->getId())));
-            
-        }
-
-        return $this->render('PFCDTourismBundle:Admin/Organization:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing Organization entity.
-     */
-    public function adminEditAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
-        }
-
-        $editForm = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PFCDTourismBundle:Admin/Organization:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Edits an existing Organization entity.
-     */
-    public function adminUpdateAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
-        }
-
-        $editForm   = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::ADMIN, 'type' => Constants::FORM_UPDATE));
-        $deleteForm = $this->createDeleteForm($id);
-
-        $request = $this->getRequest();
-
-        $editForm->bindRequest($request);
-
-        if ($editForm->isValid()) {
-            
-            $entity->setLogo();
-            
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_organization_index'));
-        } else {
-            $entity->setFile(null);
-        }
-
-        return $this->render('PFCDTourismBundle:Admin/Organization:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Deletes a Organization entity.
-     *
-     */
-    public function adminDeleteAction($id)
-    {
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->bindRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Organization entity.');
-            }
-
-            $entity->setStatus(Organization::STATUS_DELETED);
-            $em->persist($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_organization_index'));
-    }
     
     /**************************************************************************
      ***** BACK AREA **********************************************************
      **************************************************************************/
     
     /**
-     * Finds and displays a Organization entity.
+     * Lists all Organization entities
+     * 
+     * @Secure(roles="ROLE_ADMIN")
      */
-    public function backShowAction()
+    public function backIndexAction()
     {
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
-        
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findAll();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
-        }
-
-        return $this->render('PFCDTourismBundle:Back/Organization:show.html.twig', array(
-            'entity'      => $entity
+        return $this->render('PFCDTourismBundle:Back/Organization:index.html.twig', array(
+            'organizations' => $organizations
         ));
     }
-    
+
     /**
-     * Displays a form to edit an existing Organization entity.
+     * Displays a form to create a new Organization entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ADMIN")
      */
-    public function backEditAction()
+    public function backCreateAction()
     {
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $options['domain'] = Constants::ADMIN;
+        $options['type'] = Constants::FORM_CREATE;
         
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
-        }
-
-        $editForm = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
-
-        return $this->render('PFCDTourismBundle:Back/Organization:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
-        ));
-    }
-    
-    /**
-     * Edits an existing Organization entity.
-     */
-    public function backUpdateAction()
-    {
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $organization  = new Organization();
+        $form = $this->createForm(new OrganizationType(), $organization, $options);
         
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
-        }
-
-        $editForm = $this->createForm(new OrganizationType(), $entity, array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE));
-
         $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
 
-        $editForm->bindRequest($request);
+            if ($form->isValid())
+            {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($organization);
+                $em->flush();
 
-        if ($editForm->isValid()) {
-            
-            $entity->setLogo();
-            
-            $em->persist($entity);
-            $em->flush();
+                return $this->redirect($this->generateUrl('back_organization_read', array('id' => $organization->getId())));
+            }
+        }
 
-            return $this->redirect($this->generateUrl('back_organization_show'));
-        } else {
-            $entity->setFile(null);
+        return $this->render('PFCDTourismBundle:Back/Organization:create.html.twig', array(
+            'organization' => $organization,
+            'form'         => $form->createView()
+        ));
+    }
+    
+    /**
+     * Finds and displays a Organization entity
+     */
+    public function backReadAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
+        {
+            throw new AccessDeniedException();
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('PFCDTourismBundle:Back/Organization:read.html.twig', array(
+            'organization' => $organization,
+            'delete_form'  => $deleteForm->createView(),
+        ));
+    }
+    
+    /**
+     * Edits an existent Organization entity and store it when the form is submitted and valid
+     */
+    public function backUpdateAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
+        {
+            throw $this->createNotFoundException('Unable to find Organization entity.');
+        }
+        
+        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['type'] = Constants::FORM_UPDATE;
+        
+        $editForm = $this->createForm(new OrganizationType(), $organization, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $editForm->bindRequest($request);
+
+            if ($editForm->isValid())
+            {
+                $organization->setLogo();
+
+                $em->persist($organization);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('back_organization_read', array('id' => $id)));
+            }
+            else
+            {
+                $organization->setFile(null);
+            }
         }
        
-        return $this->render('PFCDTourismBundle:Back/Organization:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+        return $this->render('PFCDTourismBundle:Back/Organization:update.html.twig', array(
+            'organization' => $organization,
+            'edit_form'    => $editForm->createView(),
         ));
     }
+
+    /**
+     * Deletes a Organization entity
+     */
+    public function backDeleteAction($id)
+    {
+        $form = $this->createDeleteForm($id);
+        
+        $request = $this->getRequest();
+
+        $form->bindRequest($request);
+
+        if ($form->isValid())
+        {
+            $em = $this->getDoctrine()->getEntityManager();
+            $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+            if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+
+            if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
+            {
+                throw $this->createNotFoundException('Unable to find Organization entity.');
+            }
+
+            $organization->setStatus(Organization::STATUS_DELETED);
+            $em->persist($organization);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('back_organization_index'));
+    }
+    
     
     /**************************************************************************
      ***** FRONT AREA *********************************************************
@@ -309,15 +217,14 @@ class OrganizationController extends Controller
         ));
     }
 
+    
     /**************************************************************************
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/
     
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
     }
+    
 }
