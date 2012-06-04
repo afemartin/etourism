@@ -36,7 +36,7 @@ class UserType extends AbstractType
     
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => null, 'type' => null);
+        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE);
     }
     
     public function getName()
