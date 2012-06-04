@@ -15,7 +15,7 @@
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Save changes'|trans }}</button>
-        <a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
+        <a class="btn btn-inverse" href="{{ path('back_activity_read', { 'id': activity.id }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
     </div>
 </form>
 {% endblock %}
