@@ -1,0 +1,7 @@
+Hola {{ user.firstname }},
+
+Ha solicitado en nuestra web {{ url('front_index') }} restaurar su contraseña, podrá hacerlo usando el siguiente enlace
+
+Pinche aqui: {{ url('front_reset_password', { 'id': user.id, 'key': user.resetKey }) }}
+
+Atentamente, el equipo de CooperationTourism.com

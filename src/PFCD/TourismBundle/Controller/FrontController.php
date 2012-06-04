@@ -89,11 +89,12 @@ class FrontController extends Controller
                 }
                 else
                 {
+                    $template = $user->getLocale() == 'es' ? 'remember.es.txt.twig' : 'remember.en.txt.twig';
                     $message = \Swift_Message::newInstance()
                             ->setSubject('[CooperationTourism] Remember password')
                             ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
                             ->setTo($entity->getEmail())
-                            ->setBody($this->renderView('PFCDTourismBundle:Mail:remember.txt.twig', array('user' => $users)));
+                            ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $user)));
                     $this->get('mailer')->send($message);
 
                     $this->get('session')->setFlash('alert-success', 'We send you an email with a reset link for your password. Please check your email inbox!');

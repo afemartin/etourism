@@ -210,11 +210,12 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
             
+            $template = $entity->getLocale() == 'es' ? 'activation.es.txt.twig' : 'activation.en.txt.twig';
             $message = \Swift_Message::newInstance()
                         ->setSubject('[CooperationTourism] Activation of your account')
                         ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
                         ->setTo($entity->getEmail())
-                        ->setBody($this->renderView('PFCDTourismBundle:Mail:activation.txt.twig', array('user' => $entity)));
+                        ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $entity)));
             $this->get('mailer')->send($message);
 
             $this->get('session')->setFlash('alert-success', 'You have register your account successfully. Before to login you should check your email inbox to follow the instructions in order to activate the account. Thank you!');
