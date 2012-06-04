@@ -67,6 +67,15 @@ back.activity.read.subtitle: In this list there are detailed information stored 
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
 
+back.organization.index.title: Organization list
+back.organization.index.subtitle: In this list there are all the activities registered in the system
+back.organization.create.title: Organization creation
+back.organization.create.subtitle: Use this form to create manually a new organization
+back.organization.read.title: Organization details
+back.organization.read.subtitle: In this list there are detailed information stored about this organization
+back.organization.update.title: Organization edit
+back.organization.update.subtitle: Use this form to edit the organization information
+
 
 ################################################################################
 ##### Footer
@@ -83,13 +92,14 @@ info.beta: This website is a beta version only for development testing purpose
 
 
 ################################################################################
-##### Login & Register (Form)
+##### Login & Register & Remember Password (Form)
 ################################################################################
 
 Username: Username
 Email: Email
 Password: Password
-Repeatpassword: Repeat password
+New password: New password
+Repeat password: Repeat password
 
 
 ################################################################################
@@ -198,11 +208,21 @@ Message: Message
 
 Create: Create
 Edit: Edit
+Save: Save
 Cancel: Cancel
 Send: Send
+
+Save changes: Save changes
+Cancel changes: Cancel changes
 
 back.activity.button.index: Back to the list
 back.activity.button.create: Create a new activity
 back.activity.button.read: Show this activity
 back.activity.button.update: Edit this activity
 back.activity.button.delete: Delete this activity
+
+back.organization.button.index: Back to the list
+back.organization.button.create: Create a new organization
+back.organization.button.read: Show this organization
+back.organization.button.update: Edit this organization
+back.organization.button.delete: Delete this organization

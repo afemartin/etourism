@@ -67,6 +67,15 @@ back.activity.read.subtitle: En esta lista se muestra informacion detallada sobr
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
+back.organization.index.title: Organization list
+back.organization.index.subtitle: In this list there are all the activities registered in the system
+back.organization.create.title: Organization creation
+back.organization.create.subtitle: Use this form to create manually a new organization
+back.organization.read.title: Organization details
+back.organization.read.subtitle: In this list there are detailed information stored about this organization
+back.organization.update.title: Organization edit
+back.organization.update.subtitle: Use this form to edit the organization information
+
 
 ################################################################################
 ##### Pie
@@ -89,7 +98,8 @@ info.beta: Esta web esta en versión de pruebas durante su desarrollo
 Username: Usuario
 Email: Email
 Password: Contraseña
-Repeatpassword: Repita contraseña
+New password: Nueva contraseña
+Repeat password: Repita contraseña
 
 
 ################################################################################
@@ -119,7 +129,7 @@ Reservations: Reservas
 ################################################################################
 
 Id: ID
-Created: Hora de creación
+Created: Fecha de alta
 Updated: Última edición
 Status: Estado
 
@@ -138,7 +148,7 @@ Country: País
 City: Ciudad
 Address: Dirección
 Postalcode: Codigo postal
-Phone: Telefono
+Phone: Teléfono
 Locale: Idioma
 Day: Dia
 Month: Mes
@@ -198,11 +208,21 @@ Message: Mensaje
 
 Create: Crear
 Edit: Editar
+Save: Guardar
 Cancel: Cancelar
 Send: Enviar
+
+Save changes: Guardar cambios
+Cancel changes: Cancelar cambios
 
 back.activity.button.index: Volver atrás
 back.activity.button.create: Añadir una nueva actividad
 back.activity.button.read: Mostrar esta actividad
 back.activity.button.update: Editar esta actividad
 back.activity.button.delete: Eliminar esta actividad
+
+back.organization.button.index: Back to the list
+back.organization.button.create: Create a new organization
+back.organization.button.read: Show this organization
+back.organization.button.update: Edit this organization
+back.organization.button.delete: Delete this organization
