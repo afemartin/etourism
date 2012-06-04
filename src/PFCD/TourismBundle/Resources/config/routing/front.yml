@@ -4,15 +4,22 @@
     
 front_login:
     pattern:  /login
-    defaults: { _controller: PFCDTourismBundle:Front:login }    
+    defaults: { _controller: PFCDTourismBundle:Front:login }
+    requirements: { _method: get }
     
 front_login_check:
     pattern:  /login_check
     options:  { i18n: false }
+    requirements: { _method: post }
+    
+front_logout:
+    pattern:  /logout
+    options:  { i18n: false }
+    requirements: { _method: post }
     
 front_remember_password:
     pattern:  /remember
-    defaults: { _controller: PFCDTourismBundle:Front:rememberPassword }        
+    defaults: { _controller: PFCDTourismBundle:Front:rememberPassword }     
     
 front_reset_password:
     pattern:  /reset-{id}-key-{key}
@@ -20,11 +27,9 @@ front_reset_password:
     
 front_activate_user:
     pattern:  /activate-{id}-key-{key}
-    defaults: { _controller: PFCDTourismBundle:Front:activateUser }        
-    
-front_logout:
-    pattern:  /logout
-    options:  { i18n: false }
+    defaults: { _controller: PFCDTourismBundle:Front:activateUser }
+    requirements: { _method: get }
+
 
 ################################################################################
 ##### FRONT CONTROLLER #########################################################
@@ -43,39 +48,31 @@ front_about:
     pattern:  /about
     defaults: { _controller: PFCDTourismBundle:Front:about }
     requirements: { _method: get }
-    
+
+
 ################################################################################
 ##### USER CONTROLLER ##########################################################
 ################################################################################
 
-front_user_register:
-    pattern:   /register
-    defaults:  { _controller: PFCDTourismBundle:User:frontNew }
-
 front_user_create:
-    pattern:  /user/create
-    defaults: { _controller: "PFCDTourismBundle:User:frontCreate" }
-    requirements: { _method: post }
-    
-front_user_show:
-    pattern:  /user/{id}
-    defaults: { _controller: "PFCDTourismBundle:User:frontShow" }
-    requirements: { id: \d+ }
+    pattern:   /register
+    defaults:  { _controller: PFCDTourismBundle:User:frontCreate}
 
-front_user_edit:
-    pattern:  /user/edit
-    defaults: { _controller: "PFCDTourismBundle:User:frontEdit" }
+front_user_read:
+    pattern:  /user/{id}
+    defaults: { _controller: "PFCDTourismBundle:User:frontRead" }
+    requirements: { _method: get, id: \d+ }
 
 front_user_update:
-    pattern:  /user/update
+    pattern:  /user/edit
     defaults: { _controller: "PFCDTourismBundle:User:frontUpdate" }
-    requirements: { _method: post }
 
 front_user_delete:
     pattern:  /user/delete
     defaults: { _controller: "PFCDTourismBundle:User:frontDelete" }
     requirements: { _method: post }
-    
+
+
 ################################################################################
 ##### ORGANIZATION CONTROLLER ##################################################
 ################################################################################
@@ -85,12 +82,12 @@ front_organization_index:
     defaults: { _controller: PFCDTourismBundle:Organization:frontIndex }
     requirements: { _method: get }
     
-front_organization_show:
+front_organization_read:
     pattern:  /organization/{id}
-    defaults: { _controller: "PFCDTourismBundle:Organization:frontShow" }
-    requirements: { id: \d+ }
-    
-    
+    defaults: { _controller: "PFCDTourismBundle:Organization:frontRead" }
+    requirements: { _method: get, id: \d+ }
+
+
 ################################################################################
 ##### ACTIVITY CONTROLLER ######################################################
 ################################################################################
@@ -98,8 +95,9 @@ front_organization_show:
 front_activity_index:
     pattern:  /activities
     defaults: { _controller: "PFCDTourismBundle:Activity:frontIndex" }
+    requirements: { _method: get }
 
-front_activity_show:
+front_activity_read:
     pattern:  /activity/{id}
-    defaults: { _controller: "PFCDTourismBundle:Activity:frontShow" }
-    requirements: { id: \d+ }  
+    defaults: { _controller: "PFCDTourismBundle:Activity:frontRead" }
+    requirements: { _method: get, id: \d+ }  

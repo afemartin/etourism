@@ -6,11 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 
 use PFCD\TourismBundle\Entity\User;
-
+use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Enquiry;
 use PFCD\TourismBundle\Form\EnquiryType;
 
-use PFCD\TourismBundle\Entity\Activity;
 
 class FrontController extends Controller
 {
@@ -19,10 +18,10 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('status' => Activity::STATUS_ENABLED));
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
 
         return $this->render('PFCDTourismBundle:Front/Home:index.html.twig', array(
-            'entities' => $entities
+            'activities' => $activities
         ));
     }
 
@@ -34,7 +33,6 @@ class FrontController extends Controller
         $request = $this->getRequest();
         $session = $request->getSession();
 
-        // get the login error if there is one
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR))
         {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
@@ -49,16 +47,47 @@ class FrontController extends Controller
             
             $locale = $this->container->get('security.context')->getToken()->getUser()->getLocale();
             
-            if ($locale) {
+            if ($locale)
+            {
                 return $this->redirect($this->generateUrl('front_index', array('_locale' => $locale)));
-            } else {
+            }
+            else
+            {
                 return $this->redirect($this->generateUrl('front_index'));
             }
         }
 
         return $this->render('PFCDTourismBundle:Front/Home:login.html.twig', array(
-                    'error' => $error,
-                ));
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+        ));
+    }
+    
+    /**
+     * Check that the activationKey is valid and enable the user account
+     */
+    public function activateUserAction($id, $key)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $user = $em->getRepository('PFCDTourismBundle:User')->findOneBy(array('id' => $id, 'status' => User::STATUS_PENDING));
+
+        if (!$user || $user->getActivationKey() !== $key)
+        {
+            $this->get('session')->setFlash('alert-error', $this->get('translator')->trans('alert.error.activateuser'));
+            
+            return $this->redirect($this->generateUrl('front_index'));
+        }
+        else
+        {
+            $user->setStatus(User::STATUS_ENABLED);
+            $em->persist($user);
+            $em->flush();
+
+            $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.activateuser'));
+            
+            return $this->redirect($this->generateUrl('front_login'));
+        }
     }
 
     /**
@@ -66,12 +95,14 @@ class FrontController extends Controller
      */
     public function rememberPasswordAction()
     {
-        $entity = new User();
-        $form = $this->createFormBuilder($entity, array('validation_groups' => array('Remember')))
+        $user = new User();
+        
+        $form = $this->createFormBuilder($user, array('validation_groups' => array('Remember')))
                 ->add('email', 'email')
                 ->getForm();
 
         $request = $this->getRequest();
+        
         if ($request->getMethod() == 'POST')
         {
             $form->bindRequest($request);
@@ -80,32 +111,34 @@ class FrontController extends Controller
             {
                 $em = $this->getDoctrine()->getEntityManager();
 
-                $user = $em->getRepository('PFCDTourismBundle:User')->findOneBy(array('email' => $entity->getEmail()));
+                $user = $em->getRepository('PFCDTourismBundle:User')->findOneByEmail($user->getEmail());
 
-                // Check if exist any user with that email and send him a link with the sha1(salt) as identification_key
                 if (!$user)
                 {
-                    $this->get('session')->setFlash('alert-error', 'There is no user with that email in our database. Sorry');
+                    $this->get('session')->setFlash('alert-error', $this->get('translator')->trans('alert.error.rememberpassword'));
                 }
                 else
                 {
                     $template = $user->getLocale() == 'es' ? 'remember.es.txt.twig' : 'remember.en.txt.twig';
+                    
                     $message = \Swift_Message::newInstance()
-                            ->setSubject('[CooperationTourism] Remember password')
+                            ->setSubject('[CooperationTourism] ' . $this->get('translator')->trans('Remember password', array(), 'messages', $user->getLocale()))
                             ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
-                            ->setTo($entity->getEmail())
+                            ->setTo($user->getEmail())
                             ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $user)));
+                    
                     $this->get('mailer')->send($message);
 
-                    $this->get('session')->setFlash('alert-success', 'We send you an email with a reset link for your password. Please check your email inbox!');
+                    $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.rememberpassword'));
+                    
                     return $this->redirect($this->generateUrl('front_index'));
                 }
             }
         }
 
         return $this->render('PFCDTourismBundle:Front/Home:rememberPassword.html.twig', array(
-                    'form' => $form->createView()
-                ));
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -115,76 +148,54 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:User')->findOneBy(array('id' => $id));
+        $user = $em->getRepository('PFCDTourismBundle:User')->find($id);
 
-        $form = $this->createFormBuilder($entity, array('validation_groups' => array('Reset')))
+        $form = $this->createFormBuilder($user, array('validation_groups' => array('Reset')))
                 ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'password.match.error', 'first_name' => 'New password', 'second_name' => 'Repeat password'))
                 ->getForm();
 
-        if (!$entity || $entity->getResetKey() !== $key)
+        if (!$user || $user->getResetKey() !== $key)
         {
-            $this->get('session')->setFlash('alert-error', 'The link received to reset the password it is not valid or you already reset your password before. Please contact us if you continue having problems to reset your password');
+            $this->get('session')->setFlash('alert-error', $this->get('translator')->trans('alert.error.resetpassword'));
+            
             return $this->redirect($this->generateUrl('front_index'));
         }
         else
         {
             $request = $this->getRequest();
+            
             if ($request->getMethod() == 'POST')
             {
                 $form->bindRequest($request);
 
                 if ($form->isValid())
                 {
-                    $em->persist($entity);
+                    $em->persist($user);
                     $em->flush();
 
-                    $this->get('session')->setFlash('alert-success', 'Your password has been reset successfully. Use your new password to login into the system');
+                    $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.resetpassword'));
+                    
                     return $this->redirect($this->generateUrl('front_index'));
                 }
             }
         }
 
         return $this->render('PFCDTourismBundle:Front/Home:resetPassword.html.twig', array(
-                    'form' => $form->createView()
-                ));
+            'form' => $form->createView()
+        ));
     }
 
     /**
-     * Check that the activationKey is valid and enable the user account
+     * Display a contact form and send a enquiry to the webmaster when the form is submitted and valid
      */
-    public function activateUserAction($id, $key)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:User')->findOneBy(array('id' => $id));
-
-        if (!$entity || $entity->getActivationKey() !== $key)
-        {
-            $this->get('session')->setFlash('alert-error', 'The link received to activate your account it is not valid or you already used before. Please contact us if you can not activate your account with the link provided');
-            return $this->redirect($this->generateUrl('front_index'));
-        }
-        else
-        {
-            $entity->setStatus(User::STATUS_ENABLED);
-            $em->persist($entity);
-            $em->flush();
-
-            $this->get('session')->setFlash('alert-success', 'Your account has been activated successfully. Use your email and password to login into the system');
-            return $this->redirect($this->generateUrl('front_login'));
-        }
-    }
-
-    public function aboutAction()
-    {
-        return $this->render('PFCDTourismBundle:Front/Home:about.html.twig');
-    }
-
     public function contactAction()
     {
         $enquiry = new Enquiry();
+        
         $form = $this->createForm(new EnquiryType(), $enquiry);
 
         $request = $this->getRequest();
+        
         if ($request->getMethod() == 'POST')
         {
             $form->bindRequest($request);
@@ -196,26 +207,36 @@ class FrontController extends Controller
                         ->setFrom($this->container->getParameter('pfcd_tourism.emails.outgoing_email'))
                         ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
                         ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)));
+                
                 $this->get('mailer')->send($message);
 
-                $this->get('session')->setFlash('alert-success', 'Your contact enquiry was successfully sent. Thank you!');
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.contactenquiry'));
 
-                // Redirect - This is important to prevent users re-posting
-                // the form if they refresh the page
                 return $this->redirect($this->generateUrl('front_contact'));
             }
         }
 
         return $this->render('PFCDTourismBundle:Front/Home:contact.html.twig', array(
-                    'form' => $form->createView()
-                ));
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * Display About page
+     */
+    public function aboutAction()
+    {
+        return $this->render('PFCDTourismBundle:Front/Home:about.html.twig');
     }
     
+    /**
+     * Called from the template sidebar.html.yml to retrieve the list of most recent activities and news
+     */
     public function sidebarAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('status' => Activity::STATUS_ENABLED));
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
 
         return $this->render('PFCDTourismBundle:Front/Home:sidebar.html.twig', array(
             'activities' => $activities

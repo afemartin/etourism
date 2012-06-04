@@ -5,23 +5,20 @@
 {% block title %}{{ 'Contact'|trans }}{% endblock%}
 
 {% block body %}
-    <header>
-        <h1>{{ 'Contact us'|trans }}</h1>
-    </header>
+<h1>{{ 'front.contact.title'|trans }}</h1>
+<p>{{ 'front.contact.subtitle'|trans }}</p>
 
-    <p>{{ 'Want to send us feedback or report some error?'|trans }}</p>
-
-    <form class="form-horizontal" action="{{ path('front_contact') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> {{ 'Send'|trans }}</button>
-        </div>
-    </form>
+<form class="form-horizontal" action="{{ path('front_contact') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> {{ 'Send'|trans }}</button>
+    </div>
+</form>
 {% endblock %}
     
 {% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#navbar-tab-contact').addClass("active");
-    </script>
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-contact').addClass("active");
+</script>
 {% endblock %}

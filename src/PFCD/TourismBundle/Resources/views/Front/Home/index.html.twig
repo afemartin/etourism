@@ -1,20 +1,20 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
 {% block body %}
-<h1>Homepage</h1>
-<p>These are the most recent and popular activities offered</p>
+<h1>{{ 'front.home.title'|trans }}</h1>
+<p>{{ 'front.home.subtitle'|trans }}</p>
 
-{% for entity in entities %}
+{% for activity in activities %}
 <div class="info-container row">
     <div class="info-title span9">
-        <h2>{{ entity.title }}</h2>
+        <h2>{{ activity.title }}</h2>
     </div>
     <div class="info-image span2 hidden-phone">
-        <img class="thumbnail" alt="{{ entity.title }}" src="http://placehold.it/160x120" />
+        <img class="thumbnail" alt="{{ activity.title }}" src="http://placehold.it/160x120" />
     </div>
     <div class="info-desc span7">
-        <p>{{ entity.shortDesc }}</p>
-        <a class="btn pull-right" href="{{ path('front_activity_show', { 'id': entity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+        <p>{{ activity.shortDesc }}</p>
+        <a class="btn pull-right" href="{{ path('front_activity_show', { 'id': activity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
     </div>
 </div>
 {% if not loop.last %}
@@ -26,8 +26,8 @@
 {% endblock %}
     
 {% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#navbar-tab-home').addClass("active");
-    </script>
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-home').addClass("active");
+</script>
 {% endblock %}

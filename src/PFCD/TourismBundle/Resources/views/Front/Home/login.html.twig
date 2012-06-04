@@ -1,41 +1,41 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
-{% block title %}Login{% endblock%}
+{% block title %}{{ 'Login'|trans }}{% endblock%}
 
 {% block body %}
-    <header>
-        <h1>User login</h1>
-    </header>
-    <p>Please fill the following information to login</p>
-    {% if error %}
-        <div class="alert alert-error fade in">
-            <button class="close" data-dismiss="alert">×</button>
-            {{ error.message }}
+<h1>{{ 'front.login.title'|trans }}</h1>
+<p>{{ 'front.login.subtitle'|trans }}</p>
+
+{% if error %}
+<div class="alert alert-error fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    {{ error.message }}
+</div>
+{% endif %}
+
+<form class="form-horizontal" action="{{ path('front_login_check') }}" method="post">
+    <div class="control-group">
+        <label class="control-label" for="email">{{ 'Email'|trans }}</label>
+        <div class="controls">
+            <input id="email" name="_email" type="text" placeholder="{{ 'Email'|trans }}" value="{{ last_username }}" required="required" />
         </div>
-    {% endif %}
-    <form class="form-horizontal" action="{{ path('front_login_check') }}" method="post">
-        <div class="control-group">
-            <label class="control-label" for="email">{{ 'Email'|trans }}</label>
-            <div class="controls">
-                <input id="email" name="_email" type="text" placeholder="{{ 'Email'|trans }}" required="required" />
-            </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="password">{{ 'Password'|trans }}</label>
+        <div class="controls">
+            <input id="password" name="_password" type="password" placeholder="{{ 'Password'|trans }}" required="required" />
         </div>
-        <div class="control-group">
-            <label class="control-label" for="password">{{ 'Password'|trans }}</label>
-            <div class="controls">
-                <input id="password" name="_password" type="password" placeholder="{{ 'Password'|trans }}" required="required" />
-            </div>
-        </div>
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> {{ 'Login'|trans }}</button>
-            <a id="reset_password" href="{{ path('front_remember_password') }}" class="btn" rel="popover" data-original-title="{{ 'Reset my password'|trans }}" data-content="{{ 'If you dont remember your password we will send you a link to your email account in order to allow you to set a new password'|trans }}"> {{ 'Remember my password'|trans }}</a>
-        </div>
-    </form>
+    </div>
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> {{ 'Login'|trans }}</button>
+        <a id="reset_password" href="{{ path('front_remember_password') }}" class="btn" rel="popover" data-original-title="{{ 'popover.resetpassword.title'|trans }}" data-content="{{ 'popover.resetpassword.content'|trans }}"> {{ 'Remember password'|trans }}</a>
+    </div>
+</form>
 {% endblock %}
     
 {% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#reset_password').popover();
-    </script>
+{{ parent() }}
+<script type="text/javascript">
+    $('#reset_password').popover();
+</script>
 {% endblock%}    

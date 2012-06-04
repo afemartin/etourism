@@ -153,110 +153,79 @@ class UserController extends Controller
 
         return $this->redirect($this->generateUrl('back_user_index'));
     }
- 
-        
+
+    
     /**************************************************************************
      ***** FRONT AREA *********************************************************
      **************************************************************************/
    
     /**
-     * Finds and displays a User entity.
-     */
-    public function frontShowAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('PFCDTourismBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PFCDTourismBundle:Front/User:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-
-        ));
-    }
-
-    /**
-     * Displays a form to create a new User entity.
-     */
-    public function frontNewAction()
-    {
-        $entity = new User();
-        $form   = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_CREATE));
-
-        return $this->render('PFCDTourismBundle:Front/User:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
-    }
-
-    /**
-     * Creates a new User entity.
+     * Displays a form to create a new User entity and store it when the form is submitted and valid
      */
     public function frontCreateAction()
     {
-        $entity  = new User();
+        $options['domain'] = Constants::FRONT;
+        $options['type'] = Constants::FORM_CREATE;
+        
+        $user = new User();
+        $form = $this->createForm(new UserType(), $user, $options);
+        
         $request = $this->getRequest();
-        $form    = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_CREATE));
-        $form->bindRequest($request);
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
-            $em->flush();
-            
-            $template = $entity->getLocale() == 'es' ? 'activation.es.txt.twig' : 'activation.en.txt.twig';
-            $message = \Swift_Message::newInstance()
-                        ->setSubject('[CooperationTourism] Activation of your account')
-                        ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
-                        ->setTo($entity->getEmail())
-                        ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $entity)));
-            $this->get('mailer')->send($message);
+            if ($form->isValid())
+            {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($user);
+                $em->flush();
 
-            $this->get('session')->setFlash('alert-success', 'You have register your account successfully. Before to login you should check your email inbox to follow the instructions in order to activate the account. Thank you!');
-            return $this->redirect($this->generateUrl('front_index'));
+                $template = $user->getLocale() == 'es' ? 'activation.es.txt.twig' : 'activation.en.txt.twig';
+                $message = \Swift_Message::newInstance()
+                            ->setSubject('[CooperationTourism] Activation of your account')
+                            ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
+                            ->setTo($user->getEmail())
+                            ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $user)));
+                
+                $this->get('mailer')->send($message);
+
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.createuser'));
+                
+                return $this->redirect($this->generateUrl('front_index'));
+            }
         }
 
-        return $this->render('PFCDTourismBundle:Front/User:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
+        return $this->render('PFCDTourismBundle:Front/User:create.html.twig', array(
+            'user' => $user,
+            'form' => $form->createView()
         ));
     }
 
     /**
-     * Displays a form to edit an existing User entity.
-     *
+     * Finds and displays a User entity
+     * 
      * @Secure(roles="ROLE_USER")
      */
-    public function frontEditAction()
+    public function frontReadAction($id)
     {
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
-        
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:User')->find($id);
+        $user = $em->getRepository('PFCDTourismBundle:User')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
+        if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
 
-        $editForm = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_UPDATE));
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('PFCDTourismBundle:Front/User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('PFCDTourismBundle:Front/User:read.html.twig', array(
+            'user'        => $user,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Edits an existing User entity.
+     * Edits an existent User entity and store it when the form is submitted and valid
      *
      * @Secure(roles="ROLE_USER")
      */
@@ -266,34 +235,38 @@ class UserController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:User')->find($id);
+        $user = $em->getRepository('PFCDTourismBundle:User')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $editForm   = $this->createForm(new UserType(), $entity, array('domain' => Constants::FRONT, 'type' => Constants::FORM_UPDATE));
-        $deleteForm = $this->createDeleteForm($id);
-
+        if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
+        
+        $options['domain'] = Constants::FRONT;
+        $options['type'] = Constants::FORM_UPDATE;
+        
+        $editForm = $this->createForm(new UserType(), $user, $options);
+        
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        if ($request->getMethod() == 'POST')
+        {
+            $editForm->bindRequest($request);
 
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
+            if ($editForm->isValid())
+            {
+                $em->persist($user);
+                $em->flush();
 
-            $this->get('session')->setFlash('alert-success', 'Your changes have been saved successfully');
-            return $this->redirect($this->generateUrl('front_user_show', array('id'=>$id)));
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.updateuser'));
+                
+                return $this->redirect($this->generateUrl('front_user_read', array('id'=>$id)));
+            }
         }
 
-        return $this->render('PFCDTourismBundle:Front/User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        return $this->render('PFCDTourismBundle:Front/User:update.html.twig', array(
+            'user'      => $user,
+            'edit_form' => $editForm->createView(),
         ));
     }
-
+    
     /**
      * Deletes a User entity.
      *
@@ -304,26 +277,27 @@ class UserController extends Controller
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         
         $form = $this->createDeleteForm($id);
+        
         $request = $this->getRequest();
 
         $form->bindRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid())
+        {
             $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('PFCDTourismBundle:User')->find($id);
+            $user = $em->getRepository('PFCDTourismBundle:User')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find User entity.');
-            }
+            if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
 
-            $entity->setStatus(User::STATUS_DELETED);
-            $em->persist($entity);
+            $user->setStatus(User::STATUS_DELETED);
+            $em->persist($user);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('front_user_edit'));
+        return $this->redirect($this->generateUrl('front_user_read'));
     }
 
+    
     /**************************************************************************
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/

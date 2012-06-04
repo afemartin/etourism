@@ -203,28 +203,29 @@ class ActivityController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('status' => Activity::STATUS_ENABLED));
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
 
         return $this->render('PFCDTourismBundle:Front/Activity:index.html.twig', array(
-            'entities' => $entities
+            'activities' => $activities
         ));
     }
 
     /**
      * Finds and displays a Activity entity
      */
-    public function frontShowAction($id)
+    public function frontReadAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $filter['id'] = $id;
+        $filter['status'] = array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED);
+        
+         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:Activity')->find($id);
+        $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Activity entity.');
-        }
+        if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
-        return $this->render('PFCDTourismBundle:Front/Activity:show.html.twig', array(
-            'entity'      => $entity,
+        return $this->render('PFCDTourismBundle:Front/Activity:read.html.twig', array(
+            'activity' => $activity,
         ));
     }
     

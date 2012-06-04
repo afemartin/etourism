@@ -17,6 +17,7 @@ back_logout:
     options:  { i18n: false }
     requirements: { _method: get }
 
+
 ################################################################################
 ##### BACK CONTROLLER ##########################################################
 ################################################################################
@@ -25,6 +26,7 @@ back_index:
     pattern:  /
     defaults: { _controller: PFCDTourismBundle:Back:index }
     requirements: { _method: get }
+
 
 ################################################################################
 ##### USER CONTROLLER ##########################################################
@@ -53,7 +55,8 @@ back_user_delete:
     pattern:  /user/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:User:backDelete" }
     requirements: { _method: post, id: \d+ }
-    
+
+
 ################################################################################
 ##### ORGANIZATION CONTROLLER ##################################################
 ################################################################################
@@ -81,6 +84,7 @@ back_organization_delete:
     pattern:  /organization/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Organization:backDelete" }
     requirements: { _method: post, id: \d+ }
+
 
 ################################################################################
 ##### ACTIVITY CONTROLLER ######################################################

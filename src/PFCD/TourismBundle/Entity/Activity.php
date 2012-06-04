@@ -611,10 +611,9 @@ class Activity
      */
     public function getImage()
     {
-        $images = explode("|", $this->image);
-
-        if (!empty($images))
+        if ($this->image)
         {
+            $images = explode("|", $this->image);
             return $this->getUploadDir() . '/' . $images[0];
         }
         
@@ -628,10 +627,10 @@ class Activity
      */
     public function getImages()
     {
-        $images = explode("|", $this->image);
-        
-        if (!empty($images))
+        if ($this->image)
         {
+            $images = explode("|", $this->image);
+        
             foreach ($images as &$image)
             {
                 $image = $this->getUploadDir() . '/' . $image;

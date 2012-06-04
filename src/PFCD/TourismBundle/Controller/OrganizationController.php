@@ -110,7 +110,7 @@ class OrganizationController extends Controller
 
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
         {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
+            throw new AccessDeniedException();
         }
         
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
@@ -165,7 +165,7 @@ class OrganizationController extends Controller
 
             if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
             {
-                throw $this->createNotFoundException('Unable to find Organization entity.');
+                throw new AccessDeniedException();
             }
 
             $organization->setStatus(Organization::STATUS_DELETED);
@@ -182,38 +182,42 @@ class OrganizationController extends Controller
      **************************************************************************/
    
     /**
-     * Lists all Organization entities.
+     * Lists all Organization entities
      */
     public function frontIndexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('PFCDTourismBundle:Organization')->findBy(array('status' => Organization::STATUS_ENABLED));
+        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findByStatus(array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
 
         return $this->render('PFCDTourismBundle:Front/Organization:index.html.twig', array(
-            'entities' => $entities
+            'organizations' => $organizations
         ));
     }
 
     /**
-     * Finds and displays a Organization entity.
-     *
+     * Finds and displays a Organization entity
      */
-    public function frontShowAction($id)
+    public function frontReadAction($id)
     {
+        $filter['id'] = $id;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Organization entity.');
-        }
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
         
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy(array('organization' => $id));
+        unset($filter);
+        $filter['organization'] = $id;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter);
 
-        return $this->render('PFCDTourismBundle:Front/Organization:show.html.twig', array(
-            'entity'      => $entity,
-            'activities'  => $activities,
+        return $this->render('PFCDTourismBundle:Front/Organization:read.html.twig', array(
+            'organization' => $organization,
+            'activities'   => $activities,
         ));
     }
 

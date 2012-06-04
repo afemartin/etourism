@@ -3,17 +3,13 @@
 {% block title %}{{ 'About'|trans }}{% endblock%}
 
 {% block body %}
-    <header>
-        <h1>{{ 'About us'|trans }}</h1>
-    </header>
-    <article>
-        <p>This project want to help organizations to have some incom of money because of blablabla...</p>
-    </article>
+<h1>{{ 'front.about.title'|trans }}</h1>
+<p>{{ 'front.about.subtitle'|trans }}</p>
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#navbar-tab-about').addClass("active");
-    </script>
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-about').addClass("active");
+</script>
 {% endblock %}

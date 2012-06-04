@@ -1,20 +1,22 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
-{% block body %}
-<h1>Activity list</h1>
-<p>In this list there are all the activities registered in the system</p>
+{% block title %}{{ 'Activities'|trans }}{% endblock%}
 
-{% for entity in entities %}
+{% block body %}
+<h1>{{ 'front.organization.index.title'|trans }}</h1>
+<p>{{ 'front.organization.index.subtitle'|trans }}</p>
+
+{% for activity in activities %}
 <div class="info-container row">
     <div class="info-title span9">
-        <h2>{{ entity.title }}</h2>
+        <h2>{{ activity.title }}</h2>
     </div>
     <div class="info-image span2 hidden-phone">
-        <img class="thumbnail" alt="{{ entity.title }}" src="{{ asset(entity.image) }}" />
+        <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/170x120{% endif%}" />
     </div>
     <div class="info-desc span7">
-        <p>{{ entity.shortDesc }}</p>
-        <a class="btn pull-right" href="{{ path('front_activity_show', { 'id': entity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+        <p>{{ activity.shortDesc }}</p>
+        <a class="btn pull-right" href="{{ path('front_activity_read', { 'id': activity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
     </div>
 </div>
 {% if not loop.last %}

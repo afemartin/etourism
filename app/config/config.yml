@@ -71,6 +71,6 @@ jms_i18n_routing:
 # AvalancheImagine Configuration
 avalanche_imagine:
     filters:
-        my_thumb:
+        thumbnail:
             type:    thumbnail
-            options: { size: [120, 90], mode: outbound, quality: 100, format: png }
+            options: { size: [170, 120], mode: outbound, quality: 120, format: jpg }

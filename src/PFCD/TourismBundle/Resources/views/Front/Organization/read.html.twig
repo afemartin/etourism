@@ -1,0 +1,48 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block title %}{{ 'Organization'|trans }} {{ organization.name }}{% endblock%}
+
+{% block body %}
+<div class="info-container row">
+    <div class="info-title span9">
+        <h1>{{ organization.name }} {% if organization.acronim %}({{ organization.acronim }}){% endif %}</h1>
+        <h6>{% if organization.country %}{{ 'front.organization.read.subtitle.working'|trans }} {% if organization.city %}{{ organization.city }} ({{ organization.country|country }}){% else %}{{ organization.country|country }}{% endif %}{% if organization.foundationyear %} {{ 'front.organization.read.subtitle.since'|trans }} {{ organization.foundationyear }}{% endif %}{% endif %}</h6>
+    </div>
+    <div class="info-desc span9">
+        {% if organization.video %}
+        <div class="info-video pull-right">
+            {{ organization.video|raw }}
+        </div>
+        {% endif %}
+        <p>{{ organization.shortDesc }}</p>
+        <p>{{ organization.fullDesc }}</p>
+    </div>
+</div>
+
+{% for activity in activities %}
+<div class="info-container row">
+    <div class="info-title span9">
+        <h2>{{ activity.title }}</h2>
+    </div>
+    <div class="info-image span2 hidden-phone">
+        <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/170x120{% endif%}" />
+    </div>
+    <div class="info-desc span7">
+        <p>{{ activity.shortDesc }}</p>
+        <a class="btn pull-right" href="{{ path('front_activity_read', { 'id': activity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+    </div>
+</div>
+{% if not loop.last %}
+<div class="row">
+    <div class="info-divisor span9"></div>
+</div>
+{% endif %}   
+{% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-organization').addClass("active");
+</script>
+{% endblock %}
