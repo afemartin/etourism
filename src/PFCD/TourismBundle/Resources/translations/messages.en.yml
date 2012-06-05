@@ -36,16 +36,19 @@ Spanish: Spanish
 
 ################################################################################
 ##### Browser (Metas&Tags)
-################################################################################  
+################################################################################
 
 front.browser.title: Home
+
+User profile: User profile
+Edit profile: Edit profile
 
 back.browser.title: Administration Panel
 
 
 ################################################################################
 ##### Header
-################################################################################  
+################################################################################
 
 front.header.title: CooperationTourism.com
 front.header.subtitle: Your online platform for cooperation tourism
@@ -56,7 +59,60 @@ back.header.subtitle: Administration Panel
 
 ################################################################################
 ##### Body
-################################################################################  
+################################################################################
+
+front.home.title: Homepage
+front.home.subtitle: These are the most recent and popular activities offered
+
+front.login.title: User login
+front.login.subtitle: Please fill the following information to login
+
+front.rememberpassword.title: Remember password
+front.rememberpassword.subtitle: Please fill your email account to send a link to your email account in order to allow you to set a new password
+
+front.resetpassword.title: Reset password
+front.resetpassword.subtitle: Insert your new password
+
+front.contact.title: Contact us
+front.contact.subtitle: Want to send us feedback or report some error?
+
+front.about.title: About us
+front.about.subtitle: This project want to help organizations that work for cooperation in third-world countries to... <information>
+
+front.user.create.title: User registration
+front.user.create.subtitle: Please fill the following information to complete the registration
+front.user.read.title: User profile
+front.user.read.subtitle: In this list there are detailed information stored about this user
+front.user.update.title: Edit your profile
+front.user.update.subtitle: Use this form to edit your account information
+
+front.organization.index.title: Organization list
+front.organization.index.subtitle: In this list there are all the organizationes registered in the system
+front.organization.read.subtitle.working: Working in
+front.organization.read.subtitle.since: since
+
+front.activity.index.title: Activity list
+front.activity.index.subtitle: In this list there are all the activities registered in the system
+front.activity.read.images: Activity images
+front.activity.read.geolocation: Activity location
+
+back.user.index.title: User list
+back.user.index.subtitle: In this list there are all the users registered in the system
+back.user.create.title: User creation
+back.user.create.subtitle: Use this form to create manually a new user
+back.user.read.title: User details
+back.user.read.subtitle: In this list there are detailed information stored about this user
+back.user.update.title: User edit
+back.user.update.subtitle: Use this form to edit the user information
+
+back.organization.index.title: Organization list
+back.organization.index.subtitle: In this list there are all the organizations registered in the system
+back.organization.create.title: Organization creation
+back.organization.create.subtitle: Use this form to create manually a new organization
+back.organization.read.title: Organization details
+back.organization.read.subtitle: In this list there are detailed information stored about this organization
+back.organization.update.title: Organization edit
+back.organization.update.subtitle: Use this form to edit the organization information
 
 back.activity.index.title: Activity list
 back.activity.index.subtitle: In this list there are all the activities registered in the system
@@ -66,24 +122,6 @@ back.activity.read.title: Activity details
 back.activity.read.subtitle: In this list there are detailed information stored about this activity
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
-
-back.organization.index.title: Organization list
-back.organization.index.subtitle: In this list there are all the activities registered in the system
-back.organization.create.title: Organization creation
-back.organization.create.subtitle: Use this form to create manually a new organization
-back.organization.read.title: Organization details
-back.organization.read.subtitle: In this list there are detailed information stored about this organization
-back.organization.update.title: Organization edit
-back.organization.update.subtitle: Use this form to edit the organization information
-
-back.user.index.title: Organization list
-back.user.index.subtitle: In this list there are all the activities registered in the system
-back.user.create.title: Organization creation
-back.user.create.subtitle: Use this form to create manually a new user
-back.user.read.title: Organization details
-back.user.read.subtitle: In this list there are detailed information stored about this user
-back.user.update.title: Organization edit
-back.user.update.subtitle: Use this form to edit the user information
 
 
 ################################################################################
@@ -97,7 +135,24 @@ footer.created.by: © 2012 - CooperationTourism.com - created by <a href="https:
 ##### Informative messages
 ################################################################################
 
-info.beta: This website is a beta version only for development testing purpose
+alert.info.beta: This website is a beta version only for development testing purpose
+
+alert.success.createuser: You have register your account successfully. Before to login you should check your email inbox to follow the instructions in order to activate the account. Thank you!
+alert.success.updateuser: Your changes have been saved successfully
+
+alert.error.activateuser: The link received to activate your account it is not valid or you already used before. Please contact us if you can not activate your account with the link provided
+alert.success.activateuser: Your account has been activated successfully. Use your email and password to login into the system
+
+alert.error.rememberpassword: There is no user with that email in our database. Sorry
+alert.success.rememberpassword: We send you an email with a reset link for your password. Please check your email inbox!
+
+alert.error.resetpassword: The link received to reset the password it is not valid or you already reset your password before. Please contact us if you continue having problems to reset your password
+alert.success.resetpassword: Your password has been reset successfully. Use your new password to login into the system
+
+alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank you!
+
+popover.resetpassword.title: Reset my password
+popover.resetpassword.content: If you dont remember your password we will send you a link to your email account in order to allow you to set a new password
 
 
 ################################################################################
@@ -138,8 +193,8 @@ Reservations: Reservations
 ################################################################################
 
 Id: ID
-Created: Created at
-Updated: Updated at
+Created: Created
+Updated: Updated
 Status: Status
 
 
@@ -224,11 +279,19 @@ Send: Send
 Save changes: Save changes
 Cancel changes: Cancel changes
 
-back.activity.button.index: Back to the list
-back.activity.button.create: Create a new activity
-back.activity.button.read: Show this activity
-back.activity.button.update: Edit this activity
-back.activity.button.delete: Delete this activity
+Read more: Read more
+
+Remember password: Remember password
+Reset password: Reset password
+
+front.user.button.update: Edit information
+front.user.button.delete: Delete my account
+
+back.user.button.index: Back to the list
+back.user.button.create: Create a new user
+back.user.button.read: Show this user
+back.user.button.update: Edit this user
+back.user.button.delete: Delete this user
 
 back.organization.button.index: Back to the list
 back.organization.button.create: Create a new organization
@@ -236,8 +299,8 @@ back.organization.button.read: Show this organization
 back.organization.button.update: Edit this organization
 back.organization.button.delete: Delete this organization
 
-back.user.button.index: Back to the list
-back.user.button.create: Create a new user
-back.user.button.read: Show this user
-back.user.button.update: Edit this user
-back.user.button.delete: Delete this user
+back.activity.button.index: Back to the list
+back.activity.button.create: Create a new activity
+back.activity.button.read: Show this activity
+back.activity.button.update: Edit this activity
+back.activity.button.delete: Delete this activity

@@ -40,6 +40,9 @@ Spanish: Español
 
 front.browser.title: Portada
 
+User profile: Perfil de usuario
+Edit profile: Editar perfil
+
 back.browser.title: Panel de Administracion
 
 
@@ -58,14 +61,49 @@ back.header.subtitle: Panel de Administración
 ##### Cuerpo
 ################################################################################  
 
-back.activity.index.title: Lista de actividades
-back.activity.index.subtitle: En esta lista se encuentran las actividades registradas en el sistema
-back.activity.create.title: Añadir actividad
-back.activity.create.subtitle: Rellene este formulario para crear una nueva actividad
-back.activity.read.title: Detalles de la actividad
-back.activity.read.subtitle: En esta lista se muestra información detallada sobre la actividad
-back.activity.update.title: Editar detalles
-back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
+front.home.title: Portada
+front.home.subtitle: Aqui encontrará las actividades mas recientes que le puedan interesar
+
+front.login.title: Acceso de usuario
+front.login.subtitle: Rellene los siguientes campos del formulario para acceder a su cuenta
+
+front.rememberpassword.title: Reacordar contraseña
+front.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
+
+front.resetpassword.title: Restablecer contraseña
+front.resetpassword.subtitle: Introduzca su nueva contraseña
+
+front.contact.title: Contacto
+front.contact.subtitle: ¿Quiere reportar algun problema en la página o hacer alguna sugerencia?
+
+front.about.title: Acerca
+front.about.subtitle: Este proyecto tiene como objetivo facilitar a organizaciones de cooperacion al desarrollo ofrecer su oferta turistica y dar a conocer su trabajo... <information>
+
+front.user.create.title: Registro de usuario
+front.user.create.subtitle: Rellene los siguientes campos del formulario para registrarse en el sistema
+front.user.read.title: Perfil de usuario
+front.user.read.subtitle: En esta lista se muestra información detallada sobre el usuario
+front.user.update.title: Editar perfil
+front.user.update.subtitle: En cualquier momento puede editar los datos personales de su perfil
+
+front.organization.index.title: Lista de organizaciones
+front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este projecto
+front.organization.read.subtitle.working: Trabajando en
+front.organization.read.subtitle.since: desde
+
+front.activity.index.title: Lista de actividades
+front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas por las organizaciones
+front.activity.read.images: Fotografías
+front.activity.read.geolocation: Localización
+
+back.user.index.title: Lista de usuarios
+back.user.index.subtitle: En esta lista se encuentran los usuarios registrados en el sistema
+back.user.create.title: Añadir usuario
+back.user.create.subtitle: Rellene este formulario para crear un nuevo usuario
+back.user.read.title: Detalles del usuario
+back.user.read.subtitle: En esta lista se muestra información detallada sobre el usuario
+back.user.update.title: Editar detalles
+back.user.update.subtitle: Rellene este formulario para añadir o modificar detalles del usuario
 
 back.organization.index.title: Lista de organizaciones
 back.organization.index.subtitle: En esta lista se encuentran las organizaciones registradas en el sistema
@@ -76,14 +114,14 @@ back.organization.read.subtitle: En esta lista se muestra información detallada
 back.organization.update.title: Editar detalles
 back.organization.update.subtitle: Rellene este formulario para añadir o modificar detalles de la organización
 
-back.user.index.title: Lista de usuarios
-back.user.index.subtitle: En esta lista se encuentran los usuarios registrados en el sistema
-back.user.create.title: Añadir usuario
-back.user.create.subtitle: Rellene este formulario para crear un nuevo usuario
-back.user.read.title: Detalles del usuario
-back.user.read.subtitle: En esta lista se muestra información detallada sobre el usuario
-back.user.update.title: Editar detalles
-back.user.update.subtitle: Rellene este formulario para añadir o modificar detalles del usuario
+back.activity.index.title: Lista de actividades
+back.activity.index.subtitle: En esta lista se encuentran las actividades registradas en el sistema
+back.activity.create.title: Añadir actividad
+back.activity.create.subtitle: Rellene este formulario para crear una nueva actividad
+back.activity.read.title: Detalles de la actividad
+back.activity.read.subtitle: En esta lista se muestra información detallada sobre la actividad
+back.activity.update.title: Editar detalles
+back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
 
 ################################################################################
@@ -97,7 +135,24 @@ footer.created.by: © 2012 - CooperationTourism.com - creado por <a href="https:
 ##### Mensajes informativos
 ################################################################################
 
-info.beta: Esta web esta en versión de pruebas durante su desarrollo
+alert.info.beta: Esta web esta en versión de pruebas durante su desarrollo
+
+alert.success.createuser: El registro ha finalizado con exito. Antes de acceder debes usar el enlace que te hemos enviado a tu dirección de correo electrónico para que puedas activar tu cuenta. Muchas gracias
+alert.success.updateuser: Los cambios han sido guardados con éxito
+
+alert.error.activateuser: El enlace utilizado para activar su cuenta no es válido o ya ha sido usado anteriormente. Por favor pongase en contacto con nosotros si no consigue activar su cuenta con éxito
+alert.success.activateuser: Su cuenta ha sido activada con éxito. utilice su email y contraseña para acceder al sistema
+
+alert.error.rememberpassword: No existe ningun usuario con ese email en nuestra base de datos. Lo sentimos
+alert.success.rememberpassword: Le hemos enviado un correo electronico con un enlace para que pueda restablecer su contraseña. Por favor revise su correo
+
+alert.error.resetpassword: El enlace utilizado para reestablecer su contraseña no es válido o ya ha sido usado anteriormente. Por favor pongase en contacto con nosotros si no consigue restablecer su contraseña
+alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. Utilicela para acceder al sistema
+
+alert.success.contactenquiry: Su petición a sido enviada correctamente. Muchas gracias
+
+popover.resetpassword.title: Restablecer mi contraseña
+popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 
 
 ################################################################################
@@ -138,8 +193,8 @@ Reservations: Reservas
 ################################################################################
 
 Id: ID
-Created: Fecha de alta
-Updated: Última edición
+Created: Creado
+Updated: Editado
 Status: Estado
 
 
@@ -224,11 +279,19 @@ Send: Enviar
 Save changes: Guardar cambios
 Cancel changes: Cancelar cambios
 
-back.activity.button.index: Volver atrás
-back.activity.button.create: Añadir una nueva actividad
-back.activity.button.read: Mostrar esta actividad
-back.activity.button.update: Editar esta actividad
-back.activity.button.delete: Eliminar esta actividad
+Read more: Leer más
+
+Remember password: Recordar contraseña
+Reset password: Restablecer contraseña
+
+front.user.button.update: Editar información
+front.user.button.delete: Eliminar mi cuenta
+
+back.user.button.index: Volver atrás
+back.user.button.create: Añadir un nuevo usuario
+back.user.button.read: Mostrar este usuario
+back.user.button.update: Editar este usuario
+back.user.button.delete: Eliminar este usuario
 
 back.organization.button.index: Volver atrás
 back.organization.button.create: Añadir una nueva organización
@@ -236,8 +299,8 @@ back.organization.button.read: Mostrar esta organización
 back.organization.button.update: Editar esta organización
 back.organization.button.delete: Eliminar esta organización
 
-back.user.button.index: Volver atrás
-back.user.button.create: Añadir un nuevo usuario
-back.user.button.read: Mostrar este usuario
-back.user.button.update: Editar este usuario
-back.user.button.delete: Eliminar este usuario
+back.activity.button.index: Volver atrás
+back.activity.button.create: Añadir una nueva actividad
+back.activity.button.read: Mostrar esta actividad
+back.activity.button.update: Editar esta actividad
+back.activity.button.delete: Eliminar esta actividad
