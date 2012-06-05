@@ -15,7 +15,7 @@ front_login_check:
 front_logout:
     pattern:  /logout
     options:  { i18n: false }
-    requirements: { _method: post }
+    requirements: { _method: get }
     
 front_remember_password:
     pattern:  /remember

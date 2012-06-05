@@ -14,7 +14,7 @@
     </div>
     <div class="info-desc span7">
         <p>{{ activity.shortDesc }}</p>
-        <a class="btn pull-right" href="{{ path('front_activity_show', { 'id': activity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+        <a class="btn pull-right" href="{{ path('front_activity_read', { 'id': activity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
     </div>
 </div>
 {% if not loop.last %}
