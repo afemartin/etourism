@@ -152,7 +152,7 @@ class Activity
     private $updated;
 
     /**
-     * @var integer $status 0=>Inactive, 1=>Active, 2=>Deleted
+     * @var integer $status 0=>Pending, 1=>Enabled, 2=>Locked, 3=>Deleted
      * 
      * @ORM\Column(name="status", type="smallint")
      */
