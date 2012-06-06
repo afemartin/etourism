@@ -123,6 +123,15 @@ back.activity.read.subtitle: En esta lista se muestra información detallada sob
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
+back.resource.index.title: Lista de recursos
+back.resource.index.subtitle: En esta lista se encuentran los recursos registrados en el sistema
+back.resource.create.title: Añadir recurso
+back.resource.create.subtitle: Rellene este formulario para crear un nuevo recurso
+back.resource.read.title: Detalles del recurso
+back.resource.read.subtitle: En esta lista se muestra información detallada sobre el recurso
+back.resource.update.title: Editar detalles
+back.resource.update.subtitle: Rellene este formulario para añadir o modificar detalles del recurso
+
 
 ################################################################################
 ##### Pie
@@ -304,3 +313,9 @@ back.activity.button.create: Añadir una nueva actividad
 back.activity.button.read: Mostrar esta actividad
 back.activity.button.update: Editar esta actividad
 back.activity.button.delete: Eliminar esta actividad
+
+back.resource.button.index: Volver atrás
+back.resource.button.create: Añadir un nuevo recurso
+back.resource.button.read: Mostrar este recurso
+back.resource.button.update: Editar este recurso
+back.resource.button.delete: Eliminar este recurso

@@ -123,6 +123,15 @@ back.activity.read.subtitle: In this list there are detailed information stored 
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
 
+back.resource.index.title: Resource list
+back.resource.index.subtitle: In this list there are all the resources registered in the system
+back.resource.create.title: Resource creation
+back.resource.create.subtitle: Use this form to create manually a new resource
+back.resource.read.title: Resource details
+back.resource.read.subtitle: In this list there are detailed information stored about this resource
+back.resource.update.title: Resource edit
+back.resource.update.subtitle: Use this form to edit the resource information
+
 
 ################################################################################
 ##### Footer
@@ -304,3 +313,9 @@ back.activity.button.create: Create a new activity
 back.activity.button.read: Show this activity
 back.activity.button.update: Edit this activity
 back.activity.button.delete: Delete this activity
+
+back.resource.button.index: Back to the list
+back.resource.button.create: Create a new resource
+back.resource.button.read: Show this resource
+back.resource.button.update: Edit this resource
+back.resource.button.delete: Delete this resource
