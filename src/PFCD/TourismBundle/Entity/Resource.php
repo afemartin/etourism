@@ -25,12 +25,10 @@ class Resource
 
     private $typeText = array('0' => 'Unknown', '1' => 'Material (internal)', '2' => 'Human (internal)', '3' => 'Material (external)', '4' => 'Human (external)');
 
-    const STATUS_PENDING = 0;
     const STATUS_ENABLED = 1;
-    const STATUS_LOCKED  = 2;
     const STATUS_DELETED = 3;
 
-    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
+    private $statusText = array('1' => 'Enabled', '3' => 'Deleted');
     
     /**
      * @ORM\Id
@@ -148,7 +146,7 @@ class Resource
     private $updated;
     
     /**
-     * @var integer $status 0=>Inactive, 1=>Active, 2=>Deleted
+     * @var integer $status 1=>Enabled, 3=>Deleted
      * 
      * @ORM\Column(name="status", type="smallint")
      */
@@ -167,7 +165,7 @@ class Resource
 
     public function __construct()
     {
-        $this->status = self::STATUS_PENDING;
+        $this->status = self::STATUS_ENABLED;
         $this->activities = new ArrayCollection();
         $this->variations = new ArrayCollection();
         

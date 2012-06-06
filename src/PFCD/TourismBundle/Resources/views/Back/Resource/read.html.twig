@@ -1,0 +1,110 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% block body %}
+<h1>{{ 'back.resource.read.title'|trans }}</h1>
+<p>{{ 'back.resource.read.subtitle'|trans }}</p>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tbody>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <td>{{ resource.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Name'|trans }}</th>
+            <td>{{ resource.name }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Description'|trans }}</th>
+            <td>{{ resource.description }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Price'|trans }}</th>
+            <td>{{ resource.price }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Currency'|trans }}</th>
+            <td>{{ resource.currency }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Type'|trans }}</th>
+            <td>{{ resource.typeText }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Amount'|trans }}</th>
+            <td>{{ resource.amount }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Datestart'|trans }}</th>
+            <td>{% if resource.dateStart %}{{ resource.dateStart|date('Y-m-d') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Dateend'|trans }}</th>
+            <td>{% if resource.dateEnd %}{{ resource.dateEnd|date('Y-m-d') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Timestart'|trans }}</th>
+            <td>{% if resource.timeStart %}{{ resource.timeStart|date('H:i') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Timeend'|trans }}</th>
+            <td>{% if resource.timeEnd %}{{ resource.timeEnd|date('H:i') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Monday'|trans }}</th>
+            <td>{{ resource.monday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Tuesday'|trans }}</th>
+            <td>{{ resource.tuesday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Wednesday'|trans }}</th>
+            <td>{{ resource.wednesday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Thursday'|trans }}</th>
+            <td>{{ resource.thursday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Friday'|trans }}</th>
+            <td>{{ resource.friday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Saturday'|trans }}</th>
+            <td>{{ resource.saturday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Sunday'|trans }}</th>
+            <td>{{ resource.sunday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Created'|trans }}</th>
+            <td>{{ resource.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Updated'|trans }}</th>
+            <td>{{ resource.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Status'|trans }}</th>
+            <td>{{ resource.statusText }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_resource_update', { 'id': resource.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.resource.button.update'|trans }}</a>
+<a class="btn btn-inverse" href="{{ path('back_resource_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.resource.button.index'|trans }}</a>
+<form class="pull-right" action="{{ path('back_resource_delete', { 'id': resource.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.resource.button.delete'|trans }}</button>
+</form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#sidebar-tab-resource').addClass("active");
+        $('#sidebar-tab-resource i').addClass("icon-white");
+    </script>
+{% endblock %}

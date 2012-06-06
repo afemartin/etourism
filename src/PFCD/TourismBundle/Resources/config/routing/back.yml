@@ -113,3 +113,32 @@ back_activity_delete:
     pattern:  /activity/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Activity:backDelete" }
     requirements: { _method: post, id: \d+ }
+
+
+################################################################################
+##### RESOURCE CONTROLLER ######################################################
+################################################################################
+
+back_resource_index:
+    pattern:  /resources
+    defaults: { _controller: "PFCDTourismBundle:Resource:backIndex" }
+    requirements: { _method: get }
+
+back_resource_create:
+    pattern:  /resource/new
+    defaults: { _controller: "PFCDTourismBundle:Resource:backCreate" }
+
+back_resource_read:
+    pattern:  /resource/{id}
+    defaults: { _controller: "PFCDTourismBundle:Resource:backRead" }
+    requirements: { _method: get, id: \d+ }
+
+back_resource_update:
+    pattern:  /resource/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Resource:backUpdate" }
+    requirements: { id: \d+ }
+
+back_resource_delete:
+    pattern:  /resource/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Resource:backDelete" }
+    requirements: { _method: post, id: \d+ }

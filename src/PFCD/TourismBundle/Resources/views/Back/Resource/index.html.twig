@@ -1,0 +1,74 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% block body %}
+<h1>{{ 'back.resource.index.title'|trans }}</h1>
+<p>{{ 'back.resource.index.subtitle'|trans }}</p>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th rowspan="2">{{ 'Id'|trans }}</th>
+            <th rowspan="2">{{ 'Name'|trans }}</th>
+            <th rowspan="2">{{ 'Price'|trans }}</th>
+            <th rowspan="2">{{ 'Type'|trans }}</th>
+            <th rowspan="2">{{ 'Amount'|trans }}</th>
+            <th rowspan="2">{{ 'Datestart'|trans }}</th>
+            <th rowspan="2">{{ 'Dateend'|trans }}</th>
+            <th rowspan="2">{{ 'Timestart'|trans }}</th>
+            <th rowspan="2">{{ 'Timeend'|trans }}</th>
+            <th colspan="7">{{ 'Days'|trans }}</th>
+            <th rowspan="2">{{ 'Status'|trans }}</th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th rowspan="2">{{ 'Organization'|trans }}</th>
+            {% endif %}
+            <th rowspan="2">{{ 'Edit'|trans }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'Mo'|trans }}</th>
+            <th>{{ 'Tu'|trans }}</th>
+            <th>{{ 'We'|trans }}</th>
+            <th>{{ 'Tu'|trans }}</th>
+            <th>{{ 'Fr'|trans }}</th>
+            <th>{{ 'Sa'|trans }}</th>
+            <th>{{ 'Su'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for resource in resources %}
+    <tr class="status-{{ resource.status }}">
+        <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
+        <td>{{ resource.name }}</td>
+        <td>{{ resource.price ~ resource.currency }}</td>
+        <td>{{ resource.typeText }}</td>
+        <td>{{ resource.amount }}</td>
+        <td>{% if resource.dateStart %}{{ resource.dateStart|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if resource.dateEnd %}{{ resource.dateEnd|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if resource.timeStart %}{{ resource.timeStart|date('H:i') }}{% endif %}</td>
+        <td>{% if resource.timeEnd %}{{ resource.timeEnd|date('H:i') }}{% endif %}</td>
+        <td>{% if resource.monday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if resource.tuesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if resource.wednesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if resource.thursday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if resource.friday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if resource.saturday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if resource.sunday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{{ resource.statusText|trans }}</td>
+        {% if is_granted('ROLE_ADMIN') %}
+        <td><a href="{{ path('back_organization_read', { 'id': resource.organization.id }) }}">{{ resource.organization.name }}</a></td>
+        {% endif %}
+        <td><a href="{{ path('back_resource_update', { 'id': resource.id }) }}"><i class="icon-edit"></i></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_resource_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.resource.button.create'|trans }}</a>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#sidebar-tab-resource').addClass("active");
+    $('#sidebar-tab-resource i').addClass("icon-white");
+</script>
+{% endblock %}
