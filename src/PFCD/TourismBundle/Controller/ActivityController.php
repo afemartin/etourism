@@ -153,8 +153,8 @@ class ActivityController extends Controller
         }    
 
         return $this->render('PFCDTourismBundle:Back/Activity:update.html.twig', array(
-            'activity'      => $activity,
-            'edit_form'   => $editForm->createView(),
+            'activity'  => $activity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
