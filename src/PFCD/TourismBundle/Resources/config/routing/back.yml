@@ -142,3 +142,32 @@ back_resource_delete:
     pattern:  /resource/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Resource:backDelete" }
     requirements: { _method: post, id: \d+ }
+
+
+################################################################################
+##### RESERVATION CONTROLLER ###################################################
+################################################################################
+
+back_reservation_index:
+    pattern:  /reservations
+    defaults: { _controller: "PFCDTourismBundle:Reservation:backIndex" }
+    requirements: { _method: get }
+
+back_reservation_create:
+    pattern:  /reservation/new
+    defaults: { _controller: "PFCDTourismBundle:Reservation:backCreate" }
+
+back_reservation_read:
+    pattern:  /reservation/{id}
+    defaults: { _controller: "PFCDTourismBundle:Reservation:backRead" }
+    requirements: { _method: get, id: \d+ }
+
+back_reservation_update:
+    pattern:  /reservation/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Reservation:backUpdate" }
+    requirements: { id: \d+ }
+
+back_reservation_delete:
+    pattern:  /reservation/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Reservation:backDelete" }
+    requirements: { _method: post, id: \d+ }

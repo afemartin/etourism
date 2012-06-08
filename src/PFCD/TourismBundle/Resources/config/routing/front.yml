@@ -55,8 +55,8 @@ front_about:
 ################################################################################
 
 front_user_create:
-    pattern:   /register
-    defaults:  { _controller: PFCDTourismBundle:User:frontCreate}
+    pattern:  /register
+    defaults: { _controller: PFCDTourismBundle:User:frontCreate}
 
 front_user_read:
     pattern:  /user/{id}
@@ -100,4 +100,34 @@ front_activity_index:
 front_activity_read:
     pattern:  /activity/{id}
     defaults: { _controller: "PFCDTourismBundle:Activity:frontRead" }
-    requirements: { _method: get, id: \d+ }  
+    requirements: { _method: get, id: \d+ }
+
+
+################################################################################
+##### RESERVATION CONTROLLER ###################################################
+################################################################################
+
+front_reservation_index:
+    pattern:  /user/reservations
+    defaults: { _controller: "PFCDTourismBundle:Reservation:frontIndex" }
+    requirements: { _method: get, id: \d+ }
+
+front_reservation_create:
+    pattern:  /activity/{activityId}/booking
+    defaults: { _controller: PFCDTourismBundle:Reservation:frontCreate}
+    requirements: { activityId: \d+ }
+
+front_reservation_read:
+    pattern:  /user/reservation/{id}
+    defaults: { _controller: "PFCDTourismBundle:Reservation:frontRead" }
+    requirements: { _method: get, id: \d+ }
+
+front_reservation_update:
+    pattern:  /user/reservation/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Reservation:frontUpdate" }
+    requirements: { id: \d+ }
+
+front_reservation_delete:
+    pattern:  /user/reservation/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Reservation:frontDelete" }
+    requirements: { _method: post, id: \d+ }
