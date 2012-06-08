@@ -2,11 +2,11 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
+use PFCD\TourismBundle\Entity\Organization;
+use PFCD\TourismBundle\Entity\NewsComment;
 
 /**
  * @ORM\Entity
@@ -15,6 +15,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class News
 {
+    const STATUS_PENDING = 0; // visible to author but not to users
+    const STATUS_ENABLED = 1; // visible to everyone (allow comments)
+    const STATUS_LOCKED  = 2; // visible to everyone (no comments)
+    const STATUS_DELETED = 3; // only visible to admin
+
+    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
+    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -54,7 +61,7 @@ class News
     private $updated;
 
     /**
-     * @var integer $status 0=>Inactive, 1=>Active, 2=>Deleted
+     * @var integer $status 0=>Pending, 1=>Enabled, 2=>Locked, 3=>Deleted
      * 
      * @ORM\Column(name="status", type="smallint")
      */
@@ -67,7 +74,7 @@ class News
 
     public function __construct()
     {
-        $this->status = 1;
+        $this->status = self::STATUS_PENDING;
         $this->comments = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
@@ -80,13 +87,6 @@ class News
     public function setUpdatedValue()
     {
        $this->setUpdated(new \DateTime());
-    }
-    
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('organization', new NotBlank());
-        $metadata->addPropertyConstraint('title', new NotBlank());
-        $metadata->addPropertyConstraint('shortDesc', new NotBlank());
     }
 
     /**
@@ -112,9 +112,9 @@ class News
     /**
      * Set organization
      *
-     * @param PFCD\TourismBundle\Entity\Organization $organization
+     * @param Organization $organization
      */
-    public function setOrganization(\PFCD\TourismBundle\Entity\Organization $organization)
+    public function setOrganization(Organization $organization)
     {
         $this->organization = $organization;
     }
@@ -122,7 +122,7 @@ class News
     /**
      * Get organization
      *
-     * @return PFCD\TourismBundle\Entity\Organization 
+     * @return Organization 
      */
     public function getOrganization()
     {
@@ -248,13 +248,23 @@ class News
     {
         return $this->status;
     }
+    
+    /**
+     * Get status in human readable mode
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return $this->statusText[$this->status];
+    }
 
     /**
      * Add comments
      *
-     * @param PFCD\TourismBundle\Entity\NewsComment $comments
+     * @param NewsComment $comments
      */
-    public function addNewsComment(\PFCD\TourismBundle\Entity\NewsComment $comments)
+    public function addNewsComment(NewsComment $comments)
     {
         $this->comments[] = $comments;
     }

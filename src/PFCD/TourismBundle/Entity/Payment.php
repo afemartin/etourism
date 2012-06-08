@@ -2,10 +2,9 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Doctrine\ORM\Mapping as ORM;
+
+use PFCD\TourismBundle\Entity\Reservation;
 
 /**
  * @ORM\Entity
@@ -22,7 +21,7 @@ class Payment
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Payment", inversedBy="payment")
+     * @ORM\OneToOne(targetEntity="Reservation", inversedBy="payment")
      * @ORM\JoinColumn(name="reservation_id", referencedColumnName="id")
      */
     private $reservation;
@@ -40,8 +39,10 @@ class Payment
     private $type;
 
     /**
-     * @ORM\OneToOne(targetEntity="Currency")
-     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     * @var string $currency ISO 4217
+     * @link http://en.wikipedia.org/wiki/ISO_4217
+     * 
+     * @ORM\Column(name="currency", type="string", length=3, nullable=true)
      */
     private $currency;
 
@@ -73,14 +74,6 @@ class Payment
     {
        $this->setUpdated(new \DateTime());
     }
-    
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('reservation', new NotBlank());
-        $metadata->addPropertyConstraint('price', new NotBlank());
-        $metadata->addPropertyConstraint('type', new NotBlank());
-        $metadata->addPropertyConstraint('currency', new NotBlank());
-    }
 
     /**
      * Set id
@@ -105,9 +98,9 @@ class Payment
     /**
      * Set reservation
      *
-     * @param PFCD\TourismBundle\Entity\Payment $reservation
+     * @param Reservation $reservation
      */
-    public function setReservation(\PFCD\TourismBundle\Entity\Payment $reservation)
+    public function setReservation(Reservation $reservation)
     {
         $this->reservation = $reservation;
     }
@@ -115,7 +108,7 @@ class Payment
     /**
      * Get reservation
      *
-     * @return PFCD\TourismBundle\Entity\Payment 
+     * @return Reservation 
      */
     public function getReservation()
     {
@@ -165,9 +158,9 @@ class Payment
     /**
      * Set currency
      *
-     * @param PFCD\TourismBundle\Entity\Currency $currency
+     * @param integer $currency
      */
-    public function setCurrency(\PFCD\TourismBundle\Entity\Currency $currency)
+    public function setCurrency($currency)
     {
         $this->currency = $currency;
     }
@@ -175,7 +168,7 @@ class Payment
     /**
      * Get currency
      *
-     * @return PFCD\TourismBundle\Entity\Currency 
+     * @return integer 
      */
     public function getCurrency()
     {
