@@ -1,0 +1,18 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ 'Reservation'|trans }}{% endblock%}
+
+{% block body %}
+<h1>{{ 'front.reservation.create.title'|trans }}</h1>
+<p>{{ 'front.reservation.create.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('front_reservation_create', { 'activityId': app.request.get('activityId') }) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('front_activity_read', { 'id': app.request.get('activityId') }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
+    </div>
+</form>
+{% endblock %}

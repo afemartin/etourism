@@ -1,0 +1,41 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block body %}
+<h1>{{ 'front.reservation.index.title'|trans }}</h1>
+<p>{{ 'front.reservation.index.subtitle'|trans }}</p>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Activity'|trans }}</th>
+            <th>{{ 'Adults'|trans }}</th>
+            <th>{{ 'Childrens'|trans }}</th>
+            <th>{{ 'Date'|trans }}</th>
+            <th>{{ 'Time'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Payment'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Edit'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for reservation in reservations %}
+    <tr class="status-{{ reservation.status }}">
+        <td><a href="{{ path('front_reservation_read', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
+        <td><a href="{{ path('front_activity_read', { 'id': reservation.activity.id }) }}">{{ reservation.activity.title }}</a></td>
+        <td>{{ reservation.adults }}</td>
+        <td>{{ reservation.childrens }}</td>
+        <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if reservation.time %}{{ reservation.time|date('H:i') }}{% endif %}</td>
+        <td>{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-file"></i></a>{% endif %}</td>
+        <td>{{ reservation.statusText|trans }}</td>
+        <td><a href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-edit"></i></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -7,13 +7,24 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use PFCD\TourismBundle\Entity\User;
+use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Payment;
+
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\ReservationRepository")
  * @ORM\Table(name="reservation")
  * @ORM\HasLifecycleCallbacks()
  */
 class Reservation
 {
+    const STATUS_REQUESTED = 1; // user make a reservation (FROM 1 TO [2,3,4])
+    const STATUS_ACCEPTED  = 2; // organization accept the reservation (FROM 2 TO [4])
+    const STATUS_REJECTED  = 3; // organization reject the reservation (END)
+    const STATUS_CANCELED  = 4; // user cancel the reservation before or after to be accepted (END)
+
+    private $statusText = array('1' => 'Requested', '2' => 'Accepted', '3' => 'Rejected', '4' => 'Canceled');
+    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -68,14 +79,15 @@ class Reservation
     private $updated;
 
     /**
-     * @var integer $status 1=>Requested, 2=>Paid, 3=>Canceled
+     * @var integer $status 1=>Requested, 2=>Acepted, 3=>Rejected, 4=>Canceled
      *
      * @ORM\Column(name="status", type="smallint")
      */
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity="Payment", mappedBy="reservation")
+     * @ORM\OneToOne(targetEntity="Payment", inversedBy="reservation")
+     * @ORM\JoinColumn(name="payment_id", referencedColumnName="id")
      */
     private $payment;
 
@@ -125,9 +137,9 @@ class Reservation
     /**
      * Set user
      *
-     * @param PFCD\TourismBundle\Entity\User $user
+     * @param User $user
      */
-    public function setUser(\PFCD\TourismBundle\Entity\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }
@@ -135,7 +147,7 @@ class Reservation
     /**
      * Get user
      *
-     * @return PFCD\TourismBundle\Entity\User 
+     * @return User 
      */
     public function getUser()
     {
@@ -145,9 +157,9 @@ class Reservation
     /**
      * Set activity
      *
-     * @param PFCD\TourismBundle\Entity\Activity $activity
+     * @param Activity $activity
      */
-    public function setActivity(\PFCD\TourismBundle\Entity\Activity $activity)
+    public function setActivity(Activity $activity)
     {
         $this->activity = $activity;
     }
@@ -155,7 +167,7 @@ class Reservation
     /**
      * Get activity
      *
-     * @return PFCD\TourismBundle\Entity\Activity 
+     * @return Activity 
      */
     public function getActivity()
     {
@@ -303,11 +315,21 @@ class Reservation
     }
 
     /**
+     * Get status in human readable mode
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return $this->statusText[$this->status];
+    }
+    
+    /**
      * Set payment
      *
-     * @param PFCD\TourismBundle\Entity\Payment $payment
+     * @param Payment $payment
      */
-    public function setPayment(\PFCD\TourismBundle\Entity\Payment $payment)
+    public function setPayment(Payment $payment)
     {
         $this->payment = $payment;
     }
@@ -315,7 +337,7 @@ class Reservation
     /**
      * Get payment
      *
-     * @return PFCD\TourismBundle\Entity\Payment 
+     * @return Payment 
      */
     public function getPayment()
     {

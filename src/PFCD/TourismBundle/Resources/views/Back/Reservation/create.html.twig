@@ -1,0 +1,24 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% block body %}
+<h1>{{ 'back.reservation.create.title'|trans }}</h1>
+<p>{{ 'back.reservation.create.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('back_reservation_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('back_reservation_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
+    </div>
+</form>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#sidebar-tab-reservation').addClass("active");
+    $('#sidebar-tab-reservation i').addClass("icon-white");
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block body %}
+<h1>{{ 'front.reservation.read.title'|trans }}</h1>
+<p>{{ 'front.reservation.read.subtitle'|trans }}</p>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tbody>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <td>{{ reservation.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Organization'|trans }}</th>
+            <td><a href="{{ path('front_organization_read', { 'id': reservation.activity.organization.id }) }}">{{ reservation.activity.organization.name }}</a></td>
+        </tr>
+        <tr>
+            <th>{{ 'Activity'|trans }}</th>
+            <td><a href="{{ path('front_activity_read', { 'id': reservation.activity.id }) }}">{{ reservation.activity.title }}</a></td>
+        </tr>
+        <tr>
+            <th>{{ 'Adults'|trans }}</th>
+            <td>{{ reservation.adults }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Childrens'|trans }}</th>
+            <td>{{ reservation.childrens }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Date'|trans }}</th>
+            <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d') }}{% endif%}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Time'|trans }}</th>
+            <td>{% if reservation.time %}{{ reservation.time|date('H:i') }}{% endif%}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Payment'|trans }}</th>
+            <td>{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-file"></i></a>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Created'|trans }}</th>
+            <td>{{ reservation.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Updated'|trans }}</th>
+            <td>{{ reservation.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Status'|trans }}</th>
+            <td>{{ reservation.statusText }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.update'|trans }}</a>
+<a class="btn btn-inverse" href="{{ path('front_reservation_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'front.reservation.button.index'|trans }}</a>
+<form class="pull-right" action="{{ path('front_reservation_delete', { 'id': reservation.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'front.reservation.button.delete'|trans }}</button>
+</form>
+{% endblock %}

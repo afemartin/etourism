@@ -1,0 +1,71 @@
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANIZATION') %}{% set domain = 'Back' %}{% else %}{% set domain = 'Front' %}{% endif %}
+{% extends 'PFCDTourismBundle:' ~ domain ~ ':layout.html.twig' %}
+
+{% block body %}
+<h1>{{ 'back.reservation.read.title'|trans }}</h1>
+<p>{{ 'back.reservation.read.subtitle'|trans }}</p>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tbody>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <td>{{ reservation.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'User'|trans }}</th>
+            <td>{{ reservation.user.fullname }} ({{ reservation.user.email }})</td>
+        </tr>
+        <tr>
+            <th>{{ 'Activity'|trans }}</th>
+            <td>{{ reservation.activity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Adults'|trans }}</th>
+            <td>{{ reservation.adults }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Childrens'|trans }}</th>
+            <td>{{ reservation.childrens }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Date'|trans }}</th>
+            <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d') }}{% endif%}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Time'|trans }}</th>
+            <td>{% if reservation.time %}{{ reservation.time|date('H:i') }}{% endif%}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Payment'|trans }}</th>
+            <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-file"></i></a>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Created'|trans }}</th>
+            <td>{{ reservation.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Updated'|trans }}</th>
+            <td>{{ reservation.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Status'|trans }}</th>
+            <td>{{ reservation.statusText }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_reservation_update', { 'id': reservation.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.reservation.button.update'|trans }}</a>
+<a class="btn btn-inverse" href="{{ path('back_reservation_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.reservation.button.index'|trans }}</a>
+<form class="pull-right" action="{{ path('back_reservation_delete', { 'id': reservation.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.reservation.button.delete'|trans }}</button>
+</form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#sidebar-tab-reservation').addClass("active");
+        $('#sidebar-tab-reservation i').addClass("icon-white");
+    </script>
+{% endblock %}
