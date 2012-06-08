@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
         <meta name="robots" content="noindex, nofollow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=2.0">
         <title>{% block title %}{{ 'front.browser.title'|trans }}{% endblock %} - CooperationTourism.org</title>
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         {% block stylesheets %}
@@ -76,6 +76,15 @@
                     {% block body %}{% endblock %}
                 </div>
                 <div class="span3">
+                    {% if is_granted('ROLE_USER') %}
+                    <div class="well" style="padding: 8px 0;">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">{{ 'User menu'|trans }}</li>
+                            <li id="sidebar-tab-user"><a href="{{ path('front_user_read', { 'id': app.user.id }) }}"><i class="icon-user"></i> {{ 'My profile'|trans }}</a></li>
+                            <li id="sidebar-tab-reservation"><a href="{{ path('front_reservation_index') }}"><i class="icon-book "></i> {{ 'My reservations'|trans }}</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
                     {% block sidebar %}{% endblock %}
                 </div>
             </div>

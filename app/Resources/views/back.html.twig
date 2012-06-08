@@ -55,7 +55,7 @@
                         <li id="sidebar-tab-activity"><a href="{{ path('back_activity_index') }}"><i class="icon-leaf"></i> {{ 'Activities'|trans }}</a></li>
                         <li id="sidebar-tab-resource"><a href="{{ path('back_resource_index') }}"><i class="icon-wrench"></i> {{ 'Resources'|trans }}</a></li>
                         <li id="sidebar-tab-news"><a href="#"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
-                        <li id="sidebar-tab-reservation"><a href="#"><i class="icon-book "></i> {{ 'Reservations'|trans }}</a></li>
+                        <li id="sidebar-tab-reservation"><a href="{{ path('back_reservation_index') }}"><i class="icon-book "></i> {{ 'Reservations'|trans }}</a></li>
                         <li id="sidebar-tab-statistic"><a href="#"><i class="icon-tasks"></i> {{ 'Statistics'|trans }}</a></li>
                         <li id="sidebar-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
                         {% if is_granted('ROLE_ORGANIZATION') %}
