@@ -1,0 +1,10 @@
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANIZATION') %}{% set domain = 'Back' %}{% else %}{% set domain = 'Front' %}{% endif %}
+{% extends 'PFCDTourismBundle:' ~ domain ~ ':layout.html.twig' %}
+
+{% block title %}An Error Occurred: {{ status_text }}{% endblock %}
+
+{% block body %}
+<h1>Oops! An Error Occurred</h1>
+<h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+<p>Something is broken. Please <a href="{{ path('front_contact') }}">contact us</a> and let us know what you were doing when this error occurred. We will fix it as soon as possible. Sorry for any inconvenience caused.</p>
+{% endblock %}
