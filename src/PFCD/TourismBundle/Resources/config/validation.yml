@@ -13,13 +13,13 @@ PFCD\TourismBundle\Entity\Organization:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
     properties:
         username:
-            - NotBlank: { groups: [Default] }            
+            - NotBlank: { groups: [Default] }
         email:
             - Email:    { groups: [Default] }
         password:
-            - NotBlank: { groups: [Default] }            
+            - NotBlank: { groups: [Default] }
         name:
-            - NotBlank: { groups: [Default] }            
+            - NotBlank: { groups: [Default] }
         shortDesc:
             - NotBlank: { groups: [Update] }
         file:
@@ -28,8 +28,18 @@ PFCD\TourismBundle\Entity\Organization:
 PFCD\TourismBundle\Entity\Activity:
     properties:
         title:
-            - NotBlank: { groups: [Default] }            
+            - NotBlank: { groups: [Default] }
         shortDesc:
-            - NotBlank: { groups: [Default] }            
+            - NotBlank: { groups: [Default] }
         file:
             - Image:    { maxSize: 512k }
+            
+PFCD\TourismBundle\Entity\Reservation:
+    properties:
+        user:
+            - NotBlank: { groups: [Default] }
+        activity:
+            - NotBlank: { groups: [Default] }
+        adults:
+            - Type:     { type: integer, message: "The value {{ value }} is not a valid {{ type }}", groups: [Front, Default] }
+            - Min:      { limit: 1, message: "You must select at leat one person", groups: [Front, Default] }
