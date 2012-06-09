@@ -12,7 +12,7 @@
         <h2>{{ activity.title }}</h2>
     </div>
     <div class="info-image span2 hidden-phone">
-        <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/170x120{% endif%}" />
+        <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ activity.image|apply_filter('thumbnail_170x120') }}{% else %}http://placehold.it/170x120{% endif%}" />
     </div>
     <div class="info-desc span7">
         <p>{{ activity.shortDesc }}</p>
@@ -28,8 +28,8 @@
 {% endblock %}
     
 {% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#navbar-tab-activity').addClass("active");
-    </script>
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-activity').addClass("active");
+</script>
 {% endblock %}

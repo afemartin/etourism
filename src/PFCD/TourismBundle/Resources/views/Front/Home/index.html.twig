@@ -10,7 +10,7 @@
         <h2>{{ activity.title }}</h2>
     </div>
     <div class="info-image span2 hidden-phone">
-        <img class="thumbnail" alt="{{ activity.title }}" src="http://placehold.it/160x120" />
+        <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ activity.image|apply_filter('thumbnail_170x120') }}{% else %}http://placehold.it/170x120{% endif%}" />
     </div>
     <div class="info-desc span7">
         <p>{{ activity.shortDesc }}</p>
