@@ -2,11 +2,6 @@
 
 {% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% block stylesheets %}
-<link href="{{ asset('css/wysihtml5-bootstrap.css') }}" type="text/css" rel="stylesheet"></link>
-{{ parent() }}
-{% endblock %}
-
 {% block body %}
 <h1>{{ 'back.resource.update.title'|trans }}</h1>
 <p>{{ 'back.resource.update.subtitle'|trans }}</p>
@@ -21,12 +16,6 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('js/wysihtml5-0.3.0_rc3.min.js') }}"></script>
-{{ parent() }}
-<script src="{{ asset('js/wysihtml5-bootstrap.js') }}"></script>
-<script type="text/javascript">
-    $('textarea.wysiwyg').wysihtml5({"stylesheets": ["{{ asset('css/wysihtml5-bootstrap.css') }}"]});
-</script>
 <script type="text/javascript">
     $('#sidebar-tab-resource').addClass("active");
     $('#sidebar-tab-resource i').addClass("icon-white");
