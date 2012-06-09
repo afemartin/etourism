@@ -8,20 +8,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use PFCD\TourismBundle\Entity\Organization;
+use PFCD\TourismBundle\Entity\Reservation;
 use PFCD\TourismBundle\Entity\ActivityResource;
 use PFCD\TourismBundle\Entity\ActivityComment;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\ActivityRepository")
  * @ORM\Table(name="activity")
  * @ORM\HasLifecycleCallbacks()
  */
 class Activity
 {
-    const STATUS_PENDING = 0;
-    const STATUS_ENABLED = 1;
-    const STATUS_LOCKED  = 2;
-    const STATUS_DELETED = 3;
+    const STATUS_PENDING = 0; // visible to author but not to users
+    const STATUS_ENABLED = 1; // visible to everyone (allow comments and reservations)
+    const STATUS_LOCKED  = 2; // visible to everyone (no comments or reservations)
+    const STATUS_DELETED = 3; // only visible to admin
 
     private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
     
@@ -66,6 +67,13 @@ class Activity
      */
     private $currency;
 
+    /**
+     * @var integer
+     * 
+     * @ORM\Column(name="capacity", type="smallint")
+     */
+    private $capacity;
+    
     /**
      * @ORM\Column(name="date_start", type="date", nullable=true)
      */
@@ -159,6 +167,11 @@ class Activity
     private $status;
     
     /**
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="activity")
+     */
+    private $reservations;
+    
+    /**
      * @ORM\OneToMany(targetEntity="ActivityResource", mappedBy="activity")
      */
     private $resources;
@@ -171,6 +184,7 @@ class Activity
     public function __construct()
     {
         $this->status = self::STATUS_PENDING;
+        $this->reservations = new ArrayCollection();
         $this->resources = new ArrayCollection();
         $this->comments = new ArrayCollection();
         
@@ -314,6 +328,26 @@ class Activity
     public function getCurrency()
     {
         return $this->currency;
+    }
+    
+    /**
+     * Set capacity
+     *
+     * @param smallint $capacity
+     */
+    public function setCapacity($capacity)
+    {
+        $this->capacity = $capacity;
+    }
+
+    /**
+     * Get capacity
+     *
+     * @return smallint 
+     */
+    public function getCapacity()
+    {
+        return $this->capacity;
     }
 
     /**
@@ -750,6 +784,26 @@ class Activity
     public function getStatusText()
     {
         return $this->statusText[$this->status];
+    }
+    
+    /**
+     * Add reservations
+     *
+     * @param Reservation $reservations
+     */
+    public function addReservation(Reservation $reservations)
+    {
+        $this->reservations[] = $reservations;
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 
     /**

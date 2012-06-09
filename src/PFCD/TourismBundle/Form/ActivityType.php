@@ -22,10 +22,19 @@ class ActivityType extends AbstractType
         $builder->add('fullDesc', 'textarea', array('attr' => array('class' => 'wysiwyg input-xxlarge')));
         $builder->add('price', 'money', array('required' => false, 'attr' => array('class' => 'input-mini')));
         $builder->add('currency', 'choice', array('required' => false, 'empty_value' => 'Currency', 'choices' => array('EUR' => 'Euro'), 'attr' => array('class' => 'input-small')));
+        $builder->add('capacity', 'integer', array('attr' => array('class' => 'input-mini')));
         $builder->add('dateStart', 'date', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') + 1, date('Y') - 1), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
         $builder->add('dateEnd', 'date', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') + 1, date('Y') - 1), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
         $builder->add('timeStart', 'time', array('required' => false, 'attr' => array('class' => 'time-choice-compact')));
         $builder->add('timeEnd', 'time', array('required' => false, 'attr' => array('class' => 'time-choice-compact')));
+        // $builder->add('monday', 'choice', array('choices' => array('monday' => 'monday', 'tuesday' => 'tuesday', 'wednesday' => 'wednesday', 'thursday' => 'thursday', 'friday' => 'friday', 'saturday' => 'saturday', 'sunday' => 'sunday'), 'multiple' => true, 'expanded' => true));
+        $builder->add('monday');
+        $builder->add('tuesday');
+        $builder->add('wednesday');
+        $builder->add('thursday');
+        $builder->add('friday');
+        $builder->add('saturday');
+        $builder->add('sunday');
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('geolocation', 'text', array('required' => false));

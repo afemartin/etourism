@@ -7,20 +7,29 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
-            <th>{{ 'Title'|trans }}</th>
-            <th>{{ 'Price'|trans }}</th>
-            <th>{{ 'Datestart'|trans }}</th>
-            <th>{{ 'Dateend'|trans }}</th>
-            <th>{{ 'Timestart'|trans }}</th>
-            <th>{{ 'Timeend'|trans }}</th>
-            <th>{{ 'Created'|trans }}</th>
-            <th>{{ 'Updated'|trans }}</th>
-            <th>{{ 'Status'|trans }}</th>
+            <th rowspan="2">{{ 'Id'|trans }}</th>
+            <th rowspan="2">{{ 'Title'|trans }}</th>
+            <th rowspan="2">{{ 'Price'|trans }}</th>
+            <th rowspan="2">{{ 'Capacity'|trans }}</th>
+            <th rowspan="2">{{ 'Datestart'|trans }}</th>
+            <th rowspan="2">{{ 'Dateend'|trans }}</th>
+            <th rowspan="2">{{ 'Timestart'|trans }}</th>
+            <th rowspan="2">{{ 'Timeend'|trans }}</th>
+            <th colspan="7">{{ 'Days'|trans }}</th>
+            <th rowspan="2">{{ 'Status'|trans }}</th>
             {% if is_granted('ROLE_ADMIN') %}
-            <th>{{ 'Organization'|trans }}</th>
+            <th rowspan="2">{{ 'Organization'|trans }}</th>
             {% endif %}
-            <th>{{ 'Edit'|trans }}</th>
+            <th rowspan="2">{{ 'Edit'|trans }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'Mo'|trans }}</th>
+            <th>{{ 'Tu'|trans }}</th>
+            <th>{{ 'We'|trans }}</th>
+            <th>{{ 'Tu'|trans }}</th>
+            <th>{{ 'Fr'|trans }}</th>
+            <th>{{ 'Sa'|trans }}</th>
+            <th>{{ 'Su'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -29,12 +38,18 @@
         <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.id }}</a></td>
         <td>{{ activity.title }}</td>
         <td>{{ activity.price ~ activity.currency }}</td>
+        <td>{{ activity.capacity }}</td>
         <td>{% if activity.dateStart %}{{ activity.dateStart|date('Y-m-d') }}{% endif %}</td>
         <td>{% if activity.dateEnd %}{{ activity.dateEnd|date('Y-m-d') }}{% endif %}</td>
         <td>{% if activity.timeStart %}{{ activity.timeStart|date('H:i') }}{% endif %}</td>
         <td>{% if activity.timeEnd %}{{ activity.timeEnd|date('H:i') }}{% endif %}</td>
-        <td>{% if activity.created %}{{ activity.created|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if activity.updated %}{{ activity.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if activity.monday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if activity.tuesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if activity.wednesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if activity.thursday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if activity.friday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if activity.saturday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if activity.sunday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
         <td>{{ activity.statusText|trans }}</td>
         {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></td>

@@ -31,6 +31,10 @@
             <td>{{ activity.currency }}</td>
         </tr>
         <tr>
+            <th>{{ 'Capacity'|trans }}</th>
+            <td>{{ activity.capacity }}</td>
+        </tr>
+        <tr>
             <th>{{ 'Datestart'|trans }}</th>
             <td>{% if activity.dateStart %}{{ activity.dateStart|date('Y-m-d') }}{% endif%}</td>
         </tr>
@@ -45,6 +49,34 @@
         <tr>
             <th>{{ 'Timeend'|trans }}</th>
             <td>{% if activity.timeEnd %}{{ activity.timeEnd|date('H:i') }}{% endif%}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Monday'|trans }}</th>
+            <td>{{ activity.monday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Tuesday'|trans }}</th>
+            <td>{{ activity.tuesday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Wednesday'|trans }}</th>
+            <td>{{ activity.wednesday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Thursday'|trans }}</th>
+            <td>{{ activity.thursday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Friday'|trans }}</th>
+            <td>{{ activity.friday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Saturday'|trans }}</th>
+            <td>{{ activity.saturday }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Sunday'|trans }}</th>
+            <td>{{ activity.sunday }}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>

@@ -23,22 +23,79 @@
     </div>
 </div>
 
-{% if activity.images %}
-<h2>{{ 'front.activity.read.images'|trans }}</h2>
-<div class="info-carrousel row">
-{% for image in activity.images %}
-    <a class="info-image thumbnail span" href="{{ asset(image) }}" rel="images">
-        <img alt="{{ activity.title }}" src="{{ image|apply_filter('thumbnail') }}" />
-    </a>
-{% endfor %}
+{% if calendar %}
+<h2>{{ 'front.activity.read.availability'|trans }}</h2>
+<div class="info-calendar row">
+    <div class="span9">
+        <table class="calendar table table-bordered">
+            <thead>
+                <tr>
+                    {% for year, days in calendar.years %}
+                    <th colspan="{{ days }}">{{ year }}</th>
+                    {% endfor %} 
+                </tr>
+                <tr>
+                    {% for month, days in calendar.months %}
+                    <th colspan="{{ days }}">{{ month|trans }}</th>
+                    {% endfor %} 
+                </tr>
+                <tr>
+                    {% for date in calendar.dates %}
+                    <td>{{date.dayweek|trans}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for date in calendar.dates %}
+                    <td>{{date.daymonth}}</td>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for date in calendar.dates %}
+                <td style="background-color: rgb({{ 25*(10-date.capacity) }},{{ 25*date.capacity }},0)">{{date.capacity}}</td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary pull-right" href="{{ path('front_reservation_create', { 'activityId': activity.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.create'|trans }}</a>
+    </div>
 </div>
 {% endif %}
 
-<h2>{{ 'front.activity.read.geolocation'|trans }}</h2>
+{% if activity.images %}
+<h2>{{ 'front.activity.read.images'|trans }}</h2>
+<div class="info-carrousel row">
+    <div class="span9">
+        <ul class="thumbnails">
+            {% for image in activity.images %}
+            <li class="span">
+                <a class="info-image thumbnail" href="{{ asset(image) }}" rel="images">
+                    <img alt="{{ activity.title }}" src="{{ image|apply_filter('thumbnail_180x120') }}" />
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
 {% if activity.geolocation %}
+<h2>{{ 'front.activity.read.geolocation'|trans }}</h2>
 <div class="info-map row">
-    <div class="thumbnail span9">
-        <div id="map_canvas"></div>
+    <div class="span">
+        <div id="map_modal" class="modal hide">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>{{ 'front.activity.read.geolocation'|trans }}</h3>
+            </div>
+            <div class="modal-body">
+                <div id="map_canvas"></div>
+            </div>
+        </div>
+        <a class="thumbnail" href="#">
+            <img src="http://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=640x320&zoom=10&markers=color:blue|{{ activity.geolocation }}&sensor=false" onclick="loadMap()"/>
+        </a>
     </div>
 </div>
 {% endif %}
@@ -59,10 +116,9 @@
 {% if activity.geolocation %}
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&sensor=false"></script>
 <script type="text/javascript">
-    window.onload = function() {
-        var location = new google.maps.LatLng({{ activity.geolocation}});
+    loadMap = function() {
+        var location = new google.maps.LatLng({{ activity.geolocation }});
         var myOptions = {
-            center: location,
             zoom: 10,
             scrollwheel: false,
             scaleControl: true,
@@ -77,6 +133,13 @@
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.open(map, marker);
         });
+        
+        
+        $('#map_modal').modal('show');
+        
+        google.maps.event.trigger(map, 'resize');
+        
+        map.setCenter(location);
     }
 </script>
 {% endif %}
