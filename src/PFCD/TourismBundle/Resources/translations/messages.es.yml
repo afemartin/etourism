@@ -93,8 +93,18 @@ front.organization.read.subtitle.since: desde
 
 front.activity.index.title: Lista de actividades
 front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas por las organizaciones
+front.activity.read.availability: Disponibilidad
 front.activity.read.images: Fotografías
 front.activity.read.geolocation: Localización
+
+front.reservation.index.title: Lista de reservas
+front.reservation.index.subtitle: En esta lista se encuentran todas las reservas que ha realizado
+front.reservation.create.title: Reservar actividad
+front.reservation.create.subtitle: Rellene los siguientes campos del formulario para realizar la reserva
+front.reservation.read.title: Detalles de la reserva
+front.reservation.read.subtitle: En esta lista se muestra información detallada sobre el usuario
+front.reservation.update.title: Editar perfil
+front.reservation.update.subtitle: En cualquier momento puede editar los datos personales de su perfil
 
 back.user.index.title: Lista de usuarios
 back.user.index.subtitle: En esta lista se encuentran los usuarios registrados en el sistema
@@ -122,6 +132,15 @@ back.activity.read.title: Detalles de la actividad
 back.activity.read.subtitle: En esta lista se muestra información detallada sobre la actividad
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
+
+back.reservation.index.title: Lista de reservas
+back.reservation.index.subtitle: En esta lista se encuentran las reservas registrados en el sistema
+back.reservation.create.title: Añadir reserva
+back.reservation.create.subtitle: Rellene este formulario para crear una nueva reserva
+back.reservation.read.title: Detalles de la reserva
+back.reservation.read.subtitle: En esta lista se muestra información detallada sobre la reserva
+back.reservation.update.title: Editar detalles
+back.reservation.update.subtitle: Rellene este formulario para añadir o modificar detalles de la reserva
 
 back.resource.index.title: Lista de recursos
 back.resource.index.subtitle: En esta lista se encuentran los recursos registrados en el sistema
@@ -296,6 +315,12 @@ Reset password: Restablecer contraseña
 front.user.button.update: Editar información
 front.user.button.delete: Eliminar mi cuenta
 
+front.reservation.button.index: Volver atrás
+front.reservation.button.create: Hacer una reserva
+front.reservation.button.read: Mostrar esta reserva
+front.reservation.button.update: Modificar esta reserva
+front.reservation.button.delete: Cancelar esta reserva
+
 back.user.button.index: Volver atrás
 back.user.button.create: Añadir un nuevo usuario
 back.user.button.read: Mostrar este usuario
@@ -313,6 +338,12 @@ back.activity.button.create: Añadir una nueva actividad
 back.activity.button.read: Mostrar esta actividad
 back.activity.button.update: Editar esta actividad
 back.activity.button.delete: Eliminar esta actividad
+
+back.reservation.button.index: Volver atrás
+back.reservation.button.create: Añadir una nueva reserva
+back.reservation.button.read: Mostrar esta reserva
+back.reservation.button.update: Editar esta reserva
+back.reservation.button.delete: Eliminar esta reserva
 
 back.resource.button.index: Volver atrás
 back.resource.button.create: Añadir un nuevo recurso

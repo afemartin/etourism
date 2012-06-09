@@ -93,8 +93,18 @@ front.organization.read.subtitle.since: since
 
 front.activity.index.title: Activity list
 front.activity.index.subtitle: In this list there are all the activities registered in the system
-front.activity.read.images: Activity images
-front.activity.read.geolocation: Activity location
+front.activity.read.availability: Availability
+front.activity.read.images: Images
+front.activity.read.geolocation: Location
+
+front.reservation.index.title: Reservation list
+front.reservation.index.subtitle: In this list there are all the reservations you registered in the system
+front.reservation.create.title: Booking activity
+front.reservation.create.subtitle: Please fill the following information to complete your reservation
+front.reservation.read.title: Reservation details
+front.reservation.read.subtitle: In this list there are detailed information stored about your reservation
+front.reservation.update.title: Edit reservation
+front.reservation.update.subtitle: Use this form to edit your reservation
 
 back.user.index.title: User list
 back.user.index.subtitle: In this list there are all the users registered in the system
@@ -122,6 +132,15 @@ back.activity.read.title: Activity details
 back.activity.read.subtitle: In this list there are detailed information stored about this activity
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
+
+back.reservation.index.title: Reservation list
+back.reservation.index.subtitle: In this list there are all the reservations registered in the system
+back.reservation.create.title: Reservation creation
+back.reservation.create.subtitle: Use this form to create manually a new reservation
+back.reservation.read.title: Reservation details
+back.reservation.read.subtitle: In this list there are detailed information stored about this reservation
+back.reservation.update.title: Reservation edit
+back.reservation.update.subtitle: Use this form to edit the reservation information
 
 back.resource.index.title: Resource list
 back.resource.index.subtitle: In this list there are all the resources registered in the system
@@ -296,6 +315,12 @@ Reset password: Reset password
 front.user.button.update: Edit information
 front.user.button.delete: Delete my account
 
+front.reservation.button.index: Back to the list
+front.reservation.button.create: Make a reservation
+front.reservation.button.read: Show this reservation
+front.reservation.button.update: Edit this reservation
+front.reservation.button.delete: Delete this reservation
+
 back.user.button.index: Back to the list
 back.user.button.create: Create a new user
 back.user.button.read: Show this user
@@ -313,6 +338,12 @@ back.activity.button.create: Create a new activity
 back.activity.button.read: Show this activity
 back.activity.button.update: Edit this activity
 back.activity.button.delete: Delete this activity
+
+back.reservation.button.index: Back to the list
+back.reservation.button.create: Create a new reservation
+back.reservation.button.read: Show this reservation
+back.reservation.button.update: Edit this reservation
+back.reservation.button.delete: Delete this reservation
 
 back.resource.button.index: Back to the list
 back.resource.button.create: Create a new resource

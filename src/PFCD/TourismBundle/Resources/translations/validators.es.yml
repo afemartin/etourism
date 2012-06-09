@@ -3,3 +3,4 @@
 ################################################################################
 
 password.match.error: Los campos de contraseña deben coincidir
+reservation.adults.error: Debe seleccionar al menos una persona
