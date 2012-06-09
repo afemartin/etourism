@@ -41,5 +41,4 @@ PFCD\TourismBundle\Entity\Reservation:
         activity:
             - NotBlank: { groups: [Default] }
         adults:
-            - Type:     { type: integer, message: "The value {{ value }} is not a valid {{ type }}", groups: [Front, Default] }
-            - Min:      { limit: 1, message: "You must select at leat one person", groups: [Front, Default] }
+            - Min:      { limit: 1, message: "reservation.adults.error", groups: [Front, Default] }
