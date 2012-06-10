@@ -263,7 +263,7 @@ Phone: Telefono
 Locale: Idioma
 Foundationyear: Año de fundación
 Geolocation: Geolocalización
-Image: Imágen
+Logo: Logotipo
 
 
 ################################################################################
@@ -282,7 +282,7 @@ Timeend: Hora de fin
 Day: Dia
 Month: Mes
 Year: Año
-Image: Imágen
+Image: Imagen
 
 
 ################################################################################
@@ -350,3 +350,7 @@ back.resource.button.create: Añadir un nuevo recurso
 back.resource.button.read: Mostrar este recurso
 back.resource.button.update: Editar este recurso
 back.resource.button.delete: Eliminar este recurso
+
+back.form.imageupload.button.upload: Seleccionar imagen
+back.form.imageupload.button.reload: Cambiar imagen
+back.form.imageupload.button.delete: Eliminar

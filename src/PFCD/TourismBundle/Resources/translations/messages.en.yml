@@ -263,7 +263,7 @@ Phone: Phone
 Locale: Language
 Foundationyear: Foundation year
 Geolocation: Geolocation
-Image: Image
+Logo: Logo
 
 
 ################################################################################
@@ -350,3 +350,7 @@ back.resource.button.create: Create a new resource
 back.resource.button.read: Show this resource
 back.resource.button.update: Edit this resource
 back.resource.button.delete: Delete this resource
+
+back.form.imageupload.button.upload: Select image
+back.form.imageupload.button.reload: Change image
+back.form.imageupload.button.delete: Remove
