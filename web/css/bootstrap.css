@@ -3579,8 +3579,8 @@ a.thumbnail:hover {
   filter: alpha(opacity=0);
 }
 .tooltip.in {
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  opacity: 0.8 !important;
+  filter: alpha(opacity=80) !important;
 }
 .tooltip.top {
   margin-top: -2px;
