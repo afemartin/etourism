@@ -1,1 +1,68 @@
 {% extends '::back.html.twig' %}
+
+{# Full set of variables (string or boolean) that can be set to configure the stylesheet and javascript blocks #}
+{# {% set sectiontab = 'sectionname' %}{% set helptooltip = 0 %}{% set datepicker = 0 %}{% set fileupload = 0 %}{% set currentimage = entity.image %}{% set wysihtml5 = 0 %} #}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    {% if datepicker is defined and datepicker %}
+        <link href="{{ asset('css/datepicker-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+    {% endif %}
+        
+    {% if fileupload is defined and fileupload %}
+        <link href="{{ asset('css/fileupload-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+    {% endif %}
+        
+    {% if wysihtml5 is defined and wysihtml5 %}
+        <link href="{{ asset('css/wysihtml5-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+    {% endif %}
+        
+{% endblock %}
+        
+{% block javascripts %}
+        
+    {% if wysihtml5 is defined and wysihtml5 %}
+        <script src="{{ asset('js/wysihtml5-0.3.0_rc3.min.js') }}"></script>
+    {% endif %}
+        
+    {{ parent() }}
+        
+    {% if wysihtml5 is defined and wysihtml5 %}
+        <script src="{{ asset('js/wysihtml5-bootstrap.js') }}"></script>
+        <script type="text/javascript">
+            $('textarea.wysiwyg').wysihtml5({"stylesheets": ["{{ asset('css/wysihtml5-iframe-bootstrap.css') }}"]});
+        </script>
+    {% endif %}
+        
+    {% if datepicker is defined and datepicker %}
+        <script src="{{ asset('js/datepicker-bootstrap.js') }}"></script>
+        <script type="text/javascript">
+            $('input.datepicker-bootstrap').datepicker({'format' : 'dd/mm/yyyy', "weekStart" : 1});
+        </script>
+    {% endif %}
+        
+    {% if fileupload is defined and fileupload %}
+        <script src="{{ asset('js/fileupload-bootstrap.js') }}"></script>
+        {% if currentimage is defined and currentimage %}
+            <script type="text/javascript">
+                $('.fileupload-new img').attr("src", "{{ asset(currentimage)}}");
+            </script>
+        {% endif %}
+    {% endif %}
+            
+    {% if helptooltip is defined and helptooltip %}
+        <script type="text/javascript">
+            $('.field-help-tooltip').tooltip({'placement' : 'right'});
+        </script>
+    {% endif %}
+            
+    {% if sectiontab is defined and sectiontab %}
+        <script type="text/javascript">
+            $('#sidebar-tab-{{ sectiontab }}').addClass("active");
+            $('#sidebar-tab-{{ sectiontab }} i').addClass("icon-white");
+        </script>
+    {% endif %}
+        
+{% endblock %}
