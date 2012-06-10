@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% set sectiontab = 'organization' %}
+
 {% block body %}
 <h1>{{ 'back.organization.index.title'|trans }}</h1>
 <p>{{ 'back.organization.index.subtitle'|trans }}</p>
@@ -40,12 +42,4 @@
 </table>
 
 <a class="btn btn-primary" href="{{ path('back_organization_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.organization.button.create'|trans }}</a>
-{% endblock %}
-
-{% block javascripts %}
-{{ parent() }}
-<script type="text/javascript">
-    $('#sidebar-tab-organization').addClass("active");
-    $('#sidebar-tab-organization i').addClass("icon-white");
-</script>
 {% endblock %}

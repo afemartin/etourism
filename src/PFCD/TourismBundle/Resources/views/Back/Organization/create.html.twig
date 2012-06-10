@@ -2,6 +2,8 @@
 
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
+{% set sectiontab = 'organization' %}
+
 {% block body %}
 <h1>{{ 'back.organization.create.title'|trans }}</h1>
 <p>{{ 'back.organization.create.subtitle'|trans }}</p>
@@ -13,12 +15,4 @@
         <a class="btn btn-inverse" href="{{ path('back_organization_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
     </div>
 </form>
-{% endblock %}
-
-{% block javascripts %}
-{{ parent() }}
-<script type="text/javascript">
-    $('#sidebar-tab-organization').addClass("active");
-    $('#sidebar-tab-organization i').addClass("icon-white");
-</script>
 {% endblock %}
