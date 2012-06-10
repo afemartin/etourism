@@ -8,4 +8,10 @@ services:
         tags:
             - { name: twig.extension }
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-        arguments: [@service_container]
+        arguments: ["@service_container"]
+        
+    # This extension allow to add a help icon with hints about form fields
+    form.type_extension.help_message:
+        class: PFCD\TourismBundle\Form\Extension\HelpMessageTypeExtension
+        tags:
+            - { name: form.type_extension, alias: field }
