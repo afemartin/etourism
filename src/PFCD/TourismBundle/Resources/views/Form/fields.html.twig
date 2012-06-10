@@ -2,6 +2,8 @@
 {# \vendor\symfony\src\Symfony\Bridge\Twig\Resources\views\Form\form_div_layout.html.twig #}
 
 {# Rows #}
+{# Cada elemento va dentro de una fila para usarlos estilos para horizontal-form de bootstrap #}
+{# Si el campo tiene ayuda asociada añadimos a la derecha del campo un icono con un tooltip asociado #}
 
 {% block field_row %}
 {% spaceless %}
@@ -9,6 +11,9 @@
         {{ form_label(form, label|default(null)) }}
         <div class="controls">
             {{ form_widget(form) }}
+            {% if help %}
+            <span class="help-inline"><a class="field-help-tooltip" href="#" rel="tooltip" data-original-title="{{ help|trans }}"><i class="icon-info-sign"></i></a></span>
+            {% endif %}
             {{ form_errors(form) }}
         </div>
     </div>
@@ -17,12 +22,13 @@
 
 
 {# Labels #}
+{# No añadimos la clase a la etiqueta, la clase es solo para el input, evitando tener clases inecesarias y que se apliquen estilos que no deberian #}
 
 {% block generic_label %}
 {% spaceless %}
-    {% set attr = attr|merge({'class': attr.class|default('') ~ ' control-label'}) %}
+    {% set attr = attr|merge({'class': 'control-label'}) %}
     {% if required %}
-        {% set attr = attr|merge({'class': attr.class|default('') ~ ' required'}) %}
+        {% set attr = attr|merge({'class': 'control-label required'}) %}
     {% endif %}
     <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans }}</label>
 {% endspaceless %}
@@ -30,23 +36,54 @@
     
     
 {# Field types #}
-
-{# block money_widget %}
+{# Añadimos al final de las fechas el icono de calendario y en los campos de precio tambien #}
+    
+{% block file_widget %}
 {% spaceless %}
-    {% set widget_addon = widget_addon|merge({'text': money_pattern|replace({ '{{ widget }}': ''})}) %}
-    {{ block('form_widget_simple') }}
+    <div class="fileupload fileupload-new" data-fileupload="image">
+        <div class="fileupload-new thumbnail" style="width: 170px; height: 120px;"><img src="http://www.placehold.it/170x120&amp;text=no+image" /></div>
+        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 170px; max-height: 120px; line-height: 0px;"></div>
+        <div>
+            <span class="btn btn-primary btn-file">
+                <span class="fileupload-new"><i class="icon-picture icon-white"></i> {{ 'back.form.imageupload.button.upload'|trans }}</span>
+                <span class="fileupload-exists"><i class="icon-refresh icon-white"></i> {{ 'back.form.imageupload.button.reload'|trans }}</span>
+                <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+            </span>
+            <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="icon-trash icon-white"></i> {{ 'back.form.imageupload.button.delete'|trans }}</a>
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock file_widget %}
+    
+{% block date_widget %}
+{% spaceless %}
+    {% if widget == 'single_text' %}
+        <div class="input-append">
+        {{ block('field_widget') }}<span class="add-on"><i class="icon-calendar"></i></span>
+        </div>
+    {% else %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ date_pattern|replace({
+                '{{ year }}':  form_widget(form.year),
+                '{{ month }}': form_widget(form.month),
+                '{{ day }}':   form_widget(form.day),
+            })|raw }}
+        </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock date_widget %}
+    
+{% block money_widget %}
+{% spaceless %}
+    <div class="input-append">
+    {{ block('field_widget')|raw }}<span class="add-on">{{ money_pattern|replace({ '{{ widget }}': '' }) }}</span>
+    </div>
 {% endspaceless %}
 {% endblock money_widget %}
 
-{% block widget_addon %}
-{% spaceless %}
-{% from 'PFCDTourismBundle::icons.html.twig' import icon %}
-<span class="add-on">{{ (widget_addon.text ? widget_addon.text : icon(widget_addon.icon))|raw }}</span>
-{% endspaceless %}
-{% endblock widget_addon #}
-
 
 {# Misc #}
+{# Los errores lo metemos dentro de un alert de bootstrap, si hay mas de uno como lista #}
 
 {% block field_errors %}
 {% spaceless %}
@@ -67,8 +104,7 @@
 {% endspaceless %}
 {% endblock field_errors %}
 
-{# block field_errors EL PROBLEMA DE ESTE TIPO ES QUE NO SIEMPRE SI PINTA EL SPAN
-   DENTRO DEL CONTROL GROUP POR QUE CADA TYPO DE CAMPO SE COMPORTA DE MANERA DIFERENTE %}
+{# block field_errors EL PROBLEMA DE ESTE TIPO ES QUE NO SIEMPRE SI PINTA EL SPAN DENTRO DEL CONTROL GROUP POR QUE CADA TIPO DE CAMPO SE COMPORTA DE MANERA DIFERENTE %}
 {% spaceless %}
     {% if errors|length > 0 %}
     <span class="help-{{ block('error_type') }}">
