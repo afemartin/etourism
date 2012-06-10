@@ -2,10 +2,7 @@
 
 {% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% block stylesheets %}
-<link href="{{ asset('css/wysihtml5-bootstrap.css') }}" type="text/css" rel="stylesheet"></link>
-{{ parent() }}
-{% endblock %}
+{% set sectiontab = 'activity' %}{% set helptooltip = 1 %}{% set datepicker = 1 %}{% set wysihtml5 = 1 %}
 
 {% block body %}
 <h1>{{ 'back.activity.update.title'|trans }}</h1>
@@ -18,17 +15,4 @@
         <a class="btn btn-inverse" href="{{ path('back_activity_read', { 'id': activity.id }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
     </div>
 </form>
-{% endblock %}
-
-{% block javascripts %}
-<script src="{{ asset('js/wysihtml5-0.3.0_rc3.min.js') }}"></script>
-{{ parent() }}
-<script src="{{ asset('js/wysihtml5-bootstrap.js') }}"></script>
-<script type="text/javascript">
-    $('textarea.wysiwyg').wysihtml5({"stylesheets": ["{{ asset('css/wysihtml5-bootstrap.css') }}"]});
-</script>
-<script type="text/javascript">
-    $('#sidebar-tab-activity').addClass("active");
-    $('#sidebar-tab-activity i').addClass("icon-white");
-</script>
 {% endblock %}

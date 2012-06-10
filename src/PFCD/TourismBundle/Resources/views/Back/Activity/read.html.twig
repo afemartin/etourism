@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% set sectiontab = 'activity' %}
+
 {% block body %}
 <h1>{{ 'back.activity.read.title'|trans }}</h1>
 <p>{{ 'back.activity.read.subtitle'|trans }}</p>
@@ -99,12 +101,4 @@
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.activity.button.delete'|trans }}</button>
 </form>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#sidebar-tab-activity').addClass("active");
-        $('#sidebar-tab-activity i').addClass("icon-white");
-    </script>
 {% endblock %}
