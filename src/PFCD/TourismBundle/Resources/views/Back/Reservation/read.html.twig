@@ -1,5 +1,6 @@
-{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANIZATION') %}{% set domain = 'Back' %}{% else %}{% set domain = 'Front' %}{% endif %}
-{% extends 'PFCDTourismBundle:' ~ domain ~ ':layout.html.twig' %}
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% set sectiontab = 'reservation' %}
 
 {% block body %}
 <h1>{{ 'back.reservation.read.title'|trans }}</h1>
@@ -60,12 +61,4 @@
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.reservation.button.delete'|trans }}</button>
 </form>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('#sidebar-tab-reservation').addClass("active");
-        $('#sidebar-tab-reservation i').addClass("icon-white");
-    </script>
 {% endblock %}
