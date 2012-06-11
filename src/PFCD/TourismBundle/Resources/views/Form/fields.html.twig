@@ -30,13 +30,53 @@
     {% if required %}
         {% set attr = attr|merge({'class': 'control-label required'}) %}
     {% endif %}
-    <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans }}</label>
+    <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans }}{% if required %} <span class='field-required'>*</span>{% endif %}</label>
 {% endspaceless %}
 {% endblock %}
-    
-    
+       
+{% block checkbox_label %}
+{% spaceless %}
+    {% if form.hasParent() and 'choice' not in form.parent.vars.types %}
+        {{ block('generic_label')}}
+    {% endif %}
+    {% endspaceless %}
+{% endblock checkbox_label %}
+        
+{% block radio_label %}
+{% spaceless %}
+    {% if form.hasParent() and 'choice' not in form.parent.vars.types %}
+        {{ block('generic_label')}}
+    {% endif %}
+    {% endspaceless %}
+{% endblock radio_label %}
+
+
 {# Field types #}
 {# Añadimos al final de las fechas el icono de calendario y en los campos de precio tambien #}
+        
+{% block checkbox_widget %}
+{% spaceless %}
+    {% if form.hasParent() and 'choice' in form.parent.vars.types %}
+        <label class="checkbox inline">
+    {% endif %}
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+    {% if form.hasParent() and 'choice' in form.parent.vars.types %}
+        {{ label|trans }}</label>
+    {% endif %}
+{% endspaceless %}
+{% endblock checkbox_widget %}
+    
+{% block radio_widget %}
+{% spaceless %}
+    {% if form.hasParent() and 'choice' in form.parent.vars.types %}
+        <label class="radio inline">
+    {% endif %}
+    <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+    {% if form.hasParent() and 'choice' in form.parent.vars.types %}
+        {{ label|trans }}</label>
+    {% endif %}
+{% endspaceless %}
+{% endblock radio_widget %}
     
 {% block file_widget %}
 {% spaceless %}
@@ -80,7 +120,7 @@
     </div>
 {% endspaceless %}
 {% endblock money_widget %}
-
+    
 
 {# Misc #}
 {# Los errores lo metemos dentro de un alert de bootstrap, si hay mas de uno como lista #}
@@ -108,9 +148,9 @@
 {% spaceless %}
     {% if errors|length > 0 %}
     <span class="help-{{ block('error_type') }}">
-            {% for error in errors %}
-                {{ error.messageTemplate|trans(error.messageParameters, 'validators') }} <br>
-            {% endfor %}
+        {% for error in errors %}
+            {{ error.messageTemplate|trans(error.messageParameters, 'validators') }} <br>
+        {% endfor %}
     </span>
     {% endif %}
 {% endspaceless %}
