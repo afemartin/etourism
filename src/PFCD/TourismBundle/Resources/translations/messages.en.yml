@@ -279,10 +279,25 @@ Datestart: Start Date
 Dateend: End Date
 Timestart: Start Time
 Timeend: End Time
-Day: Day
-Month: Month
-Year: Year
+Hour: Hour
+Minute: Minute
 Image: Image
+Daysweek: Days of the week
+Mon: Mon
+Tue: Tue
+Wed: Wed
+Thu: Thu
+Fri: Fri
+Sat: Sat
+Sun: Sun
+
+################################################################################
+##### Resource (Form)
+################################################################################
+
+Type: Type
+Description: Description
+Amount: Amount
 
 
 ################################################################################

@@ -201,7 +201,7 @@ Repeat password: Repita contraseña
 User: Usuario
 Users: Usuarios
 
-Organization: Organizacion
+Organization: Organización
 Organizations: Organizaciones
 
 Activity: Actividad
@@ -279,10 +279,25 @@ Datestart: Fecha de inicio
 Dateend: Fecha de fin
 Timestart: Hora de inicio
 Timeend: Hora de fin
-Day: Dia
-Month: Mes
-Year: Año
+Hour: Hour
+Minute: Minute
 Image: Imagen
+Daysweek: Días de la semana
+Mon: Lun
+Tue: Mar
+Wed: Mie
+Thu: Jue
+Fri: Vie
+Sat: Sáb
+Sun: Dom
+
+################################################################################
+##### Resource (Form)
+################################################################################
+
+Type: Tipo
+Description: Descripción
+Amount: Cantidad
 
 
 ################################################################################
