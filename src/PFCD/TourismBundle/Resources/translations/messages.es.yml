@@ -246,6 +246,10 @@ Day: Dia
 Month: Mes
 Year: Año
 
+Pending: Inactivo
+Enabled: Activo
+Locked: Bloqueado
+Deleted: Eliminado
 
 ################################################################################
 ##### Organization (Form)
@@ -279,8 +283,8 @@ Datestart: Fecha de inicio
 Dateend: Fecha de fin
 Timestart: Hora de inicio
 Timeend: Hora de fin
-Hour: Hour
-Minute: Minute
+Hour: Hora
+Minute: Minuto
 Image: Imagen
 Daysweek: Días de la semana
 Mon: Lun
@@ -292,7 +296,22 @@ Sat: Sáb
 Sun: Dom
 
 ################################################################################
-##### Resource (Form)
+##### Reserva (Formulario)
+################################################################################
+
+Adults: Adultos
+Childrens: Niños
+Date: Fecha
+Time: Hora
+
+Requested: Solicitada
+Accepted: Aceptada
+Rejected: Denegada
+Canceled: Cancelada
+
+
+################################################################################
+##### Recurso (Formulario)
 ################################################################################
 
 Type: Tipo

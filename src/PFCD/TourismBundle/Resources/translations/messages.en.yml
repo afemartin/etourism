@@ -246,6 +246,11 @@ Day: Day
 Month: Month
 Year: Year
 
+Pending: Pending
+Enabled: Enabled
+Locked: Blocked
+Deleted: Deleted
+
 
 ################################################################################
 ##### Organization (Form)
@@ -290,6 +295,21 @@ Thu: Thu
 Fri: Fri
 Sat: Sat
 Sun: Sun
+
+################################################################################
+##### Reservation (Form)
+################################################################################
+
+Adults: Adults
+Childrens: Childrens
+Date: Date
+Time: Time
+
+Requested: Requested
+Accepted: Accepted
+Rejected: Rejected
+Canceled: Canceled
+
 
 ################################################################################
 ##### Resource (Form)
