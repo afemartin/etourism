@@ -30,12 +30,12 @@ class OrganizationType extends AbstractType
             $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge')));
         }
         $builder->add('foundationYear', 'integer', array('required' => false));
-        $builder->add('country', 'country');
+        $builder->add('country', 'country', array('empty_value' => 'Select your country'));
         $builder->add('city');
         $builder->add('address');
         $builder->add('postalCode');
         $builder->add('phone');
-        $builder->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish')));
+        $builder->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('file', 'file', array('required' => false, 'label' => 'Logo'));
