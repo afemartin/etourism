@@ -38,7 +38,7 @@ class ReservationType extends AbstractType
         $builder->add('adults', 'integer', array('attr' => array('class' => 'input-mini')));
         $builder->add('childrens', 'integer', array('required' => false, 'attr' => array('class' => 'input-mini')));
         $builder->add('date', 'date', array('required' => false,  'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
-        $builder->add('time', 'time', array('required' => false, 'hours' => range(23, 0), 'minutes' => range(60-$step, 0, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minutes' ), 'attr' => array('class' => 'time-choice-compact')));
+        $builder->add('time', 'time', array('required' => false, 'hours' => range(23, 0), 'minutes' => range(60-$step, 0, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
         {
             $builder->add('status', 'choice', array('choices' => array(Reservation::STATUS_REQUESTED => 'Requested', Reservation::STATUS_ACCEPTED => 'Accepted', Reservation::STATUS_REJECTED => 'Rejected', Reservation::STATUS_CANCELED => 'Canceled')));
