@@ -352,6 +352,65 @@ class Resource
     }
 
     /**
+     * Set daysWeek
+     *
+     * @param array
+     */
+    public function setDaysWeek($daysWeek)
+    {
+        $this->setMonday(false);
+        $this->setTuesday(false);
+        $this->setWednesday(false);
+        $this->setThursday(false);
+        $this->setFriday(false);
+        $this->setSaturday(false);
+        $this->setSunday(false);
+        
+        foreach ($daysWeek as $day)
+        {
+            if ($day == 'monday')
+                $this->setMonday(true);
+            elseif ($day == 'tuesday')
+                $this->setTuesday(true);
+            elseif ($day == 'wednesday')
+                $this->setWednesday(true);
+            elseif ($day == 'thursday')
+                $this->setThursday(true);
+            elseif ($day == 'friday')
+                $this->setFriday(true);
+            elseif ($day == 'saturday')
+                $this->setSaturday(true);
+            elseif ($day == 'sunday')
+                $this->setSunday(true);
+        }
+    }
+
+    /**
+     * Get daysWeek
+     *
+     * @return array
+     */
+    public function getDaysWeek()
+    {
+        $daysWeek = array();
+        if ($this->getMonday())
+            $daysWeek[] = 'monday';
+        if ($this->getTuesday())
+            $daysWeek[] = 'tuesday';
+        if ($this->getWednesday())
+            $daysWeek[] = 'wednesday';
+        if ($this->getThursday())
+            $daysWeek[] = 'thursday';
+        if ($this->getFriday())
+            $daysWeek[] = 'friday';
+        if ($this->getSaturday())
+            $daysWeek[] = 'saturday';
+        if ($this->getSunday())
+            $daysWeek[] = 'sunday';
+        return $daysWeek;
+    }
+    
+    /**
      * Set monday
      *
      * @param boolean $monday
