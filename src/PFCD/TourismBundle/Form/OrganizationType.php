@@ -27,7 +27,7 @@ class OrganizationType extends AbstractType
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge')));
-            $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysiwyg input-xxlarge')));
+            $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge')));
         }
         $builder->add('foundationYear', 'integer', array('required' => false));
         $builder->add('country', 'country');

@@ -20,8 +20,8 @@ class UserType extends AbstractType
         }
         $builder->add('firstname');
         $builder->add('lastname');
-        $builder->add('birthday', 'birthday', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') - 5, date('Y') - 80), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
-        $builder->add('gender', 'choice', array('choices' => array(User::GENDER_MALE => 'Male', User::GENDER_FEMALE => 'Female')));
+        $builder->add('birthday', 'birthday', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') - 5, date('Y') - 90), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
+        $builder->add('gender', 'choice', array('choices' => array(User::GENDER_MALE => 'Male', User::GENDER_FEMALE => 'Female'), 'expanded' => true));
         $builder->add('country', 'country');
         $builder->add('city');
         $builder->add('address');
