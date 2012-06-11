@@ -2,6 +2,8 @@
 
 {% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
+{% set sectiontab = 'resource' %}{% set datepicker = 1 %}
+
 {% block body %}
 <h1>{{ 'back.resource.update.title'|trans }}</h1>
 <p>{{ 'back.resource.update.subtitle'|trans }}</p>
@@ -13,11 +15,4 @@
         <a class="btn btn-inverse" href="{{ path('back_resource_read', { 'id': resource.id }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
     </div>
 </form>
-{% endblock %}
-
-{% block javascripts %}
-<script type="text/javascript">
-    $('#sidebar-tab-resource').addClass("active");
-    $('#sidebar-tab-resource i').addClass("icon-white");
-</script>
 {% endblock %}

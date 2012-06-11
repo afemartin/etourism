@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% set sectiontab = 'resource' %}
+
 {% block body %}
 <h1>{{ 'back.resource.index.title'|trans }}</h1>
 <p>{{ 'back.resource.index.subtitle'|trans }}</p>
@@ -63,12 +65,4 @@
 </table>
 
 <a class="btn btn-primary" href="{{ path('back_resource_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.resource.button.create'|trans }}</a>
-{% endblock %}
-
-{% block javascripts %}
-{{ parent() }}
-<script type="text/javascript">
-    $('#sidebar-tab-resource').addClass("active");
-    $('#sidebar-tab-resource i').addClass("icon-white");
-</script>
 {% endblock %}
