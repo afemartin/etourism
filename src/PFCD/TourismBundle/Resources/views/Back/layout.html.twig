@@ -32,14 +32,15 @@
     {% if wysihtml5 is defined and wysihtml5 %}
         <script src="{{ asset('js/wysihtml5-bootstrap.js') }}"></script>
         <script type="text/javascript">
-            $('textarea.wysiwyg').wysihtml5({"stylesheets": ["{{ asset('css/wysihtml5-iframe-bootstrap.css') }}"]});
+            $('textarea.wysihtml5-bootstrap').wysihtml5({"stylesheets": ["{{ asset('css/wysihtml5-iframe-bootstrap.css') }}"]});
         </script>
     {% endif %}
         
     {% if datepicker is defined and datepicker %}
         <script src="{{ asset('js/datepicker-bootstrap.js') }}"></script>
+        <script src="{{ asset('js/datepicker-bootstrap.' ~ app.session.locale ~ '.js') }}"></script>
         <script type="text/javascript">
-            $('input.datepicker-bootstrap').datepicker({'format' : 'dd/mm/yyyy', "weekStart" : 1});
+            $('input.datepicker-bootstrap').datepicker({'format' : 'dd/mm/yyyy', 'weekStart' : 1, 'autoclose' : true,  'language' : '{{ app.session.locale }}'});
         </script>
     {% endif %}
         
