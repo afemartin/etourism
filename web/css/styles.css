@@ -200,6 +200,7 @@ textarea.wysihtml5-bootstrap {
     font-size: 22px;
     font-weight: bold;
     line-height: 0;
+    margin-right: -13px;
     text-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.25);
 }
 
