@@ -69,7 +69,7 @@ textarea {
     resize: none
 }
 
-textarea.wysiwyg {
+textarea.wysihtml5-bootstrap {
     height: 200px;
 }
 
@@ -195,6 +195,14 @@ textarea.wysiwyg {
     padding: 9px;
 }
 
+.field-required {
+    color: #B94A48;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 0;
+    text-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.25);
+}
+
 .date-choice-compact select {
     width: 68px;
     margin-left: 2px;
@@ -212,7 +220,7 @@ textarea.wysiwyg {
 }
 
 .time-choice-compact select {
-    width: 90px;
+    width: 80px;
     margin-left: 3px;
     margin-right: 3px;
 }
