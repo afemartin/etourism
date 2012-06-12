@@ -55,20 +55,20 @@
                 {% block sidebar %}
                 <div class="subnav">
                     <ul class="nav nav-pills">
-                        <li id="sidebar-tab-home"><a href="{{ path('back_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
+                        <li id="subnav-tab-home"><a href="{{ path('back_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <li id="sidebar-tab-organization"><a href="{{ path('back_organization_index') }}"><i class="icon-globe"></i> {{ 'Organizations'|trans }}</a></li>
+                        <li id="subnav-tab-organization"><a href="{{ path('back_organization_index') }}"><i class="icon-globe"></i> {{ 'Organizations'|trans }}</a></li>
                         {% endif %}
-                        <li id="sidebar-tab-activity"><a href="{{ path('back_activity_index') }}"><i class="icon-leaf"></i> {{ 'Activities'|trans }}</a></li>
-                        <li id="sidebar-tab-resource"><a href="{{ path('back_resource_index') }}"><i class="icon-wrench"></i> {{ 'Resources'|trans }}</a></li>
-                        <li id="sidebar-tab-news"><a href="#"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
-                        <li id="sidebar-tab-reservation"><a href="{{ path('back_reservation_index') }}"><i class="icon-book "></i> {{ 'Reservations'|trans }}</a></li>
-                        <li id="sidebar-tab-statistic"><a href="#"><i class="icon-tasks"></i> {{ 'Statistics'|trans }}</a></li>
-                        <li id="sidebar-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
+                        <li id="subnav-tab-activity"><a href="{{ path('back_activity_index') }}"><i class="icon-leaf"></i> {{ 'Activities'|trans }}</a></li>
+                        <li id="subnav-tab-resource"><a href="{{ path('back_resource_index') }}"><i class="icon-wrench"></i> {{ 'Resources'|trans }}</a></li>
+                        <li id="subnav-tab-news"><a href="#"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
+                        <li id="subnav-tab-reservation"><a href="{{ path('back_reservation_index') }}"><i class="icon-book "></i> {{ 'Reservations'|trans }}</a></li>
+                        <li id="subnav-tab-statistic"><a href="#"><i class="icon-tasks"></i> {{ 'Statistics'|trans }}</a></li>
+                        <li id="subnav-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
                         {% if is_granted('ROLE_ORGANIZATION') %}
                         <li class="divider"></li>
-                        <li id="sidebar-tab-organization"><a href="{{ path('back_organization_read', { 'id' : app.user.id }) }}"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
-                        <li id="sidebar-tab-help"><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>
+                        <li id="subnav-tab-organization"><a href="{{ path('back_organization_read', { 'id' : app.user.id }) }}"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
+                        <li id="subnav-tab-help"><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>
                         {% endif %}
                     </ul>
                 </div>
