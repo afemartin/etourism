@@ -18,12 +18,7 @@
                 <div class="container">
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
                     <a class="brand" href="{{ path('back_index') }}">CooperationTourism.com</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <div class="pull-right">{{ 'Welcome'|trans }} Admin ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div>
-                    {% elseif is_granted('ROLE_ORGANIZATION') %}
-                    <div class="pull-right">{{ 'Welcome'|trans }} {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div> 
-                    {% else %}
-                    <ul class="nav pull-right">
+                    <ul class="nav">
                         <li class="dropdown">
                             {% if app.request.locale == 'en' %}
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#"><img src="{{ asset('img/blank.gif') }}" class="flag flag-gb" /> {{ 'Language'|trans }} <b class="caret"></b></a>
@@ -36,6 +31,10 @@
                             </ul>
                         </li>
                     </ul>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <div class="pull-right">{{ 'Welcome'|trans }} Admin ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div>
+                    {% elseif is_granted('ROLE_ORGANIZATION') %}
+                    <div class="pull-right">{{ 'Welcome'|trans }} {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div> 
                     {% endif %}
                 </div>
             </div>
@@ -43,11 +42,19 @@
         <div class="container main">
             <div class="row">
             {% block container %}
-            <div class="span2">
+
+            <div class="span12">
+                <header class="well">
+                    <h1>{% block header_title %}{{ 'back.header.title'|trans }}{% endblock %}</h1>
+                    <h2>{% block header_subtitle %}{{ 'back.header.subtitle'|trans }}{% endblock %}</h2>
+                </header>
+                {% if app.session.hasFlash('alert-info') %}<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-info') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-success') %}<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-success') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-warning') %}<div class="alert fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-warning') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-error') %}<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-error') }}</div>{% endif %}
                 {% block sidebar %}
-                <div style="padding: 8px 0;" class="well">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">{{ 'Menu'|trans }}</li>
+                <div class="subnav">
+                    <ul class="nav nav-pills">
                         <li id="sidebar-tab-home"><a href="{{ path('back_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li id="sidebar-tab-organization"><a href="{{ path('back_organization_index') }}"><i class="icon-globe"></i> {{ 'Organizations'|trans }}</a></li>
@@ -66,16 +73,6 @@
                     </ul>
                 </div>
                 {% endblock %}
-            </div>
-            <div class="span10">
-                <header class="well">
-                    <h1>{% block header_title %}{{ 'back.header.title'|trans }}{% endblock %}</h1>
-                    <h2>{% block header_subtitle %}{{ 'back.header.subtitle'|trans }}{% endblock %}</h2>
-                </header>
-                {% if app.session.hasFlash('alert-info') %}<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-info') }}</div>{% endif %}
-                {% if app.session.hasFlash('alert-success') %}<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-success') }}</div>{% endif %}
-                {% if app.session.hasFlash('alert-warning') %}<div class="alert fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-warning') }}</div>{% endif %}
-                {% if app.session.hasFlash('alert-error') %}<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-error') }}</div>{% endif %}
                 {% block body %}{% endblock %}
             </div>
             {% endblock %}
@@ -87,6 +84,28 @@
         {% block javascripts %}
         <script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript">
+            // fix sub nav on scroll
+            var $win = $(window);
+            var $nav = $('.subnav');
+            var navTop = $('.subnav').length && $('.subnav').offset().top - 20;
+            var isFixed = 0;
+
+            processScroll();
+
+            $win.on('scroll', processScroll);
+
+            function processScroll() {
+                var i, scrollTop = $win.scrollTop();
+                if (scrollTop >= navTop && !isFixed) {
+                    isFixed = 1
+                    $nav.addClass('subnav-fixed')
+                } else if (scrollTop <= navTop && isFixed) {
+                    isFixed = 0
+                    $nav.removeClass('subnav-fixed')
+                }
+            }
+        </script>
         {% endblock %}
     </body>
 </html>
