@@ -1,7 +1,7 @@
 {% extends '::back.html.twig' %}
 
 {# Full set of variables (string or boolean) that can be set to configure the stylesheet and javascript blocks #}
-{# {% set sectiontab = 'sectionname' %}{% set helptooltip = 0 %}{% set datepicker = 0 %}{% set fileupload = 0 %}{% set currentimage = entity.image %}{% set wysihtml5 = 0 %} #}
+{# {% set sectiontab = 'sectionname' %}{% set helptooltip = 0 %}{% set datepicker = 0 %}{% set fileupload = 0 %}{% set wysihtml5 = 0 %} #}
 
 {% block stylesheets %}
 
@@ -46,11 +46,6 @@
         
     {% if fileupload is defined and fileupload %}
         <script src="{{ asset('js/fileupload-bootstrap.js') }}"></script>
-        {% if currentimage is defined and currentimage %}
-            <script type="text/javascript">
-                $('.fileupload-new img').attr("src", "{{ asset(currentimage)}}");
-            </script>
-        {% endif %}
     {% endif %}
             
     {% if helptooltip is defined and helptooltip %}

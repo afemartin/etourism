@@ -2,7 +2,7 @@
 
 {% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% set sectiontab = 'organization' %}{% set fileupload = 1 %}{% set currentimage = organization.logo %}{% set wysihtml5 = 1 %}
+{% set sectiontab = 'organization' %}{% set fileupload = 1 %}{% set wysihtml5 = 1 %}
 
 {% block body %}
 <h1>{{ 'back.organization.update.title'|trans }}</h1>
@@ -15,4 +15,13 @@
         <a class="btn btn-inverse" href="{{ path('back_organization_read', { 'id': organization.id }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
     </div>
 </form>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% if organization.logo %}
+<script type="text/javascript">
+    $('.fileupload-new img').attr("src", "{{ asset(organization.logo)}}");
+</script>
+{% endif %}
 {% endblock %}
