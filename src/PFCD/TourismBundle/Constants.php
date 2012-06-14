@@ -10,6 +10,10 @@ class Constants
     
     const FORM_CREATE = 'create';
     const FORM_UPDATE = 'update';
+    
+    const ORGANIZATION = 'organization';
+    const ACTIVITY     = 'activity';
+    const NEWS         = 'news';
 }
 
 ?>
