@@ -42,3 +42,8 @@ PFCD\TourismBundle\Entity\Reservation:
             - NotBlank: { groups: [Default] }
         adults:
             - Min:      { limit: 1, message: "reservation.adults.error", groups: [Front, Default] }
+            
+PFCD\TourismBundle\Entity\Image:
+    properties:
+        file:
+            - Image:    { maxSize: 512k }
