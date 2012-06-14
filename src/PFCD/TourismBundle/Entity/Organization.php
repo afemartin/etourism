@@ -568,8 +568,9 @@ class Organization implements AdvancedUserInterface
     {
         if ($this->file !== null)
         {
-            $this->logo = 'org' . $this->id . '.' . $this->file->guessExtension();
-            $this->file->move($this->getUploadRootDir(), $this->logo);
+            $this->logo = 'logo.' . $this->file->guessExtension();
+            $this->file->move(__DIR__ . '/../../../../web/' . $this->getUploadDir(), $this->logo);
+            $this->logo = $this->getUploadDir() . '/' . $this->logo;
             unset($this->file);
         }
     }
@@ -581,19 +582,9 @@ class Organization implements AdvancedUserInterface
      */
     public function getLogo()
     {
-        return null === $this->logo ? null : $this->getUploadDir().'/'.$this->logo;
+        return $this->logo;
     }
     
-    /**
-     * The absolute directory path where uploaded documents should be saved
-     * 
-     * @return string 
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
     /**
      * Get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view
      * 
@@ -601,9 +592,8 @@ class Organization implements AdvancedUserInterface
      */
     protected function getUploadDir()
     {
-        return 'uploads/organizations/logos';
+        return 'uploads/org' . $this->id;
     }
-
     
     /**
      * Set video
