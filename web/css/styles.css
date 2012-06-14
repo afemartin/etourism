@@ -246,7 +246,6 @@ textarea.wysihtml5-bootstrap {
 /* Subnav styles */
 .subnav {
     width: 100%;
-    padding: 1px 2px;
     margin-bottom: 20px;
     background-color: #eeeeee; /* Old browsers */
     background-repeat: repeat-x; /* Repeat the gradient */
@@ -269,8 +268,6 @@ textarea.wysihtml5-bootstrap {
     margin: 0;
     padding-top:    11px;
     padding-bottom: 10px;
-    margin-top: 1px;
-    margin-bottom: 1px;
     border-left: 1px solid #f5f5f5;
     border-right: 1px solid #e5e5e5;
         -webkit-border-radius: 0;
