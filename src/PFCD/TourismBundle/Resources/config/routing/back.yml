@@ -80,6 +80,11 @@ back_organization_update:
     defaults: { _controller: "PFCDTourismBundle:Organization:backUpdate" }
     requirements: { id: \d+ }
 
+back_organization_media:
+    pattern:  /organization/{id}/media
+    defaults: { _controller: "PFCDTourismBundle:Organization:backMedia" }
+    requirements: { id: \d+ }
+
 back_organization_delete:
     pattern:  /organization/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Organization:backDelete" }
@@ -107,6 +112,11 @@ back_activity_read:
 back_activity_update:
     pattern:  /activity/{id}/edit
     defaults: { _controller: "PFCDTourismBundle:Activity:backUpdate" }
+    requirements: { id: \d+ }
+
+back_activity_media:
+    pattern:  /activity/{id}/media
+    defaults: { _controller: "PFCDTourismBundle:Activity:backMedia" }
     requirements: { id: \d+ }
 
 back_activity_delete:
