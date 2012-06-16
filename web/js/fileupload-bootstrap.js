@@ -20,17 +20,25 @@
 * ========================================================== */
 
 (function( $ ){
-    $.fn.fileuploader = function () {
-        this.each(function () {
+    $.fn.fileuploader = function ( options ) {
+        
+        // Create some defaults, extending them with any options that were provided
+        var settings = $.extend( {'collection' : false}, options);
+        
+        return this.each(function () {
             var container = $(this);
             var input = $(this).find(':file');
             var name = input.attr('name');
             if (input.length == 0) return;
-
+            
             var preview = $(this).find('.fileupload-preview');
             if (preview.css('display') != 'inline' && preview.css('height') != 'none') preview.css('line-height', preview.css('height'));
 
-            var remove = $(this).find('*[data-dismiss="fileupload"]');
+            var btn_remove = $(this).find('*[data-delete="fileupload"]');
+            var btn_cancel = $(this).find('*[data-dismiss="fileupload"]');
+            
+            // Remove delete container button if it is single fileuploader and not a collection of them
+            if (!settings.collection) btn_remove.remove();
 
             var hidden_input = $(this).find(':hidden[name="'+name+'"]');
             if (!hidden_input.length) {
@@ -63,14 +71,17 @@
                 }
             });
 
-            remove.click(function() {
+            btn_remove.click(function() {
+                container.parent('.span3').remove();
+                return false;
+            });
+
+            btn_cancel.click(function() {
                 hidden_input.val('');
                 hidden_input.attr('name', name);
                 input.attr('name', '');
-
                 preview.html('');
                 container.addClass('fileupload-new').removeClass('fileupload-exists');
-
                 return false;
             });
         });
