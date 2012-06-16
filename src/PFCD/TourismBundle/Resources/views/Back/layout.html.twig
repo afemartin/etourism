@@ -1,11 +1,15 @@
 {% extends '::back.html.twig' %}
 
 {# Full set of variables (string or boolean) that can be set to configure the stylesheet and javascript blocks #}
-{# {% set sectiontab = 'sectionname' %}{% set helptooltip = 0 %}{% set datepicker = 0 %}{% set fileupload = 0 %}{% set wysihtml5 = 0 %} #}
+{# {% set sectiontab = 'sectionname' %}{% set helptooltip = 0 %}{% set datepicker = 0 %}{% set fileupload = 0 %}{% set wysihtml5 = 0 %}{% set fancybox = 0 %} #}
 
 {% block stylesheets %}
 
     {{ parent() }}
+
+    {% if fancybox is defined and fancybox %}
+        <link href="{{ asset('css/fancybox-1.3.4.css') }}" type="text/css" rel="stylesheet" />
+    {% endif %}
 
     {% if datepicker is defined and datepicker %}
         <link href="{{ asset('css/datepicker-bootstrap.css') }}" type="text/css" rel="stylesheet" />
