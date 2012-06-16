@@ -12,7 +12,7 @@
         <div class="controls">
             {{ form_widget(form) }}
             {% if help %}
-            <span class="help-inline"><a class="field-help-tooltip" href="#" rel="tooltip" data-original-title="{{ help|trans }}"><i class="icon-info-sign"></i></a></span>
+            <span class="help-inline"><a class="field-help-tooltip" rel="tooltip" data-original-title="{{ help|trans }}"><i class="icon-info-sign"></i></a></span>
             {% endif %}
             {{ form_errors(form) }}
         </div>
@@ -20,6 +20,36 @@
 {% endspaceless %}
 {% endblock field_row %}
 
+
+{# Collection #}
+{# No pintar las etiquetas para las colecciones de images #}
+
+{% block collection_widget %}
+{% spaceless %}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': block('collection_item_widget') }) %}
+    {% endif %}
+    <div {{ block('widget_container_attributes') }}>
+        {{ form_errors(form) }}
+        {% for element in form %}
+            <div class='span3'>
+            {% for field in element %}
+                {{ form_widget(field) }}
+            {% endfor %}
+            </div>
+        {% endfor %}
+        {{ form_rest(form) }}
+    </div>
+{% endspaceless %}
+{% endblock collection_widget %}
+
+{% block collection_item_widget %}
+{% spaceless %}
+    {% for field in prototype %}
+        {{ form_widget(field) }}
+    {% endfor %}
+{% endspaceless %}
+{% endblock collection_item_widget %}
 
 {# Labels #}
 {# No añadimos la clase a la etiqueta, la clase es solo para el input, evitando tener clases inecesarias y que se apliquen estilos que no deberian #}
@@ -81,15 +111,16 @@
 {% block file_widget %}
 {% spaceless %}
     <div class="fileupload fileupload-new" data-fileupload="image">
-        <div class="fileupload-new thumbnail" style="width: 170px; height: 120px;"><img src="http://www.placehold.it/170x120&amp;text=no+image" /></div>
-        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 170px; max-height: 120px; line-height: 0px;"></div>
+        <div class="fileupload-new thumbnail image-holder"><img height="120px" src="http://www.placehold.it/170x120&amp;text=no+image" /></div>
+        <div class="fileupload-preview fileupload-exists thumbnail" style="max-height: 120px; line-height: 0px;"></div>
         <div>
             <span class="btn btn-primary btn-file">
                 <span class="fileupload-new"><i class="icon-picture icon-white"></i> {{ 'back.form.imageupload.button.upload'|trans }}</span>
                 <span class="fileupload-exists"><i class="icon-refresh icon-white"></i> {{ 'back.form.imageupload.button.reload'|trans }}</span>
-                <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+                <input type="{{ type }}" {{ block('widget_attributes') }} />
             </span>
-            <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="icon-trash icon-white"></i> {{ 'back.form.imageupload.button.delete'|trans }}</a>
+            <a class="btn btn-danger fileupload-new" data-delete="fileupload"><i class="icon-trash icon-white"></i> {{ 'back.form.imageupload.button.delete'|trans }}</a>
+            <a class="btn btn-inverse fileupload-exists" data-dismiss="fileupload"><i class="icon-remove icon-white"></i> {{ 'back.form.imageupload.button.cancel'|trans }}</a>
         </div>
     </div>
 {% endspaceless %}
