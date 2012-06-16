@@ -182,6 +182,8 @@ alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank 
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you dont remember your password we will send you a link to your email account in order to allow you to set a new password
 
+form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
+
 
 ################################################################################
 ##### Login & Register & Remember Password (Form)
@@ -377,6 +379,11 @@ back.activity.button.read: Show this activity
 back.activity.button.update: Edit this activity
 back.activity.button.delete: Delete this activity
 
+back.media.button.addimage: Add new image
+back.media.button.help: Help
+back.media.button.preview: Preview
+back.media.button.search: Search
+
 back.reservation.button.index: Back to the list
 back.reservation.button.create: Create a new reservation
 back.reservation.button.read: Show this reservation
@@ -389,6 +396,7 @@ back.resource.button.read: Show this resource
 back.resource.button.update: Edit this resource
 back.resource.button.delete: Delete this resource
 
-back.form.imageupload.button.upload: Select image
-back.form.imageupload.button.reload: Change image
+back.form.imageupload.button.upload: Upload
+back.form.imageupload.button.reload: Change
 back.form.imageupload.button.delete: Remove
+back.form.imageupload.button.cancel: Cancel
