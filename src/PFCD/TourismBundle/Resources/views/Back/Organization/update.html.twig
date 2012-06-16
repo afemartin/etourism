@@ -19,6 +19,9 @@
 
 {% block javascripts %}
 {{ parent() }}
+<script type="text/javascript">
+    $('.fileupload').fileuploader();
+</script>
 {% if organization.logo %}
 <script type="text/javascript">
     $('.fileupload-new img').attr("src", "{{ asset(organization.logo)}}");

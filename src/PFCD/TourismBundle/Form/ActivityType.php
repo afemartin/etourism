@@ -32,9 +32,7 @@ class ActivityType extends AbstractType
         $builder->add('daysWeek', 'choice', array('choices' => array('monday' => 'Mon', 'tuesday' => 'Tue', 'wednesday' => 'Wed', 'thursday' => 'Thu', 'friday' => 'Fri', 'saturday' => 'Sat', 'sunday' => 'Sun'), 'multiple' => true, 'expanded' => true));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('geolocation', 'text', array('required' => false, 'help' => 'form.activity.field.geolocation.help'));
-            $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
-            $builder->add('video', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.activity.field.video.help'));
+            $builder->add('file', 'file', array('required' => false, 'label' => 'Image', 'help' => 'form.activity.field.image.help'));
             $builder->add('status', 'choice', array('choices' => array(Activity::STATUS_PENDING => 'Pending', Activity::STATUS_ENABLED => 'Enabled', Activity::STATUS_LOCKED => 'Locked', Activity::STATUS_DELETED => 'Deleted')));
         }
     }

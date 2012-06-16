@@ -16,3 +16,15 @@
     </div>
 </form>
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('.fileupload').fileuploader();
+</script>
+{% if activity.image %}
+<script type="text/javascript">
+    $('.fileupload-new img').attr("src", "{{ asset(activity.image)}}");
+</script>
+{% endif %}
+{% endblock %}

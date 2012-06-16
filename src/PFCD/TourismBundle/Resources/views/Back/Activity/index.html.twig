@@ -22,7 +22,7 @@
             {% if is_granted('ROLE_ADMIN') %}
             <th rowspan="2">{{ 'Organization'|trans }}</th>
             {% endif %}
-            <th rowspan="2">{{ 'Edit'|trans }}</th>
+            <th rowspan="2" colspan="2">{{ 'Edit'|trans }}</th>
         </tr>
         <tr>
             <th>{{ 'Mo'|trans }}</th>
@@ -56,7 +56,8 @@
         {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></td>
         {% endif %}
-        <td><a href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-edit"></i></a></td>
+        <td><a href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil"></i></a></td>
+        <td><a href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture"></i></a></td>
     </tr>
     {% endfor %}
     </tbody>

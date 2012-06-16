@@ -8,6 +8,9 @@ use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Form\ActivityType;
+use PFCD\TourismBundle\Form\MediaType;
+
+use PFCD\TourismBundle\Entity\Image;
 
 /**
  * Activity controller
@@ -140,7 +143,7 @@ class ActivityController extends Controller
             if ($editForm->isValid())
             {
                 $activity->setImage();
-
+                
                 $em->persist($activity);
                 $em->flush();
 
@@ -153,6 +156,81 @@ class ActivityController extends Controller
         }    
 
         return $this->render('PFCDTourismBundle:Back/Activity:update.html.twig', array(
+            'activity'  => $activity,
+            'edit_form' => $editForm->createView(),
+        ));
+    }
+    
+    /**
+     * Edits an existent Activity entity and store it when the form is submitted and valid
+     */
+    public function backMediaAction($id)
+    {
+        $filter['id'] = $id;
+                
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
+
+        if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
+
+        $options['entity'] = Constants::ACTIVITY;
+        
+        $editForm = $this->createForm(new MediaType(), $activity, $options);
+        
+        // Create an array of the current Image objects in the database
+        $originalGallery = array();
+        foreach ($activity->getGallery() as $image)
+        {
+            $originalGallery[] = $image;
+        }
+
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $editForm->bindRequest($request);
+
+            if ($editForm->isValid())
+            {
+                // Filter $originalImages to contain images removed by the user
+                foreach ($activity->getGallery() as $image)
+                {
+                    foreach ($originalGallery as $key => $toDel)
+                    {
+                        if ($toDel->getId() === $image->getId())
+                        {
+                            unset($originalGallery[$key]);
+                        }
+                    }
+                }
+
+                // Delete from the DDBB the images removed previously
+                foreach ($originalGallery as $image)
+                {
+                    $em->remove($image);
+                }
+                
+                $em->persist($activity);
+                $gallery = $activity->getGallery();
+                foreach ($gallery as $image)
+                {
+                    $image->setActivity($activity);
+                    $em->persist($image);
+                }
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('back_activity_read', array('id' => $id)));
+            }
+        }    
+
+        return $this->render('PFCDTourismBundle:Back/Activity:media.html.twig', array(
             'activity'  => $activity,
             'edit_form' => $editForm->createView(),
         ));

@@ -11,6 +11,7 @@ use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Reservation;
 use PFCD\TourismBundle\Entity\ActivityResource;
 use PFCD\TourismBundle\Entity\ActivityComment;
+use PFCD\TourismBundle\Entity\Image;
 
 /**
  * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\ActivityRepository")
@@ -140,12 +141,12 @@ class Activity
     private $file = null;
     
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="image", type="string", nullable=true)
      */
     private $image;
     
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="video", type="string", nullable=true)
      */
     private $video;
     
@@ -167,6 +168,11 @@ class Activity
     private $status;
     
     /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="activity")
+     */
+    private $gallery;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Reservation", mappedBy="activity")
      */
     private $reservations;
@@ -184,6 +190,7 @@ class Activity
     public function __construct()
     {
         $this->status = self::STATUS_PENDING;
+        $this->gallery = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->resources = new ArrayCollection();
         $this->comments = new ArrayCollection();
@@ -636,17 +643,7 @@ class Activity
      */
     public function setGeolocation($geolocation)
     {
-        $address = urlencode($geolocation);
-        $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false");
-        $json = json_decode($json);
-
-        if ($json->{'status'} == 'OK')
-        {
-            $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
-            $lng = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
-
-            $this->geolocation = $lat . ',' . $lng;
-        }
+        $this->geolocation = $geolocation;
     }
 
     /**
@@ -678,7 +675,7 @@ class Activity
     {
         return $this->file;
     }
-
+    
     /**
      * Set image
      */
@@ -686,13 +683,9 @@ class Activity
     {
         if ($this->file !== null)
         {
-            $images = explode("|", $this->image);
-            $image = 'act' . $this->id . '-n' . count($images) . '.' . $this->file->guessExtension();
-            
-            $images[] = $image;
-            $this->image = implode("|", $images);
-            
-            $this->file->move($this->getUploadRootDir(), $image);
+            $this->image = 'image.' . $this->file->guessExtension();
+            $this->file->move(__DIR__ . '/../../../../web/' . $this->getUploadDir(), $this->image);
+            $this->image = $this->getUploadDir() . '/' . $this->image;
             unset($this->file);
         }
     }
@@ -704,46 +697,9 @@ class Activity
      */
     public function getImage()
     {
-        if ($this->image)
-        {
-            $images = explode("|", $this->image);
-            return $this->getUploadDir() . '/' . $images[0];
-        }
-        
-        return null;
-    }
-
-    /**
-     * Get images
-     *
-     * @return array 
-     */
-    public function getImages()
-    {
-        if ($this->image)
-        {
-            $images = explode("|", $this->image);
-        
-            foreach ($images as &$image)
-            {
-                $image = $this->getUploadDir() . '/' . $image;
-            }
-            return $images;
-        }
-        
-        return null;
+        return $this->image;
     }
     
-    /**
-     * The absolute directory path where uploaded documents should be saved
-     * 
-     * @return type 
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
     /**
      * Get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view
      * 
@@ -751,9 +707,8 @@ class Activity
      */
     protected function getUploadDir()
     {
-        return 'uploads/activities/images';
+        return 'uploads/org' . $this->organization->getId() . '/act' . $this->id;
     }
-
     
     /**
      * Set video
@@ -843,6 +798,36 @@ class Activity
     public function getStatusText()
     {
         return $this->statusText[$this->status];
+    }
+    
+    /**
+     * Add images to the gallery
+     *
+     * @param Image $image
+     */
+    public function addImage(Image $image)
+    {
+        $this->gallery[] = $image;
+    }
+
+    /**
+     * Set gallery of images
+     *
+     * @return 
+     */
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
+    }
+
+    /**
+     * Get gallery of images
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
     
     /**

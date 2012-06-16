@@ -1,0 +1,148 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'activity' %}{% set helptooltip = 1 %}{% set fileupload = 1 %}{% set fancybox = 1 %}
+
+{% block body %}
+<h1>{{ 'back.activity.update.title'|trans }}</h1>
+<p>{{ 'back.activity.update.subtitle'|trans }}</p>
+
+<form class="form" action="{{ path('back_activity_media', { 'id': activity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_errors(edit_form) }}
+
+    <div class="row v-spaced">
+        <div class="span12">
+            <h1>{{ 'Gallery'|trans }}</h1>
+        </div>
+        {# store the prototype on the data-prototype attribute #}
+        {{ form_widget(edit_form.gallery) }}
+        <div class="span3">
+            <a id="add-another-image" class="btn btn-primary" onclick="addImageForm()"><i class="icon-plus icon-white"></i> {{ 'back.media.button.addimage'|trans }}</a>
+        </div>
+    </div>
+        
+    <hr />
+
+    <div class="row">
+        <div class="span6">
+            <h1>{{ 'Video'|trans }}</h1>
+            {{ form_errors(edit_form.video) }}
+            {{ form_row(edit_form.video) }}
+            <a id="video-help" href="{{ asset('img/embed_youtube_video.' ~ app.session.locale ~ '.png') }}" title="{{ 'form.media.field.video.help'|trans }}" class="btn btn-info"><i class="icon-question-sign icon-white"></i> {{ 'back.media.button.help'|trans }}</a>
+            <a class="btn btn-primary" onclick="videoPreview()"><i class="icon-film icon-white"></i> {{ 'back.media.button.preview'|trans }}</a>
+            <div id="video-preview" style="margin-top: 20px"></div>
+        </div>    
+
+        <div class="span6">
+            <h1>Geolocation</h1>
+            {{ form_errors(edit_form.geolocation) }}
+            {{ form_row(edit_form.geolocation) }}
+            <div class="form-inline">
+                <input id="map-address" class="input-xlarge" placeholder="{{ 'Address'|trans }}" type="text">
+                <a class="btn btn-primary" onclick="geocode()"><i class="icon-map-marker icon-white"></i> {{ 'back.media.button.search'|trans }}</a>
+            </div>
+            <div class="well mini" style="margin-top: 10px">
+                <div id="map_canvas"></div>
+            </div>
+        </div>
+        
+        {{ form_rest(edit_form) }}
+
+        <div class="span12 form-actions">
+            <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Save changes'|trans }}</button>
+            <a class="btn btn-inverse" href="{{ path('back_activity_read', { 'id': activity.id }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
+        </div>
+    </div>
+            
+</form>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('.fileupload').fileuploader({'collection' : true});
+</script>
+<script type="text/javascript">
+    {% for image in activity.gallery %}
+    $('.image-holder img').first().attr('src', '{{ asset(image.path)}}');
+    $('.image-holder').first().removeClass('image-holder');
+    {% endfor %}
+</script>
+<script type="text/javascript" src="{{ asset('js/fancybox-1.3.4.min.js') }}"></script>
+<script type="text/javascript">
+    $("a#video-help").fancybox( { 'titlePosition' : 'over' } );
+</script>
+<script type="text/javascript">
+    videoPreview();
+    function videoPreview ()
+    {
+        var url = $('#media_video').val();
+        if (url) $('#video-preview').html(url);
+        return false;
+    }    
+</script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&sensor=false"></script>
+<script type="text/javascript">
+    var map;
+    var geocoder;
+    var marker;
+    
+    function initialize() {
+        var latlng = new google.maps.LatLng({{ activity.geolocation }});
+        var myOptions = {zoom: 10, scrollwheel: false, scaleControl: true, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        marker = new google.maps.Marker({ position: latlng, map: map, draggable: true });
+        geocoder = new google.maps.Geocoder();
+        
+        google.maps.event.addListener(marker, 'drag', function() {
+            updateMarkerPosition(marker.getPosition());
+        });
+    }
+
+    function geocode() {
+        var address = $("#map-address").val();
+        geocoder.geocode({'address': address, 'partialmatch': true}, geocodeResult);
+    }
+
+    function geocodeResult(results, status) {
+        if (status == 'OK' && results.length > 0) {
+            map.fitBounds(results[0].geometry.viewport);
+            marker.setPosition(results[0].geometry.location);
+            updateMarkerPosition(marker.getPosition());
+        } else {
+            alert("Geocode was not successful for the following reason: " + status);
+        }
+    }
+    
+    function updateMarkerPosition(latLng) {
+        $('#media_geolocation').val([latLng.lat(), latLng.lng()].join(','));
+    }
+</script>
+<script type="text/javascript">
+    initialize();
+</script>
+<script type="text/javascript">
+    var imageCount = '{{ edit_form.gallery | length }}';
+    function addImageForm ()
+    {
+        var imageList = $('#media_gallery');
+        var newWidget = imageList.attr('data-prototype');
+        
+        // replace the "$$name$$" used in the id and name of the prototype with a number
+        // that's unique to our emails end name attribute looks like name="contact[emails][2]"
+        newWidget = newWidget.replace(/\$\$name\$\$/g, imageCount);
+        imageCount++;
+
+        // create a new list element and add it to our list
+        var newLi = $('<div class="span3"></div>').html(newWidget);
+        newLi.appendTo($('#media_gallery'));
+
+        // reload the fileupload-bootstrap script
+        newLi.find('.fileupload').fileuploader({'collection' : true});
+
+        return false;
+    }    
+</script>
+{% endblock %}

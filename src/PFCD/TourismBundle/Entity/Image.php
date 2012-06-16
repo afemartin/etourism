@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+use PFCD\TourismBundle\Entity\Activity;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="image")
@@ -21,10 +23,11 @@ class Image
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string")
+     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="gallery")
+     * @ORM\JoinColumn(name="activity_id", referencedColumnName="id")
      */
-    private $name;
-
+    private $activity;
+    
     /**
      * @ORM\Column(name="description", type="string", nullable=true)
      */
@@ -47,34 +50,21 @@ class Image
      */
     private $file;
 
-    public function getAbsolutePath()
-    {
-        return null === $this->path ? null : $this->getUploadRootDir().'/image'.$this->id.'.'.$this->path;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->path ? null : $this->getUploadDir().'/image'.$this->id.'.'.$this->path;
-    }
-
-    /**
-     * The absolute directory path where uploaded documents should be saved
-     * 
-     * @return string 
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
     /**
      * Get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view
      * 
      * @return string 
      */
-    protected function getUploadDir()
+    private function getUploadDir()
     {
-        return 'uploads/img';
+        if (null !== $this->activity)
+        {
+            return 'uploads/org' . $this->activity->getOrganization()->getId() . '/act' . $this->activity->getId();
+        }
+        else
+        {
+            return 'uploads/img';
+        }
     }
    
     /**
@@ -83,8 +73,9 @@ class Image
      */
     public function preUpload()
     {
-        if (null !== $this->file) {
-            $this->path = $this->file->guessExtension();
+        if (null !== $this->file)
+        {
+            $this->path = $this->getUploadDir() . '/img' . uniqid() . '.' . $this->file->guessExtension();
         }
     }
 
@@ -94,15 +85,14 @@ class Image
      */
     public function upload()
     {
-        if (null !== $this->file) {
-            // you must throw an exception here if the file cannot be moved
-            // so that the entity is not persisted to the database
-            // which the UploadedFile move() method does
-            $this->file->move($this->getUploadRootDir(), 'image'.$this->id.'.'.$this->file->guessExtension());
+        if (null !== $this->file)
+        {
+            // you must throw an exception here if the file cannot be moved so that the entity
+            // is not persisted to the database which the UploadedFile move() method does
+            $this->file->move(__DIR__ . '/../../../../web/' . $this->getUploadDir(), $this->path);
 
             unset($this->file);
         }
-
     }
 
     /**
@@ -110,7 +100,7 @@ class Image
      */
     public function storeFilenameForRemove()
     {
-        $this->filenameForRemove = $this->getAbsolutePath();
+        $this->filenameForRemove = __DIR__ . '/../../../../web/' . $this->path;
     }
 
     /**
@@ -118,7 +108,8 @@ class Image
      */
     public function removeUpload()
     {
-        if ($this->filenameForRemove) {
+        if ($this->filenameForRemove)
+        {
             unlink($this->filenameForRemove);
         }
     }
@@ -132,25 +123,25 @@ class Image
     {
         return $this->id;
     }
-
+    
     /**
-     * Set name
+     * Set activity
      *
-     * @param string $name
+     * @param Activity $activity
      */
-    public function setName($name)
+    public function setActivity(Activity $activity)
     {
-        $this->name = $name;
+        $this->activity = $activity;
     }
 
     /**
-     * Get name
+     * Get activity
      *
-     * @return string 
+     * @return Activity 
      */
-    public function getName()
+    public function getActivity()
     {
-        return $this->name;
+        return $this->activity;
     }
 
     /**
@@ -192,4 +183,25 @@ class Image
     {
         return $this->path;
     }
+    
+    /**
+     * Set file
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
 }
