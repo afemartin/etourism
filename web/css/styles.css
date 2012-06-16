@@ -19,6 +19,15 @@ body {
     padding: 4px 8px;
 }
 
+a {
+    cursor: pointer;
+}
+
+.row.v-spaced [class*="span"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .footer {
     border-top: 1px solid #e5e5e5;
     margin-top: 45px;
