@@ -31,14 +31,6 @@
             <td>{{ organization.acronim }}</td>
         </tr>
         <tr>
-            <th>{{ 'Shortdesc'|trans }}</th>
-            <td>{{ organization.shortDesc }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Fulldesc'|trans }}</th>
-            <td>{{ organization.fullDesc|raw }}</td>
-        </tr>
-        <tr>
             <th>{{ 'Country'|trans }}</th>
             <td>{{ organization.country|country }}</td>
         </tr>
@@ -67,10 +59,6 @@
             <td>{{ organization.foundationYear }}</td>
         </tr>
         <tr>
-            <th>{{ 'Geolocation'|trans }}</th>
-            <td>{{ organization.geolocation }}</td>
-        </tr>
-        <tr>
             <th>{{ 'Created'|trans }}</th>
             <td>{{ organization.created|date('Y-m-d H:i:s') }}</td>
         </tr>
@@ -86,9 +74,11 @@
 </table>
 
 <a class="btn btn-primary" href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.organization.button.update'|trans }}</a>
+<a class="btn btn-primary" href="{{ path('back_organization_media', { 'id': organization.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.organization.button.media'|trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
 <a class="btn btn-inverse" href="{{ path('back_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.organization.button.index'|trans }}</a>
 {% endif %}
+<a class="btn btn-info" href="{{ path('back_organization_preview', { 'id': organization.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.organization.button.preview'|trans }}</a>
 <form class="pull-right" action="{{ path('back_organization_delete', { 'id': organization.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.organization.button.delete'|trans }}</button>

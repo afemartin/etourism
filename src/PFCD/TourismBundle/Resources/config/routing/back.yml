@@ -74,6 +74,11 @@ back_organization_read:
     pattern:  /organization/{id}
     defaults: { _controller: "PFCDTourismBundle:Organization:backRead" }
     requirements: { _method: get, id: \d+ }
+    
+back_organization_preview:
+    pattern:  /organization/{id}/preview
+    defaults: { _controller: "PFCDTourismBundle:Organization:backPreview" }
+    requirements: { _method: get, id: \d+ }
 
 back_organization_update:
     pattern:  /organization/{id}/edit
@@ -107,6 +112,11 @@ back_activity_create:
 back_activity_read:
     pattern:  /activity/{id}
     defaults: { _controller: "PFCDTourismBundle:Activity:backRead" }
+    requirements: { _method: get, id: \d+ }
+
+back_activity_preview:
+    pattern:  /activity/{id}/preview
+    defaults: { _controller: "PFCDTourismBundle:Activity:backPreview" }
     requirements: { _method: get, id: \d+ }
 
 back_activity_update:

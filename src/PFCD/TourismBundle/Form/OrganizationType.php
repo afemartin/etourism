@@ -39,7 +39,6 @@ class OrganizationType extends AbstractType
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('file', 'file', array('required' => false, 'label' => 'Logo'));
-            $builder->add('video', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {

@@ -9,17 +9,17 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
-            <th>{{ 'Username'|trans }}</th>
-            <th>{{ 'Email'|trans }}</th>
-            <th>{{ 'Name'|trans }}</th>
-            <th>{{ 'Acronim'|trans }}</th>
-            <th>{{ 'Country'|trans }}</th>
-            <th>{{ 'City'|trans }}</th>
-            <th>{{ 'Created'|trans }}</th>
-            <th>{{ 'Updated'|trans }}</th>
-            <th>{{ 'Status'|trans }}</th>
-            <th>{{ 'Edit'|trans }}</th>
+            <th rowspan="2">{{ 'Id'|trans }}</th>
+            <th rowspan="2">{{ 'Username'|trans }}</th>
+            <th rowspan="2">{{ 'Email'|trans }}</th>
+            <th rowspan="2">{{ 'Name'|trans }}</th>
+            <th rowspan="2">{{ 'Acronim'|trans }}</th>
+            <th rowspan="2">{{ 'Country'|trans }}</th>
+            <th rowspan="2">{{ 'City'|trans }}</th>
+            <th rowspan="2">{{ 'Created'|trans }}</th>
+            <th rowspan="2">{{ 'Updated'|trans }}</th>
+            <th rowspan="2">{{ 'Status'|trans }}</th>
+            <th rowspan="2" colspan="2">{{ 'Edit'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +35,8 @@
         <td>{% if organization.created %}{{ organization.created|date('Y-m-d') }}{% endif%}</td>
         <td>{% if organization.updated %}{{ organization.updated|date('Y-m-d') }}{% endif%}</td>
         <td>{{ organization.statusText }}</td>
-        <td><a href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-edit"></i></a></td>
+        <td><a href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-pencil"></i></a></td>
+        <td><a href="{{ path('back_organization_media', { 'id': organization.id }) }}"><i class="icon-picture"></i></a></td>
     </tr>
     {% endfor %}
     </tbody>

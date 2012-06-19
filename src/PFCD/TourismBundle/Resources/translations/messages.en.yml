@@ -370,13 +370,17 @@ back.user.button.delete: Delete this user
 back.organization.button.index: Back to the list
 back.organization.button.create: Create a new organization
 back.organization.button.read: Show this organization
-back.organization.button.update: Edit this organization
+back.organization.button.preview: Preview
+back.organization.button.update: Edit information
+back.organization.button.media: Edit multimedia
 back.organization.button.delete: Delete this organization
 
 back.activity.button.index: Back to the list
 back.activity.button.create: Create a new activity
 back.activity.button.read: Show this activity
-back.activity.button.update: Edit this activity
+back.activity.button.preview: Preview
+back.activity.button.update: Edit information
+back.activity.button.media: Edit multimedia
 back.activity.button.delete: Delete this activity
 
 back.media.button.addimage: Add new image

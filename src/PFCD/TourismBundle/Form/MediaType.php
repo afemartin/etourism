@@ -20,14 +20,14 @@ class MediaType extends AbstractType
         if ($options['entity'] == Constants::ACTIVITY)
         {
             $builder->add('gallery', 'collection', array('type' => new ImageType(), 'allow_add' => true, 'allow_delete' => true, 'prototype' => true, 'by_reference' => false));
-            $builder->add('video', 'text', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
+            $builder->add('video', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
             $builder->add('geolocation', 'text', array('required' => false, 'attr' => array('class' => 'input-xlarge', 'readonly' => 'readonly')));
         }
         
         if ($options['entity'] == Constants::NEWS)
         {
             $builder->add('gallery', 'collection', array('type' => new ImageType(), 'allow_add' => true, 'allow_delete' => true, 'prototype' => true, 'by_reference' => false));
-            $builder->add('video', 'text', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
+            $builder->add('video', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         }
     }
 

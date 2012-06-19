@@ -369,13 +369,17 @@ back.user.button.delete: Eliminar este usuario
 back.organization.button.index: Volver atrás
 back.organization.button.create: Añadir una nueva organización
 back.organization.button.read: Mostrar esta organización
-back.organization.button.update: Editar esta organización
+back.organization.button.preview: Mostrar esta organización
+back.organization.button.update: Editar información
+back.organization.button.media: Editar multimedia
 back.organization.button.delete: Eliminar esta organización
 
 back.activity.button.index: Volver atrás
 back.activity.button.create: Añadir una nueva actividad
 back.activity.button.read: Mostrar esta actividad
-back.activity.button.update: Editar esta actividad
+back.activity.button.preview: Mostrar esta actividad
+back.activity.button.update: Editar información
+back.activity.button.media: Editar multimedia
 back.activity.button.delete: Eliminar esta actividad
 
 back.media.button.addimage: Añadir nueva imagen

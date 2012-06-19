@@ -10,6 +10,9 @@ use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Form\OrganizationType;
+use PFCD\TourismBundle\Form\MediaType;
+
+use PFCD\TourismBundle\Entity\Image;
 
 /**
  * Organization controller.
@@ -98,6 +101,27 @@ class OrganizationController extends Controller
     }
     
     /**
+     * Finds and displays a Organization entity
+     */
+    public function backPreviewAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
+        {
+            throw new AccessDeniedException();
+        }
+
+        return $this->render('PFCDTourismBundle:Back/Organization:preview.html.twig', array(
+            'organization' => $organization,
+        ));
+    }
+    
+    /**
      * Edits an existent Organization entity and store it when the form is submitted and valid
      */
     public function backUpdateAction($id)
@@ -140,6 +164,47 @@ class OrganizationController extends Controller
         }
        
         return $this->render('PFCDTourismBundle:Back/Organization:update.html.twig', array(
+            'organization' => $organization,
+            'edit_form'    => $editForm->createView(),
+        ));
+    }
+    
+    /**
+     * Edits an existent Organization entity and store it when the form is submitted and valid
+     */
+    public function backMediaAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
+        {
+            throw new AccessDeniedException();
+        }
+        
+        $options['entity'] = Constants::ORGANIZATION;
+        
+        $editForm = $this->createForm(new MediaType(), $organization, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $editForm->bindRequest($request);
+
+            if ($editForm->isValid())
+            {
+                $em->persist($organization);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('back_organization_read', array('id' => $id)));
+            }
+        }
+       
+        return $this->render('PFCDTourismBundle:Back/Organization:media.html.twig', array(
             'organization' => $organization,
             'edit_form'    => $editForm->createView(),
         ));

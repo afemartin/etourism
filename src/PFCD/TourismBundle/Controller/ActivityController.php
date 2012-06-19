@@ -110,6 +110,55 @@ class ActivityController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+    /**
+     * Finds and displays a Activity entity
+     */
+    public function backPreviewAction($id)
+    {
+        $filter['id'] = $id;
+                
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
+
+        if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
+
+                $dateStart = $activity->getDateStart();
+        $capacity = $activity->getCapacity();
+        
+        $daysweek[1] = $activity->getMonday();
+        $daysweek[2] = $activity->getTuesday();
+        $daysweek[3] = $activity->getWednesday();
+        $daysweek[4] = $activity->getThursday();
+        $daysweek[5] = $activity->getFriday();
+        $daysweek[6] = $activity->getSaturday();
+        $daysweek[7] = $activity->getSunday();
+        
+        $calendar = $em->getRepository('PFCDTourismBundle:Activity')->findAvailability($dateStart, $capacity, $daysweek);
+        
+        $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findByActivity($id);
+        
+        foreach ($reservations as $reservation)
+        {
+            $date = $reservation->getDate()->format('Y-m-d');
+            
+            if (isset($calendar['dates'][$date])) 
+            {
+                $calendar['dates'][$date]['capacity'] -= $reservation->getAdults() + $reservation->getChildrens();
+            }
+        }
+        
+        return $this->render('PFCDTourismBundle:Back/Activity:preview.html.twig', array(
+            'activity' => $activity,
+            'calendar' => $calendar
+        ));
+    }
     
     /**
      * Edits an existent Activity entity and store it when the form is submitted and valid
