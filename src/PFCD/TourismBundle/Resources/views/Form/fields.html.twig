@@ -20,37 +20,6 @@
 {% endspaceless %}
 {% endblock field_row %}
 
-
-{# Collection #}
-{# No pintar las etiquetas para las colecciones de images #}
-
-{% block collection_widget %}
-{% spaceless %}
-    {% if prototype is defined %}
-        {% set attr = attr|merge({'data-prototype': block('collection_item_widget') }) %}
-    {% endif %}
-    <div {{ block('widget_container_attributes') }}>
-        {{ form_errors(form) }}
-        {% for element in form %}
-            <div class='span3'>
-            {% for field in element %}
-                {{ form_widget(field) }}
-            {% endfor %}
-            </div>
-        {% endfor %}
-        {{ form_rest(form) }}
-    </div>
-{% endspaceless %}
-{% endblock collection_widget %}
-
-{% block collection_item_widget %}
-{% spaceless %}
-    {% for field in prototype %}
-        {{ form_widget(field) }}
-    {% endfor %}
-{% endspaceless %}
-{% endblock collection_item_widget %}
-
 {# Labels #}
 {# No añadimos la clase a la etiqueta, la clase es solo para el input, evitando tener clases inecesarias y que se apliquen estilos que no deberian #}
 
@@ -174,15 +143,3 @@
     {% endif %}
 {% endspaceless %}
 {% endblock field_errors %}
-
-{# block field_errors EL PROBLEMA DE ESTE TIPO ES QUE NO SIEMPRE SI PINTA EL SPAN DENTRO DEL CONTROL GROUP POR QUE CADA TIPO DE CAMPO SE COMPORTA DE MANERA DIFERENTE %}
-{% spaceless %}
-    {% if errors|length > 0 %}
-    <span class="help-{{ block('error_type') }}">
-        {% for error in errors %}
-            {{ error.messageTemplate|trans(error.messageParameters, 'validators') }} <br>
-        {% endfor %}
-    </span>
-    {% endif %}
-{% endspaceless %}
-{% endblock field_errors #}
