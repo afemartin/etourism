@@ -3,21 +3,22 @@
 namespace PFCD\TourismBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use PFCD\TourismBundle\Entity\Activity;
-use PFCD\TourismBundle\Entity\Resource;
+use PFCD\TourismBundle\Entity\Reservation;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="activity_resource")
+ * @ORM\Table(name="session")
  * @ORM\HasLifecycleCallbacks()
  */
-class ActivityResource
+class Session
 {
-    const STATUS_PENDING = 0;
-    const STATUS_ENABLED = 1;
-    const STATUS_LOCKED  = 2;
-    const STATUS_DELETED = 3;
+    const STATUS_PENDING = 0; // visible to author but not to users
+    const STATUS_ENABLED = 1; // visible to everyone (allow comments and reservations)
+    const STATUS_LOCKED  = 2; // visible to everyone (no comments or reservations)
+    const STATUS_DELETED = 3; // only visible to admin
 
     private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
     
@@ -29,22 +30,16 @@ class ActivityResource
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="resources")
+     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="sessions")
      * @ORM\JoinColumn(name="activity_id", referencedColumnName="id")
      */
     private $activity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Resource", inversedBy="activities")
-     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id")
+     * @ORM\Column(name="comment", type="string")
      */
-    private $resource;
+    private $comment;
 
-    /**
-     * @ORM\Column(name="amount", type="smallint")
-     */
-    private $amount;
-   
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -56,15 +51,21 @@ class ActivityResource
     private $updated;
 
     /**
-     * @var integer $status 0=>Inactive, 1=>Active, 2=>Deleted
+     * @var integer $status 0=>Pending, 1=>Enabled, 2=>Locked, 3=>Deleted
      * 
      * @ORM\Column(name="status", type="smallint")
      */
     private $status;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="session")
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->status = self::STATUS_PENDING;
+        $this->reservations = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
@@ -89,23 +90,43 @@ class ActivityResource
     }
 
     /**
-     * Set amount
+     * Set activity
      *
-     * @param smallint $amount
+     * @param Activity $activity
      */
-    public function setAmount($amount)
+    public function setActivity(Activity $activity)
     {
-        $this->amount = $amount;
+        $this->activity = $activity;
     }
 
     /**
-     * Get amount
+     * Get activity
      *
-     * @return smallint 
+     * @return Activity 
      */
-    public function getAmount()
+    public function getActivity()
     {
-        return $this->amount;
+        return $this->activity;
+    }
+    
+    /**
+     * Set comment
+     *
+     * @param integer $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return integer 
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 
     /**
@@ -151,7 +172,7 @@ class ActivityResource
     /**
      * Set status
      *
-     * @param smallint $status
+     * @param integer $status
      */
     public function setStatus($status)
     {
@@ -161,7 +182,7 @@ class ActivityResource
     /**
      * Get status
      *
-     * @return smallint 
+     * @return integer 
      */
     public function getStatus()
     {
@@ -177,44 +198,26 @@ class ActivityResource
     {
         return $this->statusText[$this->status];
     }
-
+    
+       
     /**
-     * Set activity
+     * Add reservations
      *
-     * @param Activity $activity
+     * @param Reservation $reservations
      */
-    public function setActivity(Activity $activity)
+    public function addReservation(Reservation $reservations)
     {
-        $this->activity = $activity;
+        $this->reservations[] = $reservations;
     }
 
     /**
-     * Get activity
+     * Get reservations
      *
-     * @return Activity 
+     * @return Doctrine\Common\Collections\Collection 
      */
-    public function getActivity()
+    public function getReservations()
     {
-        return $this->activity;
+        return $this->reservations;
     }
 
-    /**
-     * Set resource
-     *
-     * @param Resource $resource
-     */
-    public function setResource(Resource $resource)
-    {
-        $this->resource = $resource;
-    }
-
-    /**
-     * Get resource
-     *
-     * @return Resource 
-     */
-    public function getResource()
-    {
-        return $this->resource;
-    }
 }

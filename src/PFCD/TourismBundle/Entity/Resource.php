@@ -7,8 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use PFCD\TourismBundle\Entity\Organization;
 
-use PFCD\TourismBundle\Entity\ActivityResource;
-use PFCD\TourismBundle\Entity\ResourceVariation;
+use PFCD\TourismBundle\Entity\Activity;
 
 /**
  * @ORM\Entity
@@ -67,73 +66,11 @@ class Resource
     private $currency;
 
     /**
-     * @ORM\Column(name="date_start", type="date", nullable=true)
-     */
-    private $dateStart;
-
-    /**
-     * @ORM\Column(name="date_end", type="date", nullable=true)
-     */
-    private $dateEnd;
-
-    /**
-     * @ORM\Column(name="time_start", type="time", nullable=true)
-     */
-    private $timeStart;
-
-    /**
-     * @ORM\Column(name="time_end", type="time", nullable=true)
-     */
-    private $timeEnd;
-
-    /**
-     * @ORM\Column(name="monday", type="boolean", nullable=true)
-     */
-    private $monday;
-
-    /**
-     * @ORM\Column(name="tuesday", type="boolean", nullable=true)
-     */
-    private $tuesday;
-
-    /**
-     * @ORM\Column(name="wednesday", type="boolean", nullable=true)
-     */
-    private $wednesday;
-
-    /**
-     * @ORM\Column(name="thursday", type="boolean", nullable=true)
-     */
-    private $thursday;
-
-    /**
-     * @ORM\Column(name="friday", type="boolean", nullable=true)
-     */
-    private $friday;
-
-    /**
-     * @ORM\Column(name="saturday", type="boolean", nullable=true)
-     */
-    private $saturday;
-
-    /**
-     * @ORM\Column(name="sunday", type="boolean", nullable=true)
-     */
-    private $sunday;
-
-    /**
      * @var integer $status 0=>Unknown, 1=>Material (internal), 2=>Human (internal), 3=>Material (external), 4=>Human (external)
      * 
      * @ORM\Column(name="type", type="smallint")
      */
     private $type;
-    
-    /**
-     * @var integer
-     * 
-     * @ORM\Column(name="amount", type="smallint")
-     */
-    private $amount;    
    
     /**
      * @ORM\Column(name="created", type="datetime")
@@ -153,21 +90,14 @@ class Resource
     private $status;
     
     /**
-     * @ORM\OneToMany(targetEntity="ActivityResource", mappedBy="resource")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="resources")
      */
     private $activities;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="ResourceVariation", mappedBy="resource")
-     */
-    private $variations;
-    
 
     public function __construct()
     {
         $this->status = self::STATUS_ENABLED;
         $this->activities = new ArrayCollection();
-        $this->variations = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
@@ -272,285 +202,6 @@ class Resource
     }
 
     /**
-     * Set dateStart
-     *
-     * @param date $dateStart
-     */
-    public function setDateStart($dateStart)
-    {
-        $this->dateStart = $dateStart;
-    }
-
-    /**
-     * Get dateStart
-     *
-     * @return date 
-     */
-    public function getDateStart()
-    {
-        return $this->dateStart;
-    }
-
-    /**
-     * Set dateEnd
-     *
-     * @param date $dateEnd
-     */
-    public function setDateEnd($dateEnd)
-    {
-        $this->dateEnd = $dateEnd;
-    }
-
-    /**
-     * Get dateEnd
-     *
-     * @return date 
-     */
-    public function getDateEnd()
-    {
-        return $this->dateEnd;
-    }
-
-    /**
-     * Set timeStart
-     *
-     * @param time $timeStart
-     */
-    public function setTimeStart($timeStart)
-    {
-        $this->timeStart = $timeStart;
-    }
-
-    /**
-     * Get timeStart
-     *
-     * @return time 
-     */
-    public function getTimeStart()
-    {
-        return $this->timeStart;
-    }
-
-    /**
-     * Set timeEnd
-     *
-     * @param time $timeEnd
-     */
-    public function setTimeEnd($timeEnd)
-    {
-        $this->timeEnd = $timeEnd;
-    }
-
-    /**
-     * Get timeEnd
-     *
-     * @return time 
-     */
-    public function getTimeEnd()
-    {
-        return $this->timeEnd;
-    }
-
-    /**
-     * Set daysWeek
-     *
-     * @param array
-     */
-    public function setDaysWeek($daysWeek)
-    {
-        $this->setMonday(false);
-        $this->setTuesday(false);
-        $this->setWednesday(false);
-        $this->setThursday(false);
-        $this->setFriday(false);
-        $this->setSaturday(false);
-        $this->setSunday(false);
-        
-        foreach ($daysWeek as $day)
-        {
-            if ($day == 'monday')
-                $this->setMonday(true);
-            elseif ($day == 'tuesday')
-                $this->setTuesday(true);
-            elseif ($day == 'wednesday')
-                $this->setWednesday(true);
-            elseif ($day == 'thursday')
-                $this->setThursday(true);
-            elseif ($day == 'friday')
-                $this->setFriday(true);
-            elseif ($day == 'saturday')
-                $this->setSaturday(true);
-            elseif ($day == 'sunday')
-                $this->setSunday(true);
-        }
-    }
-
-    /**
-     * Get daysWeek
-     *
-     * @return array
-     */
-    public function getDaysWeek()
-    {
-        $daysWeek = array();
-        if ($this->getMonday())
-            $daysWeek[] = 'monday';
-        if ($this->getTuesday())
-            $daysWeek[] = 'tuesday';
-        if ($this->getWednesday())
-            $daysWeek[] = 'wednesday';
-        if ($this->getThursday())
-            $daysWeek[] = 'thursday';
-        if ($this->getFriday())
-            $daysWeek[] = 'friday';
-        if ($this->getSaturday())
-            $daysWeek[] = 'saturday';
-        if ($this->getSunday())
-            $daysWeek[] = 'sunday';
-        return $daysWeek;
-    }
-    
-    /**
-     * Set monday
-     *
-     * @param boolean $monday
-     */
-    public function setMonday($monday)
-    {
-        $this->monday = $monday;
-    }
-
-    /**
-     * Get monday
-     *
-     * @return boolean 
-     */
-    public function getMonday()
-    {
-        return $this->monday;
-    }
-
-    /**
-     * Set tuesday
-     *
-     * @param boolean $tuesday
-     */
-    public function setTuesday($tuesday)
-    {
-        $this->tuesday = $tuesday;
-    }
-
-    /**
-     * Get tuesday
-     *
-     * @return boolean 
-     */
-    public function getTuesday()
-    {
-        return $this->tuesday;
-    }
-
-    /**
-     * Set wednesday
-     *
-     * @param boolean $wednesday
-     */
-    public function setWednesday($wednesday)
-    {
-        $this->wednesday = $wednesday;
-    }
-
-    /**
-     * Get wednesday
-     *
-     * @return boolean 
-     */
-    public function getWednesday()
-    {
-        return $this->wednesday;
-    }
-
-    /**
-     * Set thursday
-     *
-     * @param boolean $thursday
-     */
-    public function setThursday($thursday)
-    {
-        $this->thursday = $thursday;
-    }
-
-    /**
-     * Get thursday
-     *
-     * @return boolean 
-     */
-    public function getThursday()
-    {
-        return $this->thursday;
-    }
-
-    /**
-     * Set friday
-     *
-     * @param boolean $friday
-     */
-    public function setFriday($friday)
-    {
-        $this->friday = $friday;
-    }
-
-    /**
-     * Get friday
-     *
-     * @return boolean 
-     */
-    public function getFriday()
-    {
-        return $this->friday;
-    }
-
-    /**
-     * Set saturday
-     *
-     * @param boolean $saturday
-     */
-    public function setSaturday($saturday)
-    {
-        $this->saturday = $saturday;
-    }
-
-    /**
-     * Get saturday
-     *
-     * @return boolean 
-     */
-    public function getSaturday()
-    {
-        return $this->saturday;
-    }
-
-    /**
-     * Set sunday
-     *
-     * @param boolean $sunday
-     */
-    public function setSunday($sunday)
-    {
-        $this->sunday = $sunday;
-    }
-
-    /**
-     * Get sunday
-     *
-     * @return boolean 
-     */
-    public function getSunday()
-    {
-        return $this->sunday;
-    }
-
-    /**
      * Set type
      *
      * @param smallint $type
@@ -578,26 +229,6 @@ class Resource
     public function getTypeText()
     {
         return $this->typeText[$this->type];
-    }
-
-    /**
-     * Set amount
-     *
-     * @param smallint $amount
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-    }
-
-    /**
-     * Get amount
-     *
-     * @return smallint 
-     */
-    public function getAmount()
-    {
-        return $this->amount;
     }
 
     /**
@@ -693,9 +324,9 @@ class Resource
     /**
      * Add activities
      *
-     * @param ActivityResource $activities
+     * @param Activity $activities
      */
-    public function addActivityResource(ActivityResource $activities)
+    public function addActivity(Activity $activities)
     {
         $this->activities[] = $activities;
     }
@@ -710,23 +341,4 @@ class Resource
         return $this->activities;
     }
 
-    /**
-     * Add variations
-     *
-     * @param ResourceVariation $variations
-     */
-    public function addResourceVariation(ResourceVariation $variations)
-    {
-        $this->variations[] = $variations;
-    }
-
-    /**
-     * Get variations
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getVariations()
-    {
-        return $this->variations;
-    }
 }

@@ -2,17 +2,19 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Doctrine\ORM\Mapping as ORM;
+
+use PFCD\TourismBundle\Entity\User;
+use PFCD\TourismBundle\Entity\Organization;
+use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\News;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="activity_comment")
+ * @ORM\Table(name="comment")
  * @ORM\HasLifecycleCallbacks()
  */
-class ActivityComment
+class Comment
 {
     /**
      * @ORM\Id
@@ -28,10 +30,22 @@ class ActivityComment
     private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Organization")
+     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
+     */
+    private $organization;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="comments")
      * @ORM\JoinColumn(name="activity_id", referencedColumnName="id")
      */
     private $activity;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="News", inversedBy="comments")
+     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     */
+    private $news;
 
     /**
      * @var integer $punctuation 1=>very poor, 2=>poor, 3=>good, 4=>very good, 5=>excellent
@@ -46,7 +60,7 @@ class ActivityComment
     private $comment;
 
     /**
-     * @ORM\OneToOne(targetEntity="ActivityComment")
+     * @ORM\OneToOne(targetEntity="Comment")
      * @ORM\JoinColumn(name="reply_at", referencedColumnName="id")
      */
     private $replyAt;
@@ -94,13 +108,6 @@ class ActivityComment
        $this->setUpdated(new \DateTime());
     }
     
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('user', new NotBlank());
-        $metadata->addPropertyConstraint('activity', new NotBlank());
-        $metadata->addPropertyConstraint('comment', new NotBlank());
-    }
-    
     /**
      * Set id
      *
@@ -124,9 +131,9 @@ class ActivityComment
     /**
      * Set user
      *
-     * @param PFCD\TourismBundle\Entity\User $user
+     * @param User $user
      */
-    public function setUser(\PFCD\TourismBundle\Entity\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }
@@ -134,7 +141,7 @@ class ActivityComment
     /**
      * Get user
      *
-     * @return PFCD\TourismBundle\Entity\User 
+     * @return User 
      */
     public function getUser()
     {
@@ -142,11 +149,31 @@ class ActivityComment
     }
 
     /**
+     * Set organization
+     *
+     * @param Organization $organization
+     */
+    public function setOrganization(Organization $organization)
+    {
+        $this->organization = $organization;
+    }
+
+    /**
+     * Get organization
+     *
+     * @return Organization 
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
      * Set activity
      *
-     * @param PFCD\TourismBundle\Entity\Activity $activity
+     * @param Activity $activity
      */
-    public function setActivity(\PFCD\TourismBundle\Entity\Activity $activity)
+    public function setActivity(Activity $activity)
     {
         $this->activity = $activity;
     }
@@ -154,11 +181,31 @@ class ActivityComment
     /**
      * Get activity
      *
-     * @return PFCD\TourismBundle\Entity\Activity 
+     * @return Activity 
      */
     public function getActivity()
     {
         return $this->activity;
+    }
+
+    /**
+     * Set news
+     *
+     * @param News $news
+     */
+    public function setNews(News $news)
+    {
+        $this->news = $news;
+    }
+
+    /**
+     * Get news
+     *
+     * @return News 
+     */
+    public function getNews()
+    {
+        return $this->news;
     }
 
     /**

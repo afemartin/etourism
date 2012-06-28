@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use PFCD\TourismBundle\Entity\Organization;
-use PFCD\TourismBundle\Entity\Reservation;
-use PFCD\TourismBundle\Entity\ActivityResource;
-use PFCD\TourismBundle\Entity\ActivityComment;
+use PFCD\TourismBundle\Entity\Session;
+use PFCD\TourismBundle\Entity\Resource;
+use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
 /**
@@ -76,60 +76,10 @@ class Activity
     private $capacity;
     
     /**
-     * @ORM\Column(name="date_start", type="date", nullable=true)
+     * @ORM\Column(name="duration", type="smallint", nullable=true)
      */
-    private $dateStart;
+    private $duration;
 
-    /**
-     * @ORM\Column(name="date_end", type="date", nullable=true)
-     */
-    private $dateEnd;
-
-    /**
-     * @ORM\Column(name="time_start", type="time", nullable=true)
-     */
-    private $timeStart;
-
-    /**
-     * @ORM\Column(name="time_end", type="time", nullable=true)
-     */
-    private $timeEnd;
-
-    /**
-     * @ORM\Column(name="monday", type="boolean", nullable=true)
-     */
-    private $monday;
-
-    /**
-     * @ORM\Column(name="tuesday", type="boolean", nullable=true)
-     */
-    private $tuesday;
-
-    /**
-     * @ORM\Column(name="wednesday", type="boolean", nullable=true)
-     */
-    private $wednesday;
-
-    /**
-     * @ORM\Column(name="thursday", type="boolean", nullable=true)
-     */
-    private $thursday;
-
-    /**
-     * @ORM\Column(name="friday", type="boolean", nullable=true)
-     */
-    private $friday;
-
-    /**
-     * @ORM\Column(name="saturday", type="boolean", nullable=true)
-     */
-    private $saturday;
-
-    /**
-     * @ORM\Column(name="sunday", type="boolean", nullable=true)
-     */
-    private $sunday;
-    
     /**
      * @ORM\Column(name="geolocation", type="string", length=32, nullable=true)
      */
@@ -173,17 +123,18 @@ class Activity
     private $gallery;
     
     /**
-     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="activity")
+     * @ORM\OneToMany(targetEntity="Session", mappedBy="activity")
      */
-    private $reservations;
+    private $sessions;
     
     /**
-     * @ORM\OneToMany(targetEntity="ActivityResource", mappedBy="activity")
+     * @ORM\ManyToMany(targetEntity="Resource", inversedBy="activities")
+     * @ORM\JoinTable(name="activity_resource")
      */
     private $resources;
     
     /**
-     * @ORM\OneToMany(targetEntity="ActivityComment", mappedBy="activity")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="activity")
      */
     private $comments;
 
@@ -191,7 +142,7 @@ class Activity
     {
         $this->status = self::STATUS_PENDING;
         $this->gallery = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
         $this->resources = new ArrayCollection();
         $this->comments = new ArrayCollection();
         
@@ -358,282 +309,23 @@ class Activity
     }
 
     /**
-     * Set dateStart
+     * Set duration
      *
-     * @param date $dateStart
+     * @param smallint $duration
      */
-    public function setDateStart($dateStart)
+    public function setDuration($duration)
     {
-        $this->dateStart = $dateStart;
+        $this->duration = $duration;
     }
 
     /**
-     * Get dateStart
+     * Get duration
      *
-     * @return date 
+     * @return smallint 
      */
-    public function getDateStart()
+    public function getDuration()
     {
-        return $this->dateStart;
-    }
-
-    /**
-     * Set dateEnd
-     *
-     * @param date $dateEnd
-     */
-    public function setDateEnd($dateEnd)
-    {
-        $this->dateEnd = $dateEnd;
-    }
-
-    /**
-     * Get dateEnd
-     *
-     * @return date 
-     */
-    public function getDateEnd()
-    {
-        return $this->dateEnd;
-    }
-
-    /**
-     * Set timeStart
-     *
-     * @param time $timeStart
-     */
-    public function setTimeStart($timeStart)
-    {
-        $this->timeStart = $timeStart;
-    }
-
-    /**
-     * Get timeStart
-     *
-     * @return time 
-     */
-    public function getTimeStart()
-    {
-        return $this->timeStart;
-    }
-
-    /**
-     * Set timeEnd
-     *
-     * @param time $timeEnd
-     */
-    public function setTimeEnd($timeEnd)
-    {
-        $this->timeEnd = $timeEnd;
-    }
-
-    /**
-     * Get timeEnd
-     *
-     * @return time 
-     */
-    public function getTimeEnd()
-    {
-        return $this->timeEnd;
-    }
-
-    /**
-     * Set daysWeek
-     *
-     * @param array
-     */
-    public function setDaysWeek($daysWeek)
-    {
-        $this->setMonday(false);
-        $this->setTuesday(false);
-        $this->setWednesday(false);
-        $this->setThursday(false);
-        $this->setFriday(false);
-        $this->setSaturday(false);
-        $this->setSunday(false);
-        
-        foreach ($daysWeek as $day)
-        {
-            if ($day == 'monday')
-                $this->setMonday(true);
-            elseif ($day == 'tuesday')
-                $this->setTuesday(true);
-            elseif ($day == 'wednesday')
-                $this->setWednesday(true);
-            elseif ($day == 'thursday')
-                $this->setThursday(true);
-            elseif ($day == 'friday')
-                $this->setFriday(true);
-            elseif ($day == 'saturday')
-                $this->setSaturday(true);
-            elseif ($day == 'sunday')
-                $this->setSunday(true);
-        }
-    }
-
-    /**
-     * Get daysWeek
-     *
-     * @return array
-     */
-    public function getDaysWeek()
-    {
-        $daysWeek = array();
-        if ($this->getMonday())
-            $daysWeek[] = 'monday';
-        if ($this->getTuesday())
-            $daysWeek[] = 'tuesday';
-        if ($this->getWednesday())
-            $daysWeek[] = 'wednesday';
-        if ($this->getThursday())
-            $daysWeek[] = 'thursday';
-        if ($this->getFriday())
-            $daysWeek[] = 'friday';
-        if ($this->getSaturday())
-            $daysWeek[] = 'saturday';
-        if ($this->getSunday())
-            $daysWeek[] = 'sunday';
-        return $daysWeek;
-    }
-
-    /**
-     * Set monday
-     *
-     * @param boolean $monday
-     */
-    public function setMonday($monday)
-    {
-        $this->monday = $monday;
-    }
-
-    /**
-     * Get monday
-     *
-     * @return boolean 
-     */
-    public function getMonday()
-    {
-        return $this->monday;
-    }
-
-    /**
-     * Set tuesday
-     *
-     * @param boolean $tuesday
-     */
-    public function setTuesday($tuesday)
-    {
-        $this->tuesday = $tuesday;
-    }
-
-    /**
-     * Get tuesday
-     *
-     * @return boolean 
-     */
-    public function getTuesday()
-    {
-        return $this->tuesday;
-    }
-
-    /**
-     * Set wednesday
-     *
-     * @param boolean $wednesday
-     */
-    public function setWednesday($wednesday)
-    {
-        $this->wednesday = $wednesday;
-    }
-
-    /**
-     * Get wednesday
-     *
-     * @return boolean 
-     */
-    public function getWednesday()
-    {
-        return $this->wednesday;
-    }
-
-    /**
-     * Set thursday
-     *
-     * @param boolean $thursday
-     */
-    public function setThursday($thursday)
-    {
-        $this->thursday = $thursday;
-    }
-
-    /**
-     * Get thursday
-     *
-     * @return boolean 
-     */
-    public function getThursday()
-    {
-        return $this->thursday;
-    }
-
-    /**
-     * Set friday
-     *
-     * @param boolean $friday
-     */
-    public function setFriday($friday)
-    {
-        $this->friday = $friday;
-    }
-
-    /**
-     * Get friday
-     *
-     * @return boolean 
-     */
-    public function getFriday()
-    {
-        return $this->friday;
-    }
-
-    /**
-     * Set saturday
-     *
-     * @param boolean $saturday
-     */
-    public function setSaturday($saturday)
-    {
-        $this->saturday = $saturday;
-    }
-
-    /**
-     * Get saturday
-     *
-     * @return boolean 
-     */
-    public function getSaturday()
-    {
-        return $this->saturday;
-    }
-
-    /**
-     * Set sunday
-     *
-     * @param boolean $sunday
-     */
-    public function setSunday($sunday)
-    {
-        $this->sunday = $sunday;
-    }
-
-    /**
-     * Get sunday
-     *
-     * @return boolean 
-     */
-    public function getSunday()
-    {
-        return $this->sunday;
+        return $this->duration;
     }
     
     /**
@@ -831,31 +523,31 @@ class Activity
     }
     
     /**
-     * Add reservations
+     * Add sessions
      *
-     * @param Reservation $reservations
+     * @param Session $sessions
      */
-    public function addReservation(Reservation $reservations)
+    public function addSession(Session $sessions)
     {
-        $this->reservations[] = $reservations;
+        $this->sessions[] = $sessions;
     }
 
     /**
-     * Get reservations
+     * Get sessions
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getReservations()
+    public function getSessions()
     {
-        return $this->reservations;
+        return $this->sessions;
     }
 
     /**
      * Add resources
      *
-     * @param ActivityResource $resources
+     * @param Resource $resources
      */
-    public function addActivityResource(ActivityResource $resources)
+    public function addResource(Resource $resources)
     {
         $this->resources[] = $resources;
     }
@@ -873,9 +565,9 @@ class Activity
     /**
      * Add comments
      *
-     * @param ActivityComment $comments
+     * @param Comment $comments
      */
-    public function addActivityComment(ActivityComment $comments)
+    public function addComment(Comment $comments)
     {
         $this->comments[] = $comments;
     }

@@ -2,13 +2,10 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Doctrine\ORM\Mapping as ORM;
 
 use PFCD\TourismBundle\Entity\User;
-use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Session;
 use PFCD\TourismBundle\Entity\Payment;
 
 /**
@@ -39,30 +36,20 @@ class Reservation
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="reservations")
-     * @ORM\JoinColumn(name="activity_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Session", inversedBy="reservations")
+     * @ORM\JoinColumn(name="session_id", referencedColumnName="id")
      */
-    private $activity;
+    private $session;
 
     /**
-     * @ORM\Column(name="adults", type="smallint")
+     * @ORM\Column(name="persons", type="smallint")
      */
-    private $adults;
-
+    private $persons;
+    
     /**
-     * @ORM\Column(name="childrens", type="smallint", nullable=true)
+     * @ORM\Column(name="comment", type="string")
      */
-    private $childrens;
-
-    /**
-     * @ORM\Column(name="date", type="date", nullable=true)
-     */
-    private $date;
-
-    /**
-     * @ORM\Column(name="time", type="time", nullable=true)
-     */
-    private $time;
+    private $comment;
 
     /**
      * @var datetime $created
@@ -107,13 +94,6 @@ class Reservation
        $this->setUpdated(new \DateTime());
     }
     
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('user', new NotBlank());
-        $metadata->addPropertyConstraint('activity', new NotBlank());
-        $metadata->addPropertyConstraint('adults', new NotBlank());
-    }
-    
     /**
      * Set id
      *
@@ -155,105 +135,65 @@ class Reservation
     }
 
     /**
-     * Set activity
+     * Set session
      *
-     * @param Activity $activity
+     * @param Session $session
      */
-    public function setActivity(Activity $activity)
+    public function setSession(Session $session)
     {
-        $this->activity = $activity;
+        $this->session = $session;
     }
 
     /**
-     * Get activity
+     * Get session
      *
-     * @return Activity 
+     * @return Session 
      */
-    public function getActivity()
+    public function getSession()
     {
-        return $this->activity;
+        return $this->session;
     }
 
     /**
-     * Set adults
+     * Set persons
      *
-     * @param integer $adults
+     * @param integer $persons
      */
-    public function setAdults($adults)
+    public function setPersons($persons)
     {
-        $this->adults = $adults;
+        $this->persons = $persons;
     }
 
     /**
-     * Get adults
+     * Get persons
      *
      * @return integer 
      */
-    public function getAdults()
+    public function getPersons()
     {
-        return $this->adults;
+        return $this->persons;
     }
 
     /**
-     * Set childrens
+     * Set comment
      *
-     * @param integer $childrens
+     * @param integer $comment
      */
-    public function setChildrens($childrens)
+    public function setComment($comment)
     {
-        $this->childrens = $childrens;
+        $this->comment = $comment;
     }
 
     /**
-     * Get childrens
+     * Get comment
      *
      * @return integer 
      */
-    public function getChildrens()
+    public function getComment()
     {
-        return $this->childrens;
+        return $this->comment;
     }
-
-    /**
-     * Set date
-     *
-     * @param date $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-
-    /**
-     * Get date
-     *
-     * @return date 
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set time
-     *
-     * @param time $time
-     */
-    public function setTime($time)
-    {
-        $this->time = $time;
-    }
-
-    /**
-     * Get time
-     *
-     * @return time 
-     */
-    public function getTime()
-    {
-        return $this->time;
-    }
-
+    
     /**
      * Set created
      *

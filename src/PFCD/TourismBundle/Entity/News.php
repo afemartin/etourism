@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use PFCD\TourismBundle\Entity\Organization;
-use PFCD\TourismBundle\Entity\NewsComment;
+use PFCD\TourismBundle\Entity\Comment;
 
 /**
  * @ORM\Entity
@@ -68,7 +68,7 @@ class News
     private $status;
     
     /**
-     * @ORM\OneToMany(targetEntity="NewsComment", mappedBy="news")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="news")
      */
     private $comments;
 
@@ -262,9 +262,9 @@ class News
     /**
      * Add comments
      *
-     * @param NewsComment $comments
+     * @param Comment $comments
      */
-    public function addNewsComment(NewsComment $comments)
+    public function addComment(Comment $comments)
     {
         $this->comments[] = $comments;
     }
