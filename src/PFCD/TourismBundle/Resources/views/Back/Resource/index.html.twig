@@ -9,30 +9,17 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th rowspan="2">{{ 'Id'|trans }}</th>
-            <th rowspan="2">{{ 'Name'|trans }}</th>
-            <th rowspan="2">{{ 'Price'|trans }}</th>
-            <th rowspan="2">{{ 'Type'|trans }}</th>
-            <th rowspan="2">{{ 'Amount'|trans }}</th>
-            <th rowspan="2">{{ 'Datestart'|trans }}</th>
-            <th rowspan="2">{{ 'Dateend'|trans }}</th>
-            <th rowspan="2">{{ 'Timestart'|trans }}</th>
-            <th rowspan="2">{{ 'Timeend'|trans }}</th>
-            <th colspan="7">{{ 'Days'|trans }}</th>
-            <th rowspan="2">{{ 'Status'|trans }}</th>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'Price'|trans }}</th>
+            <th>{{ 'Type'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
             {% if is_granted('ROLE_ADMIN') %}
-            <th rowspan="2">{{ 'Organization'|trans }}</th>
+            <th>{{ 'Organization'|trans }}</th>
             {% endif %}
-            <th rowspan="2">{{ 'Edit'|trans }}</th>
-        </tr>
-        <tr>
-            <th>{{ 'Mo'|trans }}</th>
-            <th>{{ 'Tu'|trans }}</th>
-            <th>{{ 'We'|trans }}</th>
-            <th>{{ 'Tu'|trans }}</th>
-            <th>{{ 'Fr'|trans }}</th>
-            <th>{{ 'Sa'|trans }}</th>
-            <th>{{ 'Su'|trans }}</th>
+            <th>{{ 'Edit'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -42,18 +29,8 @@
         <td>{{ resource.name }}</td>
         <td>{{ resource.price ~ resource.currency }}</td>
         <td>{{ resource.typeText }}</td>
-        <td>{{ resource.amount }}</td>
-        <td>{% if resource.dateStart %}{{ resource.dateStart|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if resource.dateEnd %}{{ resource.dateEnd|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if resource.timeStart %}{{ resource.timeStart|date('H:i') }}{% endif %}</td>
-        <td>{% if resource.timeEnd %}{{ resource.timeEnd|date('H:i') }}{% endif %}</td>
-        <td>{% if resource.monday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if resource.tuesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if resource.wednesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if resource.thursday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if resource.friday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if resource.saturday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if resource.sunday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{% if resource.created %}{{ resource.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if resource.updated %}{{ resource.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ resource.statusText|trans }}</td>
         {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_organization_read', { 'id': resource.organization.id }) }}">{{ resource.organization.name }}</a></td>

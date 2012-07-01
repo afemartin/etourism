@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
+{% form_theme edit_form 'PFCDTourismBundle:Form:fields_gallery.html.twig' %}
 
 {% set sectiontab = 'activity' %}{% set helptooltip = 1 %}{% set fileupload = 1 %}{% set fancybox = 1 %}
 
@@ -35,7 +35,7 @@
         </div>    
 
         <div class="span6">
-            <h1>Geolocation</h1>
+            <h1>{{ 'Geolocation'|trans }}</h1>
             {{ form_errors(edit_form.geolocation) }}
             {{ form_row(edit_form.geolocation) }}
             <div class="form-inline">

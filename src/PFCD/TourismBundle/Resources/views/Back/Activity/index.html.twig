@@ -9,29 +9,19 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th rowspan="2">{{ 'Id'|trans }}</th>
-            <th rowspan="2">{{ 'Title'|trans }}</th>
-            <th rowspan="2">{{ 'Price'|trans }}</th>
-            <th rowspan="2">{{ 'Capacity'|trans }}</th>
-            <th rowspan="2">{{ 'Datestart'|trans }}</th>
-            <th rowspan="2">{{ 'Dateend'|trans }}</th>
-            <th rowspan="2">{{ 'Timestart'|trans }}</th>
-            <th rowspan="2">{{ 'Timeend'|trans }}</th>
-            <th colspan="7">{{ 'Days'|trans }}</th>
-            <th rowspan="2">{{ 'Status'|trans }}</th>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Title'|trans }}</th>
+            <th>{{ 'Price'|trans }}</th>
+            <th>{{ 'Capacity'|trans }}</th>
+            <th>{{ 'Duration'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
             {% if is_granted('ROLE_ADMIN') %}
-            <th rowspan="2">{{ 'Organization'|trans }}</th>
+            <th>{{ 'Organization'|trans }}</th>
             {% endif %}
-            <th rowspan="2" colspan="2">{{ 'Edit'|trans }}</th>
-        </tr>
-        <tr>
-            <th>{{ 'Mo'|trans }}</th>
-            <th>{{ 'Tu'|trans }}</th>
-            <th>{{ 'We'|trans }}</th>
-            <th>{{ 'Tu'|trans }}</th>
-            <th>{{ 'Fr'|trans }}</th>
-            <th>{{ 'Sa'|trans }}</th>
-            <th>{{ 'Su'|trans }}</th>
+            <th colspan="2">{{ 'Edit'|trans }}</th>
+            <th colspan="3">{{ 'View'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -41,23 +31,18 @@
         <td>{{ activity.title }}</td>
         <td>{{ activity.price ~ activity.currency }}</td>
         <td>{{ activity.capacity }}</td>
-        <td>{% if activity.dateStart %}{{ activity.dateStart|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if activity.dateEnd %}{{ activity.dateEnd|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if activity.timeStart %}{{ activity.timeStart|date('H:i') }}{% endif %}</td>
-        <td>{% if activity.timeEnd %}{{ activity.timeEnd|date('H:i') }}{% endif %}</td>
-        <td>{% if activity.monday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if activity.tuesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if activity.wednesday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if activity.thursday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if activity.friday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if activity.saturday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
-        <td>{% if activity.sunday %}<i class="icon-ok"></i>{% else %}<i class="icon-ban-circle"></i>{% endif %}</td>
+        <td>{{ activity.duration }}</td>
+        <td>{% if activity.created %}{{ activity.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if activity.updated %}{{ activity.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ activity.statusText|trans }}</td>
         {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></td>
         {% endif %}
         <td><a href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil"></i></a></td>
         <td><a href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture"></i></a></td>
+        <td><a href="{{ path('back_resource_index', { 'activityId': activity.id }) }}"><i class="icon-wrench"></i></a></td>
+        <td><a href="{{ path('back_session_index', { 'activityId': activity.id }) }}"><i class="icon-calendar"></i></a></td>
+        <td><a href="{{ path('back_reservation_index', { 'activityId': activity.id }) }}"><i class="icon-book"></i></a></td>
     </tr>
     {% endfor %}
     </tbody>

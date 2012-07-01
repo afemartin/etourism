@@ -22,63 +22,11 @@
         </tr>
         <tr>
             <th>{{ 'Price'|trans }}</th>
-            <td>{{ resource.price }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Currency'|trans }}</th>
-            <td>{{ resource.currency }}</td>
+            <td>{{ resource.price ~ resource.currency }}</td>
         </tr>
         <tr>
             <th>{{ 'Type'|trans }}</th>
             <td>{{ resource.typeText }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Amount'|trans }}</th>
-            <td>{{ resource.amount }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Datestart'|trans }}</th>
-            <td>{% if resource.dateStart %}{{ resource.dateStart|date('Y-m-d') }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Dateend'|trans }}</th>
-            <td>{% if resource.dateEnd %}{{ resource.dateEnd|date('Y-m-d') }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Timestart'|trans }}</th>
-            <td>{% if resource.timeStart %}{{ resource.timeStart|date('H:i') }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Timeend'|trans }}</th>
-            <td>{% if resource.timeEnd %}{{ resource.timeEnd|date('H:i') }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Monday'|trans }}</th>
-            <td>{{ resource.monday }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Tuesday'|trans }}</th>
-            <td>{{ resource.tuesday }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Wednesday'|trans }}</th>
-            <td>{{ resource.wednesday }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Thursday'|trans }}</th>
-            <td>{{ resource.thursday }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Friday'|trans }}</th>
-            <td>{{ resource.friday }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Saturday'|trans }}</th>
-            <td>{{ resource.saturday }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Sunday'|trans }}</th>
-            <td>{{ resource.sunday }}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>
