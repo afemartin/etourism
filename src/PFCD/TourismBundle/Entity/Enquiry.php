@@ -2,10 +2,6 @@
 
 namespace PFCD\TourismBundle\Entity;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
-
 class Enquiry
 {
     private $name;    // only visible for unregistered users
@@ -16,14 +12,6 @@ class Enquiry
 
     private $message;
     
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('name', new NotBlank());
-        $metadata->addPropertyConstraint('email', new Email());
-        $metadata->addPropertyConstraint('subject', new NotBlank());
-        $metadata->addPropertyConstraint('message', new NotBlank());
-    }
-
     public function getName()
     {
         return $this->name;
