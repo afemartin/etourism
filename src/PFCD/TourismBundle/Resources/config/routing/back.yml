@@ -165,6 +165,38 @@ back_resource_delete:
 
 
 ################################################################################
+##### SESSION CONTROLLER #######################################################
+################################################################################
+
+back_session_index:
+    pattern:  /sessions
+    defaults: { _controller: "PFCDTourismBundle:Session:backIndex" }
+
+back_session_create:
+    pattern:  /session/new
+    defaults: { _controller: "PFCDTourismBundle:Session:backCreate" }
+
+back_session_generate:
+    pattern:  /session/generate
+    defaults: { _controller: "PFCDTourismBundle:Session:backGenerate" }
+
+back_session_read:
+    pattern:  /session/{id}
+    defaults: { _controller: "PFCDTourismBundle:Session:backRead" }
+    requirements: { _method: get, id: \d+ }
+
+back_session_update:
+    pattern:  /session/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Session:backUpdate" }
+    requirements: { id: \d+ }
+
+back_session_delete:
+    pattern:  /session/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Session:backDelete" }
+    requirements: { _method: post, id: \d+ }
+
+
+################################################################################
 ##### RESERVATION CONTROLLER ###################################################
 ################################################################################
 

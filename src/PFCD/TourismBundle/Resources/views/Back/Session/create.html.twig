@@ -1,0 +1,18 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'session' %}{% set datepicker = 1 %}
+
+{% block body %}
+<h1>{{ 'back.session.create.title'|trans }}</h1>
+<p>{{ 'back.session.create.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('back_session_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('back_session_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
+    </div>
+</form>
+{% endblock %}

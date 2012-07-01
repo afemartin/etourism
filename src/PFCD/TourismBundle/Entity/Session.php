@@ -9,7 +9,7 @@ use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Reservation;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\SessionRepository")
  * @ORM\Table(name="session")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -34,9 +34,27 @@ class Session
      * @ORM\JoinColumn(name="activity_id", referencedColumnName="id")
      */
     private $activity;
+    
+    /**
+     * @ORM\Column(name="date", type="date")
+     */
+    private $date;
+    
+    /**
+     * @var integer $dayOfWeek ISO-8601 1=>Monday, 2=>Tuesday, 3=>Wednesday, 4=>Thursday, 5=>Friday, 6=>Saturday, 7=>Sunday
+     * @link http://en.wikipedia.org/wiki/ISO_8601
+     * 
+     * @ORM\Column(name="day_of_week", type="smallint")
+     */
+    private $dayOfWeek;
 
     /**
-     * @ORM\Column(name="comment", type="string")
+     * @ORM\Column(name="time", type="time", nullable=true)
+     */
+    private $time;
+
+    /**
+     * @ORM\Column(name="comment", type="string", nullable=true)
      */
     private $comment;
 
@@ -107,6 +125,57 @@ class Session
     public function getActivity()
     {
         return $this->activity;
+    }
+    
+    /**
+     * Set date
+     *
+     * @param date $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        $this->dayOfWeek = $date->format('N');
+    }
+
+    /**
+     * Get date
+     *
+     * @return date 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+    
+    /**
+     * Get day of week
+     *
+     * @return dayOfWeek 
+     */
+    public function getDayOfWeek()
+    {
+        return $this->dayOfWeek;
+    }
+
+    /**
+     * Set time
+     *
+     * @param time $time
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
+
+    /**
+     * Get time
+     *
+     * @return time 
+     */
+    public function getTime()
+    {
+        return $this->time;
     }
     
     /**

@@ -1,0 +1,98 @@
+<?php
+
+namespace PFCD\TourismBundle\Entity;
+
+use PFCD\TourismBundle\Constants;
+
+use PFCD\TourismBundle\Entity\Activity;
+
+use \DateTime;
+use \DateInterval;
+
+class SessionFilter
+{
+    private $activity;
+    
+    private $dateStart;
+    
+    private $dateEnd;
+
+    private $startTime;
+    
+    private $daysWeek;
+
+    private $status;
+    
+    public function __construct()
+    {
+        $this->dateStart = new DateTime();
+        
+        $this->dateEnd = new DateTime();
+        $this->dateEnd->add(new DateInterval('P30D'));
+        
+        $this->daysWeek = array(Constants::MONDAY, Constants::TUESDAY, Constants::WEDNESDAY, Constants::THURSDAY, Constants::FRIDAY, Constants::SATURDAY, Constants::SUNDAY);
+        
+        $this->status = array(Activity::STATUS_PENDING, Activity::STATUS_ENABLED, Activity::STATUS_LOCKED);
+    }
+    
+    public function getActivity()
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(Activity $activity)
+    {
+        $this->activity = $activity;
+    }
+
+    public function setDateStart($dateStart)
+    {
+        $this->dateStart = $dateStart;
+    }
+
+    public function getDateStart()
+    {
+        return $this->dateStart;
+    }
+
+    public function setDateEnd($dateEnd)
+    {
+        $this->dateEnd = $dateEnd;
+    }
+
+    public function getDateEnd()
+    {
+        return $this->dateEnd;
+    }
+
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+    }
+
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    public function setDaysWeek($daysWeek)
+    {
+        $this->daysWeek = $daysWeek;
+    }
+
+    public function getDaysWeek()
+    {
+        return $this->daysWeek;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+}

@@ -1,0 +1,74 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'session' %}{% set datepicker = 1 %}
+
+{% block body %}
+<h1>{{ 'back.session.index.title'|trans }}</h1>
+<p>{{ 'back.session.index.subtitle'|trans }}</p>
+
+<div class="well">
+    <h2>{{ 'Search'|trans }}</h2>
+    <form class="form-horizontal mini" action="{{ path('back_session_index') }}" method="post" {{ form_enctype(form) }}>
+        <div class="row">
+            <div class="span">
+                {{ form_row(form.activity) }}
+                {{ form_row(form.startTime) }}
+            </div>
+            <div class="span">
+                {{ form_row(form.dateStart) }}
+                {{ form_row(form.dateEnd) }}
+            </div>
+            <div class="span">
+                {{ form_row(form.daysWeek) }}
+                {{ form_row(form.status) }}
+            </div>
+            {{ form_rest(form) }}
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> {{ 'Search'|trans }}</button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Activity'|trans }}</th>
+            <th>{{ 'Date'|trans }}</th>
+            <th>{{ 'Time'|trans }}</th>
+            <th>{{ 'Comment'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>{{ 'Organization'|trans }}</th>
+            {% endif %}
+            <th>{{ 'Edit'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for session in sessions %}
+    <tr class="status-{{ session.status }}">
+        <td><a href="{{ path('back_session_read', { 'id': session.id }) }}">{{ session.id }}</a></td>
+        <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title }}</a></td>
+        <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
+        <td>{{ session.comment }}</td>
+        <td>{% if session.created %}{{ session.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if session.updated %}{{ session.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{{ session.statusText|trans }}</td>
+        {% if is_granted('ROLE_ADMIN') %}
+        <td><a href="{{ path('back_organization_read', { 'id': session.activity.organization.id }) }}">{{ session.activity.organization.name }}</a></td>
+        {% endif %}
+        <td><a href="{{ path('back_session_update', { 'id': session.id }) }}"><i class="icon-edit"></i></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_session_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.session.button.create'|trans }}</a>
+<a class="btn btn-primary" href="{{ path('back_session_generate') }}"><i class="icon-plus icon-white"></i> {{ 'back.session.button.generate'|trans }}</a>
+{% endblock %}
