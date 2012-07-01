@@ -48,6 +48,19 @@ a {
     margin: 0 0 0 10px;
 }
 
+.form-horizontal.mini .control-label {
+    width: 80px;
+    height: 18px;
+}
+
+.form-horizontal.mini .controls {
+    margin-left: 100px;
+}
+
+.form-horizontal.mini .form-actions {
+    padding-left: 100px;
+}
+
 .form-actions {
     margin-bottom: 0px;
 }
