@@ -37,15 +37,6 @@ class SessionController extends Controller
             $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         }
         
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            $organization = $this->get('security.context')->getToken()->getUser()->getId();
-        }
-        else
-        {
-            $organization = null;
-        }
-        
         $sessionFilter = new SessionFilter();
         
         $request = $this->getRequest();
@@ -95,14 +86,24 @@ class SessionController extends Controller
         }
         
         $em = $this->getDoctrine()->getEntityManager();
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $organization = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        else
+        {
+            $organization = null;
+        }
 
         $activity = $sessionFilter->getActivity();
         $dateStart = $sessionFilter->getDateStart();
         $dateEnd = $sessionFilter->getDateEnd();
+        $time = $sessionFilter->getStartTime();
         $daysWeek = $sessionFilter->getDaysWeek();
         $status = $sessionFilter->getStatus();
 
-        $sessions = $em->getRepository('PFCDTourismBundle:Session')->findAllFiltered($organization, $activity, $dateStart, $dateEnd, $daysWeek, $status);
+        $sessions = $em->getRepository('PFCDTourismBundle:Session')->findAllFiltered($organization, $activity, $dateStart, $dateEnd, $time, $daysWeek, $status);
 
         return $this->render('PFCDTourismBundle:Back/Session:index.html.twig', array(
             'sessions' => $sessions,

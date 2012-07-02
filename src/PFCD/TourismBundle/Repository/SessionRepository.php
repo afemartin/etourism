@@ -6,7 +6,8 @@ use Doctrine\ORM\EntityRepository;
 
 class SessionRepository extends EntityRepository
 {
-    public function findAllFiltered($organization = null, $activity = null, $dateStart = null, $dateEnd = null, $daysWeek = null, $status = null)
+    
+    public function findAllFiltered($organization = null, $activity = null, $dateStart = null, $dateEnd = null, $time = null, $daysWeek = null, $status = null)
     {
         $qb = $this->createQueryBuilder('s');
         
@@ -39,6 +40,12 @@ class SessionRepository extends EntityRepository
         {
             $qb->andWhere('s.date <= :start_end');
             $qb->setParameter('start_end', $dateEnd);
+        }
+        
+        if ($time !== null)
+        {
+            $qb->andWhere('s.time = :time');
+            $qb->setParameter('time', $time);
         }
         
         if ($daysWeek !== null && !empty($daysWeek))
