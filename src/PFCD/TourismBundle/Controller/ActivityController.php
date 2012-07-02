@@ -180,6 +180,7 @@ class ActivityController extends Controller
 
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
+        $options['organization'] = $activity->getOrganization()->getId();
         
         $editForm = $this->createForm(new ActivityType(), $activity, $options);
 
