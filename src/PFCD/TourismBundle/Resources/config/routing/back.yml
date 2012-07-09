@@ -119,6 +119,11 @@ back_activity_preview:
     defaults: { _controller: "PFCDTourismBundle:Activity:backPreview" }
     requirements: { _method: get, id: \d+ }
 
+back_activity_calendar:
+    pattern:  /activity/calendar
+    defaults: { _controller: "PFCDTourismBundle:Activity:backCalendar" }
+    requirements: { _method: get }
+
 back_activity_update:
     pattern:  /activity/{id}/edit
     defaults: { _controller: "PFCDTourismBundle:Activity:backUpdate" }

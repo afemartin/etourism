@@ -161,6 +161,52 @@ class ActivityController extends Controller
     }
     
     /**
+     * Finds and displays a Activity calendar of sessions
+     */
+    public function backCalendarAction()
+    {
+        $id = $this->get('request')->query->get('id');
+        $year = $this->get('request')->query->get('year');
+        $month = $this->get('request')->query->get('month');
+        
+        $filter['id'] = $id;
+                
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
+
+        if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
+        
+        $prev = array();
+        $prev['year'] = $month == 1 ? $year - 1 : $year;
+        $prev['month'] = $month == 1 ? 12 : $month - 1;
+        
+        $next = array();
+        $next['year'] = $month == 12 ? $year + 1 : $year;
+        $next['month'] = $month == 12 ? 1 : $month + 1;
+
+        $calendar = $em->getRepository('PFCDTourismBundle:Session')->findAvailability($id, $year, $month);
+        
+        $today = new \DateTime();
+        $today->setTime(0,0,0);
+        
+        return $this->render('PFCDTourismBundle:Back/Activity:ajax_calendar.html.twig', array(
+            'year'     => $year,
+            'month'    => $month,
+            'prev'     => $prev,
+            'next'     => $next,
+            'today'    => $today,
+            'activity' => $activity,
+            'calendar' => $calendar
+        ));
+    }
+    
+    /**
      * Edits an existent Activity entity and store it when the form is submitted and valid
      */
     public function backUpdateAction($id)

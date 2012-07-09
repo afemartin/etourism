@@ -1,0 +1,40 @@
+<table class="calendar table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="7">
+                <a class="btn pull-left" onclick="getCalendar({{ activity.id }}, {{ prev.year }}, {{ prev.month }})"><i class="icon-chevron-left"></i></a>
+                <span id="calendar-header">{{ 'month.full.' ~ month|trans }} {{ year }}</div>
+                <a class="btn pull-right" onclick="getCalendar({{ activity.id }}, {{ next.year }}, {{ next.month }})"><i class="icon-chevron-right"></i></a>
+            </th>
+        </tr>
+        <tr>
+            {% for i in range(1, 7) %}
+                <td>{{ 'dayweek.full.' ~ i|trans }}</td>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for day in calendar %}
+            {% if day.date|date('N') == 1 %}<tr>{% endif %}
+                {% set class = '' %}
+                {% if day.date|date('n') < month %}{% set class = 'prev-month' %}{% endif %}
+                {% if day.date|date('n') > month %}{% set class = 'next-month' %}{% endif %}
+                {% if day.date < today %}{% set class = 'past-day' %}{% endif %}
+                <td class='{{ class }}'>
+                    <div class="sessions">
+                        {% if day.sessions is defined %}
+                            {% for session in day.sessions %}
+                                {% if day.date < today %}
+                                    <div class="label">{{ 'Session'|trans }} ({{session.time}})</div>
+                                {% else %}
+                                    <div class="session{{session.id}} label label-success" onclick="selectSession({{session.id}})">{{ 'Session'|trans }} ({{session.time}})</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class='label day-number'>{{ day.date|date('j') }}</div>
+                </td>
+            {% if day.date|date('N') == 7 %}</tr>{% endif %}            
+        {% endfor %}
+    </tbody>
+</table>

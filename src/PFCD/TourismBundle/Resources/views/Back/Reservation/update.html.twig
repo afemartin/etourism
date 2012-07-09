@@ -16,3 +16,33 @@
     </div>
 </form>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#reservation_session').after('<div class="control-group"><div id="reservation_calendar" class="controls"></div></div>')
+        getCalendar({{ reservation.session.activity.id }}, {{ reservation.session.date|date('Y') }}, {{ reservation.session.date|date('m') }});
+        
+        function getCalendar(id, year, month)
+        {
+            $('#reservation_calendar').prepend('<i class="icon-loading"></i> Cargando...');
+            
+            $.ajax({
+                type: "GET",
+                data: "id=" + id + "&year=" + year + "&month=" + month,
+                url: "{{ path('back_activity_calendar') }}",
+                success: function(calendar) {
+                    $('#reservation_calendar').html(calendar);
+                    selectSession({{ reservation.session.id}});
+                }
+            });
+        }
+        
+        function selectSession(id)
+        {
+            document.getElementById('reservation_session').value = id;
+            $('.calendar .label.active').removeClass('active');
+            $('.session'+id).addClass('active');
+        }
+    </script>
+{% endblock %}
