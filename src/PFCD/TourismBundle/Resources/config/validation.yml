@@ -36,12 +36,8 @@ PFCD\TourismBundle\Entity\Activity:
             
 PFCD\TourismBundle\Entity\Reservation:
     properties:
-        user:
-            - NotBlank: { groups: [Default] }
-        activity:
-            - NotBlank: { groups: [Default] }
-        adults:
-            - Min:      { limit: 1, message: "reservation.adults.error", groups: [Front, Default] }
+        persons:
+            - Min:      { limit: 1, message: "reservation.persons.error", groups: [Front, Default] }
             
 PFCD\TourismBundle\Entity\Image:
     properties:

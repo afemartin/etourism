@@ -3,4 +3,4 @@
 ################################################################################
 
 password.match.error: The password fields must match
-reservation.adults.error: You must select at least one person
+reservation.persons.error: You must select at least one person
