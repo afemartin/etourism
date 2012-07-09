@@ -267,8 +267,7 @@ class Session
     {
         return $this->statusText[$this->status];
     }
-    
-       
+           
     /**
      * Add reservations
      *
