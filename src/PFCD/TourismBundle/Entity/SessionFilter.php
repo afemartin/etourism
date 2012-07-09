@@ -26,9 +26,10 @@ class SessionFilter
     public function __construct()
     {
         $this->dateStart = new DateTime();
+        $this->dateStart->setTime(0, 0, 0);
         
         $this->dateEnd = new DateTime();
-        $this->dateEnd->add(new DateInterval('P30D'));
+        $this->dateEnd->add(new DateInterval('P1M'));
         
         $this->daysWeek = array(Constants::MONDAY, Constants::TUESDAY, Constants::WEDNESDAY, Constants::THURSDAY, Constants::FRIDAY, Constants::SATURDAY, Constants::SUNDAY);
         
