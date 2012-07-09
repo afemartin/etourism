@@ -10,6 +10,8 @@ use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Reservation;
 use PFCD\TourismBundle\Form\ReservationType;
+use PFCD\TourismBundle\Entity\ReservationFilter;
+use PFCD\TourismBundle\Form\ReservationFilterType;
 
 /**
  * Reservation controller
@@ -26,20 +28,83 @@ class ReservationController extends Controller
      */
     public function backIndexAction()
     {
+        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            // parameter used to filter and show only the activies that belong to the logged organization
+            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+        
+        $reservationFilter = new ReservationFilter();
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'GET')
+        {
+            $activityId = $request->get('activityId', null);
+            
+            if ($activityId)
+            {
+                $filter['id'] = $activityId;
+
+                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+                {
+                    $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+                }
+
+                $em = $this->getDoctrine()->getEntityManager();
+
+                $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
+
+                if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
+                
+                $reservationFilter->setActivity($activity);
+            }
+        }
+        
+        $form = $this->createForm(new ReservationFilterType(), $reservationFilter, $options);
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+                {
+                    $id = $this->get('security.context')->getToken()->getUser()->getId();
+                    
+                    // verify that the reserved activity belong to the logged organization
+                    if ($reservationFilter->getActivity()->getOrganization()->getId() != $id)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                }
+            }
+        }
+        
         $em = $this->getDoctrine()->getEntityManager();
         
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
         {
-            $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findAll();
+            $organization = $this->get('security.context')->getToken()->getUser()->getId();
         }
         else
         {
-            $organization = $this->get('security.context')->getToken()->getUser()->getId();
-            $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findByOrganization($organization);
+            $organization = null;
         }
 
+        $activity = $reservationFilter->getActivity();
+        $dateStart = $reservationFilter->getDateStart();
+        $dateEnd = $reservationFilter->getDateEnd();
+        $status = $reservationFilter->getStatus();
+
+        $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findAllFiltered($organization, $activity, $dateStart, $dateEnd, $status);
+
         return $this->render('PFCDTourismBundle:Back/Reservation:index.html.twig', array(
-            'reservations' => $reservations
+            'reservations' => $reservations,
+            'form'         => $form->createView()
         ));
     }
 
@@ -69,13 +134,21 @@ class ReservationController extends Controller
             if ($form->isValid())
             {
                 $em = $this->getDoctrine()->getEntityManager();
+                
+                $sessionId = $form->get('session')->getData();
+                
+                $session = $em->getRepository('PFCDTourismBundle:Session')->find($sessionId);
+
+                if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
+                
+                $reservation->setSession($session);
 
                 if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
                 {
                     $id = $this->get('security.context')->getToken()->getUser()->getId();
                     
                     // verify that the reserved activity belong to the logged organization
-                    if ($reservation->getActivity()->getOrganization()->getId() != $id)
+                    if ($reservation->getSession()->getActivity()->getOrganization()->getId() != $id)
                     {
                         throw new AccessDeniedException();
                     }
@@ -110,7 +183,7 @@ class ReservationController extends Controller
             $organization = $this->get('security.context')->getToken()->getUser()->getId();
 
             // verify that the reserved activity belong to the logged organization
-            if ($reservation->getActivity()->getOrganization()->getId() != $organization)
+            if ($reservation->getSession()->getActivity()->getOrganization()->getId() != $organization)
             {
                 throw new AccessDeniedException();
             }
@@ -140,7 +213,7 @@ class ReservationController extends Controller
             $organization = $this->get('security.context')->getToken()->getUser()->getId();
 
             // verify that the reserved activity belong to the logged organization
-            if ($reservation->getActivity()->getOrganization()->getId() != $organization)
+            if ($reservation->getSession()->getActivity()->getOrganization()->getId() != $organization)
             {
                 throw new AccessDeniedException();
             }
@@ -163,6 +236,17 @@ class ReservationController extends Controller
 
             if ($editForm->isValid())
             {
+                $sessionId = $editForm->get('session')->getData();
+                
+                if ($sessionId)
+                {
+                    $session = $em->getRepository('PFCDTourismBundle:Session')->find($sessionId);
+
+                    if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
+
+                    $reservation->setSession($session);
+                }
+
                 $em->persist($reservation);
                 $em->flush();
 
@@ -199,7 +283,7 @@ class ReservationController extends Controller
                 $id = $this->get('security.context')->getToken()->getUser()->getId();
 
                 // verify that the reserved activity belong to the logged organization
-                if ($reservation->getActivity()->getOrganization()->getId() != $id)
+                if ($reservation->getSession()->getActivity()->getOrganization()->getId() != $id)
                 {
                     throw new AccessDeniedException();
                 }
