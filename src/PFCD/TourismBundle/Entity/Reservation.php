@@ -15,12 +15,12 @@ use PFCD\TourismBundle\Entity\Payment;
  */
 class Reservation
 {
-    const STATUS_REQUESTED = 1; // user make a reservation (FROM 1 TO [2,3,4])
-    const STATUS_ACCEPTED  = 2; // organization accept the reservation (FROM 2 TO [4])
-    const STATUS_REJECTED  = 3; // organization reject the reservation (END)
-    const STATUS_CANCELED  = 4; // user cancel the reservation before or after to be accepted (END)
+    const STATUS_REQUESTED = 0; // user make a reservation (FROM 0 TO [1,2,3])
+    const STATUS_ACCEPTED  = 1; // organization accept the reservation (FROM 1 TO [2,3])
+    const STATUS_REJECTED  = 2; // organization reject the reservation (END)
+    const STATUS_CANCELED  = 3; // user cancel the reservation before or after to be accepted (END)
 
-    private $statusText = array('1' => 'Requested', '2' => 'Accepted', '3' => 'Rejected', '4' => 'Canceled');
+    private $statusText = array('0' => 'Requested', '1' => 'Accepted', '2' => 'Rejected', '3' => 'Canceled');
     
     /**
      * @ORM\Id
@@ -47,7 +47,7 @@ class Reservation
     private $persons;
     
     /**
-     * @ORM\Column(name="comment", type="string")
+     * @ORM\Column(name="comment", type="string", nullable=true)
      */
     private $comment;
 
@@ -66,7 +66,7 @@ class Reservation
     private $updated;
 
     /**
-     * @var integer $status 1=>Requested, 2=>Acepted, 3=>Rejected, 4=>Canceled
+     * @var integer $status 0=>Requested, 1=>Acepted, 2=>Rejected, 3=>Canceled
      *
      * @ORM\Column(name="status", type="smallint")
      */

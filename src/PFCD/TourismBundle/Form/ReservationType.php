@@ -15,30 +15,23 @@ class ReservationType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $step = 5; // 5 minutes step for time inputs
-        
-        if ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
+        if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('user', 'entity', array('class' => 'PFCDTourismBundle:User', 'property' => 'fullname'));
+            $builder->add('activity', 'entity', array('class' => 'PFCDTourismBundle:Activity', 'property' => 'title', 'property_path' => false, 'empty_value' => 'Select an activity'));
         }
-        if ($options['domain'] == Constants::ADMIN)
+        elseif ($options['domain'] == Constants::BACK && $options['organization'] != null && $options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('activity', 'entity', array('class' => 'PFCDTourismBundle:Activity', 'property' => 'title'));
-        }
-        elseif ($options['domain'] == Constants::BACK && $options['organization'] != null)
-        {
-            $builder->add('activity', 'entity', array('class' => 'PFCDTourismBundle:Activity', 'property' => 'title',
+            $builder->add('activity', 'entity', array('class' => 'PFCDTourismBundle:Activity', 'property' => 'title', 'property_path' => false, 'empty_value' => 'Select an activity',
                 'query_builder' => function(EntityRepository $er) use ($options) {
-                    return $er->createQueryBuilder('a')
-                              ->where('a.organization = :organization')
-                              ->orderBy('a.title', 'ASC')
-                              ->setParameter('organization', $options['organization']);
+                        return $er->createQueryBuilder('a')
+                                ->where('a.organization = :organization')
+                                ->orderBy('a.title', 'ASC')
+                                ->setParameter('organization', $options['organization']);
                 }));
         }
-        $builder->add('adults', 'integer', array('attr' => array('class' => 'input-mini')));
-        $builder->add('childrens', 'integer', array('required' => false, 'attr' => array('class' => 'input-mini')));
-        $builder->add('date', 'date', array('required' => false,  'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
-        $builder->add('time', 'time', array('required' => false, 'hours' => range(23, 0), 'minutes' => range(60-$step, 0, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
+        $builder->add('persons', 'integer', array('required' => false, 'attr' => array('class' => 'input-mini')));
+        $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
+        $builder->add('session', 'hidden', array('property_path' => false));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
         {
             $builder->add('status', 'choice', array('choices' => array(Reservation::STATUS_REQUESTED => 'Requested', Reservation::STATUS_ACCEPTED => 'Accepted', Reservation::STATUS_REJECTED => 'Rejected', Reservation::STATUS_CANCELED => 'Canceled')));

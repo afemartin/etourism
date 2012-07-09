@@ -14,27 +14,23 @@
         </tr>
         <tr>
             <th>{{ 'User'|trans }}</th>
-            <td>{{ reservation.user.fullname }} ({{ reservation.user.email }})</td>
+            <td>{% if reservation.user %}{{ reservation.user.fullname }} ({{ reservation.user.email }}){% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Activity'|trans }}</th>
-            <td>{{ reservation.activity.title }}</td>
+            <td>{{ reservation.session.activity.title }}</td>
         </tr>
         <tr>
-            <th>{{ 'Adults'|trans }}</th>
-            <td>{{ reservation.adults }}</td>
+            <th>{{ 'Persons'|trans }}</th>
+            <td>{{ reservation.persons }}</td>
         </tr>
         <tr>
-            <th>{{ 'Childrens'|trans }}</th>
-            <td>{{ reservation.childrens }}</td>
+            <th>{{ 'Session date'|trans }}</th>
+            <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif%}</td>
         </tr>
         <tr>
-            <th>{{ 'Date'|trans }}</th>
-            <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d') }}{% endif%}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Time'|trans }}</th>
-            <td>{% if reservation.time %}{{ reservation.time|date('H:i') }}{% endif%}</td>
+            <th>{{ 'Session time'|trans }}</th>
+            <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif%}</td>
         </tr>
         <tr>
             <th>{{ 'Payment'|trans }}</th>
