@@ -136,9 +136,72 @@ textarea.wysihtml5-bootstrap {
     table-layout: fixed;
 }
 
-.calendar th, .calendar td {
+.calendar thead th {
+    font-size: 24px;
+}
+
+.calendar thead td {
+    font-weight: bold;
     text-align: center;
-    padding: 8px 4px;
+}
+
+.calendar .sessions {
+    height: 60px;
+    overflow: auto;
+}
+
+.calendar .past-day {
+    background-color: #F5F5F5;
+}
+
+.calendar .label {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    cursor: default;
+}
+
+.calendar .past-day .label,
+.calendar .prev-month .day-number,
+.calendar .next-month .day-number {
+    background-color: #CCC;
+}
+
+.calendar .day-number {
+    float: right;
+}
+
+.calendar .label:first-child {
+    margin-top: 0;
+}
+
+.calendar .label:last-child {
+    margin-bottom: 0;
+}
+
+.calendar .label[class*="session"] {
+   cursor: pointer;
+}
+
+.calendar .label[class*="session"]:hover {
+   -webkit-box-shadow: inset 0 0 5px #000;
+      -moz-box-shadow: inset 0 0 5px #000;
+           box-shadow: inset 0 0 5px #000;
+}
+
+.calendar .label[class*="session"].active {
+   background-color: #000;
+}
+
+.icon-loading {
+    background-image: url("../img/loading.gif");
+    background-position: 0;
+    width: 16px;
+    height: 16px;
 }
 
 /* Fix navbar for small tablets and smartphones */
