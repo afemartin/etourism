@@ -1,7 +1,7 @@
 {% extends '::back.html.twig' %}
 
 {# Full set of variables (string or boolean) that can be set to configure the stylesheet and javascript blocks #}
-{# {% set sectiontab = 'sectionname' %}{% set helptooltip = 0 %}{% set datepicker = 0 %}{% set fileupload = 0 %}{% set wysihtml5 = 0 %}{% set fancybox = 0 %} #}
+{# {% set sectiontab = 'sectionname' %}{% set helptooltip = 0 %}{% set datepicker = 0 %}{% set fileupload = 0 %}{% set tablesorter = 'options' %}{% set wysihtml5 = 0 %}{% set fancybox = 0 %} #}
 
 {% block stylesheets %}
 
@@ -61,6 +61,13 @@
     {% if sectiontab is defined and sectiontab %}
         <script type="text/javascript">
             $('#subnav-tab-{{ sectiontab }}').addClass("active");
+        </script>
+    {% endif %}
+            
+    {% if tablesorter is defined and tablesorter %}
+        <script src="{{ asset('js/tablesorter.min.js') }}"></script>
+        <script type="text/javascript">
+            $('.table').tablesorter({{ tablesorter }});
         </script>
     {% endif %}
         
