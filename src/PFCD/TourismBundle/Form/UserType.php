@@ -23,11 +23,14 @@ class UserType extends AbstractType
         $builder->add('birthday', 'birthday', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') - 5, date('Y') - 90), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
         $builder->add('gender', 'choice', array('required' => false, 'choices' => array(User::GENDER_MALE => 'Male', User::GENDER_FEMALE => 'Female'), 'expanded' => true));
         $builder->add('country', 'country', array('required' => false, 'empty_value' => 'Select your country'));
-        $builder->add('city');
-        $builder->add('address');
-        $builder->add('postalCode');
-        $builder->add('phone');
-        $builder->add('locale', 'choice', array('required' => false, 'choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
+        if ($options['type'] == Constants::FORM_UPDATE || $options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
+        {
+            $builder->add('city');
+            $builder->add('address');
+            $builder->add('postalCode');
+            $builder->add('phone');
+            $builder->add('locale', 'choice', array('required' => false, 'choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
+        }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('status', 'choice', array('choices' => array(User::STATUS_PENDING => 'Pending', User::STATUS_ENABLED => 'Enabled', User::STATUS_LOCKED => 'Locked', User::STATUS_DELETED => 'Deleted')));
