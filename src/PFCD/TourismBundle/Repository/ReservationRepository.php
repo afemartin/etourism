@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 class ReservationRepository extends EntityRepository
 {
     
-    public function findAllFiltered($organization = null, $activity = null, $dateStart = null, $dateEnd = null, $daysWeek = null, $status = null)
+    public function findAllFiltered($organization = null, $activity = null, $dateStart = null, $dateEnd = null, $status = null)
     {
         $qb = $this->createQueryBuilder('r');
         
