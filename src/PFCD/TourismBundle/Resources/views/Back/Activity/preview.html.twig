@@ -23,49 +23,25 @@
     <div class="span3">
         <div class="well mini">
             <h1>{{ 'Preview'|trans }}</h1>
-            <a class="btn btn-primary" href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.activity.button.update'|trans }}</a>
-            <a class="btn btn-primary" href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.activity.button.media'|trans }}</a>
+            <p>List of avalilable actions</p>
+            <p><a class="btn btn-primary" href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.activity.button.update'|trans }}</a></p>
+            <p><a class="btn btn-primary" href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.activity.button.media'|trans }}</a></p>
         </div>
     </div>
 </div>
 
-{% if calendar %}
+{% if activity.sessions %}
 <h2>{{ 'front.activity.read.availability'|trans }}</h2>
 <div class="info-calendar row">
     <div class="span9">
-        <table class="calendar table table-bordered">
-            <thead>
-                <tr>
-                    {% for year, days in calendar.years %}
-                    <th colspan="{{ days }}">{{ year }}</th>
-                    {% endfor %} 
-                </tr>
-                <tr>
-                    {% for month, days in calendar.months %}
-                    <th colspan="{{ days }}">{{ month|trans }}</th>
-                    {% endfor %} 
-                </tr>
-                <tr>
-                    {% for date in calendar.dates %}
-                    <td>{{date.dayweek|trans}}</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    {% for date in calendar.dates %}
-                    <td>{{date.daymonth}}</td>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                {% for date in calendar.dates %}
-                <td style="background-color: rgb({{ 25*(10-date.capacity) }},{{ 25*date.capacity }},0)">{{date.capacity}}</td>
-                {% endfor %}
-            </tr>
-            </tbody>
-        </table>
-        <a class="btn btn-primary pull-right" disabled="disabled"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.create'|trans }}</a>
+        <div id="reservation_calendar"></div>
+        <a id="reservation_create" class="btn btn-primary pull-right disabled" href="#"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.create'|trans }}</a>
     </div>
+</div>
+{% else %}
+<h2>{{ 'front.activity.read.availability'|trans }}</h2>
+<div class="info-calendar row">
+    <div class="span9">{{ 'front.activity.read.sessionsnotfound'|trans }}</div>
 </div>
 {% endif %}
 
@@ -141,5 +117,31 @@
         map.setCenter(marker.getPosition());
     }
 </script>
+{% endif %}
+
+{% if activity.sessions %}
+    <script type="text/javascript">
+        getCalendar({{ activity.id }}, {{ 'now'|date('Y') }}, {{ 'now'|date('m') }});
+        
+        function getCalendar(id, year, month)
+        {
+            $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
+           
+            $.ajax({
+                type: "GET",
+                data: "id=" + id + "&year=" + year + "&month=" + month,
+                url: "{{ path('front_activity_calendar') }}",
+                success: function(calendar) {
+                    $('#reservation_calendar').html(calendar);
+                }
+            });
+        }
+        
+        function selectSession(id)
+        {
+            $('.calendar .label.active').removeClass('active');
+            $('.session'+id).addClass('active');
+        }
+    </script>
 {% endif %}
 {% endblock %}

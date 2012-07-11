@@ -48,10 +48,6 @@
                     <h1>{% block header_title %}{{ 'back.header.title'|trans }}{% endblock %}</h1>
                     <h2>{% block header_subtitle %}{{ 'back.header.subtitle'|trans }}{% endblock %}</h2>
                 </header>
-                {% if app.session.hasFlash('alert-info') %}<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-info') }}</div>{% endif %}
-                {% if app.session.hasFlash('alert-success') %}<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-success') }}</div>{% endif %}
-                {% if app.session.hasFlash('alert-warning') %}<div class="alert fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-warning') }}</div>{% endif %}
-                {% if app.session.hasFlash('alert-error') %}<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-error') }}</div>{% endif %}
                 {% block sidebar %}
                 <div class="subnav">
                     <ul class="nav nav-pills">
@@ -76,6 +72,10 @@
                     </ul>
                 </div>
                 {% endblock %}
+                {% if app.session.hasFlash('alert-info') %}<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-info') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-success') %}<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-success') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-warning') %}<div class="alert fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-warning') }}</div>{% endif %}
+                {% if app.session.hasFlash('alert-error') %}<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-error') }}</div>{% endif %}
                 {% block body %}{% endblock %}
             </div>
             {% endblock %}
