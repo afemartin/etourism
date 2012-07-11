@@ -29,7 +29,7 @@
         <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
         <td>{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-file"></i></a>{% endif %}</td>
+        <td>{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
         <td>{{ reservation.statusText|trans }}</td>
         <td><a href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-edit"></i></a></td>
     </tr>

@@ -2,7 +2,7 @@
 
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% set sectiontab = 'reservation' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 10: {sorter: false} } }' %}
+{% set sectiontab = 'reservation' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 8: {sorter: false}, 10: {sorter: false} } }' %}
 
 {% block body %}
 <h1>{{ 'back.reservation.index.title'|trans }}</h1>
@@ -55,7 +55,7 @@
         <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
         <td>{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-file"></i></a>{% endif %}</td>
+        <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
         <td>{{ reservation.statusText|trans }}</td>
         <td><a href="{{ path('back_reservation_update', { 'id': reservation.id }) }}"><i class="icon-edit"></i></a></td>
     </tr>
