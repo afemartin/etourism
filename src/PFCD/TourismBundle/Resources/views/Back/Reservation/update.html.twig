@@ -25,7 +25,7 @@
         
         function getCalendar(id, year, month)
         {
-            $('#reservation_calendar').prepend('<i class="icon-loading"></i> Cargando...');
+            $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
             
             $.ajax({
                 type: "GET",
