@@ -12,27 +12,23 @@
         </tr>
         <tr>
             <th>{{ 'Organization'|trans }}</th>
-            <td><a href="{{ path('front_organization_read', { 'id': reservation.activity.organization.id }) }}">{{ reservation.activity.organization.name }}</a></td>
+            <td><a href="{{ path('front_organization_read', { 'id': reservation.session.activity.organization.id }) }}">{{ reservation.session.activity.organization.name }}</a></td>
         </tr>
         <tr>
             <th>{{ 'Activity'|trans }}</th>
-            <td><a href="{{ path('front_activity_read', { 'id': reservation.activity.id }) }}">{{ reservation.activity.title }}</a></td>
+            <td><a href="{{ path('front_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title }}</a></td>
         </tr>
         <tr>
-            <th>{{ 'Adults'|trans }}</th>
-            <td>{{ reservation.adults }}</td>
+            <th>{{ 'Persons'|trans }}</th>
+            <td>{{ reservation.persons }}</td>
         </tr>
         <tr>
-            <th>{{ 'Childrens'|trans }}</th>
-            <td>{{ reservation.childrens }}</td>
+            <th>{{ 'Session date'|trans }}</th>
+            <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
         </tr>
         <tr>
-            <th>{{ 'Date'|trans }}</th>
-            <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d') }}{% endif%}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Time'|trans }}</th>
-            <td>{% if reservation.time %}{{ reservation.time|date('H:i') }}{% endif%}</td>
+            <th>{{ 'Session time'|trans }}</th>
+            <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Payment'|trans }}</th>

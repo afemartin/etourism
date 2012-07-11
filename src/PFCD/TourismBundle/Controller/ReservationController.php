@@ -325,7 +325,7 @@ class ReservationController extends Controller
      * 
      * @Secure(roles="ROLE_USER")
      */
-    public function frontCreateAction($activityId)
+    public function frontCreateAction($activityId, $sessionId)
     {
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_CREATE;
@@ -333,6 +333,12 @@ class ReservationController extends Controller
         
         $reservation = new Reservation();
         $form = $this->createForm(new ReservationType(), $reservation, $options);
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $session = $em->getRepository('PFCDTourismBundle:Session')->find($sessionId);
+
+        if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
         
         $request = $this->getRequest();
         
@@ -342,20 +348,15 @@ class ReservationController extends Controller
 
             if ($form->isValid())
             {
-                $em = $this->getDoctrine()->getEntityManager();
-                
                 $user = $this->get('security.context')->getToken()->getUser()->getId();
                 
                 $user = $em->getRepository('PFCDTourismBundle:User')->find($user);
                 
                 if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
                 
-                $activity = $em->getRepository('PFCDTourismBundle:Activity')->find($activityId);
-                
-                if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
                 
                 $reservation->setUser($user);
-                $reservation->setActivity($activity);
+                $reservation->setSession($session);
                 $em->persist($reservation);
                 $em->flush();
 
@@ -365,6 +366,7 @@ class ReservationController extends Controller
 
         return $this->render('PFCDTourismBundle:Front/Reservation:create.html.twig', array(
             'reservation' => $reservation,
+            'session'     => $session,
             'form'        => $form->createView()
         ));
     }

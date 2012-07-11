@@ -8,7 +8,13 @@
 <h1>{{ 'front.reservation.create.title'|trans }}</h1>
 <p>{{ 'front.reservation.create.subtitle'|trans }}</p>
 
-<form class="form-horizontal" action="{{ path('front_reservation_create', { 'activityId': app.request.get('activityId') }) }}" method="post" {{ form_enctype(form) }}>
+<p>Datos de la reserva:</p>
+<p>Actividad: {{ session.activity.title }}</p>
+<p>Fecha de la sesion: {{ session.date|date('Y-m-d') }}</p>
+<p>Hora de la sesion: {% if session.time %}{{ session.time|date('H:i') }}{% else %}Por confirmar{% endif %}</p>
+<p>Plazas disponibles: {% set capacity = session.activity.capacity %}{% for reservation in session.reservations %}{% set capacity = capacity - reservation.persons %}{% endfor %}{{ capacity }}</p>
+
+<form class="form-horizontal" action="{{ path('front_reservation_create', { 'activityId': app.request.get('activityId'), 'sessionId': app.request.get('sessionId') }) }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <div class="form-actions">
         <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create'|trans }}</button>
