@@ -73,14 +73,13 @@ class Reservation
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity="Payment", inversedBy="reservation")
-     * @ORM\JoinColumn(name="payment_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Payment", mappedBy="reservation")
      */
     private $payment;
 
     public function __construct()
     {
-        $this->status = 1;
+        $this->status = self::STATUS_REQUESTED;
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());

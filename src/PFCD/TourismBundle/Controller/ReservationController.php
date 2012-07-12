@@ -13,6 +13,8 @@ use PFCD\TourismBundle\Form\ReservationType;
 use PFCD\TourismBundle\Entity\ReservationFilter;
 use PFCD\TourismBundle\Form\ReservationFilterType;
 
+use PFCD\TourismBundle\Entity\Payment;
+
 /**
  * Reservation controller
  */
@@ -20,7 +22,7 @@ class ReservationController extends Controller
 {
     
     /**************************************************************************
-     ***** BACK AREA **********************************************************
+     ***** BACK ACTIONS *******************************************************
      **************************************************************************/
     
     /**
@@ -142,7 +144,10 @@ class ReservationController extends Controller
                 if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
                 
                 $reservation->setSession($session);
-
+                
+                // if the reservation is made by organization administrator it is automatically accepted
+                $reservation->setStatus(Reservation::STATUS_ACCEPTED);
+                
                 if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
                 {
                     $id = $this->get('security.context')->getToken()->getUser()->getId();
@@ -154,8 +159,18 @@ class ReservationController extends Controller
                     }
                 }
 
+                // we have to save payment in 2 steps since we can not relate them until inversed-side entity exist at the DDBB
+                
                 $em->persist($reservation);
                 $em->flush();
+                
+                $payment = new Payment();
+                $payment->setPrice($session->getActivity()->getPrice() * $reservation->getPersons());
+                $payment->setCurrency($session->getActivity()->getCurrency());
+                $payment->setReservation($reservation);
+                
+                $em->persist($payment);
+                $em->flush(); 
 
                 return $this->redirect($this->generateUrl('back_reservation_read', array('id' => $reservation->getId())));
             }
@@ -219,6 +234,8 @@ class ReservationController extends Controller
             }
         }
 
+        $prevStatus = $reservation->getStatus();
+
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
@@ -246,9 +263,24 @@ class ReservationController extends Controller
 
                     $reservation->setSession($session);
                 }
-
+                
+                $nextStatus = $reservation->getStatus();
+                
                 $em->persist($reservation);
                 $em->flush();
+                
+                if ($prevStatus != Reservation::STATUS_ACCEPTED && $nextStatus == Reservation::STATUS_ACCEPTED && $reservation->getPayment() == null)
+                {
+                    // we have to save payment in 2 steps since we can not relate them until inversed-side entity exist at the DDBB
+                    
+                    $payment = new Payment();
+                    $payment->setPrice($reservation->getSession()->getActivity()->getPrice() * $reservation->getPersons());
+                    $payment->setCurrency($reservation->getSession()->getActivity()->getCurrency());
+                    $payment->setReservation($reservation);
+                
+                    $em->persist($payment);
+                    $em->flush(); 
+                }
 
                 return $this->redirect($this->generateUrl('back_reservation_read', array('id' => $id)));
             }
@@ -299,7 +331,7 @@ class ReservationController extends Controller
     
     
     /**************************************************************************
-     ***** FRONT AREA *********************************************************
+     ***** FRONT ACTIONS ******************************************************
      **************************************************************************/
     
     /**
@@ -353,7 +385,6 @@ class ReservationController extends Controller
                 $user = $em->getRepository('PFCDTourismBundle:User')->find($user);
                 
                 if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
-                
                 
                 $reservation->setUser($user);
                 $reservation->setSession($session);
@@ -410,7 +441,7 @@ class ReservationController extends Controller
         $reservation = $em->getRepository('PFCDTourismBundle:Reservation')->findOneBy($filter);
 
         if (!$reservation) throw $this->createNotFoundException('Unable to find Reservation entity.');
-
+        
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_UPDATE;
         $options['validation_groups'] = 'Front';
@@ -427,7 +458,7 @@ class ReservationController extends Controller
             {
                 $em->persist($reservation);
                 $em->flush();
-
+                
                 return $this->redirect($this->generateUrl('front_reservation_read', array('id' => $id)));
             }
         }    
