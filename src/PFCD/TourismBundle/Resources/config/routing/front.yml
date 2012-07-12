@@ -136,3 +136,18 @@ front_reservation_delete:
     pattern:  /user/reservation/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Reservation:frontDelete" }
     requirements: { _method: post, id: \d+ }
+
+
+################################################################################
+##### PAYMENT CONTROLLER #######################################################
+################################################################################
+
+front_payment_read:
+    pattern:  /user/payment/{id}
+    defaults: { _controller: "PFCDTourismBundle:Payment:frontRead" }
+    requirements: { _method: get, id: \d+ }
+
+front_payment_update:
+    pattern:  /user/payment/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Payment:frontUpdate" }
+    requirements: { id: \d+ }

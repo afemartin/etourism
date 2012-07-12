@@ -7,12 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 use PFCD\TourismBundle\Entity\Reservation;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\PaymentRepository")
  * @ORM\Table(name="payment")
  * @ORM\HasLifecycleCallbacks()
  */
 class Payment
 {
+    const STATUS_PENDING_P = 0; // accepted reservation generate a payment (FROM 0 TO [1])
+    const STATUS_PAID      = 1; // organization receive the payment (FROM 1 TO [2])
+    const STATUS_PENDING_R = 2; // user cancel the reservation before or after to be accepted (END)
+    const STATUS_REFUNDED  = 3; // organization reject the reservation (END)
+
+    private $statusText = array('0' => 'Pending payment', '1' => 'Paid', '2' => 'Pending refund', '3' => 'Refunded');
+    
+    const TYPE_CREDIT_CARD   = 1;
+    const TYPE_BANK_TRANSFER = 2;
+    const TYPE_PAYPAL        = 3;
+    const TYPE_CASH          = 4;
+
+    private $typeText = array('1' => 'Credit Card', '2' => 'Bank transfer', '3' => 'Paypal', '4' => 'Cash');
+    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -27,16 +41,16 @@ class Payment
     private $reservation;
 
     /**
+     * @var integer $type 1=>CreditCard, 2=>Bank transfer, 3=>Paypal, 4=>Cash
+     *
+     * @ORM\Column(name="type", type="smallint", nullable=true)
+     */
+    private $type;
+
+    /**
      * @ORM\Column(name="price", type="float")
      */
     private $price;
-
-    /**
-     * @var integer $type 1=>CreditCard, 2=>Bank transffer, 3=>Paypal, 4=>Delayed payment
-     *
-     * @ORM\Column(name="type", type="smallint")
-     */
-    private $type;
 
     /**
      * @var string $currency ISO 4217
@@ -45,12 +59,12 @@ class Payment
      * @ORM\Column(name="currency", type="string", length=3, nullable=true)
      */
     private $currency;
-
+        
     /**
-     * @ORM\Column(name="taxes", type="float", nullable=true)
+     * @ORM\Column(name="comment", type="string", nullable=true)
      */
-    private $taxes;
-    
+    private $comment;
+
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -60,9 +74,18 @@ class Payment
      * @ORM\Column(name="updated", type="datetime")
      */
     private $updated;
+    
+    /**
+     * @var integer $status 0=>Pending payment, 1=>Paid, 2=>Pending refund, 3=>Refunded
+     *
+     * @ORM\Column(name="status", type="smallint")
+     */
+    private $status;
 
     public function __construct()
     {
+        $this->status = self::STATUS_PENDING_P;
+        
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
     }
@@ -116,26 +139,6 @@ class Payment
     }
 
     /**
-     * Set price
-     *
-     * @param float $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * Get price
-     *
-     * @return float 
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
      * Set type
      *
      * @param integer $type
@@ -153,6 +156,43 @@ class Payment
     public function getType()
     {
         return $this->type;
+    }
+    
+    /**
+     * Get type in human readable mode
+     *
+     * @return string
+     */
+    public function getTypeText()
+    {
+        if ($this->type)
+        {
+            return $this->typeText[$this->type];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Set price
+     *
+     * @param float $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float 
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 
     /**
@@ -174,25 +214,25 @@ class Payment
     {
         return $this->currency;
     }
-
+    
     /**
-     * Set taxes
+     * Set comment
      *
-     * @param integer $taxes
+     * @param integer $comment
      */
-    public function setTaxes($taxes)
+    public function setComment($comment)
     {
-        $this->taxes = $taxes;
+        $this->comment = $comment;
     }
 
     /**
-     * Get taxes
+     * Get comment
      *
      * @return integer 
      */
-    public function getTaxes()
+    public function getComment()
     {
-        return $this->taxes;
+        return $this->comment;
     }
 
     /**
@@ -233,6 +273,36 @@ class Payment
     public function getUpdated()
     {
         return $this->updated;
+    }
+    
+    /**
+     * Set status
+     *
+     * @param integer $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Get status in human readable mode
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return $this->statusText[$this->status];
     }
     
 }

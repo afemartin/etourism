@@ -1,0 +1,66 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'payment' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 8: {sorter: false, 10: {sorter: false} } }' %}
+
+{% block body %}
+<h1>{{ 'back.payment.index.title'|trans }}</h1>
+<p>{{ 'back.payment.index.subtitle'|trans }}</p>
+
+<div class="well">
+    <h2>{{ 'Search'|trans }}</h2>
+    <form class="form-horizontal mini" action="{{ path('back_payment_index') }}" method="post" {{ form_enctype(form) }}>
+        <div class="row">
+            <div class="span">
+                {{ form_row(form.activity) }}
+                {{ form_row(form.status) }}
+            </div>
+            <div class="span">
+                {{ form_row(form.dateStart) }}
+                {{ form_row(form.dateEnd) }}
+            </div>
+            {{ form_rest(form) }}
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> {{ 'Search'|trans }}</button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'User'|trans }}</th>
+            <th>{{ 'Activity'|trans }}</th>
+            <th>{{ 'Persons'|trans }}</th>
+            <th>{{ 'Type'|trans }}</th>
+            <th>{{ 'Price'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Reservation'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Edit'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for payment in payments %}
+    <tr class="status-{{ payment.status }}">
+        <td><a href="{{ path('back_payment_read', { 'id': payment.id }) }}">{{ payment.id }}</a></td>
+        <td>{% if payment.reservation.user %}<a href="{{ path('back_user_read', { 'id': payment.reservation.user.id }) }}">{{ payment.reservation.user.firstname }}</a>{% endif %}</td>
+        <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title }}</a></td>
+        <td>{{ payment.reservation.persons }}</td>
+        <td>{{ payment.typeText }}</td>
+        <td>{{ payment.price ~ payment.currency }}</td>
+        <td>{% if payment.created %}{{ payment.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if payment.reservation %}<a href="{{ path('back_reservation_read', { 'id': payment.reservation.id }) }}"><i class="icon-book"></i></a>{% endif %}</td>
+        <td>{{ payment.statusText|trans }}</td>
+        <td><a href="{{ path('back_payment_update', { 'id': payment.id }) }}"><i class="icon-edit"></i></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

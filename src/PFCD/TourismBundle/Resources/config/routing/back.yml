@@ -228,3 +228,22 @@ back_reservation_delete:
     pattern:  /reservation/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Reservation:backDelete" }
     requirements: { _method: post, id: \d+ }
+
+
+################################################################################
+##### PAYMENT CONTROLLER #######################################################
+################################################################################
+
+back_payment_index:
+    pattern:  /payments
+    defaults: { _controller: "PFCDTourismBundle:Payment:backIndex" }
+
+back_payment_read:
+    pattern:  /payment/{id}
+    defaults: { _controller: "PFCDTourismBundle:Payment:backRead" }
+    requirements: { _method: get, id: \d+ }
+
+back_payment_update:
+    pattern:  /payment/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Payment:backUpdate" }
+    requirements: { id: \d+ }
