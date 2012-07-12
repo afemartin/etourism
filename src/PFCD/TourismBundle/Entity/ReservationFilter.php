@@ -37,6 +37,7 @@ class ReservationFilter
     public function setDateStart($dateStart)
     {
         $this->dateStart = $dateStart;
+        if ($dateStart) $this->dateStart->setTime(0, 0, 0);
     }
 
     public function getDateStart()
@@ -47,6 +48,7 @@ class ReservationFilter
     public function setDateEnd($dateEnd)
     {
         $this->dateEnd = $dateEnd;
+        if ($dateEnd) $this->dateEnd->setTime(23, 59, 59);
     }
 
     public function getDateEnd()

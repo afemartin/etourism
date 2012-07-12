@@ -30,6 +30,7 @@ class SessionFilter
         
         $this->dateEnd = new DateTime();
         $this->dateEnd->add(new DateInterval('P1M'));
+        $this->dateEnd->setTime(23, 59, 59);
         
         $this->daysWeek = array(Constants::MONDAY, Constants::TUESDAY, Constants::WEDNESDAY, Constants::THURSDAY, Constants::FRIDAY, Constants::SATURDAY, Constants::SUNDAY);
         
@@ -49,6 +50,7 @@ class SessionFilter
     public function setDateStart($dateStart)
     {
         $this->dateStart = $dateStart;
+        if ($dateStart) $this->dateStart->setTime(0, 0, 0);
     }
 
     public function getDateStart()
@@ -59,6 +61,7 @@ class SessionFilter
     public function setDateEnd($dateEnd)
     {
         $this->dateEnd = $dateEnd;
+        if ($dateEnd) $this->dateEnd->setTime(23, 59, 59);
     }
 
     public function getDateEnd()
