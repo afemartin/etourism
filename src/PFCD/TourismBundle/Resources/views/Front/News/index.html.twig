@@ -1,0 +1,35 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block title %}{{ 'Activities'|trans }}{% endblock%}
+
+{% block body %}
+<h1>{{ 'front.news.index.title'|trans }}</h1>
+<p>{{ 'front.news.index.subtitle'|trans }}</p>
+
+{% for news in news_list %}
+<div class="info-container row">
+    <div class="info-title span9">
+        <h2>{{ news.title }}</h2>
+    </div>
+    <div class="info-image span2 hidden-phone">
+        <img class="thumbnail" alt="{{ news.title }}" src="{% if news.image %}{{ news.image|apply_filter('thumbnail_170x120') }}{% else %}http://placehold.it/170x120&text=no+image{% endif%}" />
+    </div>
+    <div class="info-desc span7">
+        <p>{{ news.shortDesc }}</p>
+        <a class="btn pull-right" href="{{ path('front_news_read', { 'id': news.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+    </div>
+</div>
+{% if not loop.last %}
+<div class="row">
+    <div class="info-divisor span9"></div>
+</div>
+{% endif %}   
+{% endfor %}
+{% endblock %}
+    
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-news').addClass("active");
+</script>
+{% endblock %}

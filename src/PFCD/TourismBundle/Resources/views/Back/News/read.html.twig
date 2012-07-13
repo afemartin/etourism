@@ -1,0 +1,42 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% set sectiontab = 'news' %}
+
+{% block body %}
+<h1>{{ 'back.news.read.title'|trans }}</h1>
+<p>{{ 'back.news.read.subtitle'|trans }}</p>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tbody>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <td>{{ news.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Title'|trans }}</th>
+            <td>{{ news.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Created'|trans }}</th>
+            <td>{{ news.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Updated'|trans }}</th>
+            <td>{{ news.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Status'|trans }}</th>
+            <td>{{ news.statusText }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_news_update', { 'id': news.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.news.button.update'|trans }}</a>
+<a class="btn btn-primary" href="{{ path('back_news_media', { 'id': news.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.news.button.media'|trans }}</a>
+<a class="btn btn-inverse" href="{{ path('back_news_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.news.button.index'|trans }}</a>
+<a class="btn btn-info" href="{{ path('back_news_preview', { 'id': news.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.news.button.preview'|trans }}</a>
+<form class="pull-right" action="{{ path('back_news_delete', { 'id': news.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.news.button.delete'|trans }}</button>
+</form>
+{% endblock %}

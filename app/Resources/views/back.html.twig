@@ -61,7 +61,7 @@
                         <li id="subnav-tab-reservation"><a href="{{ path('back_reservation_index') }}"><i class="icon-book "></i> {{ 'Reservations'|trans }}</a></li>
                         <li id="subnav-tab-payment"><a href="{{ path('back_payment_index') }}"><i class="icon-inbox"></i> {{ 'Payments'|trans }}</a></li>
                         <li id="subnav-tab-statistic"><a href="#"><i class="icon-tasks"></i> {{ 'Statistics'|trans }}</a></li>
-                        <li id="subnav-tab-news"><a href="#"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
+                        <li id="subnav-tab-news"><a href="{{ path('back_news_index') }}"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
                         <li id="subnav-tab-comment"><a href="#"><i class="icon-comment"></i> {{ 'Comments'|trans }}</a></li>
                         <li id="subnav-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
                         {% if is_granted('ROLE_ORGANIZATION') %}

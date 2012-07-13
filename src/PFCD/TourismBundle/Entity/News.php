@@ -5,8 +5,11 @@ namespace PFCD\TourismBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Comment;
+use PFCD\TourismBundle\Entity\Image;
 
 /**
  * @ORM\Entity
@@ -49,7 +52,22 @@ class News
      * @ORM\Column(name="full_desc", type="text", nullable=true)
      */
     private $fullDesc;
-
+        
+    /**
+     * Uploaded file
+     */
+    private $file = null;
+    
+    /**
+     * @ORM\Column(name="image", type="string", nullable=true)
+     */
+    private $image;
+    
+    /**
+     * @ORM\Column(name="video", type="string", nullable=true)
+     */
+    private $video;
+    
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -66,6 +84,11 @@ class News
      * @ORM\Column(name="status", type="smallint")
      */
     private $status;
+        
+    /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="news")
+     */
+    private $gallery;
     
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="news")
@@ -75,6 +98,7 @@ class News
     public function __construct()
     {
         $this->status = self::STATUS_PENDING;
+        $this->gallery = new ArrayCollection();
         $this->comments = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
@@ -188,6 +212,80 @@ class News
     {
         return $this->fullDesc;
     }
+    
+    /**
+     * Set file
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    /**
+     * Set image
+     */
+    public function setImage()
+    {
+        if ($this->file !== null)
+        {
+            $this->image = 'image.' . $this->file->guessExtension();
+            $this->file->move(__DIR__ . '/../../../../web/' . $this->getUploadDir(), $this->image);
+            $this->image = $this->getUploadDir() . '/' . $this->image;
+            unset($this->file);
+        }
+    }
+
+    /**
+     * Get image
+     *
+     * @return string 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+    
+    /**
+     * Get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view
+     * 
+     * @return string 
+     */
+    protected function getUploadDir()
+    {
+        return 'uploads/org' . $this->organization->getId() . '/news' . $this->id;
+    }
+    
+    /**
+     * Set video
+     *
+     * @param string $video
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+    }
+
+    /**
+     * Get video
+     *
+     * @return string 
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
 
     /**
      * Set created
@@ -259,6 +357,36 @@ class News
         return $this->statusText[$this->status];
     }
 
+    /**
+     * Add images to the gallery
+     *
+     * @param Image $image
+     */
+    public function addImage(Image $image)
+    {
+        $this->gallery[] = $image;
+    }
+
+    /**
+     * Set gallery of images
+     *
+     * @return 
+     */
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
+    }
+
+    /**
+     * Get gallery of images
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
+    
     /**
      * Add comments
      *

@@ -1,0 +1,42 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% set sectiontab = 'news' %}
+
+{% block body %}
+<h1>{{ 'back.news.index.title'|trans }}</h1>
+<p>{{ 'back.news.index.subtitle'|trans }}</p>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Title'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>{{ 'Organization'|trans }}</th>
+            {% endif %}
+            <th colspan="2">{{ 'Edit'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for news in news_list %}
+    <tr class="status-{{ news.status }}">
+        <td><a href="{{ path('back_news_read', { 'id': news.id }) }}">{{ news.id }}</a></td>
+        <td>{{ news.title }}</td>
+        <td>{% if news.created %}{{ news.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if news.updated %}{{ news.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{{ news.statusText|trans }}</td>
+        {% if is_granted('ROLE_ADMIN') %}
+        <td><a href="{{ path('back_organization_read', { 'id': news.organization.id }) }}">{{ news.organization.name }}</a></td>
+        {% endif %}
+        <td><a href="{{ path('back_news_update', { 'id': news.id }) }}"><i class="icon-pencil"></i></a></td>
+        <td><a href="{{ path('back_news_media', { 'id': news.id }) }}"><i class="icon-picture"></i></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_news_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.news.button.create'|trans }}</a>
+{% endblock %}
