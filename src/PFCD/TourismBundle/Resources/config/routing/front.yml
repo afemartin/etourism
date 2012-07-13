@@ -104,7 +104,7 @@ front_activity_read:
     
 front_activity_calendar:
     pattern:  /activity/calendar
-    defaults: { _controller: "PFCDTourismBundle:Activity:backCalendar" }
+    defaults: { _controller: "PFCDTourismBundle:Activity:calendar" }
     requirements: { _method: get }
 
 
@@ -151,3 +151,18 @@ front_payment_update:
     pattern:  /user/payment/{id}/edit
     defaults: { _controller: "PFCDTourismBundle:Payment:frontUpdate" }
     requirements: { id: \d+ }
+    
+
+################################################################################
+##### NEWS CONTROLLER ##########################################################
+################################################################################
+    
+front_news_index:
+    pattern:  /news
+    defaults: { _controller: "PFCDTourismBundle:News:frontIndex" }
+    requirements: { _method: get }
+
+front_news_read:
+    pattern:  /news/{id}
+    defaults: { _controller: "PFCDTourismBundle:News:frontRead" }
+    requirements: { _method: get, id: \d+ }

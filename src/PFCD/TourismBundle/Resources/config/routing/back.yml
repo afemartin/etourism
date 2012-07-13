@@ -121,7 +121,7 @@ back_activity_preview:
 
 back_activity_calendar:
     pattern:  /activity/calendar
-    defaults: { _controller: "PFCDTourismBundle:Activity:backCalendar" }
+    defaults: { _controller: "PFCDTourismBundle:Activity:calendar" }
     requirements: { _method: get }
 
 back_activity_update:
@@ -247,3 +247,42 @@ back_payment_update:
     pattern:  /payment/{id}/edit
     defaults: { _controller: "PFCDTourismBundle:Payment:backUpdate" }
     requirements: { id: \d+ }
+    
+
+################################################################################
+##### NEWS CONTROLLER ##########################################################
+################################################################################
+    
+back_news_index:
+    pattern:  /news
+    defaults: { _controller: "PFCDTourismBundle:News:backIndex" }
+    requirements: { _method: get }
+
+back_news_create:
+    pattern:  /news/new
+    defaults: { _controller: "PFCDTourismBundle:News:backCreate" }
+
+back_news_read:
+    pattern:  /news/{id}
+    defaults: { _controller: "PFCDTourismBundle:News:backRead" }
+    requirements: { _method: get, id: \d+ }
+
+back_news_preview:
+    pattern:  /news/{id}/preview
+    defaults: { _controller: "PFCDTourismBundle:News:backPreview" }
+    requirements: { _method: get, id: \d+ }
+
+back_news_update:
+    pattern:  /news/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:News:backUpdate" }
+    requirements: { id: \d+ }
+
+back_news_media:
+    pattern:  /news/{id}/media
+    defaults: { _controller: "PFCDTourismBundle:News:backMedia" }
+    requirements: { id: \d+ }
+
+back_news_delete:
+    pattern:  /news/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:News:backDelete" }
+    requirements: { _method: post, id: \d+ }
