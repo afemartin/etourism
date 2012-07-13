@@ -19,7 +19,7 @@ class ActivityType extends AbstractType
         {
             $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name', 'help' => 'form.activity.field.organization.help'));
         }
-        $builder->add('title', 'text');
+        $builder->add('title', 'text', array('attr' => array('class' => 'input-xxlarge')));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge')));
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge')));
         $builder->add('price', 'money', array('required' => false, 'attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
