@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\News;
 
 /**
  * @ORM\Entity
@@ -27,6 +28,12 @@ class Image
      * @ORM\JoinColumn(name="activity_id", referencedColumnName="id")
      */
     private $activity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="News", inversedBy="gallery")
+     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     */
+    private $news;
     
     /**
      * @ORM\Column(name="description", type="string", nullable=true)
@@ -60,6 +67,10 @@ class Image
         if (null !== $this->activity)
         {
             return 'uploads/org' . $this->activity->getOrganization()->getId() . '/act' . $this->activity->getId();
+        }
+        elseif (null !== $this->news)
+        {
+            return 'uploads/org' . $this->news->getOrganization()->getId() . '/news' . $this->news->getId();
         }
         else
         {
@@ -142,6 +153,26 @@ class Image
     public function getActivity()
     {
         return $this->activity;
+    }
+    
+    /**
+     * Set news
+     *
+     * @param News $news
+     */
+    public function setNews(News $news)
+    {
+        $this->news = $news;
+    }
+
+    /**
+     * Get news
+     *
+     * @return News 
+     */
+    public function getNews()
+    {
+        return $this->news;
     }
 
     /**
