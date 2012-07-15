@@ -80,13 +80,13 @@ class SessionRepository extends EntityRepository
     public function findAvailability($activity, $year, $month)
     {
         // get the first and last day of the month
-        $dateBeg = new DateTime($year.'-'.$month.'-1');
-        $dateEnd = new DateTime($dateBeg->format('Y-m-t'));
+        $dateStart = new DateTime($year.'-'.$month.'-1');
+        $dateEnd = new DateTime($dateStart->format('Y-m-t'));
         
         // adjust the interval to full weeks from Monday to Sunday
-        if ($dateBeg->format('N') != 1)
+        if ($dateStart->format('N') != 1)
         {
-            $dateBeg = new DateTime(date(self::DATE_FORMAT, strtotime('previous monday', $dateBeg->getTimestamp())));
+            $dateStart = new DateTime(date(self::DATE_FORMAT, strtotime('previous monday', $dateStart->getTimestamp())));
         }
         if ($dateEnd->format('N') != 7)
         {
@@ -97,7 +97,7 @@ class SessionRepository extends EntityRepository
         
         $dateEnd->setTime(23, 59, 59);
         $interval = DateInterval::createFromDateString('1 day');
-        $dates = new DatePeriod($dateBeg, $interval, $dateEnd);
+        $dates = new DatePeriod($dateStart, $interval, $dateEnd);
         
         $calendar = array();
         
@@ -120,7 +120,7 @@ class SessionRepository extends EntityRepository
         
         $qb->setParameter('activity', $activity);
         $qb->setParameter('status_r', $status_reservation);
-        $qb->setParameter('date_start', $dateBeg);
+        $qb->setParameter('date_start', $dateStart);
         $qb->setParameter('date_end', $dateEnd);
         $qb->setParameter('status_s', $status_session);
 
@@ -134,11 +134,13 @@ class SessionRepository extends EntityRepository
             $time = $session->getTime() !== null ? $session->getTime()->format("H:i") : 'undefined';
             $capacity = $session->getActivity()->getCapacity();
             $persons = $row[1] ? $row[1] : 0;
+            $status = $session->getStatus();
             
             $calendar[$date]['sessions'][$time]['id'] = $id;
             $calendar[$date]['sessions'][$time]['time'] = $time;
-            $calendar[$date]['sessions'][$time]['capacity'] = $capacity - $persons;
-            $calendar[$date]['sessions'][$time]['status'] = 1;
+            $calendar[$date]['sessions'][$time]['persons'] = $capacity - $persons;
+            $calendar[$date]['sessions'][$time]['percentage'] = ($persons/$capacity)*100;
+            $calendar[$date]['sessions'][$time]['status'] = $status;
         }
         
         return $calendar;

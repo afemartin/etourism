@@ -24,10 +24,17 @@
                     <div class="sessions">
                         {% if day.sessions is defined %}
                             {% for session in day.sessions %}
-                                {% if day.date < today %}
-                                    <div class="label">{{ 'Session'|trans }} ({{session.time}})</div>
+                                {% set label = 'label-success' %}
+                                {% if session.percentage >= 100 %}
+                                    {% set label = 'label-important' %}
+                                {% elseif session.percentage > 75 %}
+                                    {% set label = 'label-warning' %}
+                                {% endif %}
+                                {# if is date past or session has been set as "locked" it wont be possible to create a reservation for that session #}
+                                {% if (day.date < today) or (session.status == 2) %}
+                                    <div class="label">{{ 'Session'|trans }} ({{ session.time }})</div>
                                 {% else %}
-                                    <div class="session{{session.id}} label label-success" onclick="selectSession({{session.id}})">{{ 'Session'|trans }} ({{session.time}})</div>
+                                    <div class="session{{ session.id }} label {{ label }}" onclick="selectSession({{ session.id }})">{{ 'Session'|trans }} ({{ session.time }})</div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
