@@ -23,7 +23,7 @@
     </div>
 </div>
 
-{% if news.gallery %}
+{% if news.gallery|length > 0 %}
 <h2>{{ 'front.news.read.images'|trans }}</h2>
 <div class="info-carrousel row">
     <div class="span9">
