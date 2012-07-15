@@ -77,3 +77,6 @@ avalanche_imagine:
         thumbnail_170x120:
             type:    thumbnail
             options: { size: [170, 120], mode: outbound, quality: 120, format: jpg }
+        thumbnail_80x80:
+            type:    thumbnail
+            options: { size: [80, 80], mode: outbound, quality: 120, format: jpg }

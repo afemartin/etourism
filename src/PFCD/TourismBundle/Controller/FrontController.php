@@ -237,9 +237,11 @@ class FrontController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
 
         $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
+        $news_list = $em->getRepository('PFCDTourismBundle:News')->findByStatus(Activity::STATUS_ENABLED);
 
         return $this->render('PFCDTourismBundle:Front/Home:sidebar.html.twig', array(
-            'activities' => $activities
+            'activities' => $activities,
+            'news_list' => $news_list
         ));
     }
 
