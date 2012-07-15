@@ -38,7 +38,7 @@
 </div>
 {% endif %}
 
-{% if activity.gallery %}
+{% if activity.gallery|length > 0 %}
 <h2>{{ 'front.activity.read.images'|trans }}</h2>
 <div class="info-carrousel row">
     <div class="span9">
