@@ -2,7 +2,7 @@
 
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% set sectiontab = 'reservation' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 8: {sorter: false}, 10: {sorter: false} } }' %}
+{% set sectiontab = 'reservation' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 8: {sorter: false}, 10: {sorter: false} }, sortList: [[7,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.reservation.index.title'|trans }}</h1>

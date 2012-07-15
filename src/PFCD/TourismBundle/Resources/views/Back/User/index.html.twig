@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'user' %}
+{% set sectiontab = 'user' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 11: {sorter: false} }, sortList: [[8,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.user.index.title'|trans }}</h1>

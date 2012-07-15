@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'activity' %}
+{% set sectiontab = 'activity' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 8: {sorter: false}, 9: {sorter: false}, 10: {sorter: false} }, sortList: [[5,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.activity.index.title'|trans }}</h1>

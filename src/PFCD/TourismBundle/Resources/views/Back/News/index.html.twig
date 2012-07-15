@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'news' %}
+{% set sectiontab = 'news' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 6: {sorter: false} }, sortList: [[2,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.news.index.title'|trans }}</h1>
