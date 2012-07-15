@@ -70,5 +70,12 @@
 </table>
 
 <a class="btn btn-primary" href="{{ path('back_session_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.session.button.create'|trans }}</a>
-<a class="btn btn-primary" href="{{ path('back_session_generate') }}"><i class="icon-plus icon-white"></i> {{ 'back.session.button.generate'|trans }}</a>
+<a id="generate_sessions" class="btn btn-primary" href="{{ path('back_session_generate') }}"  rel="popover" data-original-title="{{ 'popover.generatesessions.title'|trans }}" data-content="{{ 'popover.generatesessions.content'|trans }}"><i class="icon-plus icon-white"></i> {{ 'back.session.button.generate'|trans }}</a>
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#generate_sessions').popover();
+</script>
+{% endblock%}  
