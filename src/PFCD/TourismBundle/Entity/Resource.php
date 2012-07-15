@@ -10,7 +10,7 @@ use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Activity;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\ResourceRepository")
  * @ORM\Table(name="resource")
  * @ORM\HasLifecycleCallbacks()
  */

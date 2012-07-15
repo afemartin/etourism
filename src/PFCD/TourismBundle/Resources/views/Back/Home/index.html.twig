@@ -1,8 +1,168 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% block title %}Back Administrator Panel{% endblock %}
+{% set sectiontab = 'home' %}
 
 {% block body %}
-    Wellcome to the administration panel for your organizations.<br />
-    Here you can organize your activities, create news and manage your resorces and reservations.
+<h1>{{ 'back.home.title'|trans }}</h1>
+<p>{{ 'back.home.subtitle'|trans }}</p>
+
+<div class="row">
+    <div class="span12">
+        <h3>{{ 'back.home.nextevents'|trans }}</h3>
+    </div>
+    <div class="span6">
+        <table id="summary_sessions" class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th colspan="6"><h4><i class="icon-calendar"></i> {{ 'Sessions'|trans }} <small><a href="{{ path('back_session_index') }}">(view more)</a></small></h4></th>
+                </tr>
+                <tr>
+                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ 'Date'|trans }}</th>
+                    <th>{{ 'Time'|trans }}</th>
+                    <th>{{ 'Persons'|trans }}</th>
+                    <th>{{ 'Status'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for session in sessions %}
+            <tr class="status-{{ session.status }}">
+                <td><a href="{{ path('back_session_read', { 'id': session.id }) }}">{{ session.id }}</a></td>
+                <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title }}</a></td>
+                <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
+                {% set total_persons = 0 %}
+                {% for reservation in session.reservations %}
+                {% set total_persons = total_persons + reservation.persons %}
+                {% endfor %}
+                <td>{{ total_persons }} ({{ (total_persons/session.activity.capacity)*100 }}%)</td>
+                <td>{{ session.statusText|trans }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="span6">
+        <table id="summary_resources" class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th colspan="6"><h4><i class="icon-wrench"></i> {{ 'Resources'|trans }} <small><a href="{{ path('back_resource_index') }}">(view more)</a></small></h4></th>
+                </tr>
+                <tr>
+                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'Name'|trans }}</th>
+                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ 'Session date'|trans }}</th>
+                    <th>{{ 'Session time'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resource in resources %}
+                    {% for activity in resource.activities %}
+                        {% for session in activity.sessions %}
+                        <tr class="status-{{ resource.status }}">
+                            <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
+                            <td>{{ resource.name }}</td>
+                            <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></td>
+                            <td>{{ session.date|date('Y-m-d') }}</td>
+                            <td>{{ session.time|date('H:i') }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <h3>{{ 'back.home.lastevents'|trans }}</h3>
+    </div>
+    <div class="span12">
+        <table id="summary_reservations" class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th colspan="8"><h4><i class="icon-book"></i> {{ 'Reservations'|trans }} <small><a href="{{ path('back_reservation_index') }}">(view more)</a></small></h4></th>
+                </tr>
+                <tr>
+                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'User'|trans }}</th>
+                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ 'Persons'|trans }}</th>
+                    <th>{{ 'Session date'|trans }}</th>
+                    <th>{{ 'Session time'|trans }}</th>
+                    <th>{{ 'Updated'|trans }}</th>
+                    <th>{{ 'Status'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr class="status-{{ reservation.status }}">
+                    <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
+                    <td>{% if reservation.user %}<a href="{{ path('back_user_read', { 'id': reservation.user.id }) }}">{{ reservation.user.firstname }}</a>{% endif %}</td>
+                    <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title }}</a></td>
+                    <td>{{ reservation.persons }}</td>
+                    <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
+                    <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ reservation.statusText|trans }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="span12">
+        <table id="summary_payments" class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th colspan="9"><h4><i class="icon-inbox"></i> {{ 'Payments'|trans }} <small><a href="{{ path('back_payment_index') }}">(view more)</a></small></h4></th>
+                </tr>
+                <tr>
+                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'User'|trans }}</th>
+                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ 'Price'|trans }}</th>
+                    <th>{{ 'Session date'|trans }}</th>
+                    <th>{{ 'Session time'|trans }}</th>
+                    <th>{{ 'Updated'|trans }}</th>
+                    <th>{{ 'Status'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr class="status-{{ payment.status }}">
+                    <td><a href="{{ path('back_payment_read', { 'id': payment.id }) }}">{{ payment.id }}</a></td>
+                    <td>{% if payment.reservation.user %}<a href="{{ path('back_user_read', { 'id': payment.reservation.user.id }) }}">{{ payment.reservation.user.firstname }}</a>{% endif %}</td>
+                    <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title }}</a></td>
+                    <td>{{ payment.price ~ payment.currency }}</td>
+                    <td>{% if payment.reservation.session.date %}{{ payment.reservation.session.date|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if payment.reservation.session.time %}{{ payment.reservation.session.time|date('H:i') }}{% endif %}</td>
+                    <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ payment.statusText|trans }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/tablesorter.min.js') }}"></script>
+<script type="text/javascript">
+    {% if sessions %}
+        $('#summary_sessions').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[2,0],[3,0]] });
+    {% endif %}
+    {% if resources %}
+        $('#summary_resources').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[3,0],[4,0]] });
+    {% endif %}
+    {% if reservations %}
+        $('#summary_reservations').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[6,1]] });
+    {% endif %}
+    {% if payments %}
+        $('#summary_payments').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[6,1]] });
+    {% endif %}
+</script>
 {% endblock %}

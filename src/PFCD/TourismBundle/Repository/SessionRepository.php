@@ -18,17 +18,16 @@ class SessionRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('s');
         
-        $qb->select('s');
+        $qb->select('s, r');
+
+        $qb->leftJoin('s.reservations', 'r', 'WITH', 'r.status IN (:status_reservation)');
+        $qb->setParameter('status_reservation', array(Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED));
         
         if ($organization !== null)
         {
             $qb->innerJoin('s.activity', 'a');
-            $qb->where('a.organization = :organization');
+            $qb->andWhere('a.organization = :organization');
             $qb->setParameter('organization', $organization);
-        }
-        else
-        {
-            $qb->where('1 = 1');
         }
         
         if ($activity !== null)
@@ -67,8 +66,8 @@ class SessionRepository extends EntityRepository
             $qb->setParameter('status', $status);
         }
 
-        $qb->orderBy('s.date', 'ASC');
-        $qb->addOrderBy('s.time', 'ASC');
+//        $qb->orderBy('s.date', 'ASC');
+//        $qb->addOrderBy('s.time', 'ASC');
 
         // var_dump($qb->getDQL());
         // var_dump($qb->getQuery()->getSQL());

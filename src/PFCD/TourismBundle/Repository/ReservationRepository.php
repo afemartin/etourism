@@ -53,7 +53,48 @@ class ReservationRepository extends EntityRepository
             $qb->setParameter('status', $status);
         }
 
-        $qb->orderBy('r.updated', 'ASC');
+//        $qb->orderBy('r.updated', 'DESC');
+
+        // var_dump($qb->getDQL());
+        // var_dump($qb->getQuery()->getSQL());
+
+        return $qb->getQuery()->getResult();
+    }
+    
+    
+    public function findUpdatedReservations($organization = null, $dateStart = null, $dateEnd = null, $status = null)
+    {
+        $qb = $this->createQueryBuilder('r');
+        
+        $qb->select('r');
+        
+        if ($organization !== null)
+        {
+            $qb->innerJoin('r.session', 's');
+            $qb->innerJoin('s.activity', 'a');
+            $qb->andWhere('a.organization = :organization');
+            $qb->setParameter('organization', $organization);
+        }
+        
+        if ($dateStart !== null)
+        {
+            $qb->andWhere('r.updated >= :date_start');
+            $qb->setParameter('date_start', $dateStart);
+        }
+        
+        if ($dateEnd !== null)
+        {
+            $qb->andWhere('r.updated <= :date_end');
+            $qb->setParameter('date_end', $dateEnd);
+        }
+        
+        if ($status !== null && !empty($status))
+        {
+            $qb->andWhere('r.status IN (:status)');
+            $qb->setParameter('status', $status);
+        }
+
+//        $qb->orderBy('r.updated', 'DESC');
 
         // var_dump($qb->getDQL());
         // var_dump($qb->getQuery()->getSQL());
