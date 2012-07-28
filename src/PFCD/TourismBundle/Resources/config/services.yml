@@ -9,6 +9,12 @@ services:
             - { name: twig.extension }
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
         arguments: ["@service_container"]
+    
+    # This twig extension allows to truncate string of text        
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
         
     # This extension allow to add a help icon with hints about form fields
     form.type_extension.help_message:
