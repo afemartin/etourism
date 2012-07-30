@@ -1,10 +1,22 @@
 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANIZATION') %}{% set domain = 'Back' %}{% else %}{% set domain = 'Front' %}{% endif %}
 {% extends 'PFCDTourismBundle:' ~ domain ~ ':layout.html.twig' %}
 
-{% block title %}An Error Occurred: {{ status_text }}{% endblock %}
+{% block title %}
+    {% if app.request.locale == 'es' %}
+        Se ha producido un error: {{ status_text }}
+    {% else %}
+        An error occurred: {{ status_text }}
+    {% endif %}
+{% endblock %}
 
 {% block body %}
-<h1>Oops! An Error Occurred</h1>
-<h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
-<p>Something is broken. Please <a href="{{ path('front_contact') }}">contact us</a> and let us know what you were doing when this error occurred. We will fix it as soon as possible. Sorry for any inconvenience caused.</p>
+    {% if app.request.locale == 'es' %}
+        <h1>Oops! Se ha producido un error</h1>
+        <h2>El servidor ha devuelto "{{ status_code }} {{ status_text }}".</h2>
+        <p>Algo ha fallado en nuestro servidor o has tratado de acceder de manera incorrecta a alguna sección. Por favor <a href="{{ path('front_contact') }}">contacte</a> con nostros y díganos que tipo de error le ha sucedido. Intentaremos solucionarlo tan pronto como nos sea posible. Sentimos el inconveniente causado.</p>
+    {% else %}
+        <h1>Oops! An Error Occurred</h1>
+        <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+        <p>Something is broken in our server or you have tried to access incorrectly to any section. Please <a href="{{ path('front_contact') }}">contact us</a> and let us know what you were doing when this error occurred. We will fix it as soon as possible. Sorry for any inconvenience caused.</p>
+    {% endif %}
 {% endblock %}
