@@ -11,7 +11,6 @@
         <tr>
             <th>{{ 'Id'|trans }}</th>
             <th>{{ 'Name'|trans }}</th>
-            <th>{{ 'Price'|trans }}</th>
             <th>{{ 'Type'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
@@ -27,7 +26,6 @@
     <tr class="status-{{ resource.status }}">
         <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
         <td>{{ resource.name }}</td>
-        <td>{{ resource.price ~ resource.currency }}</td>
         <td>{{ resource.typeText }}</td>
         <td>{% if resource.created %}{{ resource.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if resource.updated %}{{ resource.updated|date('Y-m-d') }}{% endif %}</td>

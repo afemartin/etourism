@@ -53,19 +53,6 @@ class Resource
     private $description;
 
     /**
-     * @ORM\Column(name="price", type="float", nullable=true)
-     */
-    private $price;
-
-    /**
-     * @var string $currency ISO 4217
-     * @link http://en.wikipedia.org/wiki/ISO_4217
-     * 
-     * @ORM\Column(name="currency", type="string", length=3, nullable=true)
-     */
-    private $currency;
-
-    /**
      * @var integer $status 0=>Unknown, 1=>Material (internal), 2=>Human (internal), 3=>Material (external), 4=>Human (external)
      * 
      * @ORM\Column(name="type", type="smallint")
@@ -159,46 +146,6 @@ class Resource
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set price
-     *
-     * @param float $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * Get price
-     *
-     * @return float 
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set currency
-     *
-     * @param string $currency
-     */
-    public function setCurrency($currency)
-    {
-        $this->currency = $currency;
-    }
-
-    /**
-     * Get currency
-     *
-     * @return string 
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
     }
 
     /**
