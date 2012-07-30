@@ -2,7 +2,9 @@ parameters:
     pfcd_tourism.emails.incoming_email: %incoming_email%
     pfcd_tourism.emails.outgoing_email: %outgoing_email%
     pfcd_tourism.emails.no_reply_email: %no_reply_email%
+    pfcd_tourism.domain_name: %domain_name%
     
 twig:
     globals:
         google_maps_key: %google_maps_key%
+        domain_name: %domain_name%

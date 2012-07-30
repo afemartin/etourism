@@ -123,7 +123,7 @@ class FrontController extends Controller
                     $template = $user->getLocale() == 'es' ? 'remember.es.txt.twig' : 'remember.en.txt.twig';
                     
                     $message = \Swift_Message::newInstance()
-                            ->setSubject('[CooperationTourism] ' . $this->get('translator')->trans('Remember password', array(), 'messages', $user->getLocale()))
+                            ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.rememberpassword.subject'))
                             ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
                             ->setTo($user->getEmail())
                             ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $user)));
@@ -204,7 +204,7 @@ class FrontController extends Controller
             if ($form->isValid())
             {
                 $message = \Swift_Message::newInstance()
-                        ->setSubject('[CooperationTourism] Contact enquiry from ' . $enquiry->getName())
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName())))
                         ->setFrom($this->container->getParameter('pfcd_tourism.emails.outgoing_email'))
                         ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
                         ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)));

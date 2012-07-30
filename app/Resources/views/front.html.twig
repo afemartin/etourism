@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
         <meta name="robots" content="noindex, nofollow" />
-        <title>{% block title %}{{ 'front.browser.title'|trans }}{% endblock %} - CooperationTourism.com</title>
+        <title>{% block title %}{{ 'front.browser.title'|trans }}{% endblock %} - {{ domain_name }}</title>
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         {% block stylesheets %}
             <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
@@ -17,7 +17,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
-                    <a class="brand" href="{{ path('front_index') }}">CooperationTourism.com</a>
+                    <a class="brand" href="{{ path('front_index') }}">{{ domain_name }}</a>
                     <div class="pull-right">
                         {% if is_granted('ROLE_USER') %}
                         {{ 'Welcome'|trans }} <a class="" href="{{ path('front_user_read', { 'id': app.user.id }) }}">{{ app.user.firstname }}</a> ;) <a class="btn btn-danger" href="{{ path('front_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a>
@@ -35,7 +35,7 @@
                 {{ 'alert.info.beta'|trans }}
             </div>
             <header class="well">
-                <h1>{% block header_title %}{{ 'front.header.title'|trans }}{% endblock %}</h1>
+                <h1>{% block header_title %}{{ domain_name }}{% endblock %}</h1>
                 <h2>{% block header_subtitle %}{{ 'front.header.subtitle'|trans }}{% endblock %}</h2>
             </header>
             {% block navbar %}

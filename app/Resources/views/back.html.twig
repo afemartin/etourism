@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
         <meta name="robots" content="noindex, nofollow" />
-        <title>{% block title %}{{ 'back.browser.title'|trans }}{% endblock %} - CooperationTourism.com</title>
+        <title>{% block title %}{{ 'back.browser.title'|trans }}{% endblock %} - {{ domain_name }}</title>
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         {% block stylesheets %}
         <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
@@ -17,7 +17,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
-                    <a class="brand" href="{{ path('back_index') }}">CooperationTourism.com</a>
+                    <a class="brand" href="{{ path('back_index') }}">{{ domain_name }}</a>
                     <ul class="nav">
                         <li class="dropdown">
                             {% if app.request.locale == 'en' %}
@@ -45,7 +45,7 @@
 
             <div class="span12">
                 <header class="well">
-                    <h1>{% block header_title %}{{ 'back.header.title'|trans }}{% endblock %}</h1>
+                    <h1>{% block header_title %}{{ domain_name }}{% endblock %}</h1>
                     <h2>{% block header_subtitle %}{{ 'back.header.subtitle'|trans }}{% endblock %}</h2>
                 </header>
                 {% block sidebar %}
@@ -60,9 +60,9 @@
                         <li id="subnav-tab-session"><a href="{{ path('back_session_index') }}"><i class="icon-calendar"></i> {{ 'Sessions'|trans }}</a></li>
                         <li id="subnav-tab-reservation"><a href="{{ path('back_reservation_index') }}"><i class="icon-book"></i> {{ 'Reservations'|trans }}</a></li>
                         <li id="subnav-tab-payment"><a href="{{ path('back_payment_index') }}"><i class="icon-inbox"></i> {{ 'Payments'|trans }}</a></li>
-                        <li id="subnav-tab-statistic"><a href="#"><i class="icon-tasks"></i> {{ 'Statistics'|trans }}</a></li>
+                        <li id="subnav-tab-statistic"><a href="{{ path('back_statistic_index') }}"><i class="icon-tasks"></i> {{ 'Statistics'|trans }}</a></li>
                         <li id="subnav-tab-news"><a href="{{ path('back_article_index') }}"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
-                        <li id="subnav-tab-comment"><a href="#"><i class="icon-comment"></i> {{ 'Comments'|trans }}</a></li>
+                        {#<li id="subnav-tab-comment"><a href="#"><i class="icon-comment"></i> {{ 'Comments'|trans }}</a></li>#}
                         <li id="subnav-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
                         {% if is_granted('ROLE_ORGANIZATION') %}
                         <li class="divider"></li>
