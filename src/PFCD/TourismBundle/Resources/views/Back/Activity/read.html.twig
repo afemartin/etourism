@@ -26,7 +26,11 @@
         </tr>
         <tr>
             <th>{{ 'Duration'|trans }}</th>
-            <td>{{ activity.duration }}</td>
+            <td>{{ activity.duration }} {{ 'Minutes'|trans }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Resources'|trans }}</th>
+            <td>{% for resource in activity.resources %}<a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.name }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>
