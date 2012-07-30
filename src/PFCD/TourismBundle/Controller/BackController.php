@@ -37,7 +37,7 @@ class BackController extends Controller
         $dateStart->setTime(0, 0, 0);
         
         $dateEnd = new DateTime();
-        $dateEnd->add(new DateInterval('P7D'));
+        $dateEnd->add(new DateInterval('P14D'));
         $dateEnd->setTime(23, 59, 59);
         
         $status = array(Session::STATUS_ENABLED, Session::STATUS_LOCKED);
@@ -49,7 +49,7 @@ class BackController extends Controller
         $resources = $em->getRepository('PFCDTourismBundle:Resource')->findAllFiltered($organization, null, $dateStart, $dateEnd, $status);
         
         $dateStart = new DateTime();
-        $dateStart->sub(new DateInterval('P7D'));
+        $dateStart->sub(new DateInterval('P14D'));
         $dateStart->setTime(0, 0, 0);
         
         $dateEnd = new DateTime();
