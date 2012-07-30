@@ -1,0 +1,42 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% set sectiontab = 'news' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 6: {sorter: false} }, sortList: [[2,1]] }' %}
+
+{% block body %}
+<h1>{{ 'back.article.index.title'|trans }}</h1>
+<p>{{ 'back.article.index.subtitle'|trans }}</p>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Title'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>{{ 'Organization'|trans }}</th>
+            {% endif %}
+            <th colspan="2">{{ 'Edit'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for article in articles %}
+    <tr class="status-{{ article.status }}">
+        <td><a href="{{ path('back_article_read', { 'id': article.id }) }}">{{ article.id }}</a></td>
+        <td>{{ article.title }}</td>
+        <td>{% if article.created %}{{ article.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if article.updated %}{{ article.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{{ article.statusText|trans }}</td>
+        {% if is_granted('ROLE_ADMIN') %}
+        <td><a href="{{ path('back_organization_read', { 'id': article.organization.id }) }}">{{ article.organization.name }}</a></td>
+        {% endif %}
+        <td><a href="{{ path('back_article_update', { 'id': article.id }) }}"><i class="icon-pencil"></i></a></td>
+        <td><a href="{{ path('back_article_media', { 'id': article.id }) }}"><i class="icon-picture"></i></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('back_article_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.article.button.create'|trans }}</a>
+{% endblock %}

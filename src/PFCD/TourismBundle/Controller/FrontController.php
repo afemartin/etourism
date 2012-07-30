@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Article;
 use PFCD\TourismBundle\Entity\Enquiry;
 use PFCD\TourismBundle\Form\EnquiryType;
 
@@ -230,18 +231,18 @@ class FrontController extends Controller
     }
     
     /**
-     * Called from the template sidebar.html.yml to retrieve the list of most recent activities and news
+     * Called from the template sidebar.html.yml to retrieve the list of most recent activities and article
      */
     public function sidebarAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
 
         $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
-        $news_list = $em->getRepository('PFCDTourismBundle:News')->findByStatus(Activity::STATUS_ENABLED);
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findByStatus(Article::STATUS_ENABLED);
 
         return $this->render('PFCDTourismBundle:Front/Home:sidebar.html.twig', array(
             'activities' => $activities,
-            'news_list' => $news_list
+            'articles'   => $articles
         ));
     }
 

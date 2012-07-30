@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use PFCD\TourismBundle\Entity\Activity;
-use PFCD\TourismBundle\Entity\News;
+use PFCD\TourismBundle\Entity\Article;
 
 /**
  * @ORM\Entity
@@ -30,10 +30,10 @@ class Image
     private $activity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="News", inversedBy="gallery")
-     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Article", inversedBy="gallery")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
-    private $news;
+    private $article;
     
     /**
      * @ORM\Column(name="description", type="string", nullable=true)
@@ -68,9 +68,9 @@ class Image
         {
             return 'uploads/org' . $this->activity->getOrganization()->getId() . '/act' . $this->activity->getId();
         }
-        elseif (null !== $this->news)
+        elseif (null !== $this->article)
         {
-            return 'uploads/org' . $this->news->getOrganization()->getId() . '/news' . $this->news->getId();
+            return 'uploads/org' . $this->article->getOrganization()->getId() . '/article' . $this->article->getId();
         }
         else
         {
@@ -156,23 +156,23 @@ class Image
     }
     
     /**
-     * Set news
+     * Set article
      *
-     * @param News $news
+     * @param Article $article
      */
-    public function setNews(News $news)
+    public function setArticle(Article $article)
     {
-        $this->news = $news;
+        $this->article = $article;
     }
 
     /**
-     * Get news
+     * Get article
      *
-     * @return News 
+     * @return Article 
      */
-    public function getNews()
+    public function getArticle()
     {
-        return $this->news;
+        return $this->article;
     }
 
     /**

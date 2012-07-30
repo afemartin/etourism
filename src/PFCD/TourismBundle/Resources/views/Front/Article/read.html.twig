@@ -1,4 +1,6 @@
-{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock%}
 
 {% block stylesheets %}
 {{ parent() }}
@@ -8,35 +10,25 @@
 {% block body %}
 <div class="info-container row">
     <div class="info-title span9">
-        <h1>{{ news.title }}</h1>
+        <h1>{{ article.title }}</h1>
     </div>
     <div class="info-desc span9">
-        {% if news.video %}
+        {% if article.video %}
         <div class="info-video pull-right">
-            {{ news.video|raw }}
+            {{ article.video|raw }}
         </div>
         {% endif %}
-        <p>{{ news.shortDesc }}</p>
-        {{ news.fullDesc|raw }}
-    </div>
-            
-    <div class="span3">
-        <div class="well well-small">
-            <h1>{{ 'Preview'|trans }}</h1>
-            <p>List of avalilable actions</p>
-            <p><a class="btn btn-primary" href="{{ path('back_news_update', { 'id': news.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.news.button.update'|trans }}</a></p>
-            <p><a class="btn btn-primary" href="{{ path('back_news_media', { 'id': news.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.news.button.media'|trans }}</a></p>
-            <p><a class="btn btn-inverse" href="{{ path('back_news_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.news.button.index'|trans }}</a></p>
-        </div>
+        <p>{{ article.shortDesc }}</p>
+        {{ article.fullDesc|raw }}
     </div>
 </div>
 
-{% if news.gallery %}
-<h2>{{ 'front.news.read.images'|trans }}</h2>
+{% if article.gallery|length > 0 %}
+<h2>{{ 'front.article.read.images'|trans }}</h2>
 <div class="info-carrousel row">
     <div class="span9">
         <ul class="thumbnails">
-            {% for image in news.gallery %}
+            {% for image in article.gallery %}
             <li class="span">
                 <a class="info-image thumbnail" href="{{ asset(image.path) }}" title="{{ image.description }}" rel="images">
                     <img src="{{ image.path|apply_filter('thumbnail_180x120') }}" />

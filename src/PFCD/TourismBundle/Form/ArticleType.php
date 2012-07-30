@@ -7,9 +7,9 @@ use Symfony\Component\Form\FormBuilder;
 
 use PFCD\TourismBundle\Constants;
 
-use PFCD\TourismBundle\Entity\News;
+use PFCD\TourismBundle\Entity\Article;
 
-class NewsType extends AbstractType
+class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
@@ -23,7 +23,7 @@ class NewsType extends AbstractType
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('file', 'file', array('required' => false, 'label' => 'Image', 'help' => 'form.activity.field.image.help'));
-            $builder->add('status', 'choice', array('choices' => array(News::STATUS_PENDING => 'Pending', News::STATUS_ENABLED => 'Enabled', News::STATUS_LOCKED => 'Locked', News::STATUS_DELETED => 'Deleted')));
+            $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'Pending', Article::STATUS_ENABLED => 'Enabled', Article::STATUS_LOCKED => 'Locked', Article::STATUS_DELETED => 'Deleted')));
         }
     }
 
@@ -34,6 +34,6 @@ class NewsType extends AbstractType
     
     public function getName()
     {
-        return 'news';
+        return 'article';
     }
 }

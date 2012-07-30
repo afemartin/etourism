@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Resource;
-use PFCD\TourismBundle\Entity\News;
+use PFCD\TourismBundle\Entity\Article;
 
 /**
  * @ORM\Entity
@@ -166,16 +166,16 @@ class Organization implements AdvancedUserInterface
     private $resources;
 
     /**
-     * @ORM\OneToMany(targetEntity="News", mappedBy="news")
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="article")
      */
-    private $news;
+    private $articles;
 
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
         $this->status = self::STATUS_PENDING;
         $this->activities = new ArrayCollection();
-        $this->news = new ArrayCollection();
+        $this->articles = new ArrayCollection();
 
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
@@ -726,23 +726,23 @@ class Organization implements AdvancedUserInterface
     }
 
     /**
-     * Add news
+     * Add article
      *
-     * @param News $news
+     * @param Article $article
      */
-    public function addNews(News $news)
+    public function addArticle(Article $article)
     {
-        $this->news[] = $news;
+        $this->articles[] = $article;
     }
 
     /**
-     * Get news
+     * Get articles
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getNews()
+    public function getArticles()
     {
-        return $this->news;
+        return $this->articles;
     }
 
     /**

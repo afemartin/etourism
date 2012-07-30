@@ -6,16 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use PFCD\TourismBundle\Constants;
 
-use PFCD\TourismBundle\Entity\News;
-use PFCD\TourismBundle\Form\NewsType;
+use PFCD\TourismBundle\Entity\Article;
+use PFCD\TourismBundle\Form\ArticleType;
 use PFCD\TourismBundle\Form\MediaType;
 
 use PFCD\TourismBundle\Entity\Image;
 
 /**
- * News controller
+ * Article controller
  */
-class NewsController extends Controller
+class ArticleController extends Controller
 {
     
     /**************************************************************************
@@ -23,7 +23,7 @@ class NewsController extends Controller
      **************************************************************************/
     
     /**
-     * Lists all News entities
+     * Lists all Article entities
      */
     public function backIndexAction()
     {
@@ -31,29 +31,29 @@ class NewsController extends Controller
         
         if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
         {
-            $news_list = $em->getRepository('PFCDTourismBundle:News')->findAll();
+            $articles = $em->getRepository('PFCDTourismBundle:Article')->findAll();
         }
         else
         {
             $organization = $this->get('security.context')->getToken()->getUser()->getId();
-            $news_list = $em->getRepository('PFCDTourismBundle:News')->findByOrganization($organization);
+            $articles = $em->getRepository('PFCDTourismBundle:Article')->findByOrganization($organization);
         }
 
-        return $this->render('PFCDTourismBundle:Back/News:index.html.twig', array(
-            'news_list' => $news_list
+        return $this->render('PFCDTourismBundle:Back/Article:index.html.twig', array(
+            'articles' => $articles
         ));
     }
 
     /**
-     * Displays a form to create a new News entity and store it when the form is submitted and valid
+     * Displays a form to create a new Article entity and store it when the form is submitted and valid
      */
     public function backCreateAction()
     {
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
         
-        $news = new News();
-        $form = $this->createForm(new NewsType(), $news, $options);
+        $article = new Article();
+        $form = $this->createForm(new ArticleType(), $article, $options);
         
         $request = $this->getRequest();
         
@@ -69,24 +69,24 @@ class NewsController extends Controller
                 {
                     $id = $this->get('security.context')->getToken()->getUser()->getId();
                     $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-                    $news->setOrganization($organization);
+                    $article->setOrganization($organization);
                 }
 
-                $em->persist($news);
+                $em->persist($article);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('back_news_read', array('id' => $news->getId())));
+                return $this->redirect($this->generateUrl('back_article_read', array('id' => $article->getId())));
             }
         }    
 
-        return $this->render('PFCDTourismBundle:Back/News:create.html.twig', array(
-            'news' => $news,
-            'form' => $form->createView()
+        return $this->render('PFCDTourismBundle:Back/Article:create.html.twig', array(
+            'article' => $article,
+            'form'    => $form->createView()
         ));
     }
 
     /**
-     * Finds and displays a News entity
+     * Finds and displays a Article entity
      */
     public function backReadAction($id)
     {
@@ -99,20 +99,20 @@ class NewsController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $news = $em->getRepository('PFCDTourismBundle:News')->findOneBy($filter);
+        $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
-        if (!$news) throw $this->createNotFoundException('Unable to find News entity.');
+        if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('PFCDTourismBundle:Back/News:read.html.twig', array(
-            'news'        => $news,
+        return $this->render('PFCDTourismBundle:Back/Article:read.html.twig', array(
+            'article'     => $article,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Finds and displays a News entity
+     * Finds and displays a Article entity
      */
     public function backPreviewAction($id)
     {
@@ -125,19 +125,19 @@ class NewsController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $news = $em->getRepository('PFCDTourismBundle:News')->findOneBy($filter);
+        $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
-        if (!$news) throw $this->createNotFoundException('Unable to find News entity.');
+        if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
         
-        $this->get('session')->setFlash('alert-info', $this->get('translator')->trans('alert.info.newspreview'));
+        $this->get('session')->setFlash('alert-info', $this->get('translator')->trans('alert.info.articlepreview'));
         
-        return $this->render('PFCDTourismBundle:Back/News:preview.html.twig', array(
-            'news' => $news
+        return $this->render('PFCDTourismBundle:Back/Article:preview.html.twig', array(
+            'article' => $article
         ));
     }
     
     /**
-     * Edits an existent News entity and store it when the form is submitted and valid
+     * Edits an existent Article entity and store it when the form is submitted and valid
      */
     public function backUpdateAction($id)
     {
@@ -150,14 +150,14 @@ class NewsController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $news = $em->getRepository('PFCDTourismBundle:News')->findOneBy($filter);
+        $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
-        if (!$news) throw $this->createNotFoundException('Unable to find News entity.');
+        if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
 
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         
-        $editForm = $this->createForm(new NewsType(), $news, $options);
+        $editForm = $this->createForm(new ArticleType(), $article, $options);
 
         $request = $this->getRequest();
         
@@ -167,27 +167,27 @@ class NewsController extends Controller
 
             if ($editForm->isValid())
             {
-                $news->setImage();
+                $article->setImage();
                 
-                $em->persist($news);
+                $em->persist($article);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('back_news_read', array('id' => $id)));
+                return $this->redirect($this->generateUrl('back_article_read', array('id' => $id)));
             }
             else
             {
-                $news->setFile(null);
+                $article->setFile(null);
             }
         }    
 
-        return $this->render('PFCDTourismBundle:Back/News:update.html.twig', array(
-            'news'      => $news,
+        return $this->render('PFCDTourismBundle:Back/Article:update.html.twig', array(
+            'article'   => $article,
             'edit_form' => $editForm->createView(),
         ));
     }
     
     /**
-     * Edits an existent News entity and store it when the form is submitted and valid
+     * Edits an existent Article entity and store it when the form is submitted and valid
      */
     public function backMediaAction($id)
     {
@@ -200,17 +200,17 @@ class NewsController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $news = $em->getRepository('PFCDTourismBundle:News')->findOneBy($filter);
+        $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
-        if (!$news) throw $this->createNotFoundException('Unable to find News entity.');
+        if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
 
-        $options['entity'] = Constants::NEWS;
+        $options['entity'] = Constants::ARTICLE;
         
-        $editForm = $this->createForm(new MediaType(), $news, $options);
+        $editForm = $this->createForm(new MediaType(), $article, $options);
         
         // Create an array of the current Image objects in the database
         $originalGallery = array();
-        foreach ($news->getGallery() as $image)
+        foreach ($article->getGallery() as $image)
         {
             $originalGallery[] = $image;
         }
@@ -224,7 +224,7 @@ class NewsController extends Controller
             if ($editForm->isValid())
             {
                 // Filter $originalImages to contain images removed by the user
-                foreach ($news->getGallery() as $image)
+                foreach ($article->getGallery() as $image)
                 {
                     foreach ($originalGallery as $key => $toDel)
                     {
@@ -241,28 +241,28 @@ class NewsController extends Controller
                     $em->remove($image);
                 }
                 
-                $em->persist($news);
-                $gallery = $news->getGallery();
+                $em->persist($article);
+                $gallery = $article->getGallery();
                 foreach ($gallery as $image)
                 {
-                    $image->setNews($news);
+                    $image->setArticle($article);
                     $em->persist($image);
                 }
 
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('back_news_read', array('id' => $id)));
+                return $this->redirect($this->generateUrl('back_article_read', array('id' => $id)));
             }
         }    
 
-        return $this->render('PFCDTourismBundle:Back/News:media.html.twig', array(
-            'news'  => $news,
+        return $this->render('PFCDTourismBundle:Back/Article:media.html.twig', array(
+            'article'   => $article,
             'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
-     * Deletes a News entity
+     * Deletes a Article entity
      */
     public function backDeleteAction($id)
     {
@@ -282,16 +282,16 @@ class NewsController extends Controller
         if ($form->isValid())
         {
             $em = $this->getDoctrine()->getEntityManager();
-            $news = $em->getRepository('PFCDTourismBundle:News')->findOneBy($filter);
+            $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
-            if (!$news) throw $this->createNotFoundException('Unable to find News entity.');
+            if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
 
-            $news->setStatus(News::STATUS_DELETED);
-            $em->persist($news);
+            $article->setStatus(Article::STATUS_DELETED);
+            $em->persist($article);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('back_news_index'));
+        return $this->redirect($this->generateUrl('back_article_index'));
     }
     
     
@@ -300,35 +300,35 @@ class NewsController extends Controller
      **************************************************************************/
    
     /**
-     * Lists all News entities
+     * Lists all Article entities
      */
     public function frontIndexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $news_list = $em->getRepository('PFCDTourismBundle:News')->findByStatus(array(News::STATUS_ENABLED, News::STATUS_LOCKED));
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findByStatus(array(Article::STATUS_ENABLED, Article::STATUS_LOCKED));
 
-        return $this->render('PFCDTourismBundle:Front/News:index.html.twig', array(
-            'news_list' => $news_list
+        return $this->render('PFCDTourismBundle:Front/Article:index.html.twig', array(
+            'articles' => $articles
         ));
     }
 
     /**
-     * Finds and displays a News entity
+     * Finds and displays a Article entity
      */
     public function frontReadAction($id)
     {
         $filter['id'] = $id;
-        $filter['status'] = array(News::STATUS_ENABLED, News::STATUS_LOCKED);
+        $filter['status'] = array(Article::STATUS_ENABLED, Article::STATUS_LOCKED);
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $news = $em->getRepository('PFCDTourismBundle:News')->findOneBy($filter);
+        $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
-        if (!$news) throw $this->createNotFoundException('Unable to find News entity.');
+        if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
         
-        return $this->render('PFCDTourismBundle:Front/News:read.html.twig', array(
-            'news' => $news
+        return $this->render('PFCDTourismBundle:Front/Article:read.html.twig', array(
+            'article' => $article
         ));
     }
     

@@ -13,10 +13,10 @@ use PFCD\TourismBundle\Entity\Image;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="news")
+ * @ORM\Table(name="article")
  * @ORM\HasLifecycleCallbacks()
  */
-class News
+class Article
 {
     const STATUS_PENDING = 0; // visible to author but not to users
     const STATUS_ENABLED = 1; // visible to everyone (allow comments)
@@ -33,7 +33,7 @@ class News
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="news")
+     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="articles")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      */
     private $organization;
@@ -86,12 +86,12 @@ class News
     private $status;
         
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="news")
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="article")
      */
     private $gallery;
     
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="news")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
      */
     private $comments;
 
@@ -264,7 +264,7 @@ class News
      */
     protected function getUploadDir()
     {
-        return 'uploads/org' . $this->organization->getId() . '/news' . $this->id;
+        return 'uploads/org' . $this->organization->getId() . '/article' . $this->id;
     }
     
     /**

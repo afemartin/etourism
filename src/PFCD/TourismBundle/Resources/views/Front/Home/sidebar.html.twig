@@ -17,15 +17,15 @@
             {% endfor %}
         </div>
         <div class="tab-pane fade in" id="tab2">
-            {% for news in news_list %}
-                <img class="thumbnail pull-left hidden-tablet" style="margin: 0 10px 5px 0" alt="{{ news.title }}" src="{% if news.image %}{{ news.image|apply_filter('thumbnail_80x80') }}{% else %}http://placehold.it/80x80&text={% endif%}" />
-                <h6>{{ news.title }}</h6>
-                <p>{{ news.shortDesc|truncate(100) }}</p>
+            {% for article in articles %}
+                <img class="thumbnail pull-left hidden-tablet" style="margin: 0 10px 5px 0" alt="{{ article.title }}" src="{% if article.image %}{{ article.image|apply_filter('thumbnail_80x80') }}{% else %}http://placehold.it/80x80&text={% endif%}" />
+                <h6>{{ article.title }}</h6>
+                <p>{{ article.shortDesc|truncate(100) }}</p>
                 {% if not loop.last %}
                 <hr />
                 {% endif %}
             {% else %}
-                <p>{{ 'No news found'|trans }}</p>
+                <p>{{ 'No articles found'|trans }}</p>
             {% endfor %}
         </div>
     </div>

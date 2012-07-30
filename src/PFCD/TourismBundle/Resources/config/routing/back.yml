@@ -249,39 +249,39 @@ back_payment_update:
     
 
 ################################################################################
-##### NEWS CONTROLLER ##########################################################
+##### ARTICLE CONTROLLER ##########################################################
 ################################################################################
     
-back_news_index:
+back_article_index:
     pattern:  /news
-    defaults: { _controller: "PFCDTourismBundle:News:backIndex" }
+    defaults: { _controller: "PFCDTourismBundle:Article:backIndex" }
     requirements: { _method: get }
 
-back_news_create:
-    pattern:  /news/new
-    defaults: { _controller: "PFCDTourismBundle:News:backCreate" }
+back_article_create:
+    pattern:  /article/new
+    defaults: { _controller: "PFCDTourismBundle:Article:backCreate" }
 
-back_news_read:
-    pattern:  /news/{id}
-    defaults: { _controller: "PFCDTourismBundle:News:backRead" }
+back_article_read:
+    pattern:  /article/{id}
+    defaults: { _controller: "PFCDTourismBundle:Article:backRead" }
     requirements: { _method: get, id: \d+ }
 
-back_news_preview:
-    pattern:  /news/{id}/preview
-    defaults: { _controller: "PFCDTourismBundle:News:backPreview" }
+back_article_preview:
+    pattern:  /article/{id}/preview
+    defaults: { _controller: "PFCDTourismBundle:Article:backPreview" }
     requirements: { _method: get, id: \d+ }
 
-back_news_update:
-    pattern:  /news/{id}/edit
-    defaults: { _controller: "PFCDTourismBundle:News:backUpdate" }
+back_article_update:
+    pattern:  /article/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Article:backUpdate" }
     requirements: { id: \d+ }
 
-back_news_media:
-    pattern:  /news/{id}/media
-    defaults: { _controller: "PFCDTourismBundle:News:backMedia" }
+back_article_media:
+    pattern:  /article/{id}/media
+    defaults: { _controller: "PFCDTourismBundle:Article:backMedia" }
     requirements: { id: \d+ }
 
-back_news_delete:
-    pattern:  /news/{id}/delete
-    defaults: { _controller: "PFCDTourismBundle:News:backDelete" }
+back_article_delete:
+    pattern:  /article/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Article:backDelete" }
     requirements: { _method: post, id: \d+ }

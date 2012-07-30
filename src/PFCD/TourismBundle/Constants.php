@@ -13,7 +13,7 @@ class Constants
     
     const ORGANIZATION = 'organization';
     const ACTIVITY     = 'activity';
-    const NEWS         = 'news';
+    const ARTICLE      = 'article';
     
     const MONDAY    = 1;
     const TUESDAY   = 2;

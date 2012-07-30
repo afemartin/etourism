@@ -154,15 +154,15 @@ front_payment_update:
     
 
 ################################################################################
-##### NEWS CONTROLLER ##########################################################
+##### ARTICLE CONTROLLER ##########################################################
 ################################################################################
     
-front_news_index:
+front_article_index:
     pattern:  /news
-    defaults: { _controller: "PFCDTourismBundle:News:frontIndex" }
+    defaults: { _controller: "PFCDTourismBundle:Article:frontIndex" }
     requirements: { _method: get }
 
-front_news_read:
-    pattern:  /news/{id}
-    defaults: { _controller: "PFCDTourismBundle:News:frontRead" }
+front_article_read:
+    pattern:  /article/{id}
+    defaults: { _controller: "PFCDTourismBundle:Article:frontRead" }
     requirements: { _method: get, id: \d+ }

@@ -24,7 +24,7 @@ class MediaType extends AbstractType
             $builder->add('geolocation', 'text', array('required' => false, 'attr' => array('class' => 'input-xlarge', 'readonly' => 'readonly')));
         }
         
-        if ($options['entity'] == Constants::NEWS)
+        if ($options['entity'] == Constants::ARTICLE)
         {
             $builder->add('gallery', 'collection', array('type' => new ImageType(), 'allow_add' => true, 'allow_delete' => true, 'prototype' => true, 'by_reference' => false));
             $builder->add('video', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));

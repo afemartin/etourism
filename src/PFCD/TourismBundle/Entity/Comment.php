@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Activity;
-use PFCD\TourismBundle\Entity\News;
+use PFCD\TourismBundle\Entity\Article;
 
 /**
  * @ORM\Entity
@@ -42,10 +42,10 @@ class Comment
     private $activity;
     
     /**
-     * @ORM\ManyToOne(targetEntity="News", inversedBy="comments")
-     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Article", inversedBy="comments")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
-    private $news;
+    private $article;
 
     /**
      * @var integer $punctuation 1=>very poor, 2=>poor, 3=>good, 4=>very good, 5=>excellent
@@ -189,23 +189,23 @@ class Comment
     }
 
     /**
-     * Set news
+     * Set article
      *
-     * @param News $news
+     * @param Article $article
      */
-    public function setNews(News $news)
+    public function setArticle(Article $article)
     {
-        $this->news = $news;
+        $this->article = $article;
     }
 
     /**
-     * Get news
+     * Get article
      *
-     * @return News 
+     * @return Article 
      */
-    public function getNews()
+    public function getArticle()
     {
-        return $this->news;
+        return $this->article;
     }
 
     /**
