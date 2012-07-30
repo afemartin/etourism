@@ -68,6 +68,14 @@ class BackController extends Controller
     }
     
     /**
+     * Show the main statistics information at the back-end administrator page
+     */
+    public function statisticAction()
+    {
+        return $this->render('PFCDTourismBundle:Back/Home:statistic.html.twig');
+    }
+    
+    /**
      * Show the login page of the administrator page for organizations and admin
      */
     public function loginAction()
