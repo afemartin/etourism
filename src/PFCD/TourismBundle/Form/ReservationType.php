@@ -29,7 +29,7 @@ class ReservationType extends AbstractType
                                 ->setParameter('organization', $options['organization']);
                 }));
         }
-        $builder->add('persons', 'integer', array('required' => false, 'attr' => array('class' => 'input-mini')));
+        $builder->add('persons', 'integer', array('attr' => array('class' => 'input-mini')));
         $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         $builder->add('session', 'hidden', array('property_path' => false));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
