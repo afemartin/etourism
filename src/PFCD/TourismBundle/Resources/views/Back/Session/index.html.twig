@@ -2,7 +2,7 @@
 
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% set sectiontab = 'session' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 8: {sorter: false}, 9: {sorter: false} }, sortList: [[2,0],[3,0]] }' %}
+{% set sectiontab = 'session' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 9: {sorter: false}, 10: {sorter: false} }, sortList: [[2,0],[3,0]] }' %}
 
 {% block body %}
 <h1>{{ 'back.session.index.title'|trans }}</h1>
@@ -54,7 +54,7 @@
     {% for session in sessions %}
     <tr class="status-{{ session.status }}">
         <td><a href="{{ path('back_session_read', { 'id': session.id }) }}">{{ session.id }}</a></td>
-        <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title }}</a></td>
+        <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title|truncate(25) }}</a></td>
         <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
         <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
         {% set total_persons = 0 %}
@@ -62,7 +62,7 @@
         {% set total_persons = total_persons + reservation.persons %}
         {% endfor %}
         <td>{{ total_persons }} ({{ (total_persons/session.activity.capacity)*100 }}%)</td>
-        <td>{{ session.comment }}</td>
+        <td>{{ session.comment|truncate(25) }}</td>
         <td>{% if session.created %}{{ session.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if session.updated %}{{ session.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ session.statusText|trans }}</td>
