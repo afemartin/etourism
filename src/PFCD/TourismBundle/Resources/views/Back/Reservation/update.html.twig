@@ -8,6 +8,14 @@
 <h1>{{ 'back.reservation.update.title'|trans }}</h1>
 <p>{{ 'back.reservation.update.subtitle'|trans }}</p>
 
+<div class="well">
+    <h3>{{ 'front.reservation.summary.title'|trans }}:</h3>
+    <hr style="margin-top: 0"/>
+    <p><b>{{ 'front.reservation.summary.activity'|trans }}</b>: {{ reservation.session.activity.title }}</p>
+    <p><b>{{ 'front.reservation.summary.sessiondate'|trans }}</b>: {{ reservation.session.date|date('Y-m-d') }}</p>
+    <p><b>{{ 'front.reservation.summary.sessiontime'|trans }}</b>: {% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% else %}{{ 'front.reservation.summary.sessiontime.undefined'|trans }}{% endif %}</p>
+</div>
+
 <form class="form-horizontal" action="{{ path('back_reservation_update', { 'id': reservation.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
     <div class="form-actions">
@@ -25,7 +33,19 @@
         
         function getCalendar(id, year, month)
         {
-            $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
+            if ($('#calendar_header').length > 0)
+            {
+                $('#calendar_prev_month').attr('onclick', 'return false');
+                $('#calendar_prev_month').attr('disabled', 'disabled');
+                $('#calendar_next_month').attr('onclick', 'return false');
+                $('#calendar_next_month').attr('disabled', 'disabled');
+                $('#calendar_header').html('<i class="icon-loading" style="vertical-align:middle"></i> {{ 'Loading'|trans }}...');
+                $('#calendar_table').css({ opacity: 0.75 });
+            }
+            else
+            {    
+                $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
+            }
             
             $.ajax({
                 type: "GET",

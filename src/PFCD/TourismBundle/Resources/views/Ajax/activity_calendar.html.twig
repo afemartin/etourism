@@ -1,15 +1,15 @@
-<table class="calendar table table-bordered">
+<table id="calendar_table" class="calendar table table-bordered">
     <thead>
         <tr>
             <th colspan="7">
-                <a class="btn pull-left" onclick="getCalendar({{ activity.id }}, {{ prev.year }}, {{ prev.month }})"><i class="icon-chevron-left"></i></a>
-                <span id="calendar-header">{{ 'month.full.' ~ month|trans }} {{ year }}</div>
-                <a class="btn pull-right" onclick="getCalendar({{ activity.id }}, {{ next.year }}, {{ next.month }})"><i class="icon-chevron-right"></i></a>
+                <a id="calendar_prev_month" class="btn pull-left" onclick="getCalendar({{ activity.id }}, {{ prev.year }}, {{ prev.month }})"><i class="icon-chevron-left"></i></a>
+                <span id="calendar_header">{{ ('month.full.' ~ month)|trans }} {{ year }}</span>
+                <a id="calendar_next_month" class="btn pull-right" onclick="getCalendar({{ activity.id }}, {{ next.year }}, {{ next.month }})"><i class="icon-chevron-right"></i></a>
             </th>
         </tr>
         <tr>
             {% for i in range(1, 7) %}
-                <td>{{ 'dayweek.full.' ~ i|trans }}</td>
+                <td>{{ ('dayweek.full.' ~ i)|trans }}</td>
             {% endfor %}
         </tr>
     </thead>
@@ -32,9 +32,9 @@
                                 {% endif %}
                                 {# if is date past or session has been set as "locked" it wont be possible to create a reservation for that session #}
                                 {% if (day.date < today) or (session.status == 2) %}
-                                    <div class="label">{{ 'Session'|trans }} ({{ session.time }})</div>
+                                    <div class="label">{{ 'Session'|trans }} {% if session.time != 'undefined' %}({{ session.time|date('H:i') }}){% endif %}</div>
                                 {% else %}
-                                    <div class="session{{ session.id }} label {{ label }}" onclick="selectSession({{ session.id }})">{{ 'Session'|trans }} ({{ session.time }})</div>
+                                    <div class="session{{ session.id }} label {{ label }}" onclick="selectSession({{ session.id }})">{{ 'Session'|trans }} {% if session.time != 'undefined' %}({{ session.time|date('H:i') }}){% endif %}</div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -44,4 +44,24 @@
             {% if day.date|date('N') == 7 %}</tr>{% endif %}            
         {% endfor %}
     </tbody>
+</table>
+
+<h4>{{ 'Help'|trans }} <a onclick="$('#calendar_help').fadeIn()"><i class="icon-question-sign"></i></a></h4>
+<table id="calendar_help" cellpadding="3px" style="display:none">
+    <tr>
+        <td align="right"><span class="label label-success">{{ 'calendar.help.available'|trans }}</span></td>
+        <td><span>{{ 'calendar.help.available.desc'|trans }}</span></td>
+    </tr>
+    <tr>
+        <td align="right"><span class="label label-warning">{{ 'calendar.help.reducedavailability'|trans }}</span></td>
+        <td><span>{{ 'calendar.help.reducedavailability.desc'|trans }}</span></td>
+    </tr>
+    <tr>
+        <td align="right"><span class="label label-important">{{ 'calendar.help.noavailability'|trans }}</span></td>
+        <td><span>{{ 'calendar.help.noavailability.desc'|trans }}</span></td>
+    </tr>
+    <tr>
+        <td align="right"><span class="label">{{ 'calendar.help.block'|trans }}</span></td>
+        <td><span>{{ 'calendar.help.block.desc'|trans }}</span></td>
+    </tr>
 </table>

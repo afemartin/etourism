@@ -118,7 +118,20 @@
         
         function getCalendar(id, year, month)
         {
-            $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
+            if ($('#calendar_header').length > 0)
+            {
+                $('#calendar_prev_month').attr('onclick', 'return false');
+                $('#calendar_prev_month').attr('disabled', 'disabled');
+                $('#calendar_next_month').attr('onclick', 'return false');
+                $('#calendar_next_month').attr('disabled', 'disabled');
+                $('#calendar_header').html('<i class="icon-loading" style="vertical-align:middle"></i> {{ 'Loading'|trans }}...');
+                $('#calendar_table').css({ opacity: 0.75 });
+            }
+            else
+            {    
+                $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
+            }
+            
             $('#reservation_create').addClass('disabled');
             $('#reservation_create').attr('href', '#');
             

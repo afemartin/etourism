@@ -36,7 +36,7 @@
 <div class="info-calendar row">
     <div class="span9">
         <div id="reservation_calendar"></div>
-        <a id="reservation_create" class="btn btn-primary pull-right disabled" href="#"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.create'|trans }}</a>
+        <a id="reservation_create" class="btn btn-primary pull-right disabled"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.create'|trans }}</a>
     </div>
 </div>
 {% else %}
@@ -126,7 +126,19 @@
         
         function getCalendar(id, year, month)
         {
-            $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
+            if ($('#calendar_header').length > 0)
+            {
+                $('#calendar_prev_month').attr('onclick', 'return false');
+                $('#calendar_prev_month').attr('disabled', 'disabled');
+                $('#calendar_next_month').attr('onclick', 'return false');
+                $('#calendar_next_month').attr('disabled', 'disabled');
+                $('#calendar_header').html('<i class="icon-loading" style="vertical-align:middle"></i> {{ 'Loading'|trans }}...');
+                $('#calendar_table').css({ opacity: 0.75 });
+            }
+            else
+            {    
+                $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
+            }
            
             $.ajax({
                 type: "GET",
