@@ -208,7 +208,6 @@ back_session_delete:
 back_reservation_index:
     pattern:  /reservations
     defaults: { _controller: "PFCDTourismBundle:Reservation:backIndex" }
-    requirements: { _method: get }
 
 back_reservation_create:
     pattern:  /reservation/new
