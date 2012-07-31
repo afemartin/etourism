@@ -1,0 +1,7 @@
+Hola {{ user.fullname }},</p>
+
+<p>Tu reserva para la actividad "{{ reservation.session.activity.title }}" ha sido aceptada</p>
+
+<p>Por favor, acceda al sistema para proceder a realizar el <a href="{{ url('front_payment_update', { 'id': payment.id }) }}">pago</a> de la reserva</p>
+
+<p>Atentamente, el equipo de {{ domain_name }}</p>

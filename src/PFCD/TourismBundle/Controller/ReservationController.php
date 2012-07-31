@@ -282,7 +282,24 @@ class ReservationController extends Controller
                     $payment->setReservation($reservation);
                 
                     $em->persist($payment);
-                    $em->flush(); 
+                    $em->flush();
+                    
+                    $user = $reservation->getUser();
+                    
+                    if ($user)
+                    {
+                        // after accept the reservation and create the payment a email is sent automatically to the user to proceed with the payment
+                        $template = $user->getLocale() == 'es' ? 'reservation.es.txt.twig' : 'reservation.en.txt.twig';
+                        $message = \Swift_Message::newInstance()
+                                ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.reservationaccepted.subject', array(), 'messages', $user->getLocale()))
+                                ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
+                                ->setTo($user->getEmail())
+                                ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $user, 'reservation' => $reservation, 'payment' => $payment)), 'text/html');
+
+                        $this->get('mailer')->send($message);
+
+                        $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.reservationaccepted'));
+                    }
                 }
 
                 return $this->redirect($this->generateUrl('back_reservation_read', array('id' => $id)));

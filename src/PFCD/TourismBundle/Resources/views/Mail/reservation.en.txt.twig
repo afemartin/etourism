@@ -1,0 +1,7 @@
+<p>Hello {{ user.fullname }},</p>
+
+<p>Your reservation for the activity "{{ reservation.session.activity.title }}" has been accepted</p>
+
+<p>Please, login in to the system to proceed with the <a href="{{ url('front_payment_update', { 'id': payment.id }) }}">payment</a> of the reservation</p>
+
+<p>Sincerely, the {{ domain_name }} team</p>
