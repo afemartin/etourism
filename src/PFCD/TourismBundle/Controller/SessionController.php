@@ -354,7 +354,7 @@ class SessionController extends Controller
                 }
             }
         
-            $session->setStatus(Session::STATUS_REJECTED);
+            $session->setStatus(Session::STATUS_DELETED);
             $em->persist($session);
             $em->flush();
         }
