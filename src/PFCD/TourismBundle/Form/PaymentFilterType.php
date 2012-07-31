@@ -32,6 +32,8 @@ class PaymentFilterType extends AbstractType
 
         $builder->add('dateStart', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
         $builder->add('dateEnd', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
+        $builder->add('sessionDateStart', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
+        $builder->add('sessionDateEnd', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
         $builder->add('status', 'choice', array('choices' => array(Payment::STATUS_PENDING_P => 'Pending payment', Payment::STATUS_PAID => 'Paid', Payment::STATUS_PENDING_R => 'Pending refund', Payment::STATUS_REFUNDED => 'Refunded'), 'multiple' => true, 'expanded' => true));
     }
 

@@ -100,9 +100,11 @@ class ReservationController extends Controller
         $activity = $reservationFilter->getActivity();
         $dateStart = $reservationFilter->getDateStart();
         $dateEnd = $reservationFilter->getDateEnd();
+        $sessionDateStart = $reservationFilter->getSessionDateStart();
+        $sessionDateEnd = $reservationFilter->getSessionDateEnd();
         $status = $reservationFilter->getStatus();
 
-        $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findAllFiltered($organization, $activity, $dateStart, $dateEnd, $status);
+        $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findAllFiltered($organization, $activity, $dateStart, $dateEnd, $sessionDateStart, $sessionDateEnd, $status);
 
         return $this->render('PFCDTourismBundle:Back/Reservation:index.html.twig', array(
             'reservations' => $reservations,

@@ -98,9 +98,11 @@ class PaymentController extends Controller
         $activity = $paymentFilter->getActivity();
         $dateStart = $paymentFilter->getDateStart();
         $dateEnd = $paymentFilter->getDateEnd();
+        $sessionDateStart = $paymentFilter->getSessionDateStart();
+        $sessionDateEnd = $paymentFilter->getSessionDateEnd();
         $status = $paymentFilter->getStatus();
 
-        $payments = $em->getRepository('PFCDTourismBundle:Payment')->findAllFiltered($organization, $activity, $dateStart, $dateEnd, $status);
+        $payments = $em->getRepository('PFCDTourismBundle:Payment')->findAllFiltered($organization, $activity, $dateStart, $dateEnd, $sessionDateStart, $sessionDateEnd, $status);
 
         return $this->render('PFCDTourismBundle:Back/Payment:index.html.twig', array(
             'payments' => $payments,

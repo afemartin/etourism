@@ -7,13 +7,13 @@ use Doctrine\ORM\EntityRepository;
 class ReservationRepository extends EntityRepository
 {
     
-    public function findAllFiltered($organization = null, $activity = null, $dateStart = null, $dateEnd = null, $status = null)
+    public function findAllFiltered($organization = null, $activity = null, $dateStart = null, $dateEnd = null, $sessionDateStart = null, $sessionDateEnd = null, $status = null)
     {
         $qb = $this->createQueryBuilder('r');
         
         $qb->select('r');
         
-        if ($organization !== null || $activity !== null)
+        if ($organization !== null || $activity !== null || $sessionDateStart !== null || $sessionDateEnd !== null)
         {
             $qb->innerJoin('r.session', 's');
         }
@@ -34,6 +34,18 @@ class ReservationRepository extends EntityRepository
             $qb->andWhere('s.activity = :activity');
             $qb->setParameter('activity', $activity);
         }
+                
+        if ($sessionDateStart !== null)
+        {
+            $qb->andWhere('s.date >= :session_date_start');
+            $qb->setParameter('session_date_start', $sessionDateStart);
+        }
+        
+        if ($sessionDateEnd !== null)
+        {
+            $qb->andWhere('s.date <= :session_date_end');
+            $qb->setParameter('session_date_end', $sessionDateEnd);
+        }
         
         if ($dateStart !== null)
         {
@@ -52,11 +64,6 @@ class ReservationRepository extends EntityRepository
             $qb->andWhere('r.status IN (:status)');
             $qb->setParameter('status', $status);
         }
-
-//        $qb->orderBy('r.updated', 'DESC');
-
-        // var_dump($qb->getDQL());
-        // var_dump($qb->getQuery()->getSQL());
 
         return $qb->getQuery()->getResult();
     }
@@ -93,11 +100,6 @@ class ReservationRepository extends EntityRepository
             $qb->andWhere('r.status IN (:status)');
             $qb->setParameter('status', $status);
         }
-
-//        $qb->orderBy('r.updated', 'DESC');
-
-        // var_dump($qb->getDQL());
-        // var_dump($qb->getQuery()->getSQL());
 
         return $qb->getQuery()->getResult();
     }

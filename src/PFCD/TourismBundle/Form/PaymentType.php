@@ -18,7 +18,7 @@ class PaymentType extends AbstractType
             $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
             $builder->add('currency', 'choice', array('empty_value' => 'Currency', 'choices' => array('EUR' => 'Euro'), 'attr' => array('class' => 'input-small')));
         }
-        $builder->add('type', 'choice', array('choices' => array(Payment::TYPE_BANK_TRANSFER => 'Bank Transfer', Payment::TYPE_CREDIT_CARD => 'Credit Card', Payment::TYPE_PAYPAL => 'Paypal', Payment::TYPE_CASH => 'Cash'), 'empty_value' => 'Select a payment method'));
+        $builder->add('type', 'choice', array('choices' => array(Payment::TYPE_BANK_TRANSFER => 'Bank transfer', Payment::TYPE_CASH => 'Cash'), 'empty_value' => 'Select a payment method'));
         $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
         {

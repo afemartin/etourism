@@ -16,11 +16,18 @@ class ReservationFilter
     private $dateStart;
     
     private $dateEnd;
+    
+    private $sessionDateStart;
+    
+    private $sessionDateEnd;
 
     private $status;
     
     public function __construct()
     {
+        $this->sessionDateStart = new DateTime();
+        $this->sessionDateStart->setTime(0, 0, 0);
+        
         $this->status = array(Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED, Reservation::STATUS_REJECTED, Reservation::STATUS_CANCELED);
     }
     
@@ -54,6 +61,28 @@ class ReservationFilter
     public function getDateEnd()
     {
         return $this->dateEnd;
+    }
+
+    public function setSessionDateStart($sessionDateStart)
+    {
+        $this->sessionDateStart = $sessionDateStart;
+        if ($sessionDateStart) $this->sessionDateStart->setTime(0, 0, 0);
+    }
+
+    public function getSessionDateStart()
+    {
+        return $this->sessionDateStart;
+    }
+
+    public function setSessionDateEnd($sessionDateEnd)
+    {
+        $this->sessionDateEnd = $sessionDateEnd;
+        if ($sessionDateEnd) $this->sessionDateEnd->setTime(23, 59, 59);
+    }
+
+    public function getSessionDateEnd()
+    {
+        return $this->sessionDateEnd;
     }
 
     public function setStatus($status)
