@@ -164,13 +164,18 @@ class ReservationController extends Controller
                 $em->persist($reservation);
                 $em->flush();
                 
-                $payment = new Payment();
-                $payment->setPrice($session->getActivity()->getPrice() * $reservation->getPersons());
-                $payment->setCurrency($session->getActivity()->getCurrency());
-                $payment->setReservation($reservation);
+                // we create the payment only if the activity has a price
                 
-                $em->persist($payment);
-                $em->flush(); 
+                if ($reservation->getSession()->getActivity()->getPrice())
+                {
+                    $payment = new Payment();
+                    $payment->setPrice($session->getActivity()->getPrice() * $reservation->getPersons());
+                    $payment->setCurrency($session->getActivity()->getCurrency());
+                    $payment->setReservation($reservation);
+
+                    $em->persist($payment);
+                    $em->flush(); 
+                }
 
                 return $this->redirect($this->generateUrl('back_reservation_read', array('id' => $reservation->getId())));
             }
@@ -234,8 +239,6 @@ class ReservationController extends Controller
             }
         }
 
-        $prevStatus = $reservation->getStatus();
-
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
@@ -269,7 +272,7 @@ class ReservationController extends Controller
                 $em->persist($reservation);
                 $em->flush();
                 
-                if ($prevStatus != Reservation::STATUS_ACCEPTED && $nextStatus == Reservation::STATUS_ACCEPTED && $reservation->getPayment() == null)
+                if ($nextStatus == Reservation::STATUS_ACCEPTED && $reservation->getPayment() == null && $reservation->getSession()->getActivity()->getPrice())
                 {
                     // we have to save payment in 2 steps since we can not relate them until inversed-side entity exist at the DDBB
                     
