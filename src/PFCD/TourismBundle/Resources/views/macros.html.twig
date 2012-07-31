@@ -1,1 +1,18 @@
 {# reusable macros to avoid code replication #}
+
+{% macro minutesToHours(minutes) %}
+    {% if minutes >= 60 %}
+        {% set hours = minutes // 60 %}
+        {% if hours == 1 %}
+            {{ hours }} {{ 'Hour'|trans }}
+        {% else %}
+            {{ hours }} {{ 'Hours'|trans }}
+        {% endif %}
+        {% set mins = minutes % 60 %}
+        {% if mins > 0 %}
+            {{ mins }} {{ 'Minutes'|trans }}
+        {% endif %}
+    {% else %}
+        {{ minutes }} {{ 'Minutes'|trans }} 
+    {% endif %}
+{% endmacro %}

@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'activity' %}
 
 {% block body %}
@@ -22,11 +24,11 @@
         </tr>
         <tr>
             <th>{{ 'Capacity'|trans }}</th>
-            <td>{{ activity.capacity }}</td>
+            <td>{{ activity.capacity }} {{ 'Persons'|trans }}</td>
         </tr>
         <tr>
             <th>{{ 'Duration'|trans }}</th>
-            <td>{{ activity.duration }} {{ 'Minutes'|trans }}</td>
+            <td>{% if activity.duration %}{{ macros.minutesToHours(activity.duration) }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Resources'|trans }}</th>

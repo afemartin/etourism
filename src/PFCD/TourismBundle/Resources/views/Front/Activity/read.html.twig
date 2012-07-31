@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% block title %}{{ activity.title }}{% endblock%}
 
 {% block stylesheets %}
@@ -25,7 +27,9 @@
         <h2>{{ 'front.activity.read.details'|trans }}</h2>
         <hr style="margin-top: 0"/>
         <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price }}{{ activity.currency|trans }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
-        <p><b>{{ 'Duration'|trans }}</b>: {{ activity.duration }} {{ 'Minutes'|trans }}</p>
+        {% if activity.duration %}
+        <p><b>{{ 'Duration'|trans }}</b>: {{ macros.minutesToHours(activity.duration) }}</p>
+        {% endif %}
         <p><b>{{ 'Capacity'|trans }}</b>: {{ activity.capacity }} {{ 'Persons'|trans }}</p>
     </div>
 </div>

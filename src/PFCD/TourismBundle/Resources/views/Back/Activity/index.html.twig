@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'activity' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 8: {sorter: false}, 9: {sorter: false}, 10: {sorter: false} }, sortList: [[5,1]] }' %}
 
 {% block body %}
@@ -30,8 +32,8 @@
         <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.id }}</a></td>
         <td>{{ activity.title }}</td>
         <td>{% if activity.price %}{{ activity.price }}{{ activity.currency|trans }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
-        <td>{{ activity.capacity }}</td>
-        <td>{{ activity.duration }}</td>
+        <td>{{ activity.capacity }} {{ 'Persons'|trans }}</td>
+        <td>{% if activity.duration %}{{ macros.minutesToHours(activity.duration) }}{% endif %}</td>
         <td>{% if activity.created %}{{ activity.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if activity.updated %}{{ activity.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ activity.statusText|trans }}</td>

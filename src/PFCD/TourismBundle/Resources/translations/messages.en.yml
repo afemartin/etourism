@@ -366,13 +366,14 @@ EUR: €
 Free: Free
 Capacity: Capacity
 Duration: Duration
-Minutes: Minutes
 Datestart: Start date
 Dateend: End date
 Timestart: Start time
 Timeend: End time
 Hour: Hour
+Hours: Hours
 Minute: Minute
+Minutes: Minutes
 Image: Image
 Daysweek: Days of the week
 Mon: Mon
