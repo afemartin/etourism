@@ -86,7 +86,7 @@ front.user.create.subtitle: Rellene los siguientes campos del formulario para re
 front.user.read.title: Perfil de usuario
 front.user.read.subtitle: En esta lista se muestra información detallada sobre el usuario
 front.user.update.title: Editar perfil
-front.user.update.subtitle: En cualquier momento puede editar los datos personales de su perfil
+front.user.update.subtitle: En cualquier momento puede editar los datos personales de su perfil de usuario
 
 front.organization.index.title: Lista de organizaciones
 front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este proyecto
@@ -115,9 +115,23 @@ front.reservation.summary.sessiontime: Hora de la sesión
 front.reservation.summary.sessiontime.undefined: Por confirmar
 front.reservation.summary.availability: Plazas disponibles
 front.reservation.read.title: Detalles de la reserva
-front.reservation.read.subtitle: En esta lista se muestra información detallada sobre el usuario
-front.reservation.update.title: Editar perfil
-front.reservation.update.subtitle: En cualquier momento puede editar los datos personales de su perfil
+front.reservation.read.subtitle: En esta lista se muestra información detallada sobre la reserva
+front.reservation.update.title: Editar reserva
+front.reservation.update.subtitle: Rellene este formulario para añadir o modificar detalles de la reserva
+
+front.payment.index.title: Lista de pagos
+front.payment.index.subtitle: En esta lista se encuentran todos los pagos que le pertenecen
+front.payment.summary.title: Detalles del pago
+front.payment.summary.activity: Actividad
+front.payment.summary.sessiondate: Fecha de la sesión
+front.payment.summary.sessiontime: Hora de la sesión
+front.payment.summary.sessiontime.undefined: Por confirmar
+front.payment.summary.persons: Personas
+front.payment.summary.price: Precio
+front.payment.read.title: Detalles del pago
+front.payment.read.subtitle: En esta lista se muestra información detallada sobre el pago
+front.payment.update.title: Editar pago
+front.payment.update.subtitle: Rellene este formulario para añadir o modificar detalles del pago
 
 front.article.index.title: Lista de noticias
 front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
@@ -239,6 +253,8 @@ alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. U
 
 alert.success.contactenquiry: Su petición a sido enviada correctamente. Muchas gracias
 
+alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pagode la reserva
+
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 
@@ -252,6 +268,7 @@ form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar e
 
 email.rememberpassword.subject: Restablecer contraseña
 email.accountactivation.subject: Activación de la cuenta
+email.reservationaccepted.subject: Reserva aceptada
 
 
 ################################################################################
@@ -480,6 +497,8 @@ front.reservation.button.create: Hacer una reserva
 front.reservation.button.read: Mostrar esta reserva
 front.reservation.button.update: Modificar esta reserva
 front.reservation.button.delete: Cancelar esta reserva
+
+front.payment.button.update: Modificar este pago
 
 back.user.button.index: Volver atrás
 back.user.button.create: Añadir un nuevo usuario

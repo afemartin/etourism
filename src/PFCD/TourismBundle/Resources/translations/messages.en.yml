@@ -119,6 +119,20 @@ front.reservation.read.subtitle: In this list there are detailed information sto
 front.reservation.update.title: Edit reservation
 front.reservation.update.subtitle: Use this form to edit your reservation
 
+front.payment.index.title: Payment list
+front.payment.index.subtitle: In this list there are all the payments that belong to you
+front.payment.summary.title: Details of the payment
+front.payment.summary.activity: Activity
+front.payment.summary.sessiondate: Session date
+front.payment.summary.sessiontime: Session time
+front.payment.summary.sessiontime.undefined: To confirm
+front.payment.summary.persons: Persons
+front.payment.summary.price: Price
+front.payment.read.title: Payment details
+front.payment.read.subtitle: In this list there are detailed information stored about your payment
+front.payment.update.title: Edit payment
+front.payment.update.subtitle: Use this form to edit your payment
+
 front.article.index.title: Article list
 front.article.index.subtitle: In this list there are all the articles published in the system
 front.article.read.images: Images
@@ -239,6 +253,8 @@ alert.success.resetpassword: Your password has been reset successfully. Use your
 
 alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank you!
 
+alert.success.reservationaccepted: The payment for the activity has been created succesfully and an email has been sent to the user to proceed to the payment of the reservation
+
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you dont remember your password we will send you a link to your email account in order to allow you to set a new password
 
@@ -253,6 +269,7 @@ form.media.field.video.help: YOUTUBE - Follow the next steps to generate the emb
 email.contactenquiry.subject: Contact enquiry from %name%
 email.rememberpassword.subject: Reset password
 email.accountactivation.subject: Activation of your account
+email.reservationaccepted.subject: Reservation accepted
 
 
 ################################################################################
@@ -481,6 +498,8 @@ front.reservation.button.create: Make a reservation
 front.reservation.button.read: Show this reservation
 front.reservation.button.update: Edit this reservation
 front.reservation.button.delete: Delete this reservation
+
+front.payment.button.update: Edit this payment
 
 back.user.button.index: Back to the list
 back.user.button.create: Create a new user
