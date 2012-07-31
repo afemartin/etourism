@@ -35,6 +35,10 @@ h3 {
     line-height: 32px;
 }
 
+h4 {
+  line-height: 24px;
+}
+
 .row.v-spaced [class*="span"] {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -148,7 +152,7 @@ textarea.wysihtml5-bootstrap {
     background-image: url("../img/tablesorter.png");
     background-position: right center;
     background-repeat: no-repeat;
-    padding-right: 15px;
+    padding-right: 16px;
     cursor: pointer;
 }
 
@@ -165,8 +169,8 @@ textarea.wysihtml5-bootstrap {
 }
 
 .calendar thead th {
-    font-size: 24px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 28px;
 }
 
 .calendar thead td {
@@ -175,7 +179,7 @@ textarea.wysihtml5-bootstrap {
 }
 
 .calendar .sessions {
-    height: 60px;
+    height: 40px;
     overflow: auto;
 }
 
