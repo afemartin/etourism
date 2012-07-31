@@ -25,7 +25,7 @@ class Payment
     const TYPE_PAYPAL        = 3;
     const TYPE_CASH          = 4;
 
-    private $typeText = array('1' => 'Credit Card', '2' => 'Bank transfer', '3' => 'Paypal', '4' => 'Cash');
+    private $typeText = array('1' => 'Credit card', '2' => 'Bank transfer', '3' => 'Paypal', '4' => 'Cash');
     
     /**
      * @ORM\Id
