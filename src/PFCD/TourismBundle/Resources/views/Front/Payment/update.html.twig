@@ -6,6 +6,16 @@
 <h1>{{ 'front.payment.update.title'|trans }}</h1>
 <p>{{ 'front.payment.update.subtitle'|trans }}</p>
 
+<div class="well">
+    <h3>{{ 'front.payment.summary.title'|trans }}:</h3>
+    <hr style="margin-top: 0"/>
+    <p><b>{{ 'front.payment.summary.activity'|trans }}</b>: {{ payment.reservation.session.activity.title }}</p>
+    <p><b>{{ 'front.payment.summary.sessiondate'|trans }}</b>: {{ payment.reservation.session.date|date('Y-m-d') }}</p>
+    <p><b>{{ 'front.payment.summary.sessiontime'|trans }}</b>: {% if payment.reservation.session.time %}{{ payment.reservation.session.time|date('H:i') }}{% else %}{{ 'front.payment.summary.sessiontime.undefined'|trans }}{% endif %}</p>
+    <p><b>{{ 'front.payment.summary.persons'|trans }}</b>: {{ payment.reservation.persons }} {{ 'Persons'|trans }}</p>
+    <p><b>{{ 'front.payment.summary.price'|trans }}</b>: {{ payment.price }}{{ payment.currency|trans }} {% if payment.reservation.persons > 1 %}<small>({{ payment.reservation.session.activity.price }}{{ payment.reservation.session.activity.currency|trans }}/{{ 'Person'|trans }})</small>{% endif %}</p>
+</div>
+
 <form class="form-horizontal" action="{{ path('front_payment_update', { 'id': payment.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
     <div class="form-actions">
