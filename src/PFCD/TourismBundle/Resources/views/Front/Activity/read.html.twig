@@ -21,10 +21,17 @@
         <p>{{ activity.shortDesc }}</p>
         {{ activity.fullDesc|raw }}
     </div>
+    <div class="info-details span9">
+        <h2>{{ 'front.activity.read.details'|trans }}</h2>
+        <hr style="margin-top: 0"/>
+        <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price }}{{ activity.currency|trans }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
+        <p><b>{{ 'Duration'|trans }}</b>: {{ activity.duration }} {{ 'Minutes'|trans }}</p>
+        <p><b>{{ 'Capacity'|trans }}</b>: {{ activity.capacity }} {{ 'Persons'|trans }}</p>
+    </div>
 </div>
 
-{% if activity.sessions %}
-<h2>{{ 'front.activity.read.availability'|trans }}</h2>
+{% if activity.sessions or activity.status == 2 %}
+<h2>{{ 'front.activity.read.availability'|trans }} <small>{{ 'front.activity.read.availability.small'|trans }}</small></h2>
 <div class="info-calendar row">
     <div class="span9">
         <div id="reservation_calendar"></div>
@@ -39,7 +46,7 @@
 {% endif %}
 
 {% if activity.gallery|length > 0 %}
-<h2>{{ 'front.activity.read.images'|trans }}</h2>
+<h2>{{ 'front.activity.read.images'|trans }} <small>{{ 'front.activity.read.images.small'|trans }}</small></h2>
 <div class="info-carrousel row">
     <div class="span9">
         <ul class="thumbnails">
@@ -56,7 +63,7 @@
 {% endif %}
 
 {% if activity.geolocation %}
-<h2>{{ 'front.activity.read.geolocation'|trans }}</h2>
+<h2>{{ 'front.activity.read.geolocation'|trans }} <small>{{ 'front.activity.read.geolocation.small'|trans }}</small></h2>
 <div class="info-map row">
     <div class="span">
         <div id="map_modal" class="modal hide">

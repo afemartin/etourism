@@ -52,7 +52,7 @@
         <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title }}</a></td>
         <td>{{ payment.reservation.persons }}</td>
         <td>{{ payment.typeText }}</td>
-        <td>{{ payment.price ~ payment.currency }}</td>
+        <td>{{ payment.price }}{{ payment.currency|trans }}</td>
         <td>{% if payment.created %}{{ payment.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{% if payment.reservation %}<a href="{{ path('back_reservation_read', { 'id': payment.reservation.id }) }}"><i class="icon-book"></i></a>{% endif %}</td>

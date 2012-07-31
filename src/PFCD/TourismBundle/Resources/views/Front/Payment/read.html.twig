@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <th>{{ 'Price'|trans }}</th>
-            <td>{{ payment.price ~ payment.currency }}</td>
+            <td>{{ payment.price }}{{ payment.currency|trans }}</td>
         </tr>
         <tr>
             <th>{{ 'Comment'|trans }}</th>
