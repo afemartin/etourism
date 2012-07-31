@@ -16,13 +16,17 @@ Home: Portada
 Organizations: Organizaciones
 Activities: Actividades
 News: Noticias
+Article: Noticia
 Contact: Contacto
 About: Acerca
 Language: Idioma
 
 Menu: Menu
+Sessions: Sesiones
 Reservations: Reservas
+Payments: Pagos
 Statistics: Estadísticas
+Comments: Comentarios
 Users: Usuarios
 
 
@@ -50,10 +54,8 @@ back.browser.title: Panel de Administracion
 ##### Cabecera
 ################################################################################  
 
-front.header.title: CooperationTourism.com
 front.header.subtitle: Tu plataforma online para turismo de cooperación
 
-back.header.title: CooperationTourism.com
 back.header.subtitle: Panel de Administración
 
 
@@ -87,24 +89,47 @@ front.user.update.title: Editar perfil
 front.user.update.subtitle: En cualquier momento puede editar los datos personales de su perfil
 
 front.organization.index.title: Lista de organizaciones
-front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este projecto
+front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este proyecto
 front.organization.read.subtitle.working: Trabajando en
 front.organization.read.subtitle.since: desde
 
 front.activity.index.title: Lista de actividades
-front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas por las organizaciones
+front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas
+front.activity.read.details: Detalles
 front.activity.read.availability: Disponibilidad
-front.activity.read.images: Fotografías
+front.activity.read.availability.small: Seleciona una session de la actividad
+front.activity.read.sessionsnotfound: No hay sesiones para la actividad en este momento. Contacte con la organización para más información.
+front.activity.read.images: Imágenes
+front.activity.read.images.small: Haga click en las imágenes para abrirlas en modo galería
 front.activity.read.geolocation: Localización
+front.activity.read.geolocation.small: Haga click en la imagen para abrir el mapa interactivo
 
 front.reservation.index.title: Lista de reservas
 front.reservation.index.subtitle: En esta lista se encuentran todas las reservas que ha realizado
 front.reservation.create.title: Reservar actividad
 front.reservation.create.subtitle: Rellene los siguientes campos del formulario para realizar la reserva
+front.reservation.summary.title: Detalles de la reserva
+front.reservation.summary.activity: Actividad
+front.reservation.summary.sessiondate: Fecha de la sesión
+front.reservation.summary.sessiontime: Hora de la sesión
+front.reservation.summary.sessiontime.undefined: Por confirmar
+front.reservation.summary.availability: Plazas disponibles
 front.reservation.read.title: Detalles de la reserva
 front.reservation.read.subtitle: En esta lista se muestra información detallada sobre el usuario
 front.reservation.update.title: Editar perfil
 front.reservation.update.subtitle: En cualquier momento puede editar los datos personales de su perfil
+
+front.article.index.title: Lista de noticias
+front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
+front.article.read.images: Imágenes
+
+back.home.title: Portada
+back.home.subtitle: Aqui se muestra un resumen con la información mas relevante acerca del estado de las actividades
+back.home.nextevents: Próximos eventos
+back.home.nextevents.small: Información sobre las sesiones y recursos necesarios para los próximos 14 días
+back.home.lastevents: Últimos eventos
+back.home.lastevents.small: Información sobre las reservas y pagos realizados durante los últimos 14 días
+back.home.viewmore: ver más
 
 back.user.index.title: Lista de usuarios
 back.user.index.subtitle: En esta lista se encuentran los usuarios registrados en el sistema
@@ -133,6 +158,17 @@ back.activity.read.subtitle: En esta lista se muestra información detallada sob
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
+back.session.index.title: Lista de sesiones
+back.session.index.subtitle: En esta lista se encuentran las sesiones registrados en el sistema
+back.session.create.title: Añadir sesión
+back.session.create.subtitle: Rellene este formulario para crear una nueva sesión
+back.session.generate.title: Generar multiples sesiones
+back.session.generate.subtitle: Rellene este formulario para crear automáticamente un conjunto de sesiones
+back.session.read.title: Detalles de la sesión
+back.session.read.subtitle: En esta lista se muestra información detallada sobre la sesión
+back.session.update.title: Editar detalles
+back.session.update.subtitle: Rellene este formulario para añadir o modificar detalles de la sesión
+
 back.reservation.index.title: Lista de reservas
 back.reservation.index.subtitle: En esta lista se encuentran las reservas registrados en el sistema
 back.reservation.create.title: Añadir reserva
@@ -142,6 +178,15 @@ back.reservation.read.subtitle: En esta lista se muestra información detallada 
 back.reservation.update.title: Editar detalles
 back.reservation.update.subtitle: Rellene este formulario para añadir o modificar detalles de la reserva
 
+back.payment.index.title: Lista de pagos
+back.payment.index.subtitle: En esta lista se encuentran los pagos registrados en el sistema
+back.payment.create.title: Añadir pago
+back.payment.create.subtitle: Rellene este formulario para crear un nuevo pago
+back.payment.read.title: Detalles del pago
+back.payment.read.subtitle: En esta lista se muestra información detallada sobre el pago
+back.payment.update.title: Editar detalles
+back.payment.update.subtitle: Rellene este formulario para añadir o modificar detalles del pago
+
 back.resource.index.title: Lista de recursos
 back.resource.index.subtitle: En esta lista se encuentran los recursos registrados en el sistema
 back.resource.create.title: Añadir recurso
@@ -150,6 +195,18 @@ back.resource.read.title: Detalles del recurso
 back.resource.read.subtitle: En esta lista se muestra información detallada sobre el recurso
 back.resource.update.title: Editar detalles
 back.resource.update.subtitle: Rellene este formulario para añadir o modificar detalles del recurso
+
+back.statistic.title: Estadísticas
+back.statistic.subtitle: Aqui se muestran unas gráficas con la información mas relevante de los resultados obtenidos
+
+back.article.index.title: Lista de noticias
+back.article.index.subtitle: En esta lista se encuentran las noticias registradas en el sistema
+back.article.create.title: Añadir noticia
+back.article.create.subtitle: Rellene este formulario para crear una nueva noticia
+back.article.read.title: Detalles de la noticia
+back.article.read.subtitle: En esta lista se muestra información detallada sobre la noticia
+back.article.update.title: Editar detalles
+back.article.update.subtitle: Rellene este formulario para añadir o modificar detalles de la noticia
 
 
 ################################################################################
@@ -164,6 +221,9 @@ footer.created.by: © 2012 - CooperationTourism.com - creado por <a href="https:
 ################################################################################
 
 alert.info.beta: Esta web esta en versión de pruebas durante su desarrollo
+
+alert.info.activitypreview: Esta es una vista previa de tu actividad. El botón para reservar está deshabilitado en esta vista preliminar
+alert.info.articlepreview: Esta es una vista previa de tu noticia
 
 alert.success.createuser: El registro ha finalizado con exito. Antes de acceder debes usar el enlace que te hemos enviado a tu dirección de correo electrónico para que puedas activar tu cuenta. Muchas gracias
 alert.success.updateuser: Los cambios han sido guardados con éxito
@@ -182,7 +242,16 @@ alert.success.contactenquiry: Su petición a sido enviada correctamente. Muchas 
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 
+popover.generatesessions.title: Generar múltiples sesiones
+popover.generatesessions.content: En esta sección puede generar un conjunto de sesiones siguiendo un patrón
+
+modal.generatesessions.title: ¿Está seguro que quiere generar las siguientes sesiones?
+modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegurese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br /><p>Si está seguro de ello pulse "Generar"</p%>
+
 form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar el código para insertar el vídeo y pegarlo en este campo
+
+email.rememberpassword.subject: Restablecer contraseña
+email.accountactivation.subject: Activación de la cuenta
 
 
 ################################################################################
@@ -209,13 +278,20 @@ Organizations: Organizaciones
 Activity: Actividad
 Activities: Actividades
 
-News: Noticias
+Article: Noticia
+Articles: Noticias
 
 Resource: Recurso
 Resources: Recursos
 
+Session: Sesión
+Sessions: Sesiones
+
 Reservation: Reserva
 Reservations: Reservas
+
+Payment: Pago
+Payments: Pagos
 
 
 ################################################################################
@@ -256,6 +332,7 @@ Enabled: Activo
 Locked: Bloqueado
 Deleted: Eliminado
 
+
 ################################################################################
 ##### Organization (Form)
 ################################################################################
@@ -279,15 +356,20 @@ Logo: Logotipo
 ##### Actividad (Formulario)
 ################################################################################
 
-Title: Titulo
+Title: Título
 Shortdesc: Descripción breve
 Fulldesc: Descripción completa
 Price: Precio
 Currency: Moneda
-Datestart: Fecha de inicio
-Dateend: Fecha de fin
-Timestart: Hora de inicio
-Timeend: Hora de fin
+EUR: €
+Free: Gratis
+Capacity: Capacidad
+Duration: Duración
+Minutes: Minutos
+Datestart: Fecha inicio
+Dateend: Fecha fin
+Timestart: Hora inicio
+Timeend: Hora fin
 Hour: Hora
 Minute: Minuto
 Image: Imagen
@@ -300,19 +382,44 @@ Fri: Vie
 Sat: Sáb
 Sun: Dom
 
+
+################################################################################
+##### Sesion (Formularion)
+################################################################################
+
+Starttime1: Hora inicio 1
+Starttime2: Hora inicio 2
+Starttime3: Hora inicio 3
+Starttime4: Hora inicio 4
+
+
 ################################################################################
 ##### Reserva (Formulario)
 ################################################################################
 
-Adults: Adultos
-Childrens: Niños
+Person: Persona
+Persons: Personas
 Date: Fecha
 Time: Hora
+
+Session date: Fecha sesión
+Session time: Hora sesión
+Starttime: Hora inicio
 
 Requested: Solicitada
 Accepted: Aceptada
 Rejected: Denegada
 Canceled: Cancelada
+
+
+################################################################################
+##### Pago (Formulario)
+################################################################################
+
+Pending payment: Pago pendiente
+Paid: Pagado
+Pending refund: Devolución pendiente
+Refunded: Devuelto
 
 
 ################################################################################
@@ -334,11 +441,24 @@ Message: Mensaje
 
 
 ################################################################################
+##### Filtro (Form)
+################################################################################
+
+Select an activity: Selecciona una actividad
+From: Desde
+To: Hasta
+
+Search: Buscar
+
+
+################################################################################
 ##### Acciones (Botones&Enlaces)
 ################################################################################
 
 Create: Crear
+Generate: Generar
 Edit: Editar
+View: Ver
 Save: Guardar
 Cancel: Cancelar
 Send: Enviar
@@ -387,11 +507,24 @@ back.media.button.help: Ayuda
 back.media.button.preview: Previsualizar
 back.media.button.search: Buscar
 
+back.session.button.index: Volver atrás
+back.session.button.create: Añadir una nueva sesión
+back.session.button.generate: Generar nuevas sesiones
+back.session.button.read: Mostrar esta sesión
+back.session.button.update: Editar esta sesión
+back.session.button.delete: Eliminar esta sesión
+
 back.reservation.button.index: Volver atrás
 back.reservation.button.create: Añadir una nueva reserva
 back.reservation.button.read: Mostrar esta reserva
 back.reservation.button.update: Editar esta reserva
 back.reservation.button.delete: Eliminar esta reserva
+
+back.payment.button.index: Volver atrás
+back.payment.button.create: Añadir un nuevo pago
+back.payment.button.read: Mostrar este pago
+back.payment.button.update: Editar este pago
+back.payment.button.delete: Eliminar este pago
 
 back.resource.button.index: Volver atrás
 back.resource.button.create: Añadir un nuevo recurso
@@ -399,7 +532,56 @@ back.resource.button.read: Mostrar este recurso
 back.resource.button.update: Editar este recurso
 back.resource.button.delete: Eliminar este recurso
 
+back.article.button.index: Volver atrás
+back.article.button.create: Añadir una nueva noticia
+back.article.button.read: Mostrar esta noticia
+back.article.button.preview: Mostrar esta noticia
+back.article.button.update: Editar información
+back.article.button.media: Editar multimedia
+back.article.button.delete: Eliminar esta noticia
+
 back.form.imageupload.button.upload: Subir
 back.form.imageupload.button.reload: Cambiar
 back.form.imageupload.button.delete: Eliminar
 back.form.imageupload.button.cancel: Cancelar
+
+
+################################################################################
+##### Calendario
+################################################################################
+
+Loading: Cargando
+
+Session: Sesión
+
+month.full.1: Enero
+month.full.2: Febrero
+month.full.3: Marzo
+month.full.4: Abril
+month.full.5: Mayo
+month.full.6: Junio
+month.full.7: Julio
+month.full.8: Agosto
+month.full.9: Septiembre
+month.full.10: Octubre
+month.full.11: Noviembre
+month.full.12: Diciembre
+
+dayweek.full.1: Lunes
+dayweek.full.2: Martes
+dayweek.full.3: Miércoles
+dayweek.full.4: Jueves
+dayweek.full.5: Viernes
+dayweek.full.6: Sábado
+dayweek.full.7: Domingo
+
+Help: Ayuda
+
+calendar.help.block: Bloqueada
+calendar.help.block.desc: La organización ha bloqueado las reservas para esta actividad. Contacte con la organización para más información
+calendar.help.available: Disponible
+calendar.help.available.desc: Hay plaza disponibles para reservar
+calendar.help.reducedavailability: Disponibilidad reducida
+calendar.help.reducedavailability.desc: Menos del 25% de las plazas siguen disponibles
+calendar.help.noavailability: No disponible
+calendar.help.noavailability.desc: Todas las plazas han sido reservadas. Seleccione otra sesión o contacte con la organización

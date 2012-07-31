@@ -16,13 +16,17 @@ Home: Home
 Organizations: Organizations
 Activities: Activities
 News: News
+Article: Article
 Contact: Contact
 About: About
 Language: Language
 
 Menu: Menu
+Sessions: Sessions
 Reservations: Reservations
+Payments: Payments
 Statistics: Statistics
+Comments: Comments
 Users: Users
 
 
@@ -50,10 +54,8 @@ back.browser.title: Administration Panel
 ##### Header
 ################################################################################
 
-front.header.title: CooperationTourism.com
 front.header.subtitle: Your online platform for cooperation tourism
 
-back.header.title: CooperationTourism.com
 back.header.subtitle: Administration Panel
 
 
@@ -87,24 +89,47 @@ front.user.update.title: Edit your profile
 front.user.update.subtitle: Use this form to edit your account information
 
 front.organization.index.title: Organization list
-front.organization.index.subtitle: In this list there are all the organizationes registered in the system
+front.organization.index.subtitle: In this list there are all the organizations registered in the system
 front.organization.read.subtitle.working: Working in
 front.organization.read.subtitle.since: since
 
 front.activity.index.title: Activity list
 front.activity.index.subtitle: In this list there are all the activities registered in the system
+front.activity.read.details: Details
 front.activity.read.availability: Availability
+front.activity.read.availability.small: Select a session for the activity
+front.activity.read.sessionsnotfound: There are no sessions for the activity at this time. Contact with the organization for more information.
 front.activity.read.images: Images
+front.activity.read.images.small: Click on the images to open them in gallery mode
 front.activity.read.geolocation: Location
+front.activity.read.geolocation.small: Click on the image to open the interactive map
 
 front.reservation.index.title: Reservation list
 front.reservation.index.subtitle: In this list there are all the reservations you registered in the system
 front.reservation.create.title: Booking activity
 front.reservation.create.subtitle: Please fill the following information to complete your reservation
+front.reservation.summary.title: Details of the reservation
+front.reservation.summary.activity: Activity
+front.reservation.summary.sessiondate: Session date
+front.reservation.summary.sessiontime: Session time
+front.reservation.summary.sessiontime.undefined: To confirm
+front.reservation.summary.availability: Available places
 front.reservation.read.title: Reservation details
 front.reservation.read.subtitle: In this list there are detailed information stored about your reservation
 front.reservation.update.title: Edit reservation
 front.reservation.update.subtitle: Use this form to edit your reservation
+
+front.article.index.title: Article list
+front.article.index.subtitle: In this list there are all the articles published in the system
+front.article.read.images: Images
+
+back.home.title: Home page
+back.home.subtitle: This is the summary of the most important information about your activities status
+back.home.nextevents: Next events
+back.home.nextevents.small: Information about the sessions and resources required for the next 14 days
+back.home.lastevents: Last events
+back.home.lastevents.small: Information about the reservations and payments made during the last 14 days
+back.home.viewmore: view more
 
 back.user.index.title: User list
 back.user.index.subtitle: In this list there are all the users registered in the system
@@ -133,6 +158,17 @@ back.activity.read.subtitle: In this list there are detailed information stored 
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
 
+back.session.index.title: Session list
+back.session.index.subtitle: In this list there are all the sessions registered in the system
+back.session.create.title: Session creation
+back.session.create.subtitle: Use this form to create manually a new session
+back.session.generate.title: Multiple session generator
+back.session.generate.subtitle: Use this form to create automatucally a group of sessions
+back.session.read.title: Session details
+back.session.read.subtitle: In this list there are detailed information stored about this session
+back.session.update.title: Session edit
+back.session.update.subtitle: Use this form to edit the session information
+
 back.reservation.index.title: Reservation list
 back.reservation.index.subtitle: In this list there are all the reservations registered in the system
 back.reservation.create.title: Reservation creation
@@ -142,6 +178,15 @@ back.reservation.read.subtitle: In this list there are detailed information stor
 back.reservation.update.title: Reservation edit
 back.reservation.update.subtitle: Use this form to edit the reservation information
 
+back.payment.index.title: Payment list
+back.payment.index.subtitle: In this list there are all the payments registered in the system
+back.payment.create.title: Payment creation
+back.payment.create.subtitle: Use this form to create manually a new payment
+back.payment.read.title: Payment details
+back.payment.read.subtitle: In this list there are detailed information stored about this payment
+back.payment.update.title: Payment edit
+back.payment.update.subtitle: Use this form to edit the payment information
+
 back.resource.index.title: Resource list
 back.resource.index.subtitle: In this list there are all the resources registered in the system
 back.resource.create.title: Resource creation
@@ -150,6 +195,18 @@ back.resource.read.title: Resource details
 back.resource.read.subtitle: In this list there are detailed information stored about this resource
 back.resource.update.title: Resource edit
 back.resource.update.subtitle: Use this form to edit the resource information
+
+back.statistic.title: Statistics
+back.statistic.subtitle: These are the graphs of the most important information about the obtained results
+
+back.article.index.title: Article list
+back.article.index.subtitle: In this list there are all the activities registered in the system
+back.article.create.title: Article creation
+back.article.create.subtitle: Use this form to create manually a piece of article
+back.article.read.title: Article details
+back.article.read.subtitle: In this list there are detailed information stored about this article
+back.article.update.title: Article edit
+back.article.update.subtitle: Use this form to edit the article information
 
 
 ################################################################################
@@ -164,6 +221,9 @@ footer.created.by: © 2012 - CooperationTourism.com - created by <a href="https:
 ################################################################################
 
 alert.info.beta: This website is a beta version only for development testing purpose
+
+alert.info.activitypreview: This is a preview of your activity. The reservation button is disabled in this preview
+alert.info.articlepreview: This is a preview of your article
 
 alert.success.createuser: You have register your account successfully. Before to login you should check your email inbox to follow the instructions in order to activate the account. Thank you!
 alert.success.updateuser: Your changes have been saved successfully
@@ -182,7 +242,17 @@ alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank 
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you dont remember your password we will send you a link to your email account in order to allow you to set a new password
 
+popover.generatesessions.title: Generate multiple sessions
+popover.generatesessions.content: In this section you can generate a group of sessions following some pattern
+
+modal.generatesessions.title: Are you sure you want generate all this sessions?
+modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br /><p>If you are sure about it please click "Generate"</p%>
+
 form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
+
+email.contactenquiry.subject: Contact enquiry from %name%
+email.rememberpassword.subject: Reset password
+email.accountactivation.subject: Activation of your account
 
 
 ################################################################################
@@ -209,13 +279,20 @@ Organizations: Organizations
 Activity: Activity
 Activities: Activities
 
-News: News
+Article: Article
+Articles: Articles
 
 Resource: Resource
 Resources: Resources
 
+Session: Session
+Sessions: Sessions
+
 Reservation: Reservation
 Reservations: Reservations
+
+Payment: Payment
+Payments: Payments
 
 
 ################################################################################
@@ -281,14 +358,19 @@ Logo: Logo
 ################################################################################
 
 Title: Title
-Shortdesc: Short Description
-Fulldesc: Full Description
+Shortdesc: Short description
+Fulldesc: Full description
 Price: Price
 Currency: Currency
-Datestart: Start Date
-Dateend: End Date
-Timestart: Start Time
-Timeend: End Time
+EUR: €
+Free: Free
+Capacity: Capacity
+Duration: Duration
+Minutes: Minutes
+Datestart: Start date
+Dateend: End date
+Timestart: Start time
+Timeend: End time
 Hour: Hour
 Minute: Minute
 Image: Image
@@ -301,19 +383,44 @@ Fri: Fri
 Sat: Sat
 Sun: Sun
 
+
+################################################################################
+##### Session (Form)
+################################################################################
+
+Starttime1: Start time 1
+Starttime2: Start time 2
+Starttime3: Start time 3
+Starttime4: Start time 4
+
+
 ################################################################################
 ##### Reservation (Form)
 ################################################################################
 
-Adults: Adults
-Childrens: Childrens
+Person: Person
+Persons: Persons
 Date: Date
 Time: Time
+
+Session date: Session date
+Session time: Session time
+Starttime: Start time
 
 Requested: Requested
 Accepted: Accepted
 Rejected: Rejected
 Canceled: Canceled
+
+
+################################################################################
+##### Payment (Form)
+################################################################################
+
+Pending payment: Pending payment
+Paid: Paid
+Pending refund: Pending refund
+Refunded: Refunded
 
 
 ################################################################################
@@ -335,11 +442,24 @@ Message: Message
 
 
 ################################################################################
+##### Filter (Form)
+################################################################################
+
+Select an activity: Select an activity
+From: From
+To: To
+
+Search: Search
+
+
+################################################################################
 ##### Actions (Buttons&Links)
 ################################################################################
 
 Create: Create
+Generate: Generate
 Edit: Edit
+View: View
 Save: Save
 Cancel: Cancel
 Send: Send
@@ -388,11 +508,24 @@ back.media.button.help: Help
 back.media.button.preview: Preview
 back.media.button.search: Search
 
+back.session.button.index: Back to the list
+back.session.button.create: Create a new session
+back.session.button.generate: Generate new sessions
+back.session.button.read: Show this session
+back.session.button.update: Edit this session
+back.session.button.delete: Delete this session
+
 back.reservation.button.index: Back to the list
 back.reservation.button.create: Create a new reservation
 back.reservation.button.read: Show this reservation
 back.reservation.button.update: Edit this reservation
 back.reservation.button.delete: Delete this reservation
+
+back.payment.button.index: Back to the list
+back.payment.button.create: Create a new payment
+back.payment.button.read: Show this payment
+back.payment.button.update: Edit this payment
+back.payment.button.delete: Delete this payment
 
 back.resource.button.index: Back to the list
 back.resource.button.create: Create a new resource
@@ -400,7 +533,56 @@ back.resource.button.read: Show this resource
 back.resource.button.update: Edit this resource
 back.resource.button.delete: Delete this resource
 
+back.article.button.index: Back to the list
+back.article.button.create: Create a article
+back.article.button.read: Show this article
+back.article.button.preview: Preview
+back.article.button.update: Edit information
+back.article.button.media: Edit multimedia
+back.article.button.delete: Delete this article
+
 back.form.imageupload.button.upload: Upload
 back.form.imageupload.button.reload: Change
 back.form.imageupload.button.delete: Remove
 back.form.imageupload.button.cancel: Cancel
+
+
+################################################################################
+##### Calendar
+################################################################################
+
+Loading: Loading
+
+Session: Session
+
+month.full.1: January
+month.full.2: February
+month.full.3: March
+month.full.4: April
+month.full.5: May
+month.full.6: June
+month.full.7: July
+month.full.8: August
+month.full.9: September
+month.full.10: October
+month.full.11: November
+month.full.12: December
+
+dayweek.full.1: Monday
+dayweek.full.2: Tuesday
+dayweek.full.3: Wednesday
+dayweek.full.4: Thursday
+dayweek.full.5: Friday
+dayweek.full.6: Saturday
+dayweek.full.7: Sunday
+
+Help: Help
+
+calendar.help.block: Blocked
+calendar.help.block.desc: The organization has blocked the reservations for this activity. Contact with the organization for more information
+calendar.help.available: Available
+calendar.help.available.desc: Reservation places available
+calendar.help.reducedavailability: Reduced availabilty
+calendar.help.reducedavailability.desc: Less than 25% of the reservation places remain available
+calendar.help.noavailability: No availability
+calendar.help.noavailability.desc: All the reservation places are already reservated. Select another session or contact with the organization
