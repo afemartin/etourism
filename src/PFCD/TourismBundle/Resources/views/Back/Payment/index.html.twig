@@ -53,8 +53,8 @@
         <td>{{ payment.reservation.persons }}</td>
         <td>{{ payment.typeText }}</td>
         <td>{{ payment.price }}{{ payment.currency|trans }}</td>
-        <td>{% if payment.created %}{{ payment.created|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if payment.created %}{{ payment.created|date('Y-m-d H:i') }}{% endif %}</td>
+        <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if payment.reservation %}<a href="{{ path('back_reservation_read', { 'id': payment.reservation.id }) }}"><i class="icon-book"></i></a>{% endif %}</td>
         <td>{{ payment.statusText|trans }}</td>
         <td><a href="{{ path('back_payment_update', { 'id': payment.id }) }}"><i class="icon-edit"></i></a></td>

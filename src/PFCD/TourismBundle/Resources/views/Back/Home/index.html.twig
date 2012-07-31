@@ -105,7 +105,7 @@
                     <td>{{ reservation.persons }}</td>
                     <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
                     <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
-                    <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d H:i') }}{% endif %}</td>
                     <td>{{ reservation.statusText|trans }}</td>
                 </tr>
                 {% endfor %}
@@ -138,7 +138,7 @@
                     <td>{{ payment.price }}{{ payment.currency|trans }}</td>
                     <td>{% if payment.reservation.session.date %}{{ payment.reservation.session.date|date('Y-m-d') }}{% endif %}</td>
                     <td>{% if payment.reservation.session.time %}{{ payment.reservation.session.time|date('H:i') }}{% endif %}</td>
-                    <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d H:i') }}{% endif %}</td>
                     <td>{{ payment.statusText|trans }}</td>
                 </tr>
                 {% endfor %}
