@@ -65,8 +65,8 @@
                             <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
                             <td>{{ resource.name }}</td>
                             <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title|truncate(25) }}</a></td>
-                            <td>{{ session.date|date('Y-m-d') }}</td>
-                            <td>{{ session.time|date('H:i') }}</td>
+                            <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
+                            <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
                         </tr>
                         {% endfor %}
                     {% endfor %}
