@@ -2,7 +2,7 @@
 
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% set sectiontab = 'payment' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 8: {sorter: false}, 10: {sorter: false} }, sortList: [[7,1]] }' %}
+{% set sectiontab = 'payment' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 6: {sorter: false}, 9: {sorter: false}, 11: {sorter: false} }, sortList: [[8,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.payment.index.title'|trans }}</h1>
@@ -37,6 +37,7 @@
             <th>{{ 'Persons'|trans }}</th>
             <th>{{ 'Type'|trans }}</th>
             <th>{{ 'Price'|trans }}</th>
+            <th>{{ 'Comment'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Reservation'|trans }}</th>
@@ -49,10 +50,11 @@
     <tr class="status-{{ payment.status }}">
         <td><a href="{{ path('back_payment_read', { 'id': payment.id }) }}">{{ payment.id }}</a></td>
         <td>{% if payment.reservation.user %}<a href="{{ path('back_user_read', { 'id': payment.reservation.user.id }) }}">{{ payment.reservation.user.firstname }}</a>{% endif %}</td>
-        <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title }}</a></td>
+        <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title|truncate(25) }}</a></td>
         <td>{{ payment.reservation.persons }}</td>
         <td>{{ payment.typeText }}</td>
         <td>{{ payment.price }}{{ payment.currency|trans }}</td>
+        <td>{{ payment.comment|truncate(25) }}</td>
         <td>{% if payment.created %}{{ payment.created|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if payment.reservation %}<a href="{{ path('back_reservation_read', { 'id': payment.reservation.id }) }}"><i class="icon-book"></i></a>{% endif %}</td>
