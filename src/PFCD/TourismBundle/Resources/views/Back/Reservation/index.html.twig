@@ -2,7 +2,7 @@
 
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% set sectiontab = 'reservation' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 8: {sorter: false}, 10: {sorter: false} }, sortList: [[7,1]] }' %}
+{% set sectiontab = 'reservation' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 6: {sorter: false}, 9: {sorter: false}, 11: {sorter: false} }, sortList: [[8,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.reservation.index.title'|trans }}</h1>
@@ -37,6 +37,7 @@
             <th>{{ 'Persons'|trans }}</th>
             <th>{{ 'Session date'|trans }}</th>
             <th>{{ 'Session time'|trans }}</th>
+            <th>{{ 'Comment'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Payment'|trans }}</th>
@@ -49,10 +50,11 @@
     <tr class="status-{{ reservation.status }}">
         <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
         <td>{% if reservation.user %}<a href="{{ path('back_user_read', { 'id': reservation.user.id }) }}">{{ reservation.user.firstname }}</a>{% endif %}</td>
-        <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title }}</a></td>
+        <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(25) }}</a></td>
         <td>{{ reservation.persons }}</td>
         <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
         <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
+        <td>{{ reservation.comment|truncate(25) }}</td>
         <td>{% if reservation.created %}{{ reservation.created|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
