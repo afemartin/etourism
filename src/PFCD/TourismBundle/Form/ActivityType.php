@@ -17,7 +17,7 @@ class ActivityType extends AbstractType
     {
         if ($options['domain'] == Constants::ADMIN)
         {
-            $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name', 'help' => 'form.activity.field.organization.help'));
+            $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
         }
         $builder->add('title', 'text', array('attr' => array('class' => 'input-xxlarge')));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge')));

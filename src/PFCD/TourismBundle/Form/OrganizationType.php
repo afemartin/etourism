@@ -40,7 +40,7 @@ class OrganizationType extends AbstractType
         $builder->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('file', 'file', array('required' => false, 'label' => 'Logo'));
+            $builder->add('file', 'file', array('required' => false, 'label' => 'Logo', 'help' => 'form.organization.field.logo.help'));
         }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {

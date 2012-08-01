@@ -264,6 +264,16 @@ popover.generatesessions.content: In this section you can generate a group of se
 modal.generatesessions.title: Are you sure you want generate all this sessions?
 modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br /><p>If you are sure about it please click "Generate"</p%>
 
+form.activity.field.price.help: This will be the price of the activity per person
+form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity
+form.activity.field.duration.help: This is the duration of the activity in minutes. Example, 3 hours => "180" minutes
+  
+form.organization.field.logo.help: This image must be the logo of the organization. Please upload an image with the following dimension 170x120 pixels and smaller than 32Kb
+form.organization.field.bankname.help: This is the name of your bank at which the users will pay the activities via bank transfer
+form.organization.field.bankaccount.help: This is the number of your bank account at which the users will pay the activities via bank transfer
+  
+form.payment.field.price.help: This price was automatically calculated based on the price of the activity and the number of persons. DO NOT MODIFY IT unless you are completely sure about it
+
 form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
 
 email.contactenquiry.subject: Contact enquiry from %name%
@@ -364,6 +374,8 @@ City: City
 Address: Address
 Postalcode: Postal code
 Phone: Phone
+Bankname: Bank name
+Bankaccount: Banck account number
 Locale: Language
 Foundationyear: Foundation year
 Geolocation: Geolocation
@@ -411,6 +423,8 @@ Starttime2: Start time 2
 Starttime3: Start time 3
 Starttime4: Start time 4
 
+Comment: Comment
+
 
 ################################################################################
 ##### Reservation (Form)
@@ -424,6 +438,9 @@ Time: Time
 Session date: Session date
 Session time: Session time
 Starttime: Start time
+
+Sessiondatestart: Session start date
+Sessiondateend: Session end date
 
 Requested: Requested
 Accepted: Accepted
@@ -440,6 +457,13 @@ Paid: Paid
 Pending refund: Pending refund
 Refunded: Refunded
 
+Select a payment method: Select a payment method
+
+Credit card: Credit card
+Bank transfer: Bank transfer
+Paypal: Paypal
+Cash: Cash
+
 
 ################################################################################
 ##### Resource (Form)
@@ -448,6 +472,12 @@ Refunded: Refunded
 Type: Type
 Description: Description
 Amount: Amount
+
+Human (internal): Human (internal)
+Material (internal): Material (internal)
+Human (external): Human (external)
+Material (external): Material (external)
+Unknown: Unknown
 
 
 ################################################################################

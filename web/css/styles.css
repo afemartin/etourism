@@ -351,6 +351,10 @@ textarea.wysihtml5-bootstrap {
     margin-right: 0;
 }
 
+.tooltip-inner {
+  max-width: 300px;
+}
+
 /* Subnav styles */
 .subnav {
     width: 100%;

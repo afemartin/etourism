@@ -15,14 +15,14 @@ class ArticleType extends AbstractType
     {
         if ($options['domain'] == Constants::ADMIN)
         {
-            $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name', 'help' => 'form.activity.field.organization.help'));
+            $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
         }
         $builder->add('title', 'text', array('attr' => array('class' => 'input-xxlarge')));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge')));
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge')));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('file', 'file', array('required' => false, 'label' => 'Image', 'help' => 'form.activity.field.image.help'));
+            $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
             $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'Pending', Article::STATUS_ENABLED => 'Enabled', Article::STATUS_LOCKED => 'Locked', Article::STATUS_DELETED => 'Deleted')));
         }
     }
