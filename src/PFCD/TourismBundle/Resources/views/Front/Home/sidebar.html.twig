@@ -7,7 +7,7 @@
         <div class="tab-pane fade in active" id="tab1">
             {% for activity in activities %}
                 <img class="thumbnail pull-left hidden-tablet" style="margin: 0 10px 5px 0;" alt="{{ activity.title }}" src="{% if activity.image %}{{ activity.image|apply_filter('thumbnail_80x80') }}{% else %}http://placehold.it/80x80&text={% endif%}" />
-                <h6>{{ activity.title }}</h6>
+                <h6><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h6>
                 <p>{{ activity.shortDesc|truncate(100) }}</p>
                 {% if not loop.last %}
                 <hr />
@@ -19,7 +19,7 @@
         <div class="tab-pane fade in" id="tab2">
             {% for article in articles %}
                 <img class="thumbnail pull-left hidden-tablet" style="margin: 0 10px 5px 0" alt="{{ article.title }}" src="{% if article.image %}{{ article.image|apply_filter('thumbnail_80x80') }}{% else %}http://placehold.it/80x80&text={% endif%}" />
-                <h6>{{ article.title }}</h6>
+                <h6><a href="{{ path('front_article_read', { 'id': article.id }) }}">{{ article.title }}</a></h6>
                 <p>{{ article.shortDesc|truncate(100) }}</p>
                 {% if not loop.last %}
                 <hr />
