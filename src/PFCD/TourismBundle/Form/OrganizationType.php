@@ -13,7 +13,7 @@ class OrganizationType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        if ($options['domain'] == Constants::ADMIN || ($options['domain'] == Constants::BACK && $options['type'] == Constants::FORM_CREATE))
+        if ($options['domain'] == Constants::ADMIN)
         {
             $builder->add('username');
         }
@@ -35,6 +35,8 @@ class OrganizationType extends AbstractType
         $builder->add('address');
         $builder->add('postalCode');
         $builder->add('phone');
+        $builder->add('bankName', 'text', array('required' => false, 'help' => 'form.organization.field.bankname.help'));
+        $builder->add('bankAccount', 'text', array('required' => false, 'help' => 'form.organization.field.bankaccount.help'));
         $builder->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
         if ($options['type'] == Constants::FORM_UPDATE)
         {

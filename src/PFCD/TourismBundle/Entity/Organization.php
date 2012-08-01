@@ -114,6 +114,16 @@ class Organization implements AdvancedUserInterface
      * @ORM\Column(name="phone", type="string", length=16, nullable=true)
      */
     private $phone;
+    
+    /**
+     * @ORM\Column(name="bank_name", type="string", nullable=true)
+     */
+    private $bankName;    
+    
+    /**
+     * @ORM\Column(name="bank_account", type="string", nullable=true)
+     */
+    private $bankAccount;    
 
     /**
      * @var string $locale ISO 639-1
@@ -519,6 +529,46 @@ class Organization implements AdvancedUserInterface
     public function getPhone()
     {
         return $this->phone;
+    }
+    
+    /**
+     * Set bankName
+     *
+     * @param string $bankName
+     */
+    public function setBankName($bankName)
+    {
+        $this->bankName = $bankName;
+    }
+
+    /**
+     * Get bankName
+     *
+     * @return string 
+     */
+    public function getBankName()
+    {
+        return $this->bankName;
+    }
+
+    /**
+     * Set bankAccount
+     *
+     * @param string $bankAccount
+     */
+    public function setBankAccount($bankAccount)
+    {
+        $this->bankAccount = $bankAccount;
+    }
+
+    /**
+     * Get bankAccount
+     *
+     * @return string 
+     */
+    public function getBankAccount()
+    {
+        return $this->bankAccount;
     }
 
     /**
