@@ -99,10 +99,11 @@ front.activity.read.details: Detalles
 front.activity.read.availability: Disponibilidad
 front.activity.read.availability.small: Seleciona una session de la actividad
 front.activity.read.sessionsnotfound: No hay sesiones para la actividad en este momento. Contacte con la organización para más información.
-front.activity.read.images: Imágenes
-front.activity.read.images.small: Haga click en las imágenes para abrirlas en modo galería
-front.activity.read.geolocation: Localización
-front.activity.read.geolocation.small: Haga click en la imagen para abrir el mapa interactivo
+
+front.media.read.images: Imágenes
+front.media.read.images.small: Haga click en las imágenes para abrirlas en modo galería
+front.media.read.geolocation: Localización
+front.media.read.geolocation.small: Haga click en la imagen para abrir el mapa interactivo
 
 front.reservation.index.title: Lista de reservas
 front.reservation.index.subtitle: En esta lista se encuentran todas las reservas que ha realizado
@@ -128,6 +129,9 @@ front.payment.summary.sessiontime: Hora de la sesión
 front.payment.summary.sessiontime.undefined: Por confirmar
 front.payment.summary.persons: Personas
 front.payment.summary.price: Precio
+front.payment.help.title: Modos de pago
+front.payment.help.banktransfer: Puede pagar via transferencia bancaria a nuestra cuenta usando los siguientes detalles<br />&bullet; Banco "%bankname%"<br />&bullet; Número de cuenta "%bankaccount%"
+front.payment.help.cash: Puede pagar en efectivo en el momento de realizar la actividad
 front.payment.read.title: Detalles del pago
 front.payment.read.subtitle: En esta lista se muestra información detallada sobre el pago
 front.payment.update.title: Editar pago
@@ -135,7 +139,6 @@ front.payment.update.subtitle: Rellene este formulario para añadir o modificar 
 
 front.article.index.title: Lista de noticias
 front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
-front.article.read.images: Imágenes
 
 back.home.title: Portada
 back.home.subtitle: Aqui se muestra un resumen con la información mas relevante acerca del estado de las actividades
@@ -253,7 +256,7 @@ alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. U
 
 alert.success.contactenquiry: Su petición a sido enviada correctamente. Muchas gracias
 
-alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pagode la reserva
+alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pago de la reserva
 
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña

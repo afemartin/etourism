@@ -99,10 +99,11 @@ front.activity.read.details: Details
 front.activity.read.availability: Availability
 front.activity.read.availability.small: Select a session for the activity
 front.activity.read.sessionsnotfound: There are no sessions for the activity at this time. Contact with the organization for more information.
-front.activity.read.images: Images
-front.activity.read.images.small: Click on the images to open them in gallery mode
-front.activity.read.geolocation: Location
-front.activity.read.geolocation.small: Click on the image to open the interactive map
+
+front.media.read.images: Images
+front.media.read.images.small: Click on the images to open them in gallery mode
+front.media.read.geolocation: Location
+front.media.read.geolocation.small: Click on the image to open the interactive map
 
 front.reservation.index.title: Reservation list
 front.reservation.index.subtitle: In this list there are all the reservations you registered in the system
@@ -128,6 +129,9 @@ front.payment.summary.sessiontime: Session time
 front.payment.summary.sessiontime.undefined: To confirm
 front.payment.summary.persons: Persons
 front.payment.summary.price: Price
+front.payment.help.title: Payment methods
+front.payment.help.banktransfer: You can pay via bank transfer to our bank account using the following details<br />&bullet; Bank "%bankname%"<br />&bullet; Account number "%bankaccount%"
+front.payment.help.cash: You can pay with cash at the moment you start the activity
 front.payment.read.title: Payment details
 front.payment.read.subtitle: In this list there are detailed information stored about your payment
 front.payment.update.title: Edit payment
@@ -135,7 +139,6 @@ front.payment.update.subtitle: Use this form to edit your payment
 
 front.article.index.title: Article list
 front.article.index.subtitle: In this list there are all the articles published in the system
-front.article.read.images: Images
 
 back.home.title: Home page
 back.home.subtitle: This is the summary of the most important information about your activities status
