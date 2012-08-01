@@ -14,6 +14,10 @@
     <p><b>{{ 'front.payment.summary.sessiontime'|trans }}</b>: {% if payment.reservation.session.time %}{{ payment.reservation.session.time|date('H:i') }}{% else %}{{ 'front.payment.summary.sessiontime.undefined'|trans }}{% endif %}</p>
     <p><b>{{ 'front.payment.summary.persons'|trans }}</b>: {{ payment.reservation.persons }} {{ 'Persons'|trans }}</p>
     <p><b>{{ 'front.payment.summary.price'|trans }}</b>: {{ payment.price }}{{ payment.currency|trans }} {% if payment.reservation.persons > 1 %}<small>({{ payment.reservation.session.activity.price }}{{ payment.reservation.session.activity.currency|trans }}/{{ 'Person'|trans }})</small>{% endif %}</p>
+    <h3>{{ 'front.payment.help.title'|trans }}:</h3>
+    <hr style="margin-top: 0"/>
+    <p><b>{{ 'Bank transfer'|trans }}</b>: {{ 'front.payment.help.banktransfer'|trans({'%bankname%': payment.reservation.session.activity.organization.bankname, '%bankaccount%': payment.reservation.session.activity.organization.bankaccount})|raw }}</p>
+    <p><b>{{ 'Cash'|trans }}</b>: {{ 'front.payment.help.cash'|trans }}</p>
 </div>
 
 <form class="form-horizontal" action="{{ path('front_payment_update', { 'id': payment.id }) }}" method="post" {{ form_enctype(edit_form) }}>

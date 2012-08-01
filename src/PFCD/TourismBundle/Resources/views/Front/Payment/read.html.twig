@@ -4,11 +4,11 @@
 <h1>{{ 'front.payment.read.title'|trans }}</h1>
 <p>{{ 'front.payment.read.subtitle'|trans }}</p>
 
-<table class="table table-striped table-bordered table-condensed">
+<table class="table table-condensed">
     <tbody>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
-            <td>{{ payment.id }}</td>
+            <th>{{ 'Organization'|trans }}</th>
+            <td>{{ payment.reservation.session.activity.organization.name }}</a></td>
         </tr>
         <tr>
             <th>{{ 'Activity'|trans }}</th>
@@ -17,18 +17,6 @@
         <tr>
             <th>{{ 'Persons'|trans }}</th>
             <td>{{ payment.reservation.persons }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Type'|trans }}</th>
-            <td>{{ payment.typeText }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Price'|trans }}</th>
-            <td>{{ payment.price }}{{ payment.currency|trans }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Comment'|trans }}</th>
-            <td>{{ payment.comment }}</td>
         </tr>
         <tr>
             <th>{{ 'Session date'|trans }}</th>
@@ -43,12 +31,24 @@
             <td>{% if payment.reservation %}<a href="{{ path('front_reservation_read', { 'id': payment.reservation.id }) }}"><i class="icon-book"></i></a>{% endif %}</td>
         </tr>
         <tr>
+            <th>{{ 'Price'|trans }}</th>
+            <td>{{ payment.price }}{{ payment.currency|trans }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Comment'|trans }}</th>
+            <td>{{ payment.comment }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Type'|trans }}</th>
+            <td>{{ payment.typeText }}</td>
+        </tr>
+        <tr>
             <th>{{ 'Created'|trans }}</th>
-            <td>{{ payment.created|date('Y-m-d H:i:s') }}</td>
+            <td>{{ payment.created|date('Y-m-d H:i') }}</td>
         </tr>
         <tr>
             <th>{{ 'Updated'|trans }}</th>
-            <td>{{ payment.updated|date('Y-m-d H:i:s') }}</td>
+            <td>{{ payment.updated|date('Y-m-d H:i') }}</td>
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>

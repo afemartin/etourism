@@ -4,34 +4,30 @@
 <h1>{{ 'front.reservation.index.title'|trans }}</h1>
 <p>{{ 'front.reservation.index.subtitle'|trans }}</p>
 
-<table class="table table-bordered table-condensed">
+<table class="table table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
             <th>{{ 'Activity'|trans }}</th>
             <th>{{ 'Persons'|trans }}</th>
-            <th>{{ 'Session date'|trans }}</th>
-            <th>{{ 'Session time'|trans }}</th>
+            <th>{{ 'Session'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
-            <th>{{ 'Updated'|trans }}</th>
-            <th>{{ 'Payment'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
-            <th>{{ 'Edit'|trans }}</th>
+            <th>{{ 'Payment'|trans }}</th>
+            {#<th>{{ 'Edit'|trans }}</th>#}
         </tr>
     </thead>
     <tbody>
     {% for reservation in reservations %}
     <tr class="status-{{ reservation.status }}">
-        <td><a href="{{ path('front_reservation_read', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
-        <td><a href="{{ path('front_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title }}</a></td>
-        <td>{{ reservation.persons }}</td>
-        <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
-        <td>{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d') }}{% endif %}</td>
-        <td>{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
-        <td>{{ reservation.statusText|trans }}</td>
-        <td><a href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-edit"></i></a></td>
+        <td style="text-align:center"><a href="{{ path('front_reservation_read', { 'id': reservation.id }) }}"><i class="icon-eye-open"></i></a></td>
+        <td><a href="{{ path('front_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(50) }}</a></td>
+        <td style="text-align:center">{{ reservation.persons }}</td>
+        <td style="text-align:center">{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}{% if reservation.session.time %} ({{ reservation.session.time|date('H:i') }}){% endif %}</td>
+        <td style="text-align:center">{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
+        <td style="text-align:center">{{ reservation.statusText|trans }}</td>
+        <td style="text-align:center">{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
+        {#<td><a href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-edit"></i></a></td>#}
     </tr>
     {% endfor %}
     </tbody>
