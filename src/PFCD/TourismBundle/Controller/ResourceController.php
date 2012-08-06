@@ -139,8 +139,6 @@ class ResourceController extends Controller
 
             if ($editForm->isValid())
             {
-                $resource->setImage();
-
                 $em->persist($resource);
                 $em->flush();
 
