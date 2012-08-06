@@ -2,7 +2,7 @@
 
 {% form_theme edit_form 'PFCDTourismBundle:Form:fields_gallery.html.twig' %}
 
-{% set sectiontab = 'news' %}{% set helptooltip = 1 %}{% set fileupload = 1 %}{% set fancybox = 1 %}
+{% set sectiontab = 'news' %}{% set fileupload = 1 %}{% set fancybox = 1 %}
 
 {% block body %}
 <h1>{{ 'back.article.update.title'|trans }}</h1>
@@ -14,11 +14,14 @@
     <div class="row v-spaced">
         <div class="span12">
             <h1>{{ 'Gallery'|trans }}</h1>
-        </div>
-        {# store the prototype on the data-prototype attribute #}
-        {{ form_widget(edit_form.gallery) }}
-        <div class="span3">
-            <a id="add-another-image" class="btn btn-primary" onclick="addImageForm()"><i class="icon-plus icon-white"></i> {{ 'back.media.button.addimage'|trans }}</a>
+            <p>{{ 'back.media.gallery.subtitle'|trans }}</p>
+            <div class="row">
+                {# store the prototype on the data-prototype attribute #}
+                {{ form_widget(edit_form.gallery) }}
+                <div class="span3">
+                    <a id="add-another-image" class="btn btn-primary" onclick="addImageForm()"><i class="icon-plus icon-white"></i> {{ 'back.media.button.addimage'|trans }}</a>
+                </div>
+            </div>
         </div>
     </div>
         
@@ -27,8 +30,9 @@
     <div class="row">
         <div class="span12">
             <h1>{{ 'Video'|trans }}</h1>
+            <p>{{ 'back.media.video.subtitle'|trans }}</p>
             {{ form_errors(edit_form.video) }}
-            {{ form_row(edit_form.video) }}
+            {{ form_widget(edit_form.video) }}
             <a id="video-help" href="{{ asset('img/embed_youtube_video.' ~ app.session.locale ~ '.png') }}" title="{{ 'form.media.field.video.help'|trans }}" class="btn btn-info"><i class="icon-question-sign icon-white"></i> {{ 'back.media.button.help'|trans }}</a>
             <a class="btn btn-primary" onclick="videoPreview()"><i class="icon-film icon-white"></i> {{ 'back.media.button.preview'|trans }}</a>
             <div id="video-preview" style="margin-top: 20px"></div>

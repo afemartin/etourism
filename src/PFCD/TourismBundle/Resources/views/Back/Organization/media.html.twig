@@ -2,7 +2,7 @@
 
 {% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% set sectiontab = 'organization' %}{% set helptooltip = 1 %}
+{% set sectiontab = 'organization' %}
 
 {% block body %}
 <h1>{{ 'back.organization.update.title'|trans }}</h1>
@@ -14,8 +14,9 @@
     <div class="row">
         <div class="span6">
             <h1>{{ 'Video'|trans }}</h1>
+            <p>{{ 'back.media.video.subtitle'|trans }}</p>
             {{ form_errors(edit_form.video) }}
-            {{ form_row(edit_form.video) }}
+            {{ form_widget(edit_form.video) }}
             <a id="video-help" href="{{ asset('img/embed_youtube_video.' ~ app.session.locale ~ '.png') }}" title="{{ 'form.media.field.video.help'|trans }}" class="btn btn-info"><i class="icon-question-sign icon-white"></i> {{ 'back.media.button.help'|trans }}</a>
             <a class="btn btn-primary" onclick="videoPreview()"><i class="icon-film icon-white"></i> {{ 'back.media.button.preview'|trans }}</a>
             <div id="video-preview" style="margin-top: 20px"></div>
@@ -23,11 +24,13 @@
 
         <div class="span6">
             <h1>{{ 'Geolocation'|trans }}</h1>
+            <p>{{ 'back.media.geolocation.subtitle'|trans }}</p>
             {{ form_errors(edit_form.geolocation) }}
-            {{ form_row(edit_form.geolocation) }}
+            {{ form_widget(edit_form.geolocation) }}
             <div class="form-inline">
-                <input id="map-address" class="input-xlarge" placeholder="{{ 'Address'|trans }}" type="text">
+                <input id="map_address" class="input-xlarge" placeholder="{{ 'Address'|trans }}" type="text">
                 <a class="btn btn-primary" onclick="geocode()"><i class="icon-map-marker icon-white"></i> {{ 'back.media.button.search'|trans }}</a>
+                <a id="btn_remove_map" class="btn btn-danger" onclick="removeMap()" style="display: none"><i class="icon-trash icon-white"></i> {{ 'back.media.button.remove'|trans }}</a>
             </div>
             <div class="map-preview" style="margin-top: 20px">
                 <div id="map_canvas"></div>
@@ -68,11 +71,13 @@
     var marker;
     
     function initialize() {
-        var latlng = new google.maps.LatLng({{ organization.geolocation }});
-        var myOptions = {zoom: 10, scrollwheel: false, scaleControl: true, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
+        var latlng = new google.maps.LatLng({{ organization.geolocation|default('0,0') }});
+        var myOptions = {zoom: 8, scrollwheel: false, scaleControl: true, mapTypeControl: false, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         marker = new google.maps.Marker({ position: latlng, map: map, draggable: true });
         geocoder = new google.maps.Geocoder();
+        
+        $('#btn_remove_map').show();
         
         google.maps.event.addListener(marker, 'drag', function() {
             updateMarkerPosition(marker.getPosition());
@@ -80,9 +85,11 @@
     }
 
     function geocode() {
-        if (!map) initialize();
-        var address = $("#map-address").val();
-        geocoder.geocode({'address': address, 'partialmatch': true}, geocodeResult);
+        var address = $("#map_address").val();
+        if (address) {
+            if (!map) initialize();
+            geocoder.geocode({'address': address, 'partialmatch': true}, geocodeResult);
+        }
     }
 
     function geocodeResult(results, status) {
@@ -90,13 +97,19 @@
             map.fitBounds(results[0].geometry.viewport);
             marker.setPosition(results[0].geometry.location);
             updateMarkerPosition(marker.getPosition());
-        } else {
-            alert("Geocode was not successful for the following reason: " + status);
         }
     }
     
     function updateMarkerPosition(latLng) {
         $('#media_geolocation').val([latLng.lat(), latLng.lng()].join(','));
+    }
+        
+    function removeMap() {
+        $("#map_address").attr('value', '');
+        $("#map_canvas").html('');
+        $("#map_canvas").removeAttr('style');
+        map = null;
+        $('#btn_remove_map').hide();
     }
 </script>
 {% if organization.geolocation %}

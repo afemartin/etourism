@@ -2,7 +2,7 @@
 
 {% form_theme edit_form 'PFCDTourismBundle:Form:fields_gallery.html.twig' %}
 
-{% set sectiontab = 'activity' %}{% set helptooltip = 1 %}{% set fileupload = 1 %}{% set fancybox = 1 %}
+{% set sectiontab = 'activity' %}{% set fileupload = 1 %}{% set fancybox = 1 %}
 
 {% block body %}
 <h1>{{ 'back.activity.update.title'|trans }}</h1>
@@ -14,11 +14,14 @@
     <div class="row v-spaced">
         <div class="span12">
             <h1>{{ 'Gallery'|trans }}</h1>
-        </div>
-        {# store the prototype on the data-prototype attribute #}
-        {{ form_widget(edit_form.gallery) }}
-        <div class="span3">
-            <a id="add-another-image" class="btn btn-primary" onclick="addImageForm()"><i class="icon-plus icon-white"></i> {{ 'back.media.button.addimage'|trans }}</a>
+            <p>{{ 'back.media.gallery.subtitle'|trans }}</p>
+            <div class="row">
+                {# store the prototype on the data-prototype attribute #}
+                {{ form_widget(edit_form.gallery) }}
+                <div class="span3">
+                    <a id="add-another-image" class="btn btn-primary" onclick="addImageForm()"><i class="icon-plus icon-white"></i> {{ 'back.media.button.addimage'|trans }}</a>
+                </div>
+            </div>
         </div>
     </div>
         
@@ -27,8 +30,9 @@
     <div class="row">
         <div class="span6">
             <h1>{{ 'Video'|trans }}</h1>
+            <p>{{ 'back.media.video.subtitle'|trans }}</p>
             {{ form_errors(edit_form.video) }}
-            {{ form_row(edit_form.video) }}
+            {{ form_widget(edit_form.video) }}
             <a id="video-help" href="{{ asset('img/embed_youtube_video.' ~ app.session.locale ~ '.png') }}" title="{{ 'form.media.field.video.help'|trans }}" class="btn btn-info"><i class="icon-question-sign icon-white"></i> {{ 'back.media.button.help'|trans }}</a>
             <a class="btn btn-primary" onclick="videoPreview()"><i class="icon-film icon-white"></i> {{ 'back.media.button.preview'|trans }}</a>
             <div id="video-preview" style="margin-top: 20px"></div>
@@ -36,13 +40,17 @@
 
         <div class="span6">
             <h1>{{ 'Geolocation'|trans }}</h1>
+            <p>{{ 'back.media.geolocation.subtitle'|trans }}</p>
             {{ form_errors(edit_form.geolocation) }}
-            {{ form_row(edit_form.geolocation) }}
+            {{ form_widget(edit_form.geolocation) }}
+            {{ form_errors(edit_form.zoom) }}
+            {{ form_widget(edit_form.zoom) }}
             <div class="form-inline">
-                <input id="map-address" class="input-xlarge" placeholder="{{ 'Address'|trans }}" type="text">
+                <input id="map_address" class="input-xlarge" placeholder="{{ 'Address'|trans }}" type="text">
                 <a class="btn btn-primary" onclick="geocode()"><i class="icon-map-marker icon-white"></i> {{ 'back.media.button.search'|trans }}</a>
+                <a id="btn_remove_map" class="btn btn-danger" onclick="removeMap()" style="display: none"><i class="icon-trash icon-white"></i> {{ 'back.media.button.remove'|trans }}</a>
             </div>
-            <div class="well well-small" style="margin-top: 10px">
+            <div class="map-preview" style="margin-top: 20px">
                 <div id="map_canvas"></div>
             </div>
         </div>
@@ -90,20 +98,29 @@
     var marker;
     
     function initialize() {
-        var latlng = new google.maps.LatLng({{ activity.geolocation }});
-        var myOptions = {zoom: 10, scrollwheel: false, scaleControl: true, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
+        var latlng = new google.maps.LatLng({{ activity.geolocation|default('0,0') }});
+        var myOptions = {zoom: {{ activity.zoom|default('10') }}, scrollwheel: false, scaleControl: true, mapTypeControl: false, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         marker = new google.maps.Marker({ position: latlng, map: map, draggable: true });
         geocoder = new google.maps.Geocoder();
         
+        $('#btn_remove_map').show();
+        
         google.maps.event.addListener(marker, 'drag', function() {
             updateMarkerPosition(marker.getPosition());
         });
+        
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+            updateZoomLevel(map.getZoom());
+        }); 
     }
 
     function geocode() {
-        var address = $("#map-address").val();
-        geocoder.geocode({'address': address, 'partialmatch': true}, geocodeResult);
+        var address = $("#map_address").val();
+        if (address) {
+            if (!map) initialize();
+            geocoder.geocode({'address': address, 'partialmatch': true}, geocodeResult);
+        }
     }
 
     function geocodeResult(results, status) {
@@ -111,18 +128,31 @@
             map.fitBounds(results[0].geometry.viewport);
             marker.setPosition(results[0].geometry.location);
             updateMarkerPosition(marker.getPosition());
-        } else {
-            alert("Geocode was not successful for the following reason: " + status);
+            updateZoomLevel(map.getZoom());
         }
     }
     
     function updateMarkerPosition(latLng) {
         $('#media_geolocation').val([latLng.lat(), latLng.lng()].join(','));
     }
+    
+    function updateZoomLevel(zoom) {
+        $('#media_zoom').val(zoom);
+    }
+    
+    function removeMap() {
+        $("#map_address").attr('value', '');
+        $("#map_canvas").html('');
+        $("#map_canvas").removeAttr('style');
+        map = null;
+        $('#btn_remove_map').hide();
+    }    
 </script>
+{% if activity.geolocation %}
 <script type="text/javascript">
     initialize();
 </script>
+{% endif %}
 <script type="text/javascript">
     var imageCount = '{{ edit_form.gallery | length }}';
     function addImageForm ()
