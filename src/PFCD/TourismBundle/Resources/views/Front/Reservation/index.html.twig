@@ -26,7 +26,7 @@
         <td style="text-align:center">{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}{% if reservation.session.time %} ({{ reservation.session.time|date('H:i') }}){% endif %}</td>
         <td style="text-align:center">{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
         <td style="text-align:center">{{ reservation.statusText|trans }}</td>
-        <td style="text-align:center">{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
+        <td style="text-align:center">{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a> <small>{{ reservation.payment.statusText|trans }}</small>{% endif %}</td>
         {#<td><a href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-edit"></i></a></td>#}
     </tr>
     {% endfor %}
