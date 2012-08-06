@@ -65,7 +65,6 @@
                         {#<li id="subnav-tab-comment"><a href="#"><i class="icon-comment"></i> {{ 'Comments'|trans }}</a></li>#}
                         <li id="subnav-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
                         {% if is_granted('ROLE_ORGANIZATION') %}
-                        <li class="divider"></li>
                         <li id="subnav-tab-organization"><a href="{{ path('back_organization_read', { 'id' : app.user.id }) }}"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
                         <li id="subnav-tab-help"><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>
                         {% endif %}
