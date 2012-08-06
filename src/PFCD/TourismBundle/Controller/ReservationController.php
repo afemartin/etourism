@@ -288,7 +288,7 @@ class ReservationController extends Controller
                     
                     $user = $reservation->getUser();
                     
-                    if ($user)
+                    if ($user && $user->getEmail())
                     {
                         // after accept the reservation and create the payment a email is sent automatically to the user to proceed with the payment
                         $template = $user->getLocale() == 'es' ? 'reservation.es.txt.twig' : 'reservation.en.txt.twig';
