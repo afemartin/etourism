@@ -80,7 +80,7 @@
             </div>
         </div>
         <a class="thumbnail">
-            <img src="http://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=640x320&zoom={{ activity.zoom }}&markers={{ activity.geolocation }}&sensor=false" onclick="initialize()"/>
+            <img src="http://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=640x320&zoom={{ activity.zoom|default('10') }}&markers={{ activity.geolocation }}&sensor=false" onclick="initialize()"/>
         </a>
     </div>
 </div>
@@ -104,7 +104,7 @@
 <script type="text/javascript">
     function initialize() {
         var latlng = new google.maps.LatLng({{ activity.geolocation }});
-        var myOptions = {zoom: {{ activity.zoom }}, scrollwheel: false, scaleControl: true, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
+        var myOptions = {zoom: {{ activity.zoom|default('10') }}, scrollwheel: false, scaleControl: true, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         var title = "{{ activity.title }}";
         var marker = new google.maps.Marker({ position: latlng, map: map, title: title });
