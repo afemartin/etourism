@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <th>{{ 'Price'|trans }}</th>
-            <td>{% if activity.price %}{{ activity.price }}{{ activity.currency|trans }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
+            <td>{% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Capacity'|trans }}</th>

@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <th>{{ 'Price'|trans }}</th>
-            <td>{{ payment.price }}{{ payment.currency|trans }}</td>
+            <td>{{ payment.price }}{{ payment.currency.sign }}</td>
         </tr>
         <tr>
             <th>{{ 'Comment'|trans }}</th>
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <th>{{ 'Type'|trans }}</th>
-            <td>{{ payment.typeText }}</td>
+            <td>{{ payment.typeText|trans }}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>
@@ -52,7 +52,7 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ payment.statusText }}</td>
+            <td>{{ payment.statusText|trans }}</td>
         </tr>
     </tbody>
 </table>

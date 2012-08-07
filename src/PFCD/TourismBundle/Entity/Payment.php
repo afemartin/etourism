@@ -5,6 +5,7 @@ namespace PFCD\TourismBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use PFCD\TourismBundle\Entity\Reservation;
+use PFCD\TourismBundle\Entity\Currency;
 
 /**
  * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\PaymentRepository")
@@ -56,7 +57,8 @@ class Payment
      * @var string $currency ISO 4217
      * @link http://en.wikipedia.org/wiki/ISO_4217
      * 
-     * @ORM\Column(name="currency", type="string", length=3, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Currency")
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      */
     private $currency;
         
@@ -198,9 +200,9 @@ class Payment
     /**
      * Set currency
      *
-     * @param integer $currency
+     * @param Currency $currency
      */
-    public function setCurrency($currency)
+    public function setCurrency(Currency $currency)
     {
         $this->currency = $currency;
     }
@@ -208,7 +210,7 @@ class Payment
     /**
      * Get currency
      *
-     * @return integer 
+     * @return Currency 
      */
     public function getCurrency()
     {

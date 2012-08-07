@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Session;
 use PFCD\TourismBundle\Entity\Resource;
+use PFCD\TourismBundle\Entity\Currency;
 use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
@@ -64,7 +65,8 @@ class Activity
      * @var string $currency ISO 4217
      * @link http://en.wikipedia.org/wiki/ISO_4217
      * 
-     * @ORM\Column(name="currency", type="string", length=3, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Currency")
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      */
     private $currency;
 
@@ -84,6 +86,11 @@ class Activity
      * @ORM\Column(name="geolocation", type="string", length=32, nullable=true)
      */
     private $geolocation;
+    
+    /**
+     * @ORM\Column(name="map_zoom", type="smallint", nullable=true)
+     */
+    private $zoom;
     
     /**
      * Uploaded file
@@ -271,9 +278,9 @@ class Activity
     /**
      * Set currency
      *
-     * @param integer $currency
+     * @param Currency $currency
      */
-    public function setCurrency($currency)
+    public function setCurrency(Currency $currency)
     {
         $this->currency = $currency;
     }
@@ -281,7 +288,7 @@ class Activity
     /**
      * Get currency
      *
-     * @return integer 
+     * @return Currency 
      */
     public function getCurrency()
     {
@@ -346,6 +353,26 @@ class Activity
     public function getGeolocation()
     {
         return $this->geolocation;
+    }
+    
+    /**
+     * Set zoom
+     *
+     * @param string $zoom
+     */
+    public function setZoom($zoom)
+    {
+        $this->zoom = $zoom;
+    }
+
+    /**
+     * Get zoom
+     *
+     * @return string 
+     */
+    public function getZoom()
+    {
+        return $this->zoom;
     }
     
     /**

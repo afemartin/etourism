@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <th>{{ 'Price'|trans }}</th>
-            <td>{{ payment.price }}{{ payment.currency|trans }}</td>
+            <td>{{ payment.price }}{{ payment.currency.sign }}</td>
         </tr>
         <tr>
             <th>{{ 'Comment'|trans }}</th>

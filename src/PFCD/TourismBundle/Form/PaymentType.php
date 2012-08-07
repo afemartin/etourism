@@ -16,7 +16,7 @@ class PaymentType extends AbstractType
         if ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
         {
             $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.payment.field.price.help'));
-            $builder->add('currency', 'choice', array('empty_value' => 'Currency', 'choices' => array('EUR' => 'Euro'), 'attr' => array('class' => 'input-small')));
+            $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency'));
         }
         $builder->add('type', 'choice', array('choices' => array(Payment::TYPE_BANK_TRANSFER => 'Bank transfer', Payment::TYPE_CASH => 'Cash'), 'empty_value' => 'Select a payment method'));
         $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
