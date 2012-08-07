@@ -1,18 +1,34 @@
 {# reusable macros to avoid code replication #}
 
 {% macro minutesToHours(minutes) %}
-    {% if minutes >= 60 %}
-        {% set hours = minutes // 60 %}
-        {% if hours == 1 %}
-            {{ hours }} {{ 'Hour'|trans }}
-        {% else %}
-            {{ hours }} {{ 'Hours'|trans }}
-        {% endif %}
-        {% set mins = minutes % 60 %}
-        {% if mins > 0 %}
-            {{ mins }} {{ 'Minutes'|trans }}
-        {% endif %}
+{% if minutes >= 60 %}
+    {% set hours = minutes // 60 %}
+    {% if hours == 1 %}
+        {{ hours }} {{ 'Hour'|trans }}
     {% else %}
-        {{ minutes }} {{ 'Minutes'|trans }} 
+        {{ hours }} {{ 'Hours'|trans }}
     {% endif %}
+    {% set mins = minutes % 60 %}
+    {% if mins > 0 %}
+        {{ mins }} {{ 'Minutes'|trans }}
+    {% endif %}
+{% else %}
+    {{ minutes }} {{ 'Minutes'|trans }} 
+{% endif %}
+{% endmacro %}
+
+{% macro modalConfirm(formId, modalId, title, content, accept, cancel) %}
+<div id="{{ modalId }}" class="modal hide">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>{{ title|default('modal.defaultconfirm.title')|trans }}</h3>
+    </div>
+    <div class="modal-body">
+        {{ content|default('modal.defaultconfirm.content')|trans|raw }}
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-success" onclick="$('#{{ formId }}').submit()"><i class="icon-ok icon-white"></i> {{ accept|default('OK')|trans }}</a>
+        <a data-dismiss="modal" class="btn btn-inverse"><i class="icon-remove icon-white"></i> {{ cancel|default('Cancel')|trans }}</a>
+    </div>
+</div>
 {% endmacro %}
