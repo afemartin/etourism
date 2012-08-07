@@ -99,7 +99,7 @@ front.activity.index.title: Lista de actividades
 front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas
 front.activity.read.details: Detalles
 front.activity.read.availability: Disponibilidad
-front.activity.read.availability.small: Seleciona una session de la actividad
+front.activity.read.availability.small: Seleciona una sesión de la actividad
 front.activity.read.sessionsnotfound: No hay sesiones para la actividad en este momento. Contacte con la organización para más información.
 
 front.media.read.images: Imágenes
