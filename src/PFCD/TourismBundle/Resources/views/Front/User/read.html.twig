@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% block title %}{{ 'User profile'|trans }}{% endblock%}
 
 {% block body %}
@@ -23,7 +25,7 @@
         </tr>
         <tr>
             <th>{{ 'Gender'|trans }}</th>
-            <td>{{ user.genderText }}</td>
+            <td>{{ user.genderText|trans }}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>
@@ -65,9 +67,22 @@
 
 {% if app.user and app.user.id == user.id %}
 <a class="btn btn-primary" href="{{ path('front_user_update') }}"><i class="icon-pencil icon-white"></i> {{ 'front.user.button.update'|trans }}</a>
-<form class="pull-right" action="{{ path('front_user_delete') }}" method="post">
+<form id="delete_user_form" class="pull-right" action="{{ path('front_user_delete') }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'front.user.button.delete'|trans }}</button>
 </form>
+
+{{ macros.modalConfirm('delete_user_form', 'delete_modal') }}
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% if app.user and app.user.id == user.id %}
+<script type="text/javascript">
+    $('#delete_user_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_user_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_user_form').data('show-confirm', false); });
+</script>
 {% endif %}
 {% endblock %}

@@ -28,6 +28,8 @@ Payments: Pagos
 Statistics: Estadísticas
 Comments: Comentarios
 Users: Usuarios
+Settings: Ajustes
+Help: Ayuda
 
 
 ################################################################################
@@ -175,6 +177,10 @@ back.activity.read.subtitle: En esta lista se muestra información detallada sob
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
+back.media.gallery.subtitle: Utilice esta seción para añadir sus imágenes. Puede "Eliminar" las imágenes que no quiera mostrar o añadir  nuevas pulsando el botón "Añadir nueva imagen" y después "Subir"
+back.media.video.subtitle: Utilice este campo para pegar el código para insertar el vídeo que quiera mostrar. Primero debe subir el vídeo a alguna página como Youtube or Vimeo y después insertar aqui el código correspondiente. Puede previsualizar el video pulsando el botón "Previsualizar" una vez que haya insertado el código. Pulse el botón de "Ayuda" para ver un ejemplo de como obtener el código
+back.media.geolocation.subtitle: Utilice este campo para escribir una direc´ión física que Google Maps buscará en el mapa. También puede arrastrar y soltar el marcador para mejorar la precisión  del lugar inidicado. El zoom que use se guardara y será el que se use por defecto al mostrar el mapa a los usuarios (solo para actividades)
+
 back.session.index.title: Lista de sesiones
 back.session.index.subtitle: En esta lista se encuentran las sesiones registrados en el sistema
 back.session.create.title: Añadir sesión
@@ -264,8 +270,11 @@ popover.resetpassword.content: Si no recuerda su contraseña, indique su email y
 popover.generatesessions.title: Generar múltiples sesiones
 popover.generatesessions.content: En esta sección puede generar un conjunto de sesiones siguiendo un patrón
 
+modal.defaultconfirm.title: ¿Está seguro que quiere realizar esta acción?
+modal.defaultconfirm.content: <p>Esta acción no es reversible. Por favor, asegurese de que realmente quiere realizar esta acción</p>
+
 modal.generatesessions.title: ¿Está seguro que quiere generar las siguientes sesiones?
-modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegurese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br /><p>Si está seguro de ello pulse "Generar"</p%>
+modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegurese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br /><p>Si está seguro de ello pulse "Generar"</p>
 
 form.activity.field.price.help: Este es el precio de la actividad por persona
 form.activity.field.capacity.help: Este es el número máximo de personas que podran participar en cada sesión de la actividad
@@ -347,7 +356,7 @@ Female: Mujer
 Country: País
 City: Ciudad
 Address: Dirección
-Postalcode: Codigo postal
+Postalcode: Código postal
 Phone: Teléfono
 Locale: Idioma
 Day: Dia
@@ -374,7 +383,7 @@ Acronim: Siglas
 Country: País
 City: Ciudad
 Address: Dirección
-Postalcode: Codigo postal
+Postalcode: Código postal
 Phone: Teléfono
 Bankname: Nombre del banco
 Bankaccount: Número de cuenta bancaria
@@ -414,6 +423,8 @@ Thu: Jue
 Fri: Vie
 Sat: Sáb
 Sun: Dom
+
+Select a currency: Seleccione una moneda
 
 
 ################################################################################
@@ -511,6 +522,7 @@ Generate: Generar
 Edit: Editar
 View: Ver
 Save: Guardar
+OK: Aceptar
 Cancel: Cancelar
 Send: Enviar
 
@@ -559,6 +571,7 @@ back.media.button.addimage: Añadir nueva imagen
 back.media.button.help: Ayuda
 back.media.button.preview: Previsualizar
 back.media.button.search: Buscar
+back.media.button.remove: Eliminar
 
 back.session.button.index: Volver atrás
 back.session.button.create: Añadir una nueva sesión

@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% block body %}
 <h1>{{ 'front.reservation.read.title'|trans }}</h1>
 <p>{{ 'front.reservation.read.subtitle'|trans }}</p>
@@ -40,15 +42,26 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ reservation.statusText }}</td>
+            <td>{{ reservation.statusText|trans }}</td>
         </tr>
     </tbody>
 </table>
 
 {#<a class="btn btn-primary" href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.update'|trans }}</a>#}
 <a class="btn btn-inverse" href="{{ path('front_reservation_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'front.reservation.button.index'|trans }}</a>
-<form class="pull-right" action="{{ path('front_reservation_delete', { 'id': reservation.id }) }}" method="post">
+<form id="delete_reservation_form" class="pull-right" action="{{ path('front_reservation_delete', { 'id': reservation.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'front.reservation.button.delete'|trans }}</button>
 </form>
+
+{{ macros.modalConfirm('delete_reservation_form', 'delete_modal') }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#delete_reservation_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_reservation_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_reservation_form').data('show-confirm', false); });
+</script>
 {% endblock %}

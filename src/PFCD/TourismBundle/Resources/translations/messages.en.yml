@@ -9,7 +9,7 @@ Register: Sign up
 
 
 ################################################################################
-##### Front Navbar + Back Sidebar
+##### Front Navbar + Back Navbar
 ################################################################################
 
 Home: Home
@@ -28,6 +28,8 @@ Payments: Payments
 Statistics: Statistics
 Comments: Comments
 Users: Users
+Settings: Settings
+Help: Help
 
 
 ################################################################################
@@ -175,6 +177,10 @@ back.activity.read.subtitle: In this list there are detailed information stored 
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
 
+back.media.gallery.subtitle: Use this section to upload your images. You can "Remove" the images that you don't want to show or add new ones by pressing button "Add new image" and then "Upload"
+back.media.video.subtitle: Use this field to paste the embed code of any video you want to show. First you must upload your video to a known website such as Youtube or Vimeo and after that paste here the proper embed code. You can preview the video pressing the button "Preview" once you paste the embed code. Press "Help" button to see an example of how get that code
+back.media.geolocation.subtitle: Use this field to write a phisical address that Google Maps will find at the map. You can also drag and drop the marker to improve the acuracy of the location. The zoom you use will be the one that will be show to the users (only for activities)
+
 back.session.index.title: Session list
 back.session.index.subtitle: In this list there are all the sessions registered in the system
 back.session.create.title: Session creation
@@ -264,8 +270,11 @@ popover.resetpassword.content: If you dont remember your password we will send y
 popover.generatesessions.title: Generate multiple sessions
 popover.generatesessions.content: In this section you can generate a group of sessions following some pattern
 
+modal.defaultconfirm.title: Are you sure you want perform this action?
+modal.defaultconfirm.content: <p>This action won't be reversible. Please, make sure you really want to perform this action</p>
+
 modal.generatesessions.title: Are you sure you want generate all this sessions?
-modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br /><p>If you are sure about it please click "Generate"</p%>
+modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br /><p>If you are sure about it please click "Generate"</p>
 
 form.activity.field.price.help: This will be the price of the activity per person
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity
@@ -416,6 +425,8 @@ Fri: Fri
 Sat: Sat
 Sun: Sun
 
+Select a currency: Select a currency
+
 
 ################################################################################
 ##### Session (Form)
@@ -512,6 +523,7 @@ Generate: Generate
 Edit: Edit
 View: View
 Save: Save
+OK: OK
 Cancel: Cancel
 Send: Send
 
@@ -560,6 +572,7 @@ back.media.button.addimage: Add new image
 back.media.button.help: Help
 back.media.button.preview: Preview
 back.media.button.search: Search
+back.media.button.remove: Remove
 
 back.session.button.index: Back to the list
 back.session.button.create: Create a new session
@@ -587,7 +600,7 @@ back.resource.button.update: Edit this resource
 back.resource.button.delete: Delete this resource
 
 back.article.button.index: Back to the list
-back.article.button.create: Create a article
+back.article.button.create: Create an article
 back.article.button.read: Show this article
 back.article.button.preview: Preview
 back.article.button.update: Edit information
