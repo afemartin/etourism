@@ -77,7 +77,7 @@ class Resource
     private $status;
     
     /**
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="resources")
+     * @ORM\ManyToMany(targetEntity="Activity", mappedBy="resources")
      */
     private $activities;
 

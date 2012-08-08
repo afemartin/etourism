@@ -25,6 +25,10 @@
             <td>{{ resource.typeText }}</td>
         </tr>
         <tr>
+            <th>{{ 'Activities'|trans }}</th>
+            <td>{% for activity in resource.activities %}<a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
+        </tr>
+        <tr>
             <th>{{ 'Created'|trans }}</th>
             <td>{{ resource.created|date('Y-m-d H:i:s') }}</td>
         </tr>
