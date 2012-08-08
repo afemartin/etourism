@@ -21,3 +21,9 @@ services:
         class: PFCD\TourismBundle\Form\Extension\HelpMessageTypeExtension
         tags:
             - { name: form.type_extension, alias: field }
+        
+    # This extension allow to add a language flag to translatable fields
+    form.type_extension.translatable:
+        class: PFCD\TourismBundle\Form\Extension\TranslatableTypeExtension
+        tags:
+            - { name: form.type_extension, alias: field }
