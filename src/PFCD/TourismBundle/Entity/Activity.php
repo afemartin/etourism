@@ -2,7 +2,9 @@
 
 namespace PFCD\TourismBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -42,16 +44,19 @@ class Activity
     private $organization;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="title", type="string", length=128)
      */
     private $title;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="short_desc", type="string", length=512)
      */
     private $shortDesc;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="full_desc", type="text", nullable=true)
      */
     private $fullDesc;
@@ -144,6 +149,13 @@ class Activity
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="activity")
      */
     private $comments;
+    
+    /**
+     * @Gedmo\Language
+     * Used language to override Translation listener`s language
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $language;
 
     public function __construct()
     {
@@ -609,4 +621,9 @@ class Activity
         return $this->comments;
     }
 
+    public function setTranslatableLanguage($language)
+    {
+        $this->language = $language;
+    }
+    
 }
