@@ -80,3 +80,10 @@ avalanche_imagine:
         thumbnail_80x80:
             type:    thumbnail
             options: { size: [80, 80], mode: outbound, quality: 120, format: jpg }
+ 
+# StofDoctrineExtensions Configuration
+stof_doctrine_extensions:
+    default_locale: %locale%
+    orm:
+        default:
+            translatable: true
