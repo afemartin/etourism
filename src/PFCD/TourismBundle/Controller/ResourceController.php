@@ -144,10 +144,6 @@ class ResourceController extends Controller
 
                 return $this->redirect($this->generateUrl('back_resource_read', array('id' => $id)));
             }
-            else
-            {
-                $resource->setFile(null);
-            }
         }    
 
         return $this->render('PFCDTourismBundle:Back/Resource:update.html.twig', array(
