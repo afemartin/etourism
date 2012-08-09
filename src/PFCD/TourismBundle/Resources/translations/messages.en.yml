@@ -333,6 +333,12 @@ Reservations: Reservations
 Payment: Payment
 Payments: Payments
 
+Currency: Currency
+Currencies: Currencies
+
+Language: Language
+Languages: Languages
+
 
 ################################################################################
 ##### Common entity fields (Form)

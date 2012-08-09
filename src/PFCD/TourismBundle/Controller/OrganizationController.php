@@ -50,6 +50,7 @@ class OrganizationController extends Controller
     {
         $options['domain'] = Constants::ADMIN;
         $options['type'] = Constants::FORM_CREATE;
+        $options['language'] = $this->get('session')->getLocale();
         
         $organization  = new Organization();
         $form = $this->createForm(new OrganizationType(), $organization, $options);
@@ -94,8 +95,11 @@ class OrganizationController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $translations = $em->getRepository('StofDoctrineExtensionsBundle:Translation')->findTranslations($organization);
+        
         return $this->render('PFCDTourismBundle:Back/Organization:read.html.twig', array(
             'organization' => $organization,
+            'translations' => $translations,
             'delete_form'  => $deleteForm->createView(),
         ));
     }
@@ -139,6 +143,7 @@ class OrganizationController extends Controller
         
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
+        $options['language'] = $this->get('session')->getLocale();
         
         $editForm = $this->createForm(new OrganizationType(), $organization, $options);
         
@@ -186,6 +191,7 @@ class OrganizationController extends Controller
         }
         
         $options['entity'] = Constants::ORGANIZATION;
+        $options['language'] = $this->get('session')->getLocale();
         
         $editForm = $this->createForm(new MediaType(), $organization, $options);
         

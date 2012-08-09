@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'organization' %}
 
 {% block body %}
@@ -30,6 +32,23 @@
             <th>{{ 'Acronim'|trans }}</th>
             <td>{{ organization.acronim }}</td>
         </tr>
+        {% for language, fields in translations %}
+            {% for field, value in fields %}
+                <tr>
+                    <th>{{ macros.languageFlag(language) }} {{ field|capitalize|trans }}</th>
+                    <td>{{ value|raw }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <th>{{ 'Shortdesc'|trans }}</th>
+                <td>{{ organization.shortdesc }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Fulldesc'|trans }}</th>
+                <td>{{ organization.fulldesc|raw }}</td>
+            </tr>
+        {% endfor %}
         <tr>
             <th>{{ 'Country'|trans }}</th>
             <td>{{ organization.country|country }}</td>

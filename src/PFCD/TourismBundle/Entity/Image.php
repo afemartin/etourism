@@ -2,7 +2,9 @@
 
 namespace PFCD\TourismBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -36,6 +38,7 @@ class Image
     private $article;
     
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="string", nullable=true)
      */
     private $description;
@@ -70,7 +73,7 @@ class Image
         }
         elseif (null !== $this->article)
         {
-            return 'uploads/org' . $this->article->getOrganization()->getId() . '/article' . $this->article->getId();
+            return 'uploads/org' . $this->article->getOrganization()->getId() . '/art' . $this->article->getId();
         }
         else
         {

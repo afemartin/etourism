@@ -38,6 +38,7 @@ class ActivityType extends AbstractType
                                 ->setParameter('organization', $options['organization']);
                     }));
             }
+            $builder->add('languages', 'entity', array('class' => 'PFCDTourismBundle:Language', 'property' => 'name', 'multiple' => true, 'expanded' => true));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Image', 'help' => 'form.activity.field.image.help'));
             $builder->add('status', 'choice', array('choices' => array(Activity::STATUS_PENDING => 'Pending', Activity::STATUS_ENABLED => 'Enabled', Activity::STATUS_LOCKED => 'Locked', Activity::STATUS_DELETED => 'Deleted')));
         }

@@ -12,7 +12,7 @@
     <thead>
         <tr>
             <th>{{ 'Id'|trans }}</th>
-            <th>{{ 'Title'|trans }}</th>
+            <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Title'|trans }}</th>
             <th>{{ 'Price'|trans }}</th>
             <th>{{ 'Capacity'|trans }}</th>
             <th>{{ 'Duration'|trans }}</th>

@@ -13,6 +13,7 @@ use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Session;
 use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\Currency;
+use PFCD\TourismBundle\Entity\Language;
 use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
@@ -146,17 +147,16 @@ class Activity
     private $resources;
     
     /**
+     * @ORM\ManyToMany(targetEntity="Language")
+     * @ORM\JoinTable(name="activity_language")
+     */
+    private $languages;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="activity")
      */
     private $comments;
     
-    /**
-     * @Gedmo\Language
-     * Used language to override Translation listener`s language
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    private $language;
-
     public function __construct()
     {
         $this->status = self::STATUS_PENDING;
@@ -592,6 +592,26 @@ class Activity
     }
 
     /**
+     * Add languages
+     *
+     * @param Language $languages
+     */
+    public function addLanguage(Language $languages)
+    {
+        $this->languages[] = $languages;
+    }
+
+    /**
+     * Get languages
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
+
+    /**
      * Get resources
      *
      * @return Doctrine\Common\Collections\Collection 
@@ -619,11 +639,6 @@ class Activity
     public function getComments()
     {
         return $this->comments;
-    }
-
-    public function setTranslatableLanguage($language)
-    {
-        $this->language = $language;
     }
     
 }

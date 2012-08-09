@@ -2,7 +2,9 @@
 
 namespace PFCD\TourismBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -15,6 +17,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\Article;
+use PFCD\TourismBundle\Entity\Language;
 
 /**
  * @ORM\Entity
@@ -68,11 +71,13 @@ class Organization implements AdvancedUserInterface
     private $acronim;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="short_desc", type="string", length=512, nullable=true)
      */
     private $shortDesc;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="full_desc", type="text", nullable=true)
      */
     private $fullDesc;
@@ -174,11 +179,17 @@ class Organization implements AdvancedUserInterface
      * @ORM\OneToMany(targetEntity="Resource", mappedBy="resource")
      */
     private $resources;
-
+    
     /**
      * @ORM\OneToMany(targetEntity="Article", mappedBy="article")
      */
     private $articles;
+            
+    /**
+     * @ORM\ManyToMany(targetEntity="Language")
+     * @ORM\JoinTable(name="organization_language")
+     */
+    private $languages;
 
     public function __construct()
     {
@@ -793,6 +804,26 @@ class Organization implements AdvancedUserInterface
     public function getArticles()
     {
         return $this->articles;
+    }
+    
+    /**
+     * Add languages
+     *
+     * @param Language $languages
+     */
+    public function addLanguage(Language $languages)
+    {
+        $this->languages[] = $languages;
+    }
+
+    /**
+     * Get languages
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getLanguages()
+    {
+        return $this->languages;
     }
 
     /**

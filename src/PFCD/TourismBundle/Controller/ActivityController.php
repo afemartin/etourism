@@ -105,10 +105,13 @@ class ActivityController extends Controller
         if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
         $deleteForm = $this->createDeleteForm($id);
-
+        
+        $translations = $em->getRepository('StofDoctrineExtensionsBundle:Translation')->findTranslations($activity);
+        
         return $this->render('PFCDTourismBundle:Back/Activity:read.html.twig', array(
-            'activity'    => $activity,
-            'delete_form' => $deleteForm->createView(),
+            'activity'     => $activity,
+            'translations' => $translations,
+            'delete_form'  => $deleteForm->createView(),
         ));
     }
 

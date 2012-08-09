@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'news' %}
 
 {% block body %}
@@ -12,10 +14,27 @@
             <th>{{ 'Id'|trans }}</th>
             <td>{{ article.id }}</td>
         </tr>
-        <tr>
-            <th>{{ 'Title'|trans }}</th>
-            <td>{{ article.title }}</td>
-        </tr>
+        {% for language, fields in translations %}
+            {% for field, value in fields %}
+                <tr>
+                    <th>{{ macros.languageFlag(language) }} {{ field|capitalize|trans }}</th>
+                    <td>{{ value|raw }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <th>{{ 'Title'|trans }}</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Shortdesc'|trans }}</th>
+                <td>{{ article.shortdesc }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Fulldesc'|trans }}</th>
+                <td>{{ article.fulldesc|raw }}</td>
+            </tr>
+        {% endfor %}
         <tr>
             <th>{{ 'Created'|trans }}</th>
             <td>{{ article.created|date('Y-m-d H:i:s') }}</td>

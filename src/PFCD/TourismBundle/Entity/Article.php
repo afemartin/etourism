@@ -2,12 +2,15 @@
 
 namespace PFCD\TourismBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use PFCD\TourismBundle\Entity\Organization;
+use PFCD\TourismBundle\Entity\Language;
 use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
@@ -39,16 +42,19 @@ class Article
     private $organization;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="title", type="string", length=128)
      */
     private $title;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="short_desc", type="string", length=512)
      */
     private $shortDesc;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="full_desc", type="text", nullable=true)
      */
     private $fullDesc;
@@ -89,6 +95,12 @@ class Article
      * @ORM\OneToMany(targetEntity="Image", mappedBy="article")
      */
     private $gallery;
+        
+    /**
+     * @ORM\ManyToMany(targetEntity="Language")
+     * @ORM\JoinTable(name="article_language")
+     */
+    private $languages;
     
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
@@ -264,7 +276,7 @@ class Article
      */
     protected function getUploadDir()
     {
-        return 'uploads/org' . $this->organization->getId() . '/article' . $this->id;
+        return 'uploads/org' . $this->organization->getId() . '/art' . $this->id;
     }
     
     /**
@@ -385,6 +397,26 @@ class Article
     public function getGallery()
     {
         return $this->gallery;
+    }
+    
+    /**
+     * Add languages
+     *
+     * @param Language $languages
+     */
+    public function addLanguage(Language $languages)
+    {
+        $this->languages[] = $languages;
+    }
+
+    /**
+     * Get languages
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getLanguages()
+    {
+        return $this->languages;
     }
     
     /**

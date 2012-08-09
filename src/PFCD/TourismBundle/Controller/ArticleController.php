@@ -51,6 +51,7 @@ class ArticleController extends Controller
     {
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
+        $options['language'] = $this->get('session')->getLocale();
         
         $article = new Article();
         $form = $this->createForm(new ArticleType(), $article, $options);
@@ -105,9 +106,12 @@ class ArticleController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $translations = $em->getRepository('StofDoctrineExtensionsBundle:Translation')->findTranslations($article);
+        
         return $this->render('PFCDTourismBundle:Back/Article:read.html.twig', array(
-            'article'     => $article,
-            'delete_form' => $deleteForm->createView(),
+            'article'      => $article,
+            'translations' => $translations,
+            'delete_form'  => $deleteForm->createView(),
         ));
     }
 
@@ -156,6 +160,7 @@ class ArticleController extends Controller
 
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
+        $options['language'] = $this->get('session')->getLocale();
         
         $editForm = $this->createForm(new ArticleType(), $article, $options);
 
@@ -205,6 +210,7 @@ class ArticleController extends Controller
         if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
 
         $options['entity'] = Constants::ARTICLE;
+        $options['language'] = $this->get('session')->getLocale();
         
         $editForm = $this->createForm(new MediaType(), $article, $options);
         

@@ -32,3 +32,7 @@
     </div>
 </div>
 {% endmacro %}
+
+{% macro languageFlag(language) %}
+<img src="{{ asset('img/blank.gif') }}" class="flag flag-{{ language }}" />
+{% endmacro %}

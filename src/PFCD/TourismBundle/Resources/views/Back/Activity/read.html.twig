@@ -14,10 +14,27 @@
             <th>{{ 'Id'|trans }}</th>
             <td>{{ activity.id }}</td>
         </tr>
-        <tr>
-            <th>{{ 'Title'|trans }}</th>
-            <td>{{ activity.title }}</td>
-        </tr>
+        {% for language, fields in translations %}
+            {% for field, value in fields %}
+                <tr>
+                    <th>{{ macros.languageFlag(language) }} {{ field|capitalize|trans }}</th>
+                    <td>{{ value|raw }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <th>{{ 'Title'|trans }}</th>
+                <td>{{ activity.title }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Shortdesc'|trans }}</th>
+                <td>{{ activity.shortdesc }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Fulldesc'|trans }}</th>
+                <td>{{ activity.fulldesc|raw }}</td>
+            </tr>
+        {% endfor %}
         <tr>
             <th>{{ 'Price'|trans }}</th>
             <td>{% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
@@ -33,6 +50,10 @@
         <tr>
             <th>{{ 'Resources'|trans }}</th>
             <td>{% for resource in activity.resources %}<a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.name }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Languages'|trans }}</th>
+            <td>{% for language in activity.languages %}{{ macros.languageFlag(language.code) }} {{ language.name|trans }}{% if not loop.last %} - {% endif %}{% endfor %}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>

@@ -332,6 +332,12 @@ Reservations: Reservas
 Payment: Pago
 Payments: Pagos
 
+Currency: Moneda
+Currencies: Monedas
+
+Language: Idioma
+Languages: Idiomas
+
 
 ################################################################################
 ##### Common entity fields (Form)
