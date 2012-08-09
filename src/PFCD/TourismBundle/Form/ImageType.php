@@ -9,7 +9,6 @@ class ImageType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        // Despite the use of translatable extension it wont be effective since media forms use form_widget instead of form_row (check file fields.html.twig for more details)
         $builder->add('description', 'text', array('required' => false, 'attr' => array('placeholder' => 'Description'), 'translatable' => $options['language']));
         $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
     }

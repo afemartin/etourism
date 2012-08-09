@@ -15,7 +15,7 @@
             <span class="help-inline"><a class="field-help-tooltip" rel="tooltip" data-original-title="{{ help|trans }}"><i class="icon-info-sign"></i></a></span>
             {% endif %}
             {% if translatable %}
-            <span class="help-inline"><img src="{{ asset('img/blank.gif') }}" class="flag flag-{{ translatable }}" /></span>
+            <span class="help-inline"><a class="field-help-tooltip" rel="tooltip" data-original-title="{{ 'form.field.translatable.help'|trans({'%language%': translatable|locale}) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-{{ translatable }}" /></a></span>
             {% endif %}
             {{ form_errors(form) }}
         </div>

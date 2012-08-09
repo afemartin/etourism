@@ -288,6 +288,8 @@ form.payment.field.price.help: Este precio ha sido calculado automaticamente en 
 
 form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar el código para insertar el vídeo y pegarlo en este campo
 
+form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar su contenido en %language%. Para editar este campo en otro idioma cambie el idioma en la barra superior
+
 email.rememberpassword.subject: Restablecer contraseña
 email.accountactivation.subject: Activación de la cuenta
 email.reservationaccepted.subject: Reserva aceptada

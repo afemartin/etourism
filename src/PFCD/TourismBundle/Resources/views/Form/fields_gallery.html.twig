@@ -2,7 +2,7 @@
 {% extends 'PFCDTourismBundle:Form:fields.html.twig' %}
 
 {# Collection #}
-{# No pintar las etiquetas para las colecciones de images #}
+{# Do not show labels for each collection input field #}
 
 {% block collection_widget %}
 {% spaceless %}
@@ -30,3 +30,16 @@
     {% endfor %}
 {% endspaceless %}
 {% endblock collection_item_widget %}
+
+{% block field_widget %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% if help %}
+    <span class="help-inline"><a class="field-help-tooltip" rel="tooltip" data-original-title="{{ help|trans }}"><i class="icon-info-sign"></i></a></span>
+    {% endif %}
+    {% if translatable %}
+    <span class="help-inline"><a class="field-help-tooltip" rel="tooltip" data-original-title="{{ 'form.field.translatable.help'|trans({'%language%': translatable|locale}) }}"><img src="{{ asset('img/blank.gif') }}" class="flag flag-{{ translatable }}" /></a></span>
+    {% endif %}
+{% endspaceless %}
+{% endblock field_widget %}
