@@ -310,6 +310,9 @@ class ActivityController extends Controller
      */
     public function frontIndexAction()
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         $em = $this->getDoctrine()->getEntityManager();
 
         $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
@@ -324,6 +327,9 @@ class ActivityController extends Controller
      */
     public function frontReadAction($id)
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         $filter['id'] = $id;
         $filter['status'] = array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED);
         

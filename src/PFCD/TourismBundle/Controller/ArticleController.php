@@ -310,6 +310,9 @@ class ArticleController extends Controller
      */
     public function frontIndexAction()
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         $em = $this->getDoctrine()->getEntityManager();
 
         $articles = $em->getRepository('PFCDTourismBundle:Article')->findByStatus(array(Article::STATUS_ENABLED, Article::STATUS_LOCKED));
@@ -324,6 +327,9 @@ class ArticleController extends Controller
      */
     public function frontReadAction($id)
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         $filter['id'] = $id;
         $filter['status'] = array(Article::STATUS_ENABLED, Article::STATUS_LOCKED);
         
