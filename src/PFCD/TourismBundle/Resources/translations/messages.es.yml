@@ -231,6 +231,9 @@ back.article.read.subtitle: En esta lista se muestra información detallada sobr
 back.article.update.title: Editar detalles
 back.article.update.subtitle: Rellene este formulario para añadir o modificar detalles de la noticia
 
+back.settings.title: Ajustes
+back.settings.subtitle: Utilice este formulario para editar la información que los usuarios verán en la página. También puede desactivar temporalmente la página durante tareas de mantenimiento
+
 
 ################################################################################
 ##### Pie
@@ -287,6 +290,8 @@ form.organization.field.bankaccount.help: Este el el número de su cuenta bancar
 form.payment.field.price.help: Este precio ha sido calculado automaticamente en base al precio de la actividad y al número de personas. NO LO MODIFIQUE a menos que esté completamente seguro de ello
 
 form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar el código para insertar el vídeo y pegarlo en este campo
+
+form.settings.field.enabled.help: Desmarca esta opción para deshabilitar la página a los usuarios. Se mostrará un mensaje de "Realizando mantenimiento" a los usuarios. SOLO use esta opción para deshabilitar la página por periodos cortos de tiempo para realizar algun cambio de código en la página
 
 form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar su contenido en %language%. Para editar este campo en otro idioma cambie el idioma en la barra superior
 

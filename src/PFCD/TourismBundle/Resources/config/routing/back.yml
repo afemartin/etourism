@@ -30,6 +30,10 @@ back_index:
 back_statistic:
     pattern:  /statistics
     defaults: { _controller: PFCDTourismBundle:Back:statistic }
+    
+back_settings:
+    pattern:  /settings
+    defaults: { _controller: PFCDTourismBundle:Back:settings }
 
 
 ################################################################################

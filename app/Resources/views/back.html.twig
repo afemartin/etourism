@@ -32,9 +32,9 @@
                         </li>
                     </ul>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <div class="pull-right">{{ 'Welcome'|trans }} Admin ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div>
+                    <div class="pull-right">{{ 'Welcome'|trans }} <b>Administrator</b> <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div>
                     {% elseif is_granted('ROLE_ORGANIZATION') %}
-                    <div class="pull-right">{{ 'Welcome'|trans }} {{ app.user.username }} ;) <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div> 
+                    <div class="pull-right">{{ 'Welcome'|trans }} <b>{{ app.user.username }}</b> <a class="btn btn-danger" href="{{ path('back_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a></div> 
                     {% endif %}
                 </div>
             </div>
@@ -54,6 +54,8 @@
                         <li id="subnav-tab-home"><a href="{{ path('back_index') }}"><i class="icon-home"></i> {{ 'Home'|trans }}</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li id="subnav-tab-organization"><a href="{{ path('back_organization_index') }}"><i class="icon-globe"></i> {{ 'Organizations'|trans }}</a></li>
+                        {% elseif is_granted('ROLE_ORGANIZATION') %}
+                        <li id="subnav-tab-organization"><a href="{{ path('back_organization_read', { 'id' : app.user.id }) }}"><i class="icon-globe"></i> {{ 'Organization'|trans }}</a></li>
                         {% endif %}
                         <li id="subnav-tab-activity"><a href="{{ path('back_activity_index') }}"><i class="icon-leaf"></i> {{ 'Activities'|trans }}</a></li>
                         <li id="subnav-tab-resource"><a href="{{ path('back_resource_index') }}"><i class="icon-wrench"></i> {{ 'Resources'|trans }}</a></li>
@@ -64,9 +66,8 @@
                         <li id="subnav-tab-news"><a href="{{ path('back_article_index') }}"><i class="icon-bullhorn"></i> {{ 'News'|trans }}</a></li>
                         {#<li id="subnav-tab-comment"><a href="#"><i class="icon-comment"></i> {{ 'Comments'|trans }}</a></li>#}
                         <li id="subnav-tab-user"><a href="{{ path('back_user_index') }}"><i class="icon-user"></i> {{ 'Users'|trans }}</a></li>
-                        {% if is_granted('ROLE_ORGANIZATION') %}
-                        <li id="subnav-tab-organization"><a href="{{ path('back_organization_read', { 'id' : app.user.id }) }}"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
-                        <li id="subnav-tab-help"><a href="#"><i class="icon-flag"></i> {{ 'Help'|trans }}</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li id="subnav-tab-settings"><a href="{{ path('back_settings') }}"><i class="icon-cog"></i> {{ 'Settings'|trans }}</a></li>
                         {% endif %}
                     </ul>
                 </div>

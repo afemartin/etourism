@@ -4,9 +4,12 @@ namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Entity\Session;
 use PFCD\TourismBundle\Entity\Resource;
+use PFCD\TourismBundle\Entity\Settings;
+use PFCD\TourismBundle\Form\SettingsType;
 
 use \DateTime;
 use \DateInterval;
@@ -73,6 +76,48 @@ class BackController extends Controller
     public function statisticAction()
     {
         return $this->render('PFCDTourismBundle:Back/Home:statistic.html.twig');
+    }
+    
+    /**
+     * Show the system settings information at the back-end administrator page
+     * 
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function settingsAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        // setting table will have only one row with id=1
+        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
+
+        // if there is non existent settings, create it
+        if (!$settings) $settings = new Settings();
+        
+        $options['language'] = $this->get('session')->getLocale();
+        
+        $editForm = $this->createForm(new SettingsType(), $settings, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $editForm->bindRequest($request);
+
+            if ($editForm->isValid())
+            {
+                $em->persist($settings);
+                $em->flush();
+                
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.updatesettings'));
+
+                return $this->redirect($this->generateUrl('back_settings'));
+            }
+        }
+       
+        return $this->render('PFCDTourismBundle:Back/Home:settings.html.twig', array(
+            'settings'  => $settings,
+            'edit_form' => $editForm->createView(),
+        ));
     }
     
     /**

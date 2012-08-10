@@ -1,0 +1,18 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'settings' %}{% set helptooltip = 1 %}{% set wysihtml5 = 1 %}
+
+{% block body %}
+<h1>{{ 'back.settings.title'|trans }}</h1>
+<p>{{ 'back.settings.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('back_settings') }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Save changes'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('back_settings') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
+    </div>
+</form>
+{% endblock %}

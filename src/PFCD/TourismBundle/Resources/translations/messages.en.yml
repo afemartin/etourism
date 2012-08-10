@@ -231,6 +231,9 @@ back.article.read.subtitle: In this list there are detailed information stored a
 back.article.update.title: Article edit
 back.article.update.subtitle: Use this form to edit the article information
 
+back.settings.title: Settings
+back.settings.subtitle: Use this form to edit the information of the website that the user will see. You also can temporarily disable the website during maintenance work
+
 
 ################################################################################
 ##### Footer
@@ -287,6 +290,8 @@ form.organization.field.bankaccount.help: This is the number of your bank accoun
 form.payment.field.price.help: This price was automatically calculated based on the price of the activity and the number of persons. DO NOT MODIFY IT unless you are completely sure about it
 
 form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
+
+form.settings.field.enabled.help: Uncheck this option to disable the webpage for users. A warning message "Under maintenance" will be shown to the users. ONLY disable for short periods of time to perform any technical change at the webpage
 
 form.field.translatable.help: This is a multilanguage field. Now you can edit this field in %language%. To edit this field content in other language please switch the language at the top bar.
 
