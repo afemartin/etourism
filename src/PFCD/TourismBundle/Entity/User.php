@@ -72,7 +72,7 @@ class User implements AdvancedUserInterface
     /**
      * @var integer $gender 0=>unknown, 1=>male, 2=>female (ISO/IEC 5218)
      *      
-     * @ORM\Column(name="gender", type="smallint")
+     * @ORM\Column(name="gender", type="smallint", nullable=true)
      */
     private $gender;
 
