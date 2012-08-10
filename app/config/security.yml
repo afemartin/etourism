@@ -3,18 +3,18 @@ security:
     encoders:
         entity_admin:
             class: Symfony\Component\Security\Core\User\User
-            algorithm: sha1
-            iterations: 1
+            algorithm: %admin_encoder_algorithm%
+            iterations: %admin_encoder_iterations%
             encode_as_base64: false
         entity_organization:
             class: PFCD\TourismBundle\Entity\Organization
-            algorithm: sha1
-            iterations: 1
+            algorithm: %organization_encoder_algorithm%
+            iterations: %organization_encoder_iterations%
             encode_as_base64: false
         entity_user:
             class: PFCD\TourismBundle\Entity\User
-            algorithm: sha1
-            iterations: 1
+            algorithm: %user_encoder_algorithm%
+            iterations: %user_encoder_iterations%
             encode_as_base64: false
 
     providers:

@@ -51,7 +51,7 @@ class Organization implements AdvancedUserInterface
     private $email;
 
     /**
-     * @ORM\Column(name="password", type="string", length=40)
+     * @ORM\Column(name="password", type="string", length=64)
      */
     private $password;
 
