@@ -292,6 +292,8 @@ form.settings.field.enabled.help: Desmarca esta opción para deshabilitar la pá
 
 form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar su contenido en %language%. Para editar este campo en otro idioma cambie el idioma en la barra superior
 
+form.field.required.help: Indica campo obligatorio
+
 email.rememberpassword.subject: Restablecer contraseña
 email.accountactivation.subject: Activación de la cuenta
 email.reservationaccepted.subject: Reserva aceptada

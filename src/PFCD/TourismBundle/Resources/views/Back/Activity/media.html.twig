@@ -60,6 +60,7 @@
         <div class="span12 form-actions">
             <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Save changes'|trans }}</button>
             <a class="btn btn-inverse" href="{{ path('back_activity_read', { 'id': activity.id }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
+            <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
         </div>
     </div>
             

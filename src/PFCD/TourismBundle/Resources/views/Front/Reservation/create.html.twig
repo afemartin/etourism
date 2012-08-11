@@ -22,6 +22,7 @@
     <div class="form-actions">
         <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create'|trans }}</button>
         <a class="btn btn-inverse" href="{{ path('front_activity_read', { 'id': app.request.get('activityId') }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
+        <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
     </div>
 </form>
 {% endblock %}

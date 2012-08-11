@@ -292,6 +292,8 @@ form.settings.field.enabled.help: Uncheck this option to disable the webpage for
 
 form.field.translatable.help: This is a multilanguage field. Now you can edit this field in %language%. To edit this field content in other language please switch the language at the top bar.
 
+form.field.required.help: Indicates required field
+
 email.contactenquiry.subject: Contact enquiry from %name%
 email.rememberpassword.subject: Reset password
 email.accountactivation.subject: Activation of your account

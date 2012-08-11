@@ -98,7 +98,7 @@ h4 {
 }
 
 .input-xxlarge {
-    width: 95%;
+    width: 90%;
     max-width: 530px;
 }
 
@@ -108,7 +108,11 @@ textarea {
 }
 
 textarea.wysihtml5-bootstrap {
-    height: 200px;
+    height: 300px;
+}
+
+textarea.wysihtml5-bootstrap.input-xxlarge {
+    max-width: 800px;
 }
 
 .table thead th {
@@ -257,7 +261,7 @@ textarea.wysihtml5-bootstrap {
     padding-right: 8px;
 }
 
-.info-container, .info-calendar, .info-carrousel, .info-map {
+.info-container, .info-details, .info-calendar, .info-gallery, .info-map {
     margin-bottom: 20px;
     margin-top: 10px;
 }
@@ -271,6 +275,7 @@ textarea.wysihtml5-bootstrap {
 }
 
 .info-desc {
+    margin-bottom: 10px;
     text-align: justify;
 }
 
@@ -282,14 +287,14 @@ textarea.wysihtml5-bootstrap {
     border-bottom: 1px solid #eeeeee;
 }
 
-.info-carrousel img {
+.info-gallery img {
     height: 100px;
     width: 150px;
 }
 
 @media (min-width: 1210px) {
     
-    .info-carrousel img {
+    .info-gallery img {
         height: 120px;
         width: 180px;
     }
@@ -316,6 +321,14 @@ textarea.wysihtml5-bootstrap {
     font-weight: bold;
     line-height: 0;
     margin-right: -13px;
+    text-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.25);
+}
+
+.field-required-desc {
+    color: #B94A48;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 10px;
     text-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.25);
 }
 
