@@ -96,12 +96,12 @@ class Organization implements AdvancedUserInterface
      * @var string $country ISO 3166-1 alpha-2
      * @link http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * 
-     * @ORM\Column(name="country", type="string", length=2, nullable=true)
+     * @ORM\Column(name="country", type="string", length=2)
      */
     private $country;
 
     /**
-     * @ORM\Column(name="city", type="string", length=32, nullable=true)
+     * @ORM\Column(name="city", type="string", length=32)
      */
     private $city;
 
