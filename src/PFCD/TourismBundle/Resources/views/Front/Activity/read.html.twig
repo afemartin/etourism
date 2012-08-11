@@ -12,7 +12,7 @@
 {% block body %}
 <div class="info-container row">
     <div class="info-title span9">
-        <h1>{{ activity.title }}</h1>
+        <h1>{{ activity.title }} <small><a href="{{ path('front_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></small></h1>
     </div>
     <div class="info-desc span9">
         {% if activity.video %}
@@ -23,9 +23,11 @@
         <p>{{ activity.shortDesc }}</p>
         {{ activity.fullDesc|raw }}
     </div>
-    <div class="info-details span9">
-        <h2>{{ 'front.activity.read.details'|trans }}</h2>
-        <hr style="margin-top: 0"/>
+</div>
+
+<h2>{{ 'front.activity.read.details'|trans }}</h2>
+<div class="info-details row">
+    <div class="span9">
         <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
         {% if activity.duration %}
         <p><b>{{ 'Duration'|trans }}</b>: {{ macros.minutesToHours(activity.duration) }}</p>
@@ -51,7 +53,7 @@
 
 {% if activity.gallery|length > 0 %}
 <h2>{{ 'front.media.read.images'|trans }} <small>{{ 'front.media.read.images.small'|trans }}</small></h2>
-<div class="info-carrousel row">
+<div class="info-gallery row">
     <div class="span9">
         <ul class="thumbnails">
             {% for image in activity.gallery %}

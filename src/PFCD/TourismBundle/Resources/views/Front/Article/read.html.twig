@@ -10,7 +10,7 @@
 {% block body %}
 <div class="info-container row">
     <div class="info-title span9">
-        <h1>{{ article.title }}</h1>
+        <h1>{{ article.title }} <small><a href="{{ path('front_organization_read', { 'id': article.organization.id }) }}">{{ article.organization.name }}</a></small></h1>
     </div>
     <div class="info-desc span9">
         {% if article.video %}
@@ -25,7 +25,7 @@
 
 {% if article.gallery|length > 0 %}
 <h2>{{ 'front.media.read.images'|trans }} <small>{{ 'front.media.read.images.small'|trans }}</small></h2>
-<div class="info-carrousel row">
+<div class="info-gallery row">
     <div class="span9">
         <ul class="thumbnails">
             {% for image in article.gallery %}

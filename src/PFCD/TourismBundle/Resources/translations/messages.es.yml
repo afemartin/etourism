@@ -234,6 +234,8 @@ back.article.update.subtitle: Rellene este formulario para añadir o modificar d
 back.settings.title: Ajustes
 back.settings.subtitle: Utilice este formulario para editar la información que los usuarios verán en la página. También puede desactivar temporalmente la página durante tareas de mantenimiento
 
+back.entity.preview.actions: Lista de acciones disponibles
+
 
 ################################################################################
 ##### Pie

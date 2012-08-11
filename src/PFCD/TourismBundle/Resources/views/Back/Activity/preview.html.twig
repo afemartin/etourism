@@ -8,7 +8,7 @@
 {% block body %}
 <div class="info-container row">
     <div class="info-title span9">
-        <h1>{{ activity.title }}</h1>
+        <h1>{{ activity.title }} <small><a href="{{ path('front_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></small></h1>
     </div>
     <div class="info-desc span9">
         {% if activity.video %}
@@ -23,7 +23,7 @@
     <div class="span3">
         <div class="well well-small">
             <h1>{{ 'Preview'|trans }}</h1>
-            <p>List of avalilable actions</p>
+            <p>{{ 'back.entity.preview.actions'|trans }}</p>
             <p><a class="btn btn-primary" href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.activity.button.update'|trans }}</a></p>
             <p><a class="btn btn-primary" href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.activity.button.media'|trans }}</a></p>
             <p><a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a></p>
@@ -31,8 +31,19 @@
     </div>
 </div>
 
-{% if activity.sessions %}
-<h2>{{ 'front.activity.read.availability'|trans }}</h2>
+<h2>{{ 'front.activity.read.details'|trans }}</h2>
+<div class="info-details row">
+    <div class="span9">
+        <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
+        {% if activity.duration %}
+        <p><b>{{ 'Duration'|trans }}</b>: {{ macros.minutesToHours(activity.duration) }}</p>
+        {% endif %}
+        <p><b>{{ 'Capacity'|trans }}</b>: {{ activity.capacity }} {{ 'Persons'|trans }}</p>
+    </div>
+</div>
+
+{% if activity.sessions|length > 0 and activity.status != 2 %}
+<h2>{{ 'front.activity.read.availability'|trans }} <small>{{ 'front.activity.read.availability.small'|trans }}</small></h2>
 <div class="info-calendar row">
     <div class="span9">
         <div id="reservation_calendar"></div>
@@ -46,9 +57,9 @@
 </div>
 {% endif %}
 
-{% if activity.gallery %}
-<h2>{{ 'front.activity.read.images'|trans }}</h2>
-<div class="info-carrousel row">
+{% if activity.gallery|length > 0 %}
+<h2>{{ 'front.media.read.images'|trans }} <small>{{ 'front.media.read.images.small'|trans }}</small></h2>
+<div class="info-gallery row">
     <div class="span9">
         <ul class="thumbnails">
             {% for image in activity.gallery %}
@@ -64,20 +75,20 @@
 {% endif %}
 
 {% if activity.geolocation %}
-<h2>{{ 'front.activity.read.geolocation'|trans }}</h2>
+<h2>{{ 'front.media.read.geolocation'|trans }} <small>{{ 'front.media.read.geolocation.small'|trans }}</small></h2>
 <div class="info-map row">
     <div class="span">
         <div id="map_modal" class="modal hide">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>{{ 'front.activity.read.geolocation'|trans }}</h3>
+                <h3>{{ 'front.media.read.geolocation'|trans }}</h3>
             </div>
             <div class="modal-body">
                 <div id="map_canvas"></div>
             </div>
         </div>
         <a class="thumbnail">
-            <img src="http://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=640x320&zoom=10&markers=color:blue|{{ activity.geolocation }}&sensor=false" onclick="initialize()"/>
+            <img src="http://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=640x320&zoom={{ activity.zoom|default('10') }}&markers={{ activity.geolocation }}&sensor=false" onclick="initialize()"/>
         </a>
     </div>
 </div>
@@ -101,7 +112,7 @@
 <script type="text/javascript">
     function initialize() {
         var latlng = new google.maps.LatLng({{ activity.geolocation }});
-        var myOptions = {zoom: 10, scrollwheel: false, scaleControl: true, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
+        var myOptions = {zoom: {{ activity.zoom|default('10') }}, scrollwheel: false, scaleControl: true, center: latlng, mapTypeId: google.maps.MapTypeId.HYBRID};
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         var title = "{{ activity.title }}";
         var marker = new google.maps.Marker({ position: latlng, map: map, title: title });
@@ -139,7 +150,7 @@
             {    
                 $('#reservation_calendar').prepend('<i class="icon-loading"></i> {{ 'Loading'|trans }}...');
             }
-           
+            
             $.ajax({
                 type: "GET",
                 data: "id=" + id + "&year=" + year + "&month=" + month,

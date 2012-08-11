@@ -53,7 +53,7 @@
 <a class="btn btn-primary" href="{{ path('back_article_update', { 'id': article.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.article.button.update'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_article_media', { 'id': article.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.article.button.media'|trans }}</a>
 <a class="btn btn-inverse" href="{{ path('back_article_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.article.button.index'|trans }}</a>
-{#<a class="btn btn-info" href="{{ path('back_article_preview', { 'id': article.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.article.button.preview'|trans }}</a>#}
+<a class="btn btn-info" href="{{ path('back_article_preview', { 'id': article.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.article.button.preview'|trans }}</a>
 <form class="pull-right" action="{{ path('back_article_delete', { 'id': article.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.article.button.delete'|trans }}</button>

@@ -234,6 +234,8 @@ back.article.update.subtitle: Use this form to edit the article information
 back.settings.title: Settings
 back.settings.subtitle: Use this form to edit the information of the website that the user will see. You also can temporarily disable the website during maintenance work
 
+back.entity.preview.actions: List of available actions
+
 
 ################################################################################
 ##### Footer

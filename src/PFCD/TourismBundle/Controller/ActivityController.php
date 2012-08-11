@@ -120,6 +120,9 @@ class ActivityController extends Controller
      */
     public function backPreviewAction($id)
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         $filter['id'] = $id;
                 
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))

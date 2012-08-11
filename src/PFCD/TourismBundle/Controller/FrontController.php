@@ -17,6 +17,9 @@ class FrontController extends Controller
 
     public function indexAction()
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         $em = $this->getDoctrine()->getEntityManager();
 
         $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
@@ -227,6 +230,9 @@ class FrontController extends Controller
      */
     public function aboutAction()
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         return $this->render('PFCDTourismBundle:Front/Home:about.html.twig');
     }
     
@@ -235,6 +241,9 @@ class FrontController extends Controller
      */
     public function sidebarAction()
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
         $em = $this->getDoctrine()->getEntityManager();
 
         $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
