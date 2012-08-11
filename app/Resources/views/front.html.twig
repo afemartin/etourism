@@ -89,7 +89,8 @@
                 </div>
             </div>
             <footer class="footer">
-                {{ 'footer.created.by'|trans|raw }}
+                {% if 'now'|date('Y') <= 2012 %}{% set years = '2012' %}{% else %}{% set years = '2012-' ~ 'now'|date('Y') %}{% endif %}
+                {{ 'footer.copyrigth'|trans({'%years%': years, '%domain%': domain_name})|raw }}
             </footer>    
         </div>
         {% block javascripts %}

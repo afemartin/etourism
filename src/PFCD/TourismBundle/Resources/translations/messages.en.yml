@@ -241,7 +241,7 @@ back.entity.preview.actions: List of available actions
 ##### Footer
 ################################################################################  
 
-footer.created.by: © 2012 - CooperationTourism.com - created by <a href="https://github.com/afemartin">afemartin</a>
+footer.copyrigth: Copyright © %years% %domain% - Created by <a href="https://github.com/afemartin">afemartin</a>
 
 
 ################################################################################
