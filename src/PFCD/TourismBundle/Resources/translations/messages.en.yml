@@ -65,9 +65,6 @@ back.header.subtitle: Administration Panel
 ##### Body
 ################################################################################
 
-front.home.title: Homepage
-front.home.subtitle: These are the most recent and popular activities offered
-
 front.login.title: User login
 front.login.subtitle: Please fill the following information to login
 
@@ -81,7 +78,6 @@ front.contact.title: Contact us
 front.contact.subtitle: Want to send us feedback or report some error?
 
 front.about.title: About us
-front.about.subtitle: This project want to help organizations that work for cooperation in third-world countries to... <information>
 
 front.user.create.title: User registration
 front.user.create.subtitle: Please fill the following information to complete the registration

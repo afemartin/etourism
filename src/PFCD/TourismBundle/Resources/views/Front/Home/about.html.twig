@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>{{ 'front.about.title'|trans }}</h1>
-<p>{{ 'front.about.subtitle'|trans }}</p>
+<p>{{ content|raw }}</p>
 {% endblock %}
 
 {% block javascripts %}

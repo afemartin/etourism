@@ -65,9 +65,6 @@ back.header.subtitle: Panel de Administración
 ##### Cuerpo
 ################################################################################  
 
-front.home.title: Portada
-front.home.subtitle: Aqui encontrará las actividades mas recientes que le puedan interesar
-
 front.login.title: Acceso de usuario
 front.login.subtitle: Rellene los siguientes campos del formulario para acceder a su cuenta
 
@@ -81,7 +78,6 @@ front.contact.title: Contacto
 front.contact.subtitle: ¿Quiere reportar algun problema en la página o hacer alguna sugerencia?
 
 front.about.title: Acerca
-front.about.subtitle: Este proyecto tiene como objetivo facilitar a organizaciones de cooperacion al desarrollo ofrecer su oferta turistica y dar a conocer su trabajo... <information>
 
 front.user.create.title: Registro de usuario
 front.user.create.subtitle: Rellene los siguientes campos del formulario para registrarse en el sistema

@@ -22,10 +22,10 @@ class FrontController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
+        $content = $em->getRepository('PFCDTourismBundle:Settings')->find(1)->getHomeDesc();
 
         return $this->render('PFCDTourismBundle:Front/Home:index.html.twig', array(
-            'activities' => $activities
+            'content' => $content
         ));
     }
 
@@ -233,7 +233,13 @@ class FrontController extends Controller
         // force translation fallback to display something and not just an empty text
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
         
-        return $this->render('PFCDTourismBundle:Front/Home:about.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $content = $em->getRepository('PFCDTourismBundle:Settings')->find(1)->getAboutDesc();
+
+        return $this->render('PFCDTourismBundle:Front/Home:about.html.twig', array(
+            'content' => $content
+        ));
     }
     
     /**
