@@ -29,6 +29,7 @@ class OrganizationType extends AbstractType
             $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
             $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
         }
+        $builder->add('webpage', 'url', array('required' => false));
         $builder->add('foundationYear', 'integer', array('required' => false));
         $builder->add('country', 'country', array('empty_value' => 'Select your country'));
         $builder->add('city');

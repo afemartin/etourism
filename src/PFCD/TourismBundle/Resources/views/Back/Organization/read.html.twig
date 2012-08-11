@@ -50,6 +50,14 @@
             </tr>
         {% endfor %}
         <tr>
+            <th>{{ 'Webpage'|trans }}</th>
+            <td>{{ organization.webpage }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Foundationyear'|trans }}</th>
+            <td>{{ organization.foundationYear }}</td>
+        </tr>
+        <tr>
             <th>{{ 'Country'|trans }}</th>
             <td>{{ organization.country|country }}</td>
         </tr>
@@ -80,10 +88,6 @@
         <tr>
             <th>{{ 'Bankaccount'|trans }}</th>
             <td>{{ organization.bankaccount }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Foundationyear'|trans }}</th>
-            <td>{{ organization.foundationYear }}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>

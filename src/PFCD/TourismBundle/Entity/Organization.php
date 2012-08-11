@@ -83,6 +83,11 @@ class Organization implements AdvancedUserInterface
     private $fullDesc;
 
     /**
+     * @ORM\Column(name="webpage", type="string", nullable=true)
+     */
+    private $webpage;
+
+    /**
      * @ORM\Column(name="foundation_year", type="smallint", nullable=true)
      */
     private $foundationYear;
@@ -400,6 +405,26 @@ class Organization implements AdvancedUserInterface
     public function getFullDesc()
     {
         return $this->fullDesc;
+    }
+
+    /**
+     * Set webpage
+     *
+     * @param string $webpage
+     */
+    public function setWebpage($webpage)
+    {
+        $this->webpage = $webpage;
+    }
+
+    /**
+     * Get webpage
+     *
+     * @return string 
+     */
+    public function getWebpage()
+    {
+        return $this->webpage;
     }
 
     /**
