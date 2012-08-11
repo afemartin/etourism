@@ -88,8 +88,7 @@ front.user.update.subtitle: Use this form to edit your account information
 
 front.organization.index.title: Organization list
 front.organization.index.subtitle: In this list there are all the organizations registered in the system
-front.organization.read.subtitle.working: Working in
-front.organization.read.subtitle.since: since
+front.organization.read.subtitle: Working in %city% (%country%) since %year%
 
 front.activity.index.title: Activity list
 front.activity.index.subtitle: In this list there are all the activities registered in the system

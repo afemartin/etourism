@@ -88,8 +88,7 @@ front.user.update.subtitle: En cualquier momento puede editar los datos personal
 
 front.organization.index.title: Lista de organizaciones
 front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este proyecto
-front.organization.read.subtitle.working: Trabajando en
-front.organization.read.subtitle.since: desde
+front.organization.read.subtitle: Trabajando en %city% (%country%) desde %year%
 
 front.activity.index.title: Lista de actividades
 front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas
