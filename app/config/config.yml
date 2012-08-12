@@ -65,7 +65,7 @@ jms_security_extra:
 # JSMi18nRouting Configuration
 jms_i18n_routing:
     default_locale: %locale%
-    locales: [en, es]
+    locales: %locales%
     strategy: prefix_except_default
 
 # AvalancheImagine Configuration

@@ -8,3 +8,4 @@ twig:
     globals:
         google_maps_key: %google_maps_key%
         domain_name: %domain_name%
+        supported_languages: %locales%
