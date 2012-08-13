@@ -1,11 +1,9 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
 {% block body %}
+<h1>{{ organization.name }} {% if organization.acronim %}({{ organization.acronim }}){% endif %}</h1>
+<h6>{% if organization.country and organization.city and organization.foundationyear %}{{ 'front.organization.read.subtitle'|trans({'%country%': organization.country|country, '%city%': organization.city, '%year%': organization.foundationyear}) }}{% endif %}</h6>
 <div class="info-container row">
-    <div class="info-title span9">
-        <h1>{{ organization.name }} {% if organization.acronim %}({{ organization.acronim }}){% endif %}</h1>
-        <h6>{% if organization.country %}{{ 'front.organization.read.subtitle.working'|trans }} {% if organization.city %}{{ organization.city }} ({{ organization.country|country }}){% else %}{{ organization.country|country }}{% endif %}{% if organization.foundationyear %} {{ 'front.organization.read.subtitle.since'|trans }} {{ organization.foundationyear }}{% endif %}{% endif %}</h6>
-    </div>
     <div class="info-desc span9">
         {% if organization.video %}
         <div class="info-video pull-right">
@@ -19,9 +17,44 @@
     <div class="span3">
         <div class="well well-small">
             <h1>{{ 'Preview'|trans }}</h1>
-            <a class="btn btn-primary" href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.organization.button.update'|trans }}</a>
-            <a class="btn btn-primary" href="{{ path('back_organization_media', { 'id': organization.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.organization.button.media'|trans }}</a>
+            <p>{{ 'back.entity.preview.actions'|trans }}</p>
+            <p><a class="btn btn-primary" href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.organization.button.update'|trans }}</a></p>
+            <p><a class="btn btn-primary" href="{{ path('back_organization_media', { 'id': organization.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.organization.button.media'|trans }}</a></p>
+            <p><a class="btn btn-inverse" href="{{ path('back_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.organization.button.index'|trans }}</a></p>
         </div>
     </div>
 </div>
+
+{% if activities|length > 0 or articles|length > 0 %}
+<div class="info-container row">
+    <div class="span4">
+        {% if activities|length > 0 %}<h3>{{ 'front.organization.activities.list'|trans }} <small><a href="{{ path('front_organization_activities', { 'id': organization.id }) }}">{{ 'front.organization.activities.more'|trans }}</a></small></h3>{% endif %}
+        {% for activity in activities %}
+        <div class="info-container row">
+            <div class="info-image span1 hidden-phone">
+                <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/170x120&text=no+image{% endif%}" />
+            </div>
+            <div class="info-desc span3">
+                <h4><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h4>
+                <p>{{ activity.shortDesc }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="span4">
+        {% if articles|length > 0 %}<h3>{{ 'front.organization.articles.list'|trans }} <small><a href="{{ path('front_organization_articles', { 'id': organization.id }) }}">{{ 'front.organization.articles.more'|trans }}</a></small></h3>{% endif %}
+        {% for article in articles %}
+        <div class="info-container row">
+            <div class="info-image span1 hidden-phone">
+                <img class="thumbnail" alt="{{ article.title }}" src="{% if article.image %}{{ asset(article.image) }}{% else %}http://placehold.it/170x120&text=no+image{% endif%}" />
+            </div>
+            <div class="info-desc span3">
+                <h4><a href="{{ path('front_article_read', { 'id': article.id }) }}">{{ article.title }}</a></h4>
+                <p>{{ article.shortDesc }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 {% endblock %}
