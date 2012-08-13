@@ -133,7 +133,18 @@ class Organization implements AdvancedUserInterface
     /**
      * @ORM\Column(name="bank_account", type="string", nullable=true)
      */
-    private $bankAccount;    
+    private $bankAccount;
+    
+    /**
+     * @ORM\Column(name="donate", type="boolean")
+     */
+    private $donate;
+    
+    /**
+     * @Gedmo\Translatable
+     * @ORM\Column(name="donate_desc", type="text", nullable=true)
+     */
+    private $donateDesc;
 
     /**
      * @var string $locale ISO 639-1
@@ -605,6 +616,46 @@ class Organization implements AdvancedUserInterface
     public function getBankAccount()
     {
         return $this->bankAccount;
+    }
+
+    /**
+     * Set donate
+     *
+     * @param boolean $donate
+     */
+    public function setDonate($donate)
+    {
+        $this->donate = $donate;
+    }
+
+    /**
+     * Get donate
+     *
+     * @return boolean 
+     */
+    public function getDonate()
+    {
+        return $this->donate;
+    }
+
+    /**
+     * Set donateDesc
+     *
+     * @param text $donateDesc
+     */
+    public function setDonateDesc($donateDesc)
+    {
+        $this->donateDesc = $donateDesc;
+    }
+
+    /**
+     * Get donateDesc
+     *
+     * @return text 
+     */
+    public function getDonateDesc()
+    {
+        return $this->donateDesc;
     }
 
     /**

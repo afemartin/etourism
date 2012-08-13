@@ -43,6 +43,8 @@ class OrganizationType extends AbstractType
         {
             $builder->add('languages', 'entity', array('class' => 'PFCDTourismBundle:Language', 'property' => 'name', 'multiple' => true, 'expanded' => true));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Logo', 'help' => 'form.organization.field.logo.help'));
+            $builder->add('donate', 'checkbox', array('help' => 'form.organization.field.donate.help'));
+            $builder->add('donateDesc', 'textarea', array('attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
         }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {
