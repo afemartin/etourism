@@ -12,6 +12,12 @@ use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Form\OrganizationType;
 use PFCD\TourismBundle\Form\MediaType;
 
+use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Article;
+
+use PFCD\TourismBundle\Entity\Enquiry;
+use PFCD\TourismBundle\Form\EnquiryType;
+
 use PFCD\TourismBundle\Entity\Image;
 
 /**
@@ -109,9 +115,15 @@ class OrganizationController extends Controller
      */
     public function backPreviewAction($id)
     {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
+        $filter['id'] = $id;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
         $em = $this->getDoctrine()->getEntityManager();
 
-        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
 
         if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
         
@@ -119,9 +131,33 @@ class OrganizationController extends Controller
         {
             throw new AccessDeniedException();
         }
-
+        
+        unset($filter);
+        $filter['organization'] = $id;
+        $filter['status'] = Activity::STATUS_ENABLED;
+        
+        $orderBy['created'] = 'DESC';
+        
+        $limit = 2;
+        
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter, $orderBy, $limit);
+        
+        unset($filter);
+        $filter['organization'] = $id;
+        $filter['status'] = Article::STATUS_ENABLED;
+        
+        $orderBy['created'] = 'DESC';
+        
+        $limit = 2;
+        
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findBy($filter, $orderBy, $limit);
+        
+        $this->get('session')->setFlash('alert-info', $this->get('translator')->trans('alert.info.organizationpreview'));
+        
         return $this->render('PFCDTourismBundle:Back/Organization:preview.html.twig', array(
             'organization' => $organization,
+            'activities'   => $activities,
+            'articles'     => $articles,
         ));
     }
     
@@ -288,13 +324,150 @@ class OrganizationController extends Controller
         
         unset($filter);
         $filter['organization'] = $id;
-        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        $filter['status'] = Activity::STATUS_ENABLED;
         
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter);
+        $orderBy['created'] = 'DESC';
+        
+        $limit = 2;
+        
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter, $orderBy, $limit);
+        
+        unset($filter);
+        $filter['organization'] = $id;
+        $filter['status'] = Article::STATUS_ENABLED;
+        
+        $orderBy['created'] = 'DESC';
+        
+        $limit = 2;
+        
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findBy($filter, $orderBy, $limit);
 
         return $this->render('PFCDTourismBundle:Front/Organization:read.html.twig', array(
             'organization' => $organization,
             'activities'   => $activities,
+            'articles'     => $articles,
+        ));
+    }
+    
+    /**
+     * Lists all Activities of the Organization
+     */
+    public function frontActivitiesAction($id)
+    {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $filter['id'] = $id;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
+        
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($id);
+        
+        return $this->render('PFCDTourismBundle:Front/Organization:activities.html.twig', array(
+            'organization' => $organization,
+            'activities' => $activities
+        ));
+    }
+    
+    /**
+     * Lists all Articles of the Organization
+     */
+    public function frontArticlesAction($id)
+    {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $filter['id'] = $id;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
+        
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($id);
+        
+        return $this->render('PFCDTourismBundle:Front/Organization:articles.html.twig', array(
+            'organization' => $organization,
+            'articles' => $articles
+        ));
+    }
+    
+    /**
+     * Finds and displays a Organization donate information
+     */
+    public function frontDonateAction($id)
+    {
+        // force translation fallback to display something and not just an empty text
+        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
+        
+        $filter['id'] = $id;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
+        
+        if (!$organization || !$organization->getDonate()) throw $this->createNotFoundException('Unable to find Organization entity.');
+        
+        return $this->render('PFCDTourismBundle:Front/Organization:donate.html.twig', array(
+            'organization' => $organization
+        ));
+    }
+    
+    /**
+     * Display a contact form and send a enquiry to the Organization administrator when the form is submitted and valid
+     */
+    public function frontContactAction($id)
+    {
+        $filter['id'] = $id;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
+        
+        if (!$organization || !$organization->getEmail()) throw $this->createNotFoundException('Unable to find Organization entity.');
+                
+        $enquiry = new Enquiry();
+        
+        $form = $this->createForm(new EnquiryType(), $enquiry);
+
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName())))
+                        ->setFrom($this->container->getParameter('pfcd_tourism.emails.outgoing_email'))
+                        ->setTo($organization->getEmail())
+                        ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)));
+                
+                $this->get('mailer')->send($message);
+
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.contactenquiry'));
+
+                return $this->redirect($this->generateUrl('front_organization_contact', array('id' => $organization->getId())));
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Front/Organization:contact.html.twig', array(
+            'organization' => $organization,
+            'form' => $form->createView()
         ));
     }
 

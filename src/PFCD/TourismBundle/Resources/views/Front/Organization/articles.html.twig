@@ -3,13 +3,13 @@
 {% block title %}{{ 'News'|trans }}{% endblock%}
 
 {% block body %}
-<h1>{{ 'front.article.index.title'|trans }}</h1>
-<p>{{ 'front.article.index.subtitle'|trans }}</p>
+<h1>{{ organization.name }} <small>{{ 'front.organization.articles.title'|trans }}</small></h1>
+<p>{{ 'front.organization.articles.subtitle'|trans({'%organization%': organization.name}) }}</p>
 
 {% for article in articles %}
 <div class="info-container row">
     <div class="info-title span9">
-        <h2>{{ article.title }} <small><a href="{{ path('front_organization_read', { 'id': article.organization.id }) }}">{{ article.organization.name }}</a></small></h2>
+        <h2>{{ article.title }}</h2>
     </div>
     <div class="info-image span2 hidden-phone">
         <img class="thumbnail" alt="{{ article.title }}" src="{% if article.image %}{{ article.image|apply_filter('thumbnail_170x120') }}{% else %}http://placehold.it/170x120&text=no+image{% endif%}" />

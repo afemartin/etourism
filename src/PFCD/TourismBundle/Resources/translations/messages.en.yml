@@ -89,6 +89,14 @@ front.user.update.subtitle: Use this form to edit your account information
 front.organization.index.title: Organization list
 front.organization.index.subtitle: In this list there are all the organizations registered in the system
 front.organization.read.subtitle: Working in %city% (%country%) since %year%
+front.organization.activities.title: List of activities
+front.organization.activities.subtitle: In this list there are all the activities registered in the system by the organization %organization%
+front.organization.activities.list: List of activities
+front.organization.activities.more: view all
+front.organization.articles.title: List of articles
+front.organization.articles.subtitle: In this list there are all the articles registered in the system by the organization %organization%
+front.organization.articles.list: List of news
+front.organization.articles.more: view all
 
 front.activity.index.title: Activity list
 front.activity.index.subtitle: In this list there are all the activities registered in the system

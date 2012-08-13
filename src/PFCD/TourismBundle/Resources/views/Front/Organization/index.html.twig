@@ -13,6 +13,19 @@
     </div>
     <div class="info-image span2 hidden-phone">
         <img class="thumbnail" alt="{{ organization.name }}" src="{{ asset(organization.logo) }}" />
+        <div style="margin: 5px 0 0 5px">
+            <h5><i class="icon-leaf"></i> <a href="{{ path('front_organization_activities', { 'id': organization.id }) }}">{{ 'Activities'| trans}}</a></h5>
+            <h5><i class="icon-bullhorn"></i> <a href="{{ path('front_organization_articles', { 'id': organization.id }) }}">{{ 'News'| trans}}</a></h5>
+            {% if organization.donate %}
+            <h5><i class="icon-gift"></i> <a href="{{ path('front_organization_donate', { 'id': organization.id }) }}">{{ 'Donate'| trans}}</a></h5>
+            {% endif %}
+            {% if organization.webpage %}
+            <h5><i class="icon-share"></i> <a href="{{ organization.webpage }}">{{ 'Webpage'| trans}}</a></h5>
+            {% endif %}
+            {% if organization.email %}
+            <h5><i class="icon-envelope"></i> <a href="{{ path('front_organization_contact', { 'id': organization.id }) }}">{{ 'Contact'| trans}}</a></h5>
+            {% endif %}
+        </div>
     </div>
     <div class="info-desc span7">
         <p>{{ organization.shortDesc }}</p>

@@ -86,6 +86,26 @@ front_organization_read:
     pattern:  /organization/{id}
     defaults: { _controller: "PFCDTourismBundle:Organization:frontRead" }
     requirements: { _method: get, id: \d+ }
+    
+front_organization_activities:
+    pattern:  /organization/{id}/activities
+    defaults: { _controller: "PFCDTourismBundle:Organization:frontActivities" }
+    requirements: { _method: get, id: \d+ }
+    
+front_organization_articles:
+    pattern:  /organization/{id}/news
+    defaults: { _controller: "PFCDTourismBundle:Organization:frontArticles" }
+    requirements: { _method: get, id: \d+ }
+    
+front_organization_donate:
+    pattern:  /organization/{id}/donate
+    defaults: { _controller: "PFCDTourismBundle:Organization:frontDonate" }
+    requirements: { _method: get, id: \d+ }
+    
+front_organization_contact:
+    pattern:  /organization/{id}/contact
+    defaults: { _controller: "PFCDTourismBundle:Organization:frontContact" }
+    requirements: { id: \d+ }
 
 
 ################################################################################

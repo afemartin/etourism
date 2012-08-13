@@ -3,11 +3,9 @@
 {% block title %}{{ organization.name }}{% endblock%}
 
 {% block body %}
+<h1>{{ organization.name }} {% if organization.acronim %}({{ organization.acronim }}){% endif %}</h1>
+<h6>{% if organization.country and organization.city and organization.foundationyear %}{{ 'front.organization.read.subtitle'|trans({'%country%': organization.country|country, '%city%': organization.city, '%year%': organization.foundationyear}) }}{% endif %}</h6>
 <div class="info-container row">
-    <div class="info-title span9">
-        <h1>{{ organization.name }} {% if organization.acronim %}({{ organization.acronim }}){% endif %}</h1>
-        <h6>{% if organization.country and organization.city and organization.foundationyear %}{{ 'front.organization.read.subtitle'|trans({'%country%': organization.country|country, '%city%': organization.city, '%year%': organization.foundationyear}) }}{% endif %}</h6>
-    </div>
     <div class="info-desc span9">
         {% if organization.video %}
         <div class="info-video pull-right">
@@ -18,26 +16,49 @@
         <p>{{ organization.fullDesc|raw }}</p>
     </div>
 </div>
+{% if organization.donate or organization.email %}
+<div style="text-align:right">
+    {% if organization.donate %}
+    <a class="btn btn-mini" href="{{ path('front_organization_donate', { 'id': organization.id }) }}"><i class="icon-gift"></i> {{ 'Donate'|trans }}</a>
+    {% endif %}
+    {% if organization.email %}
+    <a class="btn btn-mini" href="{{ path('front_organization_contact', { 'id': organization.id }) }}"><i class="icon-envelope"></i> {{ 'Contact'|trans }}</a>
+    {% endif %}
+</div>
+{% endif %}
 
-{% for activity in activities %}
+{% if activities|length > 0 or articles|length > 0 %}
 <div class="info-container row">
-    <div class="info-title span9">
-        <h2>{{ activity.title }}</h2>
+    <div class="span4">
+        {% if activities|length > 0 %}<h3>{{ 'front.organization.activities.list'|trans }} <small><a href="{{ path('front_organization_activities', { 'id': organization.id }) }}">{{ 'front.organization.activities.more'|trans }}</a></small></h3>{% endif %}
+        {% for activity in activities %}
+        <div class="info-container row">
+            <div class="info-image span1 hidden-phone">
+                <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/170x120&text=no+image{% endif%}" />
+            </div>
+            <div class="info-desc span3">
+                <h4><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h4>
+                <p>{{ activity.shortDesc }}</p>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    <div class="info-image span2 hidden-phone">
-        <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/170x120&text=no+image{% endif%}" />
-    </div>
-    <div class="info-desc span7">
-        <p>{{ activity.shortDesc }}</p>
-        <a class="btn pull-right" href="{{ path('front_activity_read', { 'id': activity.id }) }}"><i class="icon-share-alt"></i> {{ 'Read more'|trans }}</a>
+    <div class="span4">
+        {% if articles|length > 0 %}<h3>{{ 'front.organization.articles.list'|trans }} <small><a href="{{ path('front_organization_articles', { 'id': organization.id }) }}">{{ 'front.organization.articles.more'|trans }}</a></small></h3>{% endif %}
+        {% for article in articles %}
+        <div class="info-container row">
+            <div class="info-image span1 hidden-phone">
+                <img class="thumbnail" alt="{{ article.title }}" src="{% if article.image %}{{ asset(article.image) }}{% else %}http://placehold.it/170x120&text=no+image{% endif%}" />
+            </div>
+            <div class="info-desc span3">
+                <h4><a href="{{ path('front_article_read', { 'id': article.id }) }}">{{ article.title }}</a></h4>
+                <p>{{ article.shortDesc }}</p>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
-{% if not loop.last %}
-<div class="row">
-    <div class="info-divisor span9"></div>
-</div>
-{% endif %}   
-{% endfor %}
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}

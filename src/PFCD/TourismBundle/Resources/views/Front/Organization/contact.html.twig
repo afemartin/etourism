@@ -1,0 +1,24 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ 'Contact'|trans }}{% endblock%}
+
+{% block body %}
+<h1>{{ organization.name }} <small>{{ 'front.organization.contact.title'|trans }}</small></h1>
+<p>{{ 'front.organization.contact.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('front_organization_contact', { 'id': organization.id }) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> {{ 'Send'|trans }}</button>
+    </div>
+</form>
+{% endblock %}
+    
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-contact').addClass("active");
+</script>
+{% endblock %}

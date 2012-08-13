@@ -1,0 +1,26 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% block title %}{{ 'Donate'|trans }}{% endblock%}
+
+{% block body %}
+<h1>{{ organization.name }} <small>{{ 'front.organization.donate.title'|trans }}</small></h1>
+<p>{{ 'front.organization.donate.subtitle'|trans }}</p>
+
+{% if organization.donate %}
+<p>{{ organization.donateDesc|raw }}</p>
+
+<div class="well">
+    <h3>{{ 'front.organization.donate.help'|trans }}:</h3>
+    <hr style="margin-top: 0"/>
+    <p><b>{{ 'Bank transfer'|trans }}</b>: {{ 'front.organization.donate.banktransfer'|trans({'%bankname%': organization.bankname, '%bankaccount%': organization.bankaccount})|raw }}</p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#navbar-tab-organization').addClass("active");
+</script>
+{% endblock %}
