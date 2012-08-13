@@ -15,7 +15,7 @@ use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\ArticleRepository")
  * @ORM\Table(name="article")
  * @ORM\HasLifecycleCallbacks()
  */
