@@ -97,6 +97,12 @@ front.organization.articles.title: List of articles
 front.organization.articles.subtitle: In this list there are all the articles registered in the system by the organization %organization%
 front.organization.articles.list: List of news
 front.organization.articles.more: view all
+front.organization.donate.title: Donations
+front.organization.donate.subtitle: In this section you will find specific information about how to contribute with your donations to our organization
+front.organization.donate.details: Details
+front.organization.donate.banktransfer: You can make your donations via bank transfer to our bank account using the following information<br />&bullet; Bank "%bankname%"<br />&bullet; Account number "%bankaccount%"
+front.organization.contact.title: Contact us
+front.organization.contact.subtitle: Fill this form to contact with us if you have any questions about our activities or any other information you want to know about our organization. We will try to answer you as soon as possible
 
 front.activity.index.title: Activity list
 front.activity.index.subtitle: In this list there are all the activities registered in the system
@@ -135,7 +141,7 @@ front.payment.summary.sessiontime.undefined: To confirm
 front.payment.summary.persons: Persons
 front.payment.summary.price: Price
 front.payment.help.title: Payment methods
-front.payment.help.banktransfer: You can pay via bank transfer to our bank account using the following details<br />&bullet; Bank "%bankname%"<br />&bullet; Account number "%bankaccount%"
+front.payment.help.banktransfer: You can pay via bank transfer to our bank account using the following information<br />&bullet; Bank "%bankname%"<br />&bullet; Account number "%bankaccount%"
 front.payment.help.cash: You can pay with cash at the moment you start the activity
 front.payment.read.title: Payment details
 front.payment.read.subtitle: In this list there are detailed information stored about your payment

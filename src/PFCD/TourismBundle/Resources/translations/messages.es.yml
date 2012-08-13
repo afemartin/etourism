@@ -97,6 +97,12 @@ front.organization.articles.title: Lista de noticias
 front.organization.articles.subtitle: En esta lista se encuentran todas las noticias publicadas por la organización %organization%
 front.organization.articles.list: Lista de noticias
 front.organization.articles.more: ver todas
+front.organization.donate.title: Donaciones
+front.organization.donate.subtitle: Es esta sección encontrará información específica sobre como colaborar con nuestra organización mediante la aportación de donativos
+front.organization.donate.details: Detalles
+front.organization.donate.banktransfer: Puede efectuar sus donaciones via transferencia bancaria a nuestra cuenta usando los siguientes datos<br />&bullet; Banco "%bankname%"<br />&bullet; Número de cuenta "%bankaccount%"
+front.organization.contact.title: Contacte con nosotros
+front.organization.contact.subtitle: Rellene el siguiente formulario para ponerse en contacto con nosotros si tiene alguna pregunta acerca de nuestras actividades o algún otro tema sobre nuestra organización. Trataremos de responderle tan pronto como sea posible
 
 front.activity.index.title: Lista de actividades
 front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas
@@ -135,7 +141,7 @@ front.payment.summary.sessiontime.undefined: Por confirmar
 front.payment.summary.persons: Personas
 front.payment.summary.price: Precio
 front.payment.help.title: Modos de pago
-front.payment.help.banktransfer: Puede pagar via transferencia bancaria a nuestra cuenta usando los siguientes detalles<br />&bullet; Banco "%bankname%"<br />&bullet; Número de cuenta "%bankaccount%"
+front.payment.help.banktransfer: Puede pagar via transferencia bancaria a nuestra cuenta usando los siguientes datos<br />&bullet; Banco "%bankname%"<br />&bullet; Número de cuenta "%bankaccount%"
 front.payment.help.cash: Puede pagar en efectivo en el momento de realizar la actividad
 front.payment.read.title: Detalles del pago
 front.payment.read.subtitle: En esta lista se muestra información detallada sobre el pago

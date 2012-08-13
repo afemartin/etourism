@@ -10,9 +10,9 @@
 <p>{{ organization.donateDesc|raw }}</p>
 
 <div class="well">
-    <h3>{{ 'front.organization.donate.help'|trans }}:</h3>
+    <h3>{{ 'front.organization.donate.details'|trans }}:</h3>
     <hr style="margin-top: 0"/>
-    <p><b>{{ 'Bank transfer'|trans }}</b>: {{ 'front.organization.donate.banktransfer'|trans({'%bankname%': organization.bankname, '%bankaccount%': organization.bankaccount})|raw }}</p>
+    <p>{{ 'front.organization.donate.banktransfer'|trans({'%bankname%': organization.bankname, '%bankaccount%': organization.bankaccount})|raw }}</p>
 </div>
 {% endif %}
 
