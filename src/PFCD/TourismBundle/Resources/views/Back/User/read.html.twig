@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <th>{{ 'Gender'|trans }}</th>
-            <td>{{ user.genderText }}</td>
+            <td>{% if user.gender %}{{ user.genderText|trans }}{% endif%}</td>
         </tr>
         <tr>
             <th>{{ 'Country'|trans }}</th>

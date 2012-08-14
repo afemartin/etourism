@@ -31,7 +31,7 @@
         <td>{{ user.firstname }}</td>
         <td>{{ user.lastname }}</td>
         <td>{% if user.birthday %}{{ user.birthday|date('Y-m-d') }}{% endif%}</td>
-        <td>{{ user.genderText }}</td>
+        <td>{% if user.gender %}{{ user.genderText|trans }}{% endif%}</td>
         <td>{{ user.country|country }}</td>
         <td>{{ user.locale|locale }}</td>
         <td>{% if user.created %}{{ user.created|date('Y-m-d') }}{% endif%}</td>
