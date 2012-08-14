@@ -441,7 +441,18 @@ class OrganizationController extends Controller
                 
         $enquiry = new Enquiry();
         
-        $form = $this->createForm(new EnquiryType(), $enquiry);
+        $options['type'] = Constants::ENQUIRY_FULL;
+        
+        if ($this->get('security.context')->isGranted('ROLE_USER'))
+        {
+            $options['type'] = Constants::ENQUIRY_MINI;
+            
+            $user = $this->get('security.context')->getToken()->getUser();
+            $enquiry->setName($user->getFirstname() . ' ' . $user->getLastname());
+            $enquiry->setEmail($user->getEmail());
+        }
+        
+        $form = $this->createForm(new EnquiryType(), $enquiry, $options);
 
         $request = $this->getRequest();
         

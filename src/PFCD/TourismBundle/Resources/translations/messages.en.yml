@@ -9,7 +9,7 @@ Register: Sign up
 
 
 ################################################################################
-##### Front Navbar + Back Navbar
+##### Front Navbar + Front Sidebar + Back Navbar
 ################################################################################
 
 Home: Home
@@ -21,6 +21,9 @@ Contact: Contact
 About: About
 Language: Language
 
+Latest activities: Latest activities
+Latest news: Latest news
+
 Menu: Menu
 Sessions: Sessions
 Reservations: Reservations
@@ -29,6 +32,7 @@ Statistics: Statistics
 Comments: Comments
 Users: Users
 Settings: Settings
+Support: Support
 Help: Help
 
 
@@ -242,6 +246,9 @@ back.article.update.subtitle: Use this form to edit the article information
 
 back.settings.title: Settings
 back.settings.subtitle: Use this form to edit the information of the website that the user will see. You also can temporarily disable the website during maintenance work
+
+back.support.title: Technical support
+back.support.subtitle: If you detect any error at your administration panel please contact with the Technical Administrator using this form
 
 back.entity.preview.actions: List of available actions
 

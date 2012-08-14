@@ -34,6 +34,10 @@ back_statistic:
 back_settings:
     pattern:  /settings
     defaults: { _controller: PFCDTourismBundle:Back:settings }
+    
+back_support:
+    pattern:  /support
+    defaults: { _controller: PFCDTourismBundle:Back:support }
 
 
 ################################################################################

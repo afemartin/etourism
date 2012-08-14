@@ -5,6 +5,8 @@ namespace PFCD\TourismBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 
+use PFCD\TourismBundle\Constants;
+
 use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Article;
@@ -196,7 +198,18 @@ class FrontController extends Controller
     {
         $enquiry = new Enquiry();
         
-        $form = $this->createForm(new EnquiryType(), $enquiry);
+        $options['type'] = Constants::ENQUIRY_FULL;
+        
+        if ($this->get('security.context')->isGranted('ROLE_USER'))
+        {
+            $options['type'] = Constants::ENQUIRY_MINI;
+            
+            $user = $this->get('security.context')->getToken()->getUser();
+            $enquiry->setName($user->getFirstname() . ' ' . $user->getLastname());
+            $enquiry->setEmail($user->getEmail());
+        }
+        
+        $form = $this->createForm(new EnquiryType(), $enquiry, $options);
 
         $request = $this->getRequest();
         

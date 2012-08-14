@@ -6,10 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
+use PFCD\TourismBundle\Constants;
+
 use PFCD\TourismBundle\Entity\Session;
 use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\Settings;
 use PFCD\TourismBundle\Form\SettingsType;
+use PFCD\TourismBundle\Entity\Enquiry;
+use PFCD\TourismBundle\Form\EnquiryType;
 
 use \DateTime;
 use \DateInterval;
@@ -117,6 +121,55 @@ class BackController extends Controller
         return $this->render('PFCDTourismBundle:Back/Home:settings.html.twig', array(
             'settings'  => $settings,
             'edit_form' => $editForm->createView(),
+        ));
+    }
+    
+    /**
+     * Show the support information ans contact form at the back-end administrator page
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
+     */
+    public function supportAction()
+    {
+        $enquiry = new Enquiry();
+        
+        $options['type'] = Constants::ENQUIRY_FULL;
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $options['type'] = Constants::ENQUIRY_MINI;
+            
+            $organization = $this->get('security.context')->getToken()->getUser();
+            $enquiry->setName($organization->getName());
+            $enquiry->setEmail($organization->getEmail());
+        }
+        
+        $form = $this->createForm(new EnquiryType(), $enquiry, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName())))
+                        ->setFrom($this->container->getParameter('pfcd_tourism.emails.outgoing_email'))
+                        ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
+                        ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)));
+                
+                $this->get('mailer')->send($message);
+
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.contactenquiry'));
+
+                return $this->redirect($this->generateUrl('front_contact'));
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Back/Home:support.html.twig', array(
+            'form' => $form->createView()
         ));
     }
     

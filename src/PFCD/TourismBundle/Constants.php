@@ -15,6 +15,9 @@ class Constants
     const ACTIVITY     = 'activity';
     const ARTICLE      = 'article';
     
+    const ENQUIRY_FULL = 'unregistered';
+    const ENQUIRY_MINI = 'registered';
+    
     const MONDAY    = 1;
     const TUESDAY   = 2;
     const WEDNESDAY = 3;

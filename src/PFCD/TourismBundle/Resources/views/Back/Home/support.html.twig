@@ -1,0 +1,17 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'support' %}
+
+{% block body %}
+<h1>{{ 'back.support.title'|trans }}</h1>
+<p>{{ 'back.support.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('back_support') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> {{ 'Send'|trans }}</button>
+    </div>
+</form>
+{% endblock %}

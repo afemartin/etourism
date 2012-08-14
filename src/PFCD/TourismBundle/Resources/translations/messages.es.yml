@@ -21,6 +21,9 @@ Contact: Contacto
 About: Acerca
 Language: Idioma
 
+Latest activities: Últimas actividades
+Latest news: Últimas noticias
+
 Menu: Menu
 Sessions: Sesiones
 Reservations: Reservas
@@ -29,6 +32,7 @@ Statistics: Estadísticas
 Comments: Comentarios
 Users: Usuarios
 Settings: Ajustes
+Support: Soporte
 Help: Ayuda
 
 
@@ -242,6 +246,9 @@ back.article.update.subtitle: Rellene este formulario para añadir o modificar d
 
 back.settings.title: Ajustes
 back.settings.subtitle: Utilice este formulario para editar la información que los usuarios verán en la página. También puede desactivar temporalmente la página durante tareas de mantenimiento
+
+back.support.title: Soporte técnico
+back.support.subtitle: Si detecta algún error en su panel de administración póngase en contacto con el Administrador Técnico usando este formulario
 
 back.entity.preview.actions: Lista de acciones disponibles
 
