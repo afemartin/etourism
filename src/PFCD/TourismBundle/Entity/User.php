@@ -595,7 +595,7 @@ class User implements AdvancedUserInterface
      */
     public function isAccountNonLocked()
     {
-        return $this->status != self::STATUS_LOCKED;
+        return true;
     }
 
     /**
@@ -609,13 +609,13 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Checks whether the user is enabled.
+     * Checks whether the user is allow to login.
      *
      * @return Boolean true if the user is enabled, false otherwise
      */
     public function isEnabled()
     {
-        return $this->status == self::STATUS_ENABLED;
+        return $this->status == self::STATUS_ENABLED || $this->status == self::STATUS_LOCKED;
     }
 
 }
