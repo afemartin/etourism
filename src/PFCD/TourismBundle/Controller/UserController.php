@@ -164,6 +164,8 @@ class UserController extends Controller
      */
     public function frontCreateAction()
     {
+        $em = $this->getDoctrine()->getEntityManager();
+        
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_CREATE;
         
@@ -178,7 +180,6 @@ class UserController extends Controller
 
             if ($form->isValid())
             {
-                $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($user);
                 $em->flush();
 
@@ -196,10 +197,14 @@ class UserController extends Controller
                 return $this->redirect($this->generateUrl('front_index'));
             }
         }
+        
+        // setting table will have only one row with id=1
+        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
 
         return $this->render('PFCDTourismBundle:Front/User:create.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView()
+            'user'     => $user,
+            'settings' => $settings,
+            'form'     => $form->createView(),
         ));
     }
 

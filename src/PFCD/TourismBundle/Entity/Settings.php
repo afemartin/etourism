@@ -36,6 +36,12 @@ class Settings
      * @ORM\Column(name="user_legal", type="text")
      */
     private $userLegal;
+
+    /**
+     * @Gedmo\Translatable
+     * @ORM\Column(name="organization_legal", type="text")
+     */
+    private $organizationLegal;
     
     /**
      * @ORM\Column(name="enabled", type="boolean")
@@ -116,6 +122,26 @@ class Settings
     public function getUserLegal()
     {
         return $this->userLegal;
+    }
+
+    /**
+     * Set organizationLegal
+     *
+     * @param text $organizationLegal
+     */
+    public function setOrganizationLegal($organizationLegal)
+    {
+        $this->organizationLegal = $organizationLegal;
+    }
+
+    /**
+     * Get organizationLegal
+     *
+     * @return text 
+     */
+    public function getOrganizationLegal()
+    {
+        return $this->organizationLegal;
     }
 
     /**

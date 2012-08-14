@@ -85,6 +85,8 @@ front.about.title: Acerca
 
 front.user.create.title: Registro de usuario
 front.user.create.subtitle: Rellene los siguientes campos del formulario para registrarse en el sistema
+front.user.create.termsandaconditions.title: Términos y Condiciones de uso
+front.user.create.termsandaconditions.warning: Si pulsa "Registro" usted acepta los <a onclick="%onclick%">términos y condiciones de uso</a> de esta página
 front.user.read.title: Perfil de usuario
 front.user.read.subtitle: En esta lista se muestra información detallada sobre el usuario
 front.user.update.title: Editar perfil
@@ -426,6 +428,9 @@ Foundationyear: Año de fundación
 Geolocation: Geolocalización
 Logo: Logotipo
 
+Donate: Donaciones
+Donatedesc: Contenido de Donaciones
+
 
 ################################################################################
 ##### Actividad (Formulario)
@@ -545,6 +550,16 @@ From: Desde
 To: Hasta
 
 Search: Buscar
+
+
+################################################################################
+##### Ajustes (Form)
+################################################################################
+
+Homedesc: Contenido de la Portada
+Aboutdesc: Contenido del Acerca
+Userlegal: Términos y Condiciones de uso (Usuarios)
+Organizationlegal: Términos y Condiciones de uso (Organizaciones)
 
 
 ################################################################################
