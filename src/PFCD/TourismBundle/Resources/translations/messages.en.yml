@@ -72,8 +72,8 @@ back.header.subtitle: Administration Panel
 ##### Body
 ################################################################################
 
-front.login.title: User login
-front.login.subtitle: Please fill the following information to login
+front.login.title: User sign in
+front.login.subtitle: Please fill the following information to sign in to your user account. If you do not create already your account <a href="%link%">sign up here</a>
 
 front.rememberpassword.title: Remember password
 front.rememberpassword.subtitle: Please fill your email account to send a link to your email account in order to allow you to set a new password

@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>{{ 'front.login.title'|trans }}</h1>
-<p>{{ 'front.login.subtitle'|trans }}</p>
+<p>{{ 'front.login.subtitle'|trans({'%link%': path('front_user_create')})|raw }}</p>
 
 {% if error %}
 <div class="alert alert-error fade in">

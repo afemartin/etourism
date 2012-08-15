@@ -73,7 +73,7 @@ back.header.subtitle: Panel de Administración
 ################################################################################  
 
 front.login.title: Acceso de usuario
-front.login.subtitle: Rellene los siguientes campos del formulario para acceder a su cuenta
+front.login.subtitle: Rellene los siguientes campos para acceder a su cuenta de usuario. Si aun no ha creado su cuenta <a href="%link%">regístrese aquí</a>
 
 front.rememberpassword.title: Reacordar contraseña
 front.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
