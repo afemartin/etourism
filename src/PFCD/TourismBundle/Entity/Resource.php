@@ -48,7 +48,7 @@ class Resource
     private $name;
 
     /**
-     * @ORM\Column(name="description", type="string", length=512)
+     * @ORM\Column(name="description", type="string", length=512, nullable=true)
      */
     private $description;
 

@@ -311,9 +311,11 @@ form.activity.field.price.help: This will be the price of the activity per perso
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity
 form.activity.field.duration.help: This is the duration of the activity in minutes. Example, 3 hours => "180" minutes
   
-form.organization.field.logo.help: This image must be the logo of the organization. Please upload an image with the following dimension 170x120 pixels and smaller than 32Kb
+form.organization.field.logo.help: This image must be the logo of the organization. Please upload an image with the following dimension 160x120 pixels and smaller than 32Kb
 form.organization.field.bankname.help: This is the name of your bank at which the users will pay the activities via bank transfer
 form.organization.field.bankaccount.help: This is the number of your bank account at which the users will pay the activities via bank transfer
+
+form.resource.field.name.help: The name of this resource must be clear enough to indentify it among all the resources listed at each activity
   
 form.payment.field.price.help: This price was automatically calculated based on the price of the activity and the number of persons. DO NOT MODIFY IT unless you are completely sure about it
 

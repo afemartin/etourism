@@ -18,8 +18,8 @@ class ResourceType extends AbstractType
             $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
         }
         $builder->add('type', 'choice', array('choices' => array(Resource::TYPE_MATERIAL_INT => 'Material (internal)', Resource::TYPE_HUMAN_INT => 'Human (internal)', Resource::TYPE_MATERIAL_EXT => 'Material (external)', Resource::TYPE_HUMAN_EXT => 'Human (external)', Resource::TYPE_UNKNOWN => 'Unknown')));
-        $builder->add('name');
-        $builder->add('description', 'textarea', array('attr' => array('class' => 'input-xxlarge')));
+        $builder->add('name', 'text', array('attr' => array('class' => 'input-xlarge'), 'help' => 'form.resource.field.name.help'));
+        $builder->add('description', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('status', 'choice', array('choices' => array(Resource::STATUS_ENABLED => 'Enabled', Resource::STATUS_DELETED => 'Deleted')));

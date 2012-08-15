@@ -313,10 +313,12 @@ form.activity.field.price.help: Este es el precio de la actividad por persona
 form.activity.field.capacity.help: Este es el número máximo de personas que podran participar en cada sesión de la actividad
 form.activity.field.duration.help: Esta es la duración de la actividad en minutos. Ejemplo, 3 horas => "180" minutos
   
-form.organization.field.logo.help: Esta imagen debe ser el logo de la organización. Por favor, suba una imagen con las siguiente dimensiones 170x120 pixeles y menor de 32Kb
+form.organization.field.logo.help: Esta imagen debe ser el logo de la organización. Por favor, suba una imagen con las siguiente dimensiones 160x120 pixeles y menor de 32Kb
 form.organization.field.bankname.help: Este es el nombre de su banco al cual los usuarios realizarán el pago via tranferencia bancaria
 form.organization.field.bankaccount.help: Este el el número de su cuenta bancaria en la cual los usuarios realizarán el pago via tranferencia bancaria
   
+form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
+
 form.payment.field.price.help: Este precio ha sido calculado automaticamente en base al precio de la actividad y al número de personas. NO LO MODIFIQUE a menos que esté completamente seguro de ello
 
 form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar el código para insertar el vídeo y pegarlo en este campo
