@@ -13,19 +13,19 @@ class OrganizationType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        if ($options['domain'] == Constants::ADMIN)
+        if ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::FRONT)
         {
             $builder->add('username');
         }
-        $builder->add('email');
         if ($options['type'] == Constants::FORM_CREATE)
         {
             $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'password.match.error', 'first_name' => 'Password', 'second_name' => 'Repeat password'));
         }
+        $builder->add('email');
         $builder->add('name');
-        $builder->add('acronim');
         if ($options['type'] == Constants::FORM_UPDATE)
         {
+            $builder->add('acronim');
             $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
             $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
         }
@@ -33,12 +33,15 @@ class OrganizationType extends AbstractType
         $builder->add('foundationYear', 'integer', array('required' => false));
         $builder->add('country', 'country', array('empty_value' => 'Select your country'));
         $builder->add('city');
-        $builder->add('address');
-        $builder->add('postalCode');
-        $builder->add('phone');
-        $builder->add('bankName', 'text', array('required' => false, 'help' => 'form.organization.field.bankname.help'));
-        $builder->add('bankAccount', 'text', array('required' => false, 'help' => 'form.organization.field.bankaccount.help'));
-        $builder->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
+        if ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
+        {
+            $builder->add('address');
+            $builder->add('postalCode');
+            $builder->add('phone');
+            $builder->add('bankName', 'text', array('required' => false, 'help' => 'form.organization.field.bankname.help'));
+            $builder->add('bankAccount', 'text', array('required' => false, 'help' => 'form.organization.field.bankaccount.help'));
+            $builder->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
+        }
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('languages', 'entity', array('class' => 'PFCDTourismBundle:Language', 'property' => 'name', 'multiple' => true, 'expanded' => true));

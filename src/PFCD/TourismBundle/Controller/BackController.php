@@ -155,14 +155,14 @@ class BackController extends Controller
             if ($form->isValid())
             {
                 $message = \Swift_Message::newInstance()
-                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName())))
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.supportenquiry.subject', array('%name%' => $enquiry->getName())))
                         ->setFrom($this->container->getParameter('pfcd_tourism.emails.outgoing_email'))
                         ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
                         ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)));
                 
                 $this->get('mailer')->send($message);
 
-                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.contactenquiry'));
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.supportenquiry'));
 
                 return $this->redirect($this->generateUrl('front_contact'));
             }

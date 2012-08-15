@@ -1,0 +1,38 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ 'Register'|trans }}{% endblock%}
+
+{% block body %}
+<h1>{{ 'front.organization.create.title'|trans }}</h1>
+<p>{{ 'front.organization.create.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('front_organization_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Register'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('front_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
+        <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
+        <div id="terms_and_conditions_modal" class="modal fade hide">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>{{ 'front.organization.create.termsandaconditions.title'|trans }}</h3>
+            </div>
+            <div class="modal-body">
+                {{ settings.organizationlegal|raw }}
+            </div>
+        </div>
+        <p style="margin: 5px 0 0"><small>{{ 'front.organization.create.termsandaconditions.warning'|trans({'%onclick%': 'displayTermsAndConditions()'})|raw }}</small></p>
+    </div>
+</form>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    function displayTermsAndConditions() {
+        $('#terms_and_conditions_modal').modal('show');
+    }
+</script>
+{% endblock %}

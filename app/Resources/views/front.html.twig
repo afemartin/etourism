@@ -74,7 +74,7 @@
                 </div>
                 <div class="span3">
                     {% if is_granted('ROLE_USER') %}
-                    <div class="well" style="padding: 8px 0;">
+                    <div class="well" style="padding: 9px 0;">
                         <ul class="nav nav-list">
                             <li class="nav-header">{{ 'User menu'|trans }}</li>
                             <li id="sidebar-tab-user"><a href="{{ path('front_user_read', { 'id': app.user.id }) }}"><i class="icon-user"></i> {{ 'My profile'|trans }}</a></li>
@@ -83,6 +83,12 @@
                     </div>
                     {% endif %}
                     {% block sidebar %}{% endblock %}
+                    {% if not is_granted('ROLE_USER') %}
+                    <div class="well well-small">
+                        <h3>{{ 'front.advertise.join.title'|trans }}</h3>
+                        <p>{{ 'front.advertise.join.content'|trans({'%link%': path('front_organization_create')})|raw }}</p>    
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <footer class="footer">

@@ -1,0 +1,14 @@
+A registration request was made by the organization {{ organization.name }} ({{ organization.email }}) at {{ "now" | date("Y-m-d H:i") }}
+
+Registration information:
+
+ID: {{ organization.id }}
+Username: {{ organization.username }}
+Email: {{ organization.email }}
+Name: {{ organization.name }}
+Webpage: {{ organization.webpage }}
+Foundation Year: {{ organization.foundationyear }}
+Country: {{ organization.country|country }}
+City: {{ organization.city }}
+
+Please, verify that this is a valid organization and the person that it is trying to register is authorized to do it. It is a securiry check to avoid fraud

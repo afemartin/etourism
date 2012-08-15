@@ -24,6 +24,9 @@ Language: Idioma
 Latest activities: Últimas actividades
 Latest news: Últimas noticias
 
+front.advertise.join.title: Participa
+front.advertise.join.content: Si conoces alguna organización de cooperación que pueda estar interesada en usar esta página para ofrecer sus actividades, avísales que pueden <a href="%link%">registrarse aqui</a>
+
 Menu: Menu
 Sessions: Sesiones
 Reservations: Reservas
@@ -94,6 +97,10 @@ front.user.update.subtitle: En cualquier momento puede editar los datos personal
 
 front.organization.index.title: Lista de organizaciones
 front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este proyecto
+front.organization.create.title: Únase, registre su organización
+front.organization.create.subtitle: Rellene los siguientes campos del formulario para enviar la solicitud de registro. Nuestro administrador validará la información antes de ponerse en contacto con usted, a través del email indicado, para asegurar que todo es correcto
+front.organization.create.termsandaconditions.title: Términos y Condiciones de uso
+front.organization.create.termsandaconditions.warning: Si pulsa "Registro" usted acepta los <a onclick="%onclick%">términos y condiciones de uso</a> de esta página
 front.organization.read.subtitle: Trabajando en %city% (%country%) desde %year%
 front.organization.activities.title: Lista de actividades
 front.organization.activities.subtitle: En esta lista se encuentran todas las actividades ofrecidas por la organización %organization%
@@ -283,7 +290,10 @@ alert.success.rememberpassword: Le hemos enviado un correo electronico con un en
 alert.error.resetpassword: El enlace utilizado para reestablecer su contraseña no es válido o ya ha sido usado anteriormente. Por favor pongase en contacto con nosotros si no consigue restablecer su contraseña
 alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. Utilicela para acceder al sistema
 
-alert.success.contactenquiry: Su petición a sido enviada correctamente. Muchas gracias
+alert.success.contactenquiry: Su petición ha sido enviada correctamente. Muchas gracias
+alert.success.supportenquiry: Su petición ha sido enviada correctamente. Muchas gracias
+
+alert.success.createorganization: Su solicitud ha sido enviada correctamente. Muchas gracias
 
 alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pago de la reserva
 

@@ -82,6 +82,10 @@ front_organization_index:
     defaults: { _controller: PFCDTourismBundle:Organization:frontIndex }
     requirements: { _method: get }
     
+front_organization_create:
+    pattern:  /join
+    defaults: { _controller: PFCDTourismBundle:Organization:frontCreate}
+    
 front_organization_read:
     pattern:  /organization/{id}
     defaults: { _controller: "PFCDTourismBundle:Organization:frontRead" }

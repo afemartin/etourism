@@ -304,6 +304,55 @@ class OrganizationController extends Controller
             'organizations' => $organizations
         ));
     }
+    
+    /**
+     * Displays a form to create a new Organization entity and store it when the form is submitted and valid
+     */
+    public function frontCreateAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $options['domain'] = Constants::FRONT;
+        $options['type'] = Constants::FORM_CREATE;
+        
+        $organization = new Organization();
+        $form = $this->createForm(new OrganizationType(), $organization, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                $em->persist($organization);
+                $em->flush();
+
+                $template = 'registration.txt.twig';
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.registration.subject'))
+                        ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
+                        ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
+                        ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('organization' => $organization)));
+                
+                $this->get('mailer')->send($message);
+
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.createorganization'));
+                
+                return $this->redirect($this->generateUrl('front_index'));
+            }
+        }
+        
+        // setting table will have only one row with id=1
+        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
+
+        return $this->render('PFCDTourismBundle:Front/Organization:create.html.twig', array(
+            'organization' => $organization,
+            'settings'     => $settings,
+            'form'         => $form->createView(),
+        ));
+    }
 
     /**
      * Finds and displays a Organization entity

@@ -24,6 +24,9 @@ Language: Language
 Latest activities: Latest activities
 Latest news: Latest news
 
+front.advertise.join.title: Join us
+front.advertise.join.content: If you know about any cooperation organization that migth be insterested on using this webpage to offer their activities, please tell them to <a href="%link%">register here</a>
+
 Menu: Menu
 Sessions: Sessions
 Reservations: Reservations
@@ -94,6 +97,10 @@ front.user.update.subtitle: Use this form to edit your account information
 
 front.organization.index.title: Organization list
 front.organization.index.subtitle: In this list there are all the organizations registered in the system
+front.organization.create.title: Join us, register your organization
+front.organization.create.subtitle: Please fill the following information to complete the registration request. Our administrator will validate the information before contact you, through the given email address, to ensure everything it is correct
+front.organization.create.termsandaconditions.title: Terms of use and Conditions
+front.organization.create.termsandaconditions.warning: If you press "Join" you accept the <a onclick="%onclick%">terms of use and conditions</a> of this webpage
 front.organization.read.subtitle: Working in %city% (%country%) since %year%
 front.organization.activities.title: List of activities
 front.organization.activities.subtitle: In this list there are all the activities registered in the system by the organization %organization%
@@ -284,6 +291,7 @@ alert.error.resetpassword: The link received to reset the password it is not val
 alert.success.resetpassword: Your password has been reset successfully. Use your new password to login into the system
 
 alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank you!
+alert.success.supportenquiry: Your support enquiry was successfully sent. Thank you!
 
 alert.success.reservationaccepted: The payment for the activity has been created succesfully and an email has been sent to the user to proceed to the payment of the reservation
 
@@ -318,6 +326,8 @@ form.field.translatable.help: This is a multilanguage field. Now you can edit th
 form.field.required.help: Indicates required field
 
 email.contactenquiry.subject: Contact enquiry from %name%
+email.supportenquiry.subject: Support enquiry from %name%
+email.registration.subject: Support enquiry from %name%
 email.rememberpassword.subject: Reset password
 email.accountactivation.subject: Activation of your account
 email.reservationaccepted.subject: Reservation accepted
