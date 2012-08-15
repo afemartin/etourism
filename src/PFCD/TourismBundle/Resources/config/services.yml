@@ -27,3 +27,10 @@ services:
         class: PFCD\TourismBundle\Form\Extension\TranslatableTypeExtension
         tags:
             - { name: form.type_extension, alias: field }
+        
+    # This extension allow to automatically translate a country ISO code to a
+    # country name for field choice with a subset of countries
+    form.type_extension.countrylist:
+        class: PFCD\TourismBundle\Form\Extension\CountryListTypeExtension
+        tags:
+            - { name: form.type_extension, alias: field }
