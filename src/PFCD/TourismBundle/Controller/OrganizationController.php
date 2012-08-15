@@ -298,6 +298,34 @@ class OrganizationController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
+        $countries = $em->getRepository('PFCDTourismBundle:Organization')->findCountriesFront();
+        
+        // the country filter should be displayed only if there are 2 or more different countries
+        $countryfilter = count($countries) > 1;
+        
+        foreach ($countries as $country) $options['countries'][$country['country']] = $country['country'];
+        
+        $organizationFilter = new OrganizationFilter();
+        
+        $form = $this->createForm(new OrganizationFilterType(), $organizationFilter, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+        }
+        
+        $country = $organizationFilter->getCountry() ?: null;
+
+        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findListFront(null, $country);
+
+        return $this->render('PFCDTourismBundle:Front/Organization:index.html.twig', array(
+            'organizations' => $organizations,
+            'countryfilter' => $countryfilter,
+            'form'          => $form->createView()
+        ));
+        
         $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findByStatus(array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
 
         return $this->render('PFCDTourismBundle:Front/Organization:index.html.twig', array(

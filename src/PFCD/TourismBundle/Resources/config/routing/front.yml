@@ -80,7 +80,6 @@ front_user_delete:
 front_organization_index:
     pattern:  /organizations
     defaults: { _controller: PFCDTourismBundle:Organization:frontIndex }
-    requirements: { _method: get }
     
 front_organization_create:
     pattern:  /join
@@ -119,7 +118,6 @@ front_organization_contact:
 front_activity_index:
     pattern:  /activities
     defaults: { _controller: "PFCDTourismBundle:Activity:frontIndex" }
-    requirements: { _method: get }
 
 front_activity_read:
     pattern:  /activity/{id}
@@ -184,7 +182,6 @@ front_payment_update:
 front_article_index:
     pattern:  /news
     defaults: { _controller: "PFCDTourismBundle:Article:frontIndex" }
-    requirements: { _method: get }
 
 front_article_read:
     pattern:  /article/{id}

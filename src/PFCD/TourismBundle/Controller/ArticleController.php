@@ -317,11 +317,33 @@ class ArticleController extends Controller
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
         
         $em = $this->getDoctrine()->getEntityManager();
+        
+        $countries = $em->getRepository('PFCDTourismBundle:Article')->findCountriesFront();
+        
+        // the country filter should be displayed only if there are 2 or more different countries
+        $countryfilter = count($countries) > 1;
+        
+        foreach ($countries as $country) $options['countries'][$country['country']] = $country['country'];
+        
+        $organizationFilter = new OrganizationFilter();
+        
+        $form = $this->createForm(new OrganizationFilterType(), $organizationFilter, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+        }
+        
+        $country = $organizationFilter->getCountry() ?: null;
 
-        $articles = $em->getRepository('PFCDTourismBundle:Article')->findByStatus(array(Article::STATUS_ENABLED, Article::STATUS_LOCKED));
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront(null, $country);
 
         return $this->render('PFCDTourismBundle:Front/Article:index.html.twig', array(
-            'articles' => $articles
+            'articles'      => $articles,
+            'countryfilter' => $countryfilter,
+            'form'          => $form->createView()
         ));
     }
 

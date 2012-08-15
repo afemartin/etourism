@@ -1,10 +1,23 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
 {% block title %}{{ 'Organizations'|trans }}{% endblock%}
 
 {% block body %}
-<h1>{{ 'front.organization.index.title'|trans }}</h1>
-<p>{{ 'front.organization.index.subtitle'|trans }}</p>
+<div class="row">
+    <div class="span">
+        <h1>{{ 'front.organization.index.title'|trans }}</h1>
+        <p>{{ 'front.organization.index.subtitle'|trans }}</p>
+    </div>
+    {% if countryfilter %}
+    <form class="form-inline pull-right" action="{{ path('front_organization_index') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form.country) }}
+        {{ form_rest(form) }}
+        <button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> {{ 'Search'|trans }}</button>
+    </form>
+    {% endif %}
+</div>
 
 {% for organization in organizations %}
 <div class="info-container row">

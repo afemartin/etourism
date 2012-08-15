@@ -38,6 +38,24 @@ class ActivityRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findCountriesFront()
+    {
+        $qb = $this->createQueryBuilder('a');
+        
+        $qb->select('o.country');
+        $qb->innerJoin('a.organization', 'o');
+                
+        $qb->where('a.status IN (:status_act)');
+        $qb->setParameter('status_act', array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
+        
+        $qb->andWhere('o.status IN (:status_org)');
+        $qb->setParameter('status_org', array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
+        
+        $qb->groupBy('o.country');
+
+        return $qb->getQuery()->getResult();
+    }
+
 }
 
 ?>

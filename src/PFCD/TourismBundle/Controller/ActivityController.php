@@ -10,6 +10,9 @@ use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Form\ActivityType;
 use PFCD\TourismBundle\Form\MediaType;
 
+use PFCD\TourismBundle\Entity\OrganizationFilter;
+use PFCD\TourismBundle\Form\OrganizationFilterType;
+
 use PFCD\TourismBundle\Entity\Image;
 
 /**
@@ -317,11 +320,33 @@ class ActivityController extends Controller
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
         
         $em = $this->getDoctrine()->getEntityManager();
+        
+        $countries = $em->getRepository('PFCDTourismBundle:Activity')->findCountriesFront();
+        
+        // the country filter should be displayed only if there are 2 or more different countries
+        $countryfilter = count($countries) > 0;
+        
+        foreach ($countries as $country) $options['countries'][$country['country']] = $country['country'];
+        
+        $organizationFilter = new OrganizationFilter();
+        
+        $form = $this->createForm(new OrganizationFilterType(), $organizationFilter, $options);
+        
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+        }
+        
+        $country = $organizationFilter->getCountry() ?: null;
 
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront(null, $country);
 
         return $this->render('PFCDTourismBundle:Front/Activity:index.html.twig', array(
-            'activities' => $activities
+            'activities'    => $activities,
+            'countryfilter' => $countryfilter,
+            'form'          => $form->createView()
         ));
     }
 

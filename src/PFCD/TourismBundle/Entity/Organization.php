@@ -20,7 +20,7 @@ use PFCD\TourismBundle\Entity\Article;
 use PFCD\TourismBundle\Entity\Language;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\OrganizationRepository")
  * @ORM\Table(name="organization")
  * @ORM\HasLifecycleCallbacks()
  */
