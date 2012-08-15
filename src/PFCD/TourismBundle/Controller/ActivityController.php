@@ -324,7 +324,7 @@ class ActivityController extends Controller
         $countries = $em->getRepository('PFCDTourismBundle:Activity')->findCountriesFront();
         
         // the country filter should be displayed only if there are 2 or more different countries
-        $countryfilter = count($countries) > 0;
+        $countryfilter = count($countries) > 1;
         
         foreach ($countries as $country) $options['countries'][$country['country']] = $country['country'];
         
