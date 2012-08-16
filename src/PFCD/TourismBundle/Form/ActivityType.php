@@ -23,7 +23,7 @@ class ActivityType extends AbstractType
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('price', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
-        $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency'));
+        $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
         $builder->add('capacity', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.capacity.help'));
         $builder->add('duration', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.duration.help'));
         if ($options['type'] == Constants::FORM_UPDATE)
