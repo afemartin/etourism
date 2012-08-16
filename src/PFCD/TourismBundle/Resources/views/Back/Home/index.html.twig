@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'home' %}
 
 {% block body %}
@@ -18,7 +20,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'Id'|trans }}</th>
-                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Date'|trans }}</th>
                     <th>{{ 'Time'|trans }}</th>
                     <th>{{ 'Persons'|trans }}</th>
@@ -52,7 +54,7 @@
                 <tr>
                     <th>{{ 'Id'|trans }}</th>
                     <th>{{ 'Name'|trans }}</th>
-                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Session date'|trans }}</th>
                     <th>{{ 'Session time'|trans }}</th>
                 </tr>
@@ -88,7 +90,7 @@
                 <tr>
                     <th>{{ 'Id'|trans }}</th>
                     <th>{{ 'User'|trans }}</th>
-                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Persons'|trans }}</th>
                     <th>{{ 'Session date'|trans }}</th>
                     <th>{{ 'Session time'|trans }}</th>
@@ -121,7 +123,7 @@
                 <tr>
                     <th>{{ 'Id'|trans }}</th>
                     <th>{{ 'User'|trans }}</th>
-                    <th>{{ 'Activity'|trans }}</th>
+                    <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Price'|trans }}</th>
                     <th>{{ 'Session date'|trans }}</th>
                     <th>{{ 'Session time'|trans }}</th>
