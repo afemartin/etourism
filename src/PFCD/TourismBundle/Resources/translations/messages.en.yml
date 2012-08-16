@@ -416,7 +416,7 @@ Select your language: Select your language
 
 Pending: Pending
 Enabled: Enabled
-Locked: Blocked
+Locked: Locked
 Deleted: Deleted
 
 
@@ -707,8 +707,8 @@ dayweek.full.7: Sunday
 
 Help: Help
 
-calendar.help.block: Blocked
-calendar.help.block.desc: The organization has blocked the reservations for this activity. Contact with the organization for more information
+calendar.help.lock: Locked
+calendar.help.lock.desc: The organization has locked the reservations for this activity. Contact with the organization for more information
 calendar.help.available: Available
 calendar.help.available.desc: Reservation places available
 calendar.help.reducedavailability: Reduced availabilty

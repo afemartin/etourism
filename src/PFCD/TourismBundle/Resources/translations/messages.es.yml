@@ -706,8 +706,8 @@ dayweek.full.7: Domingo
 
 Help: Ayuda
 
-calendar.help.block: Bloqueada
-calendar.help.block.desc: La organización ha bloqueado las reservas para esta actividad. Contacte con la organización para más información
+calendar.help.lock: Bloqueada
+calendar.help.lock.desc: La organización ha bloqueado las reservas para esta actividad. Contacte con la organización para más información
 calendar.help.available: Disponible
 calendar.help.available.desc: Hay plaza disponibles para reservar
 calendar.help.reducedavailability: Disponibilidad reducida
