@@ -14,20 +14,16 @@ use PFCD\TourismBundle\Entity\Currency;
  */
 class Payment
 {
-    const STATUS_PENDING_P = 0; // accepted reservation generate a payment (FROM 0 TO [1])
-    const STATUS_PAID      = 1; // organization receive the payment (FROM 1 TO [2])
-    const STATUS_PENDING_R = 2; // user cancel the reservation before or after to be accepted (END)
-    const STATUS_REFUNDED  = 3; // organization reject the reservation (END)
-
-    private $statusText = array('0' => 'Pending payment', '1' => 'Paid', '2' => 'Pending refund', '3' => 'Refunded');
-    
     const TYPE_CREDIT_CARD   = 1;
-    const TYPE_BANK_TRANSFER = 2;
-    const TYPE_PAYPAL        = 3;
+    const TYPE_PAYPAL        = 2;
+    const TYPE_BANK_TRANSFER = 3;
     const TYPE_CASH          = 4;
-
-    private $typeText = array('1' => 'Credit card', '2' => 'Bank transfer', '3' => 'Paypal', '4' => 'Cash');
     
+    const STATUS_PENDING_P = 0;     // The accepted reservation generate automatically the associated payment (FROM 0 TO [1])
+    const STATUS_PAID      = 1;     // The organization receive the payment from the user (FROM 1 TO [2])
+    const STATUS_PENDING_R = 2;     // The user cancel the reservation after paid it so the organization will have to refund the money (FROM 2 TO [3] or END)
+    const STATUS_REFUNDED  = 3;     // The organization has refunded the money to the user (END)
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -167,14 +163,7 @@ class Payment
      */
     public function getTypeText()
     {
-        if ($this->type)
-        {
-            return $this->typeText[$this->type];
-        }
-        else
-        {
-            return null;
-        }
+        return $this->type ? 'entity.payment.field.type.' . $this->type : null;
     }
 
     /**
@@ -304,7 +293,7 @@ class Payment
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.payment.field.status.' . $this->status;
     }
     
 }

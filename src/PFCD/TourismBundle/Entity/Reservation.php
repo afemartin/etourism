@@ -15,13 +15,11 @@ use PFCD\TourismBundle\Entity\Payment;
  */
 class Reservation
 {
-    const STATUS_REQUESTED = 0; // user make a reservation (FROM 0 TO [1,2,3])
-    const STATUS_ACCEPTED  = 1; // organization accept the reservation (FROM 1 TO [2,3])
-    const STATUS_REJECTED  = 2; // organization reject the reservation (END)
-    const STATUS_CANCELED  = 3; // user cancel the reservation before or after to be accepted (END)
+    const STATUS_REQUESTED = 0;     // The reservation is requested by the user (FROM 0 TO [1,2,3])
+    const STATUS_ACCEPTED  = 1;     // The reservation is accepted by the organization (FROM 1 TO [2,3])
+    const STATUS_REJECTED  = 2;     // The reservation is rejected by the organization (END)
+    const STATUS_CANCELED  = 3;     // The reservation is canceled by the user before or after to be accepted (END)
 
-    private $statusText = array('0' => 'Requested', '1' => 'Accepted', '2' => 'Rejected', '3' => 'Canceled');
-    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -260,7 +258,7 @@ class Reservation
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.reservation.field.status.' . $this->status;
     }
     
     /**

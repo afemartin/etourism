@@ -16,13 +16,13 @@ class PaymentType extends AbstractType
         if ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
         {
             $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.payment.field.price.help'));
-            $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency'));
+            $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
         }
-        $builder->add('type', 'choice', array('choices' => array(Payment::TYPE_BANK_TRANSFER => 'Bank transfer', Payment::TYPE_CASH => 'Cash'), 'empty_value' => 'Select a payment method'));
+        $builder->add('type', 'choice', array('choices' => array(Payment::TYPE_BANK_TRANSFER => 'entity.payment.field.type.' . Payment::TYPE_BANK_TRANSFER, Payment::TYPE_CASH => 'entity.payment.field.type.' . Payment::TYPE_CASH), 'empty_value' => 'Select a payment method'));
         $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
         {
-            $builder->add('status', 'choice', array('choices' => array(Payment::STATUS_PENDING_P => 'Pending payment', Payment::STATUS_PAID => 'Paid', Payment::STATUS_PENDING_R => 'Pending refund', Payment::STATUS_REFUNDED => 'Refunded')));
+            $builder->add('status', 'choice', array('choices' => array(Payment::STATUS_PENDING_P => 'entity.payment.field.status.' . Payment::STATUS_PENDING_P, Payment::STATUS_PAID => 'entity.payment.field.status.' . Payment::STATUS_PAID, Payment::STATUS_PENDING_R => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R, Payment::STATUS_REFUNDED => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R), 'help' => 'form.payment.field.status.help'));
         }
     }
 

@@ -17,12 +17,12 @@ class ResourceType extends AbstractType
         {
             $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
         }
-        $builder->add('type', 'choice', array('choices' => array(Resource::TYPE_MATERIAL_INT => 'Material (internal)', Resource::TYPE_HUMAN_INT => 'Human (internal)', Resource::TYPE_MATERIAL_EXT => 'Material (external)', Resource::TYPE_HUMAN_EXT => 'Human (external)', Resource::TYPE_UNKNOWN => 'Unknown')));
+        $builder->add('type', 'choice', array('choices' => array(Resource::TYPE_MATERIAL_INT => 'entity.resource.field.type.' . Resource::TYPE_MATERIAL_INT, Resource::TYPE_HUMAN_INT => 'entity.resource.field.type.' . Resource::TYPE_HUMAN_INT, Resource::TYPE_MATERIAL_EXT => 'entity.resource.field.type.' . Resource::TYPE_MATERIAL_EXT, Resource::TYPE_HUMAN_EXT => 'entity.resource.field.type.' . Resource::TYPE_HUMAN_EXT, Resource::TYPE_UNKNOWN => 'entity.resource.field.type.' . Resource::TYPE_UNKNOWN)));
         $builder->add('name', 'text', array('attr' => array('class' => 'input-xlarge'), 'help' => 'form.resource.field.name.help'));
         $builder->add('description', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('status', 'choice', array('choices' => array(Resource::STATUS_ENABLED => 'Enabled', Resource::STATUS_DELETED => 'Deleted')));
+            $builder->add('status', 'choice', array('choices' => array(Resource::STATUS_ENABLED => 'entity.resource.field.status.' . Resource::STATUS_ENABLED, Resource::STATUS_LOCKED => 'entity.resource.field.status.' . Resource::STATUS_LOCKED, Resource::STATUS_DELETED => 'entity.resource.field.status.' . Resource::STATUS_DELETED), 'help' => 'form.resource.field.status.help'));
         }
     }
 

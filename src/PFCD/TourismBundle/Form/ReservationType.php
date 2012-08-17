@@ -34,7 +34,7 @@ class ReservationType extends AbstractType
         $builder->add('session', 'hidden', array('property_path' => false));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
         {
-            $builder->add('status', 'choice', array('choices' => array(Reservation::STATUS_REQUESTED => 'Requested', Reservation::STATUS_ACCEPTED => 'Accepted', Reservation::STATUS_REJECTED => 'Rejected', Reservation::STATUS_CANCELED => 'Canceled')));
+            $builder->add('status', 'choice', array('choices' => array(Reservation::STATUS_REQUESTED => 'entity.reservation.field.status.' . Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED => 'entity.reservation.field.status.' . Reservation::STATUS_ACCEPTED, Reservation::STATUS_REJECTED => 'entity.reservation.field.status.' . Reservation::STATUS_REJECTED, Reservation::STATUS_CANCELED => 'entity.reservation.field.status.' . Reservation::STATUS_CANCELED), 'help' => 'form.reservation.field.status.help'));
         }
     }
 

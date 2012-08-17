@@ -30,13 +30,13 @@
         <td>{{ user.email }}</td>
         <td>{{ user.firstname }}</td>
         <td>{{ user.lastname }}</td>
-        <td>{% if user.birthday %}{{ user.birthday|date('Y-m-d') }}{% endif%}</td>
-        <td>{% if user.gender %}{{ user.genderText|trans }}{% endif%}</td>
+        <td>{% if user.birthday %}{{ user.birthday|date('Y-m-d') }}{% endif %}</td>
+        <td>{{ user.genderText|trans }}</td>
         <td>{{ user.country|country }}</td>
         <td>{{ user.locale|locale }}</td>
-        <td>{% if user.created %}{{ user.created|date('Y-m-d') }}{% endif%}</td>
-        <td>{% if user.updated %}{{ user.updated|date('Y-m-d') }}{% endif%}</td>
-        <td>{{ user.statusText }}</td>
+        <td>{% if user.created %}{{ user.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if user.updated %}{{ user.updated|date('Y-m-d') }}{% endif %}</td>
+        <td>{{ user.statusText|trans }}</td>
         <td><a href="{{ path('back_user_update', { 'id': user.id }) }}"><i class="icon-edit"></i></a></td>
     </tr>
     {% endfor %}

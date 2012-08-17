@@ -7,7 +7,7 @@
 
 {% block field_row %}
 {% spaceless %}
-    <div class="control-group {% if errors %}error{% endif%}">
+    <div class="control-group {% if errors %}error{% endif %}">
         {{ form_label(form, label|default(null)) }}
         <div class="controls">
             {{ form_widget(form) }}
@@ -82,9 +82,9 @@
     
 {% block file_widget %}
 {% spaceless %}
-    <div class="fileupload fileupload-new" data-fileupload="image">
-        <div class="fileupload-new thumbnail image-holder"><img height="120px" src="http://www.placehold.it/170x120&amp;text=no+image" /></div>
-        <div class="fileupload-preview fileupload-exists thumbnail" style="max-height: 120px; line-height: 0px;"></div>
+    <div class="fileupload fileupload-new" style="display: inline-block" data-fileupload="image">
+        <div class="fileupload-new thumbnail image-holder"><img width="160px" src="http://www.placehold.it/160x120&amp;text=upload+image" /></div>
+        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 160px; line-height: 0px;"></div>
         <div>
             <span class="btn btn-primary btn-file">
                 <span class="fileupload-new"><i class="icon-picture icon-white"></i> {{ 'back.form.imageupload.button.upload'|trans }}</span>
@@ -118,9 +118,7 @@
     
 {% block money_widget %}
 {% spaceless %}
-    <div class="input-append">
-    {{ block('field_widget')|raw }}<span class="add-on">{{ money_pattern|replace({ '{{ widget }}': '' }) }}</span>
-    </div>
+    {{ block('field_widget')|raw }}
 {% endspaceless %}
 {% endblock money_widget %}
     

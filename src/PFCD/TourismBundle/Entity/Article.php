@@ -21,13 +21,10 @@ use PFCD\TourismBundle\Entity\Image;
  */
 class Article
 {
-    const STATUS_PENDING = 0; // visible to author but not to users
-    const STATUS_ENABLED = 1; // visible to everyone (allow comments)
-    const STATUS_LOCKED  = 2; // visible to everyone (no comments)
-    const STATUS_DELETED = 3; // only visible to admin
+    const STATUS_PENDING = 0;   // The article is not visible (only in preview mode)
+    const STATUS_ENABLED = 1;   // The article is visible
+    const STATUS_DELETED = 3;   // The article is not visible
 
-    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
-    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -366,7 +363,7 @@ class Article
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.article.field.status.' . $this->status;
     }
 
     /**

@@ -119,6 +119,10 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
     max-width: 800px;
 }
 
+.table colgroup .first-column {
+    width: 200px;
+}
+
 .table thead th {
     text-align: center;
     vertical-align: middle;
@@ -369,7 +373,14 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
 }
 
 .tooltip-inner {
-  max-width: 300px;
+    max-width: 300px;
+    text-align: left;
+}
+
+.tooltip-inner hr {
+    border: 0;
+    border-bottom: 1px solid #555;
+    margin: 0;
 }
 
 /* Subnav styles */

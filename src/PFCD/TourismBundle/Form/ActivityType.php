@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Resource;
 
 class ActivityType extends AbstractType
 {
@@ -22,7 +23,7 @@ class ActivityType extends AbstractType
         $builder->add('title', 'text', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
-        $builder->add('price', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
+        $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
         $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
         $builder->add('capacity', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.capacity.help'));
         $builder->add('duration', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.duration.help'));
@@ -34,13 +35,15 @@ class ActivityType extends AbstractType
                     'query_builder' => function(EntityRepository $er) use ($options) {
                         return $er->createQueryBuilder('r')
                                 ->where('r.organization = :organization')
-                                ->orderBy('r.name', 'ASC')
-                                ->setParameter('organization', $options['organization']);
+                                ->setParameter('organization', $options['organization'])
+                                ->andWhere('r.status IN (:status)')
+                                ->setParameter('status', array(Resource::STATUS_ENABLED, Resource::STATUS_LOCKED))
+                                ->orderBy('r.name', 'ASC');
                     }));
             }
             $builder->add('languages', 'entity', array('class' => 'PFCDTourismBundle:Language', 'property' => 'name', 'multiple' => true, 'expanded' => true));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Image', 'help' => 'form.activity.field.image.help'));
-            $builder->add('status', 'choice', array('choices' => array(Activity::STATUS_PENDING => 'Pending', Activity::STATUS_ENABLED => 'Enabled', Activity::STATUS_LOCKED => 'Locked', Activity::STATUS_DELETED => 'Deleted')));
+            $builder->add('status', 'choice', array('choices' => array(Activity::STATUS_PENDING => 'entity.activity.field.status.' . Activity::STATUS_PENDING, Activity::STATUS_ENABLED => 'entity.activity.field.status.' . Activity::STATUS_ENABLED, Activity::STATUS_LOCKED => 'entity.activity.field.status.' . Activity::STATUS_LOCKED, Activity::STATUS_DELETED => 'entity.activity.field.status.' . Activity::STATUS_DELETED), 'help' => 'form.activity.field.status.help'));
         }
     }
 

@@ -15,13 +15,11 @@ use PFCD\TourismBundle\Entity\Reservation;
  */
 class Session
 {
-    const STATUS_PENDING = 0; // visible to author but not to users
-    const STATUS_ENABLED = 1; // visible to everyone (allow comments and reservations)
-    const STATUS_LOCKED  = 2; // visible to everyone (no comments or reservations)
-    const STATUS_DELETED = 3; // only visible to admin
+    const STATUS_PENDING = 0;   // The session is not visible
+    const STATUS_ENABLED = 1;   // The session is visible and allow reservations
+    const STATUS_LOCKED  = 2;   // The session is visible but do not allow reservations
+    const STATUS_DELETED = 3;   // The session is not visible
 
-    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
-    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -265,7 +263,7 @@ class Session
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.session.field.status.' . $this->status;
     }
            
     /**

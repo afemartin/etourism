@@ -24,12 +24,10 @@ use PFCD\TourismBundle\Entity\Image;
  */
 class Activity
 {
-    const STATUS_PENDING = 0; // visible to author but not to users
-    const STATUS_ENABLED = 1; // visible to everyone (allow comments and reservations)
-    const STATUS_LOCKED  = 2; // visible to everyone (no comments or reservations)
-    const STATUS_DELETED = 3; // only visible to admin
-
-    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
+    const STATUS_PENDING = 0;   // The activity is not visible (only in preview mode)
+    const STATUS_ENABLED = 1;   // The activity is visible and can receive reservations
+    const STATUS_LOCKED  = 2;   // The activity is visible but can not receive reservations
+    const STATUS_DELETED = 3;   // The activity is not visible
     
     /**
      * @ORM\Id
@@ -528,7 +526,7 @@ class Activity
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.activity.field.status.' . $this->status;
     }
     
     /**

@@ -51,7 +51,7 @@ class OrganizationType extends AbstractType
         }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('status', 'choice', array('choices' => array(Organization::STATUS_PENDING => 'Pending', Organization::STATUS_ENABLED => 'Enabled', Organization::STATUS_LOCKED => 'Locked', Organization::STATUS_DELETED => 'Deleted')));
+            $builder->add('status', 'choice', array('choices' => array(Organization::STATUS_PENDING => 'entity.organization.field.status.' . Organization::STATUS_PENDING, Organization::STATUS_ENABLED => 'entity.organization.field.status.' . Organization::STATUS_ENABLED, Organization::STATUS_LOCKED => 'entity.organization.field.status.' . Organization::STATUS_LOCKED, Organization::STATUS_DELETED => 'entity.organization.field.status.' . Organization::STATUS_DELETED), 'help' => 'form.organization.field.status.help'));
         }
     }
     

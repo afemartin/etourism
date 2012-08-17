@@ -2,13 +2,16 @@
 
 {% import "PFCDTourismBundle::macros.html.twig" as macros %}
 
-{% set sectiontab = 'organization' %}
+{% set sectiontab = 'organization' %}{% set helptooltip = 1 %}
 
 {% block body %}
 <h1>{{ 'back.organization.read.title'|trans }}</h1>
 <p>{{ 'back.organization.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
+    <colgroup>
+        <col class="first-column">
+    </colgroup>
     <tbody>
         {% if is_granted('ROLE_ADMIN') %}
         <tr>
@@ -99,7 +102,7 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ organization.statusText }}</td>
+            <td>{{ organization.statusText|trans }} <a data-original-title="{{ 'form.organization.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
         </tr>
     </tbody>
 </table>

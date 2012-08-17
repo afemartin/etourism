@@ -1,12 +1,15 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'user' %}
+{% set sectiontab = 'user' %}{% set helptooltip = 1 %}
 
 {% block body %}
 <h1>{{ 'back.user.read.title'|trans }}</h1>
 <p>{{ 'back.user.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
+    <colgroup>
+        <col class="first-column">
+    </colgroup>
     <tbody>
         <tr>
             <th>{{ 'Id'|trans }}</th>
@@ -30,7 +33,7 @@
         </tr>
         <tr>
             <th>{{ 'Gender'|trans }}</th>
-            <td>{% if user.gender %}{{ user.genderText|trans }}{% endif%}</td>
+            <td>{{ user.genderText|trans }}</td>
         </tr>
         <tr>
             <th>{{ 'Country'|trans }}</th>
@@ -66,7 +69,7 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ user.statusText }}</td>
+            <td>{{ user.statusText|trans }} <a data-original-title="{{ 'form.user.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
         </tr>
     </tbody>
 </table>

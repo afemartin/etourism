@@ -19,18 +19,13 @@ use PFCD\TourismBundle\Entity\Reservation;
  */
 class User implements AdvancedUserInterface
 {
-    const GENDER_UNKNOWN = 0;
     const GENDER_MALE    = 1;
     const GENDER_FEMALE  = 2;
     
-    private $genderText = array('0'=>'Unknown', '1'=>'Male', '2'=>'Female');
-    
-    const STATUS_PENDING = 0;
-    const STATUS_ENABLED = 1;
-    const STATUS_LOCKED  = 2;
-    const STATUS_DELETED = 3;
-    
-    private $statusText = array('0'=>'Pending', '1'=>'Enabled', '2'=>'Locked', '3'=>'Deleted');
+    const STATUS_PENDING = 0;   // The user has registered in the system but the account has not been validated yet. Can not access to the user private section
+    const STATUS_ENABLED = 1;   // The user is able to make new reservations and manage the current reservations and payments
+    const STATUS_LOCKED  = 2;   // The user is not able to make new reservations but it is able to manage the current reservations and payments
+    const STATUS_DELETED = 3;   // The user is not visible. Can not access to the user private section anymore
 
     /**
      * @ORM\Id
@@ -137,7 +132,6 @@ class User implements AdvancedUserInterface
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
-        $this->gender = self::GENDER_UNKNOWN;
         $this->status = self::STATUS_PENDING;
         $this->reservations = new ArrayCollection();
 
@@ -365,7 +359,7 @@ class User implements AdvancedUserInterface
      */
     public function getGenderText()
     {
-        return $this->genderText[$this->gender];
+        return $this->gender ? 'entity.user.field.gender.' . $this->gender : null;
     }
 
     /**
@@ -555,7 +549,7 @@ class User implements AdvancedUserInterface
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.user.field.status.' . $this->status;
     }
 
     /**

@@ -1,12 +1,15 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'payment' %}
+{% set sectiontab = 'payment' %}{% set helptooltip = 1 %}
 
 {% block body %}
 <h1>{{ 'back.payment.read.title'|trans }}</h1>
 <p>{{ 'back.payment.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
+    <colgroup>
+        <col class="first-column">
+    </colgroup>
     <tbody>
         <tr>
             <th>{{ 'Id'|trans }}</th>
@@ -14,11 +17,11 @@
         </tr>
         <tr>
             <th>{{ 'User'|trans }}</th>
-            <td>{% if payment.reservation.user %}{{ payment.reservation.user.fullname }} ({{ payment.reservation.user.email }}){% endif %}</td>
+            <td>{% if payment.reservation.user %}<a href="{{ path('back_user_read', { 'id': payment.reservation.user.id }) }}">{{ payment.reservation.user.fullname }}</a> ({{ payment.reservation.user.email }}){% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Activity'|trans }}</th>
-            <td>{{ payment.reservation.session.activity.title }}</td>
+            <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title }}</a></td>
         </tr>
         <tr>
             <th>{{ 'Persons'|trans }}</th>
@@ -26,7 +29,7 @@
         </tr>
         <tr>
             <th>{{ 'Type'|trans }}</th>
-            <td>{{ payment.typeText }}</td>
+            <td>{{ payment.typeText|trans }}</td>
         </tr>
         <tr>
             <th>{{ 'Price'|trans }}</th>
@@ -38,11 +41,11 @@
         </tr>
         <tr>
             <th>{{ 'Session date'|trans }}</th>
-            <td>{% if payment.reservation.session.date %}{{ payment.reservation.session.date|date('Y-m-d') }}{% endif%}</td>
+            <td>{% if payment.reservation.session.date %}{{ payment.reservation.session.date|date('Y-m-d') }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Session time'|trans }}</th>
-            <td>{% if payment.reservation.session.time %}{{ payment.reservation.session.time|date('H:i') }}{% endif%}</td>
+            <td>{% if payment.reservation.session.time %}{{ payment.reservation.session.time|date('H:i') }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Reservation'|trans }}</th>
@@ -58,7 +61,7 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ payment.statusText }}</td>
+            <td>{{ payment.statusText|trans }} <a data-original-title="{{ 'form.payment.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
         </tr>
     </tbody>
 </table>

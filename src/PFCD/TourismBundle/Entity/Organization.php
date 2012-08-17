@@ -26,12 +26,10 @@ use PFCD\TourismBundle\Entity\Language;
  */
 class Organization implements AdvancedUserInterface
 {
-    const STATUS_PENDING = 0;
-    const STATUS_ENABLED = 1;
-    const STATUS_LOCKED  = 2;
-    const STATUS_DELETED = 3;
-
-    private $statusText = array('0' => 'Pending', '1' => 'Enabled', '2' => 'Locked', '3' => 'Deleted');
+    const STATUS_PENDING = 0;   // The organization request to join recently. It can not access to the administrator panel
+    const STATUS_ENABLED = 1;   // The organization is visible and can receive reservations and donations
+    const STATUS_LOCKED  = 2;   // The organization is visible but can not receive reservations nor donations
+    const STATUS_DELETED = 3;   // The organization is not visible. It can not access to the administrator panel
 
     /**
      * @ORM\Id
@@ -819,7 +817,7 @@ class Organization implements AdvancedUserInterface
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.organization.field.status.' . $this->status;
     }
 
     /**

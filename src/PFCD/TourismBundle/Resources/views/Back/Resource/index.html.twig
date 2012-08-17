@@ -26,7 +26,7 @@
     <tr class="status-{{ resource.status }}">
         <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
         <td>{{ resource.name }}</td>
-        <td>{{ resource.typeText }}</td>
+        <td>{{ resource.typeText|trans }}</td>
         <td>{% if resource.created %}{{ resource.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if resource.updated %}{{ resource.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ resource.statusText|trans }}</td>

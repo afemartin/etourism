@@ -24,7 +24,7 @@ class ArticleType extends AbstractType
         {
             $builder->add('languages', 'entity', array('class' => 'PFCDTourismBundle:Language', 'property' => 'name', 'multiple' => true, 'expanded' => true));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
-            $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'Pending', Article::STATUS_ENABLED => 'Enabled', Article::STATUS_LOCKED => 'Locked', Article::STATUS_DELETED => 'Deleted')));
+            $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'entity.article.field.status.' . Article::STATUS_PENDING, Article::STATUS_ENABLED => 'entity.article.field.status.' . Article::STATUS_ENABLED, Article::STATUS_DELETED => 'entity.article.field.status.' . Article::STATUS_DELETED), 'help' => 'form.article.field.status.help'));
         }
     }
 

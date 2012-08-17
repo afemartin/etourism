@@ -21,7 +21,7 @@ class UserType extends AbstractType
         $builder->add('firstname', 'text', array('required' => true));
         $builder->add('lastname');
         $builder->add('birthday', 'birthday', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') - 5, date('Y') - 90), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
-        $builder->add('gender', 'choice', array('required' => false, 'choices' => array(User::GENDER_MALE => 'Male', User::GENDER_FEMALE => 'Female'), 'expanded' => true));
+        $builder->add('gender', 'choice', array('required' => false, 'choices' => array(User::GENDER_MALE => 'entity.user.field.gender.' . User::GENDER_MALE, User::GENDER_FEMALE => 'entity.user.field.gender.' . User::GENDER_FEMALE), 'expanded' => true));
         $builder->add('country', 'country', array('required' => false, 'empty_value' => 'Select your country'));
         if ($options['type'] == Constants::FORM_UPDATE || $options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
         {
@@ -33,7 +33,7 @@ class UserType extends AbstractType
         }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('status', 'choice', array('choices' => array(User::STATUS_PENDING => 'Pending', User::STATUS_ENABLED => 'Enabled', User::STATUS_LOCKED => 'Locked', User::STATUS_DELETED => 'Deleted')));
+            $builder->add('status', 'choice', array('choices' => array(User::STATUS_PENDING => 'entity.user.field.status.' . User::STATUS_PENDING, User::STATUS_ENABLED => 'entity.user.field.status.' . User::STATUS_ENABLED, User::STATUS_LOCKED => 'entity.user.field.status.' . User::STATUS_LOCKED, User::STATUS_DELETED => 'entity.user.field.status.' . User::STATUS_DELETED), 'help' => 'form.user.field.status.help'));
         }
     }
     

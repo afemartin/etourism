@@ -22,12 +22,9 @@ class Resource
     const TYPE_MATERIAL_EXT = 3;
     const TYPE_HUMAN_EXT    = 4;
 
-    private $typeText = array('0' => 'Unknown', '1' => 'Material (internal)', '2' => 'Human (internal)', '3' => 'Material (external)', '4' => 'Human (external)');
-
-    const STATUS_ENABLED = 1;
-    const STATUS_DELETED = 3;
-
-    private $statusText = array('1' => 'Enabled', '3' => 'Deleted');
+    const STATUS_ENABLED = 1;   // The resource is available rigth now
+    const STATUS_LOCKED  = 2;   // The resource is not available rigth now
+    const STATUS_DELETED = 3;   // The resource wont be available anymore
     
     /**
      * @ORM\Id
@@ -175,7 +172,7 @@ class Resource
      */
     public function getTypeText()
     {
-        return $this->typeText[$this->type];
+        return $this->type ? 'entity.resource.field.type.' . $this->type : null;
     }
 
     /**
@@ -245,7 +242,7 @@ class Resource
      */
     public function getStatusText()
     {
-        return $this->statusText[$this->status];
+        return 'entity.resource.field.status.' . $this->status;
     }
 
     /**

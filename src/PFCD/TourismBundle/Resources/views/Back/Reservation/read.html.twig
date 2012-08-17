@@ -1,12 +1,15 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'reservation' %}
+{% set sectiontab = 'reservation' %}{% set helptooltip = 1 %}
 
 {% block body %}
 <h1>{{ 'back.reservation.read.title'|trans }}</h1>
 <p>{{ 'back.reservation.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
+    <colgroup>
+        <col class="first-column">
+    </colgroup>
     <tbody>
         <tr>
             <th>{{ 'Id'|trans }}</th>
@@ -14,11 +17,11 @@
         </tr>
         <tr>
             <th>{{ 'User'|trans }}</th>
-            <td>{% if reservation.user %}{{ reservation.user.fullname }} ({{ reservation.user.email }}){% endif %}</td>
+            <td>{% if reservation.user %}<a href="{{ path('back_user_read', { 'id': reservation.user.id }) }}">{{ reservation.user.fullname }}</a> ({{ reservation.user.email }}){% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Activity'|trans }}</th>
-            <td>{{ reservation.session.activity.title }}</td>
+            <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title }}</a></td>
         </tr>
         <tr>
             <th>{{ 'Persons'|trans }}</th>
@@ -26,11 +29,11 @@
         </tr>
         <tr>
             <th>{{ 'Session date'|trans }}</th>
-            <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif%}</td>
+            <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Session time'|trans }}</th>
-            <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif%}</td>
+            <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Payment'|trans }}</th>
@@ -50,7 +53,7 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ reservation.statusText }}</td>
+            <td>{{ reservation.statusText|trans }} <a data-original-title="{{ 'form.reservation.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
         </tr>
     </tbody>
 </table>

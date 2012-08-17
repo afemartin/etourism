@@ -34,7 +34,7 @@ class ReservationFilterType extends AbstractType
         $builder->add('dateEnd', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
         $builder->add('sessionDateStart', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
         $builder->add('sessionDateEnd', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
-        $builder->add('status', 'choice', array('choices' => array(Reservation::STATUS_REQUESTED => 'Requested', Reservation::STATUS_ACCEPTED => 'Accepted', Reservation::STATUS_REJECTED => 'Rejected', Reservation::STATUS_CANCELED => 'Canceled'), 'multiple' => true, 'expanded' => true));
+        $builder->add('status', 'choice', array('choices' => array(Reservation::STATUS_REQUESTED => 'entity.reservation.field.status.' . Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED => 'entity.reservation.field.status.' . Reservation::STATUS_ACCEPTED, Reservation::STATUS_REJECTED => 'entity.reservation.field.status.' . Reservation::STATUS_REJECTED, Reservation::STATUS_CANCELED => 'entity.reservation.field.status.' . Reservation::STATUS_CANCELED), 'multiple' => true, 'expanded' => true));
     }
 
     public function getDefaultOptions(array $options)

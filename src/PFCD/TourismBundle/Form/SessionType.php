@@ -36,7 +36,7 @@ class SessionType extends AbstractType
         $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
         {
-            $builder->add('status', 'choice', array('choices' => array(Session::STATUS_PENDING => 'Pending', Session::STATUS_ENABLED => 'Enabled', Session::STATUS_LOCKED => 'Locked', Session::STATUS_DELETED => 'Deleted')));
+            $builder->add('status', 'choice', array('choices' => array(Session::STATUS_PENDING => 'entity.session.field.status.' . Session::STATUS_PENDING, Session::STATUS_ENABLED => 'entity.session.field.status.' . Session::STATUS_ENABLED, Session::STATUS_LOCKED => 'entity.session.field.status.' . Session::STATUS_LOCKED, Session::STATUS_DELETED => 'entity.session.field.status.' . Session::STATUS_DELETED), 'help' => 'form.session.field.status.help'));
         }
     }
 

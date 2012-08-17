@@ -307,17 +307,31 @@ modal.defaultconfirm.content: <p>This action won't be reversible. Please, make s
 modal.generatesessions.title: Are you sure you want generate all this sessions?
 modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br /><p>If you are sure about it please click "Generate"</p>
 
+form.user.field.status.help: <b>Pending:</b> The user has registered in the system but the account has not been validated yet. Can not access to the user private section<hr/><b>Enabled:</b> The user is able to make new reservations and manage the current reservations and payments<hr/><b>Locked:</b> The user is not able to make new reservations but it is able to manage the current reservations and payments<hr/><b>Deleted:</b> The user is not visible. Can not access to the user private section anymore
+  
+form.organization.field.logo.help: This image must be the logo of the organization. Please upload an image with an exact width of 160 pixels and smaller than 32Kb
+form.organization.field.bankname.help: This is the name of your bank at which the users will pay the activities via bank transfer
+form.organization.field.bankaccount.help: This is the number of your bank account at which the users will pay the activities via bank transfer
+form.organization.field.donate.help: Mark this box if you want to enable the "Donations" section. Make sure you already fill the "Donations content" in all supported languages and also the "Bank name" and "Bank account number"
+form.organization.field.status.help: <b>Pending:</b> The organization request to join recently. It can not access to the administrator panel<hr/><b>Enabled:</b> The organization is visible and can receive reservations and donations<hr/><b>Locked:</b> The organization is visible but can not receive reservations nor donations<hr/><b>Deleted:</b> The organization is not visible. It can not access to the administrator panel
+  
+form.activity.field.image.help: This image will be display at the list of activities. Please upload an image with an exact width of 160 pixels and smaller than 32Kb
 form.activity.field.price.help: This will be the price of the activity per person
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity
 form.activity.field.duration.help: This is the duration of the activity in minutes. Example, 3 hours => "180" minutes
-  
-form.organization.field.logo.help: This image must be the logo of the organization. Please upload an image with the following dimension 160x120 pixels and smaller than 32Kb
-form.organization.field.bankname.help: This is the name of your bank at which the users will pay the activities via bank transfer
-form.organization.field.bankaccount.help: This is the number of your bank account at which the users will pay the activities via bank transfer
+form.activity.field.status.help: <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The activity is visible and can receive reservations<hr/><b>Locked:</b> The activity is visible but can not receive reservations<hr/><b>Deleted:</b> The activity is not visible
 
 form.resource.field.name.help: The name of this resource must be clear enough to indentify it among all the resources listed at each activity
+form.resource.field.status.help: <b>Available:</b> The resource is available rigth now<hr/><b>Not available:</b> The resource is not available rigth now<hr/><b>Deleted:</b> The resource wont be available anymore
+
+form.session.field.status.help: <b>Pending:</b> The session is not visible<hr/><b>Enabled:</b> The session is visible and allow reservations<hr/><b>Locked:</b> The session is visible but do not allow reservations<hr/><b>Deleted:</b> The session is not visible
+  
+form.reservation.field.status.help: <b>Requested:</b> The reservation is requested by the user<hr/><b>Accepted:</b> The reservation is accepted by the organization (if the activity has price it will be generated the associated "payment" automatically)<hr/><b>Rejected:</b> The reservation is rejected by the organization<hr/><b>Canceled:</b> The reservation is canceled by the user before or after to be accepted
   
 form.payment.field.price.help: This price was automatically calculated based on the price of the activity and the number of persons. DO NOT MODIFY IT unless you are completely sure about it
+form.payment.field.status.help: <b>Pending payment:</b> The accepted reservation generate automatically the associated pending payment until the user paid it<hr/><b>Paid:</b> The organization receive the payment from the user<hr/><b>Pending refund:</b> The user cancel the reservation after paid it so the organization will have to refund the money<hr/><b>Refunded:</b> The organization has refunded the money to the user
+
+form.article.field.status.help: <b>Pending:</b> The article is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The article is visible<hr/><b>Deleted:</b> The article is not visible
 
 form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
 
@@ -414,11 +428,13 @@ Year: Year
 Select your country: Select your country
 Select your language: Select your language
 
-Pending: Pending
-Enabled: Enabled
-Locked: Locked
-Deleted: Deleted
+entity.user.field.gender.1: Male
+entity.user.field.gender.2: Female
 
+entity.user.field.status.0: Pending
+entity.user.field.status.1: Enabled
+entity.user.field.status.2: Locked
+entity.user.field.status.3: Deleted
 
 ################################################################################
 ##### Organization (Form)
@@ -434,7 +450,7 @@ Address: Address
 Postalcode: Postal code
 Phone: Phone
 Bankname: Bank name
-Bankaccount: Banck account number
+Bankaccount: Bank account number
 Locale: Language
 Webpage: Webpage
 Foundationyear: Foundation year
@@ -445,6 +461,11 @@ Donate: Donations
 Donatedesc: Donations content
 
 All countries: All countries
+
+entity.organization.field.status.0: Pending
+entity.organization.field.status.1: Enabled
+entity.organization.field.status.2: Locked
+entity.organization.field.status.3: Deleted
 
 
 ################################################################################
@@ -470,15 +491,32 @@ Minute: Minute
 Minutes: Minutes
 Image: Image
 Daysweek: Days of the week
-Mon: Mon
-Tue: Tue
-Wed: Wed
-Thu: Thu
-Fri: Fri
-Sat: Sat
-Sun: Sun
 
 Select a currency: Select a currency
+
+entity.activity.field.status.0: Pending
+entity.activity.field.status.1: Enabled
+entity.activity.field.status.2: Locked
+entity.activity.field.status.3: Deleted
+
+
+################################################################################
+##### Resource (Form)
+################################################################################
+
+Type: Type
+Description: Description
+Amount: Amount
+
+entity.resource.field.type.0: Other
+entity.resource.field.type.1: Material (internal)
+entity.resource.field.type.2: Human (internal)
+entity.resource.field.type.3: Material (external)
+entity.resource.field.type.4: Human (external)
+
+entity.resource.field.status.1: Available
+entity.resource.field.status.2: Not available
+entity.resource.field.status.3: Deleted
 
 
 ################################################################################
@@ -491,6 +529,11 @@ Starttime3: Start time 3
 Starttime4: Start time 4
 
 Comment: Comment
+
+entity.session.field.status.0: Pending
+entity.session.field.status.1: Enabled
+entity.session.field.status.2: Locked
+entity.session.field.status.3: Deleted
 
 
 ################################################################################
@@ -509,42 +552,37 @@ Starttime: Start time
 Sessiondatestart: Session start date
 Sessiondateend: Session end date
 
-Requested: Requested
-Accepted: Accepted
-Rejected: Rejected
-Canceled: Canceled
+entity.reservation.field.status.0: Requested
+entity.reservation.field.status.1: Accepted
+entity.reservation.field.status.2: Rejected
+entity.reservation.field.status.3: Canceled
 
 
 ################################################################################
 ##### Payment (Form)
 ################################################################################
 
-Pending payment: Pending payment
-Paid: Paid
-Pending refund: Pending refund
-Refunded: Refunded
-
 Select a payment method: Select a payment method
 
-Credit card: Credit card
-Bank transfer: Bank transfer
-Paypal: Paypal
-Cash: Cash
+entity.payment.field.type.1: Credit card
+entity.payment.field.type.2: Paypal
+entity.payment.field.type.3: Bank transfer
+entity.payment.field.type.4: Cash
+
+entity.payment.field.status.0: Pending payment
+entity.payment.field.status.1: Paid
+entity.payment.field.status.2: Pending refund
+entity.payment.field.status.3: Refunded
 
 
 ################################################################################
-##### Resource (Form)
+##### Article (Form)
 ################################################################################
 
-Type: Type
-Description: Description
-Amount: Amount
-
-Human (internal): Human (internal)
-Material (internal): Material (internal)
-Human (external): Human (external)
-Material (external): Material (external)
-Unknown: Unknown
+entity.article.field.status.0: Pending
+entity.article.field.status.1: Enabled
+entity.article.field.status.2: Locked
+entity.article.field.status.3: Deleted
 
 
 ################################################################################
@@ -704,6 +742,14 @@ dayweek.full.4: Thursday
 dayweek.full.5: Friday
 dayweek.full.6: Saturday
 dayweek.full.7: Sunday
+
+dayweek.3dig.1: Mon
+dayweek.3dig.2: Tue
+dayweek.3dig.3: Wed
+dayweek.3dig.4: Thu
+dayweek.3dig.5: Fri
+dayweek.3dig.6: Sat
+dayweek.3dig.7: Sun
 
 Help: Help
 

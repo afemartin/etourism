@@ -31,6 +31,24 @@
 {% endspaceless %}
 {% endblock collection_item_widget %}
 
+{% block file_widget %}
+{% spaceless %}
+    <div class="fileupload fileupload-new" data-fileupload="image">
+        <div class="fileupload-new thumbnail image-holder"><img height="135px" src="http://www.placehold.it/180x135&amp;text=upload+image" /></div>
+        <div class="fileupload-preview fileupload-exists thumbnail" style="max-height: 135px; line-height: 0px;"></div>
+        <div>
+            <span class="btn btn-primary btn-file">
+                <span class="fileupload-new"><i class="icon-picture icon-white"></i> {{ 'back.form.imageupload.button.upload'|trans }}</span>
+                <span class="fileupload-exists"><i class="icon-refresh icon-white"></i> {{ 'back.form.imageupload.button.reload'|trans }}</span>
+                <input type="{{ type }}" {{ block('widget_attributes') }} />
+            </span>
+            <a class="btn btn-danger fileupload-new" data-delete="fileupload"><i class="icon-trash icon-white"></i> {{ 'back.form.imageupload.button.delete'|trans }}</a>
+            <a class="btn btn-inverse fileupload-exists" data-dismiss="fileupload"><i class="icon-remove icon-white"></i> {{ 'back.form.imageupload.button.cancel'|trans }}</a>
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock file_widget %}
+
 {% block field_widget %}
 {% spaceless %}
     {% set type = type|default('text') %}

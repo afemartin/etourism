@@ -32,8 +32,8 @@
         <td>{{ organization.acronim }}</td>
         <td>{{ organization.country|country }}</td>
         <td>{{ organization.city }}</td>
-        <td>{% if organization.created %}{{ organization.created|date('Y-m-d') }}{% endif%}</td>
-        <td>{% if organization.updated %}{{ organization.updated|date('Y-m-d') }}{% endif%}</td>
+        <td>{% if organization.created %}{{ organization.created|date('Y-m-d') }}{% endif %}</td>
+        <td>{% if organization.updated %}{{ organization.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ organization.statusText|trans }}</td>
         <td><a href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-pencil"></i></a></td>
         <td><a href="{{ path('back_organization_media', { 'id': organization.id }) }}"><i class="icon-picture"></i></a></td>
