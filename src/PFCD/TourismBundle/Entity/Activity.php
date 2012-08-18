@@ -82,7 +82,7 @@ class Activity
     private $capacity;
     
     /**
-     * @ORM\Column(name="duration", type="smallint", nullable=true)
+     * @ORM\Column(name="duration", type="time", nullable=true)
      */
     private $duration;
 

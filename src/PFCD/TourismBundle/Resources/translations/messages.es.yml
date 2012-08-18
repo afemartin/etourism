@@ -320,7 +320,7 @@ form.organization.field.status.help: <b>Pendiente:</b> La organización se ha re
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
 form.activity.field.price.help: Este es el precio de la actividad por persona
 form.activity.field.capacity.help: Este es el número máximo de personas que podran participar en cada sesión de la actividad
-form.activity.field.duration.help: Esta es la duración de la actividad en minutos. Ejemplo, 3 horas => "180" minutos
+form.activity.field.duration.help: Esta es la duración de la actividad en horas y minutos. Si la duración de la actividad no se puede indicar con las horas dadas, deje vacio este campo y especifique la duración en la "Descripción completa"
 form.activity.field.status.help: <b>Pendiente:</b> La actividad no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La actividad es visible y admite reservas<hr/><b>Bloqueada:</b> La actividad es visible pero no admite nuevas reservas<hr/><b>Eliminada:</b> La actividad no es visible
 
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad

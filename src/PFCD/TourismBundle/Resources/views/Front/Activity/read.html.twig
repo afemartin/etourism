@@ -28,7 +28,7 @@
     <div class="span9">
         <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
         {% if activity.duration %}
-        <p><b>{{ 'Duration'|trans }}</b>: {{ macros.minutesToHours(activity.duration) }}</p>
+        <p><b>{{ 'Duration'|trans }}</b>: {{ macros.timeToDuration(activity.duration) }}</p>
         {% endif %}
         <p><b>{{ 'Capacity'|trans }}</b>: {{ activity.capacity }} {{ 'Persons'|trans }}</p>
     </div>

@@ -318,7 +318,7 @@ form.organization.field.status.help: <b>Pending:</b> The organization request to
 form.activity.field.image.help: This image will be display at the list of activities. Please upload an image with an exact width of 160 pixels and smaller than 32Kb
 form.activity.field.price.help: This will be the price of the activity per person
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity
-form.activity.field.duration.help: This is the duration of the activity in minutes. Example, 3 hours => "180" minutes
+form.activity.field.duration.help: This is the duration of the activity in hours and minutes. If the activity duration can not be represented with the given hours, please leave empty this field and specify the duration at the "Full description"
 form.activity.field.status.help: <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The activity is visible and can receive reservations<hr/><b>Locked:</b> The activity is visible but can not receive reservations<hr/><b>Deleted:</b> The activity is not visible
 
 form.resource.field.name.help: The name of this resource must be clear enough to indentify it among all the resources listed at each activity

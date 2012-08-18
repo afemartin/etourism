@@ -33,7 +33,7 @@
         <td>{{ activity.title }}</td>
         <td>{% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
         <td>{{ activity.capacity }} {{ 'Persons'|trans }}</td>
-        <td>{% if activity.duration %}{{ macros.minutesToHours(activity.duration) }}{% endif %}</td>
+        <td>{% if activity.duration %}{{ macros.timeToDuration(activity.duration) }}{% endif %}</td>
         <td>{% if activity.created %}{{ activity.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if activity.updated %}{{ activity.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ activity.statusText|trans }}</td>

@@ -16,6 +16,8 @@ class ActivityType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
+        $step = 5; // 5 minutes step for time inputs
+        
         if ($options['domain'] == Constants::ADMIN)
         {
             $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
@@ -26,7 +28,7 @@ class ActivityType extends AbstractType
         $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
         $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
         $builder->add('capacity', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.capacity.help'));
-        $builder->add('duration', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.duration.help'));
+        $builder->add('duration', 'time', array('required' => false, 'hours' => range(12, 0), 'minutes' => range(60-$step, 0, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact'), 'help' => 'form.activity.field.duration.help'));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
             if ($options['organization'] != null)

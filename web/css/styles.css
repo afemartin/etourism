@@ -356,6 +356,10 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
     margin-right: 0;
 }
 
+.time-choice-compact {
+    display: inline-block;
+}
+
 .time-choice-compact select {
     width: 80px;
     margin-left: 3px;

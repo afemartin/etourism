@@ -48,7 +48,7 @@
         </tr>
         <tr>
             <th>{{ 'Duration'|trans }}</th>
-            <td>{% if activity.duration %}{{ macros.minutesToHours(activity.duration) }}{% endif %}</td>
+            <td>{% if activity.duration %}{{ macros.timeToDuration(activity.duration) }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Resources'|trans }}</th>
