@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'resource' %}{% set helptooltip = 1 %}
 
 {% block body %}
@@ -48,8 +50,19 @@
 
 <a class="btn btn-primary" href="{{ path('back_resource_update', { 'id': resource.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.resource.button.update'|trans }}</a>
 <a class="btn btn-inverse" href="{{ path('back_resource_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.resource.button.index'|trans }}</a>
-<form class="pull-right" action="{{ path('back_resource_delete', { 'id': resource.id }) }}" method="post">
+<form id="delete_resource_form" class="pull-right" action="{{ path('back_resource_delete', { 'id': resource.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.resource.button.delete'|trans }}</button>
 </form>
+
+{{ macros.modalConfirm('delete_resource_form', 'delete_modal') }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#delete_resource_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_resource_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_resource_form').data('show-confirm', false); });
+</script>
 {% endblock %}

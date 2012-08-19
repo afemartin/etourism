@@ -304,7 +304,8 @@ popover.generatesessions.title: Generar múltiples sesiones
 popover.generatesessions.content: En esta sección puede generar un conjunto de sesiones siguiendo un patrón
 
 modal.defaultconfirm.title: ¿Está seguro que quiere realizar esta acción?
-modal.defaultconfirm.content: <p>Esta acción no es reversible. Por favor, asegurese de que realmente quiere realizar esta acción</p>
+modal.defaultconfirm.front.content: <p>Esta acción no es reversible. Por favor, asegurese de que realmente quiere realizar esta acción</p>
+modal.defaultconfirm.back.content: <p>Por favor, asegurese de que realmente quiere realizar esta acción</p>
 
 modal.generatesessions.title: ¿Está seguro que quiere generar las siguientes sesiones?
 modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegurese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br /><p>Si está seguro de ello pulse "Generar"</p>

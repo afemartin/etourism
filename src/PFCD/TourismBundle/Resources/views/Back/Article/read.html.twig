@@ -57,8 +57,19 @@
 <a class="btn btn-primary" href="{{ path('back_article_media', { 'id': article.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.article.button.media'|trans }}</a>
 <a class="btn btn-inverse" href="{{ path('back_article_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.article.button.index'|trans }}</a>
 <a class="btn btn-info" href="{{ path('back_article_preview', { 'id': article.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.article.button.preview'|trans }}</a>
-<form class="pull-right" action="{{ path('back_article_delete', { 'id': article.id }) }}" method="post">
+<form id="delete_article_form" class="pull-right" action="{{ path('back_article_delete', { 'id': article.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.article.button.delete'|trans }}</button>
 </form>
+
+{{ macros.modalConfirm('delete_article_form', 'delete_modal') }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#delete_article_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_article_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_article_form').data('show-confirm', false); });
+</script>
 {% endblock %}

@@ -113,8 +113,23 @@
 <a class="btn btn-inverse" href="{{ path('back_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.organization.button.index'|trans }}</a>
 {% endif %}
 <a class="btn btn-info" href="{{ path('back_organization_preview', { 'id': organization.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.organization.button.preview'|trans }}</a>
-<form class="pull-right" action="{{ path('back_organization_delete', { 'id': organization.id }) }}" method="post">
+{% if is_granted('ROLE_ADMIN') %}
+<form id="delete_organization_form" class="pull-right" action="{{ path('back_organization_delete', { 'id': organization.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.organization.button.delete'|trans }}</button>
 </form>
+
+{{ macros.modalConfirm('delete_organization_form', 'delete_modal') }}
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% if is_granted('ROLE_ADMIN') %}
+<script type="text/javascript">
+    $('#delete_organization_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_organization_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_organization_form').data('show-confirm', false); });
+</script>
+{% endif %}
 {% endblock %}

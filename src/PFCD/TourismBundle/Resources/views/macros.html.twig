@@ -14,13 +14,14 @@
 {% endmacro %}
 
 {% macro modalConfirm(formId, modalId, title, content, accept, cancel) %}
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANIZATION') %}{% set domain = 'back' %}{% else %}{% set domain = 'front' %}{% endif %}
 <div id="{{ modalId }}" class="modal hide">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
         <h3>{{ title|default('modal.defaultconfirm.title')|trans }}</h3>
     </div>
     <div class="modal-body">
-        {{ content|default('modal.defaultconfirm.content')|trans|raw }}
+        {{ content|default('modal.defaultconfirm.' ~ domain ~ '.content')|trans|raw }}
     </div>
     <div class="modal-footer">
         <a class="btn btn-success" onclick="$('#{{ formId }}').submit()"><i class="icon-ok icon-white"></i> {{ accept|default('OK')|trans }}</a>

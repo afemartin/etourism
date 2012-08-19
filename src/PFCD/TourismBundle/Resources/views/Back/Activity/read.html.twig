@@ -77,8 +77,19 @@
 <a class="btn btn-primary" href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.activity.button.media'|trans }}</a>
 <a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a>
 <a class="btn btn-info" href="{{ path('back_activity_preview', { 'id': activity.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.activity.button.preview'|trans }}</a>
-<form class="pull-right" action="{{ path('back_activity_delete', { 'id': activity.id }) }}" method="post">
+<form id="delete_activity_form" class="pull-right" action="{{ path('back_activity_delete', { 'id': activity.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.activity.button.delete'|trans }}</button>
 </form>
+
+{{ macros.modalConfirm('delete_activity_form', 'delete_modal') }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#delete_activity_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_activity_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_activity_form').data('show-confirm', false); });
+</script>
 {% endblock %}

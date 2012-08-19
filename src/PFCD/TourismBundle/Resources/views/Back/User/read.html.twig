@@ -1,5 +1,7 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'user' %}{% set helptooltip = 1 %}
 
 {% block body %}
@@ -79,9 +81,22 @@
 {% endif %}
 <a class="btn btn-inverse" href="{{ path('back_user_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.user.button.index'|trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
-<form class="pull-right" action="{{ path('back_user_delete', { 'id': user.id }) }}" method="post">
+<form id="delete_user_form" class="pull-right" action="{{ path('back_user_delete', { 'id': user.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.user.button.delete'|trans }}</button>
 </form>
+
+{{ macros.modalConfirm('delete_user_form', 'delete_modal') }}
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% if is_granted('ROLE_ADMIN') %}
+<script type="text/javascript">
+    $('#delete_user_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_user_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_user_form').data('show-confirm', false); });
+</script>
 {% endif %}
 {% endblock %}
