@@ -25,7 +25,7 @@
         <h2>{{ organization.name }}</h2>
     </div>
     <div class="info-image span2 hidden-phone">
-        <img class="thumbnail" alt="{{ organization.name }}" src="{{ asset(organization.logo) }}" />
+        <img class="thumbnail" alt="{{ organization.name }}" src="{% if organization.logo %}{{ asset(organization.logo) }}{% else %}http://placehold.it/160x120&text=no+image{% endif %}" />
         <div style="margin: 5px 0 0 5px">
             <h5><i class="icon-leaf"></i> <a href="{{ path('front_organization_activities', { 'id': organization.id }) }}">{{ 'Activities'| trans}}</a></h5>
             <h5><i class="icon-bullhorn"></i> <a href="{{ path('front_organization_articles', { 'id': organization.id }) }}">{{ 'News'| trans}}</a></h5>

@@ -56,8 +56,8 @@
         <ul class="thumbnails">
             {% for image in activity.gallery %}
             <li class="span">
-                <a class="info-image thumbnail" href="{{ asset(image.path) }}" title="{{ image.description }}" rel="images">
-                    <img src="{{ image.path|apply_filter('thumbnail_180x120') }}" />
+                <a class="thumbnail" href="{{ asset(image.path) }}" title="{{ image.description }}" rel="images">
+                    <img src="{{ asset(image.path) }}" />
                 </a>
             </li>
             {% endfor %}

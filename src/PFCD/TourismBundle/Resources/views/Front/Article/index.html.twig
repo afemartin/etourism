@@ -25,7 +25,7 @@
         <h2>{{ article.title }} <small><a href="{{ path('front_organization_read', { 'id': article.organization.id }) }}">{{ article.organization.name }}</a></small></h2>
     </div>
     <div class="info-image span2 hidden-phone">
-        <img class="thumbnail" alt="{{ article.title }}" src="{% if article.image %}{{ article.image|apply_filter('thumbnail_170x120') }}{% else %}http://placehold.it/170x120&text=no+image{% endif %}" />
+        <img class="thumbnail" alt="{{ article.title }}" src="{% if article.image %}{{ asset(article.image) }}{% else %}http://placehold.it/160x120&text=no+image{% endif %}" />
     </div>
     <div class="info-desc span7">
         <p>{{ article.shortDesc }}</p>

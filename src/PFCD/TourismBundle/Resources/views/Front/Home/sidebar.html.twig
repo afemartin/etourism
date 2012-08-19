@@ -1,16 +1,24 @@
 <div class="tabbable well well-small">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" style="margin-bottom: 9px">
         <li class="active" style="width:50%; text-align: center"><a href="#tab1" data-toggle="tab">{{ 'Latest activities'|trans }}</a></li>
         <li style="width:50%; text-align: center"><a href="#tab2" data-toggle="tab">{{ 'Latest news'|trans }}</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="tab1">
             {% for activity in activities %}
-                <img class="thumbnail pull-left hidden-tablet" style="margin: 0 10px 5px 0;" alt="{{ activity.title }}" src="{% if activity.image %}{{ activity.image|apply_filter('thumbnail_80x80') }}{% else %}http://placehold.it/80x80&text={% endif %}" />
-                <h6><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h6>
-                <p>{{ activity.shortDesc|truncate(100) }}</p>
+                <table>
+                    <tr>
+                        <td valign="top">
+                            <img class="thumbnail pull-left hidden-tablet" style="margin-right: 5px; width: 80px" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/80x80&text=no+image{% endif %}" />
+                        </td>
+                        <td valign="top">
+                            <h6><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h6>
+                            {{ activity.shortDesc|truncate(100) }}
+                        </td>
+                    </tr>
+                </table>
                 {% if not loop.last %}
-                <hr />
+                <hr style="margin: 9px 0" />
                 {% endif %}
             {% else %}
                 <p>{{ 'No activities found'|trans }}</p>
@@ -18,11 +26,19 @@
         </div>
         <div class="tab-pane fade in" id="tab2">
             {% for article in articles %}
-                <img class="thumbnail pull-left hidden-tablet" style="margin: 0 10px 5px 0" alt="{{ article.title }}" src="{% if article.image %}{{ article.image|apply_filter('thumbnail_80x80') }}{% else %}http://placehold.it/80x80&text={% endif %}" />
-                <h6><a href="{{ path('front_article_read', { 'id': article.id }) }}">{{ article.title }}</a></h6>
-                <p>{{ article.shortDesc|truncate(100) }}</p>
+                <table>
+                    <tr>
+                        <td valign="top">
+                            <img class="thumbnail pull-left hidden-tablet" style="margin-right: 5px; width: 80px" alt="{{ article.title }}" src="{% if article.image %}{{ asset(article.image) }}{% else %}http://placehold.it/80x80&text=no+image{% endif %}" />
+                        </td>
+                        <td valign="top">
+                            <h6><a href="{{ path('front_article_read', { 'id': article.id }) }}">{{ article.title }}</a></h6>
+                            {{ article.shortDesc|truncate(100) }}
+                        </td>
+                    </tr>
+                </table>
                 {% if not loop.last %}
-                <hr />
+                <hr style="margin: 9px 0" />
                 {% endif %}
             {% else %}
                 <p>{{ 'No articles found'|trans }}</p>

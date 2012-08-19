@@ -34,7 +34,7 @@
         {% for activity in activities %}
         <div class="info-container row">
             <div class="info-image span1 hidden-phone">
-                <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/170x120&text=no+image{% endif %}" />
+                <img class="thumbnail" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/160x120&text=no+image{% endif %}" />
             </div>
             <div class="info-desc span3">
                 <h4><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h4>
@@ -48,7 +48,7 @@
         {% for article in articles %}
         <div class="info-container row">
             <div class="info-image span1 hidden-phone">
-                <img class="thumbnail" alt="{{ article.title }}" src="{% if article.image %}{{ asset(article.image) }}{% else %}http://placehold.it/170x120&text=no+image{% endif %}" />
+                <img class="thumbnail" alt="{{ article.title }}" src="{% if article.image %}{{ asset(article.image) }}{% else %}http://placehold.it/160x120&text=no+image{% endif %}" />
             </div>
             <div class="info-desc span3">
                 <h4><a href="{{ path('front_article_read', { 'id': article.id }) }}">{{ article.title }}</a></h4>

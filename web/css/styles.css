@@ -296,15 +296,15 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
 }
 
 .info-gallery img {
-    height: 100px;
+    height: 113px;
     width: 150px;
 }
 
 @media (min-width: 1210px) {
     
     .info-gallery img {
-        height: 120px;
-        width: 180px;
+        height: 139px;
+        width: 185px;
     }
     
 }
