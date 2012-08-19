@@ -148,8 +148,6 @@ class OrganizationController extends Controller
         
         $orderBy['created'] = 'DESC';
         
-        $limit = 2;
-        
         $articles = $em->getRepository('PFCDTourismBundle:Article')->findBy($filter, $orderBy, $limit);
         
         $this->get('session')->setFlash('alert-info', $this->get('translator')->trans('alert.info.organizationpreview'));
@@ -254,6 +252,8 @@ class OrganizationController extends Controller
 
     /**
      * Deletes a Organization entity
+     * 
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function backDeleteAction($id)
     {
@@ -324,12 +324,6 @@ class OrganizationController extends Controller
             'organizations' => $organizations,
             'countryfilter' => $countryfilter,
             'form'          => $form->createView()
-        ));
-        
-        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findByStatus(array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
-
-        return $this->render('PFCDTourismBundle:Front/Organization:index.html.twig', array(
-            'organizations' => $organizations
         ));
     }
     
@@ -415,8 +409,6 @@ class OrganizationController extends Controller
         
         $orderBy['created'] = 'DESC';
         
-        $limit = 2;
-        
         $articles = $em->getRepository('PFCDTourismBundle:Article')->findBy($filter, $orderBy, $limit);
 
         return $this->render('PFCDTourismBundle:Front/Organization:read.html.twig', array(
@@ -433,8 +425,6 @@ class OrganizationController extends Controller
     {
         // force translation fallback to display something and not just an empty text
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
-        $em = $this->getDoctrine()->getEntityManager();
         
         $filter['id'] = $id;
         $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
@@ -460,8 +450,6 @@ class OrganizationController extends Controller
     {
         // force translation fallback to display something and not just an empty text
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
-        $em = $this->getDoctrine()->getEntityManager();
         
         $filter['id'] = $id;
         $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
