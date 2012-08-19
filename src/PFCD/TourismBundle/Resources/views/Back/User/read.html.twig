@@ -29,11 +29,11 @@
         </tr>
         <tr>
             <th>{{ 'Birthday'|trans }}</th>
-            <td>{{ user.birthday|date('Y-m-d') }}</td>
+            <td>{% if user.birthday %}{{ user.birthday|date('Y-m-d') }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Gender'|trans }}</th>
-            <td>{{ user.genderText|trans }}</td>
+            <td>{% if user.gender %}{{ user.genderText|trans }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Country'|trans }}</th>
@@ -74,7 +74,9 @@
     </tbody>
 </table>
 
+{% if is_granted('ROLE_ADMIN') %}
 <a class="btn btn-primary" href="{{ path('back_user_update', { 'id': user.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.user.button.update'|trans }}</a>
+{% endif %}
 <a class="btn btn-inverse" href="{{ path('back_user_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.user.button.index'|trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
 <form class="pull-right" action="{{ path('back_user_delete', { 'id': user.id }) }}" method="post">

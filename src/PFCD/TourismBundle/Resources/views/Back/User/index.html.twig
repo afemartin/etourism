@@ -20,7 +20,9 @@
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
+            {% if is_granted('ROLE_ADMIN') %}
             <th>{{ 'Edit'|trans }}</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -37,11 +39,15 @@
         <td>{% if user.created %}{{ user.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if user.updated %}{{ user.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ user.statusText|trans }}</td>
+        {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_user_update', { 'id': user.id }) }}"><i class="icon-edit"></i></a></td>
+        {% endif %}
     </tr>
     {% endfor %}
     </tbody>
 </table>
 
+{% if is_granted('ROLE_ADMIN') %}
 <a class="btn btn-primary" href="{{ path('back_user_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.user.button.create'|trans }}</a>
+{% endif %}
 {% endblock %}

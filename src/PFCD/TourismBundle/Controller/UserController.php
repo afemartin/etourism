@@ -37,6 +37,8 @@ class UserController extends Controller
     
     /**
      * Displays a form to create a new User entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function backCreateAction()
     {
@@ -91,6 +93,8 @@ class UserController extends Controller
 
     /**
      * Edits an existent User entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function backUpdateAction($id)
     {
