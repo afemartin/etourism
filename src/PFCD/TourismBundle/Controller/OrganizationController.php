@@ -12,6 +12,9 @@ use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Form\OrganizationType;
 use PFCD\TourismBundle\Form\MediaType;
 
+use PFCD\TourismBundle\Entity\OrganizationFilter;
+use PFCD\TourismBundle\Form\OrganizationFilterType;
+
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Article;
 
@@ -21,8 +24,7 @@ use PFCD\TourismBundle\Form\EnquiryType;
 use PFCD\TourismBundle\Entity\Image;
 
 /**
- * Organization controller.
- *
+ * Organization controller
  */
 class OrganizationController extends Controller
 {
@@ -316,9 +318,12 @@ class OrganizationController extends Controller
             $form->bindRequest($request);
         }
         
-        $country = $organizationFilter->getCountry() ?: null;
-
-        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findListFront(null, $country);
+        $country = $organizationFilter->getCountry();
+        
+        if ($country) $filter['country'] = $country;
+        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        
+        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findBy($filter);
 
         return $this->render('PFCDTourismBundle:Front/Organization:index.html.twig', array(
             'organizations' => $organizations,
