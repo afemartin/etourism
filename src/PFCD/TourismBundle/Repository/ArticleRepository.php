@@ -30,7 +30,7 @@ class ArticleRepository extends EntityRepository
         }
         
         $qb->andWhere('a.status IN (:status_art)');
-        $qb->setParameter('status_art', array(Article::STATUS_ENABLED, Article::STATUS_LOCKED));
+        $qb->setParameter('status_art', array(Article::STATUS_ENABLED));
         
         $qb->andWhere('o.status IN (:status_org)');
         $qb->setParameter('status_org', array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
@@ -46,7 +46,7 @@ class ArticleRepository extends EntityRepository
         $qb->innerJoin('a.organization', 'o');
                 
         $qb->where('a.status IN (:status_art)');
-        $qb->setParameter('status_art', array(Article::STATUS_ENABLED, Article::STATUS_LOCKED));
+        $qb->setParameter('status_art', array(Article::STATUS_ENABLED));
         
         $qb->andWhere('o.status IN (:status_org)');
         $qb->setParameter('status_org', array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));

@@ -10,6 +10,9 @@ use PFCD\TourismBundle\Entity\Article;
 use PFCD\TourismBundle\Form\ArticleType;
 use PFCD\TourismBundle\Form\MediaType;
 
+use PFCD\TourismBundle\Entity\OrganizationFilter;
+use PFCD\TourismBundle\Form\OrganizationFilterType;
+
 use PFCD\TourismBundle\Entity\Image;
 
 /**
@@ -359,7 +362,7 @@ class ArticleController extends Controller
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
         
         $filter['id'] = $id;
-        $filter['status'] = array(Article::STATUS_ENABLED, Article::STATUS_LOCKED);
+        $filter['status'] = array(Article::STATUS_ENABLED);
         
         $em = $this->getDoctrine()->getEntityManager();
 
