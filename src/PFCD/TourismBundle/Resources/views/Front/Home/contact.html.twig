@@ -12,6 +12,7 @@
     {{ form_widget(form) }}
     <div class="form-actions">
         <button class="btn btn-primary" type="submit"><i class="icon-envelope icon-white"></i> {{ 'Send'|trans }}</button>
+        <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
     </div>
 </form>
 {% endblock %}
