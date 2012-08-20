@@ -1,7 +1,7 @@
-Hello {{ user.firstname }},
+<p>Hello {{ user.firstname }},</p>
 
-You requested in our website {{ url('front_index') }} to reset your password
+<p>You requested in our website <a href="{{ url('front_index') }}">{{ domain_name }}</a> to reset your password, you can do it by using this <a href="{{ url('front_reset_password', { 'id': user.id, 'key': user.resetKey }) }}">link</a></p>
 
-Click here: {{ url('front_reset_password', { 'id': user.id, 'key': user.resetKey }) }}
+<p>If the previous link does not work, please try to copy this url and paste at your browser: {{ url('front_reset_password', { 'id': user.id, 'key': user.resetKey }) }}</p>
 
-Sincerely, the {{ domain_name }} team
+<p>Sincerely, the {{ domain_name }} team</p>

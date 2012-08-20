@@ -125,13 +125,13 @@ class FrontController extends Controller
                 }
                 else
                 {
-                    $template = $user->getLocale() == 'es' ? 'remember.es.txt.twig' : 'remember.en.txt.twig';
+                    $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:remember.%s.txt.twig', $user->getLocale());
                     
                     $message = \Swift_Message::newInstance()
                             ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.rememberpassword.subject'))
                             ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
                             ->setTo($user->getEmail())
-                            ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $user)));
+                            ->setBody($this->renderView($template, array('user' => $user)), 'text/html');
                     
                     $this->get('mailer')->send($message);
 
@@ -272,6 +272,26 @@ class FrontController extends Controller
             'activities' => $activities,
             'articles'   => $articles
         ));
+    }
+    
+    /**
+     * Given the route of a template and the wanted locale, it find if the template exists
+     * if not it return the fallback template ('en' english language) 
+     * 
+     * @param string $template route of the template with a "%s" representing the locale
+     * @param string $locale the locale 2-digits code
+     * @return string route of the found template
+     */
+    private function findLocalizedTemplate($template, $locale)
+    {
+        $template_localized = sprintf($template, $locale);
+        
+        if (!$this->get('templating')->exists($template_localized))
+        {
+            $template_localized = sprintf($template, 'en');
+        }
+        
+        return $template_localized;
     }
 
 }

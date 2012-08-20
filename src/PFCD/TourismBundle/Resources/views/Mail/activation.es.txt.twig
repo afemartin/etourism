@@ -1,9 +1,9 @@
-Hola {{ user.fullname }},
+<p>Hola {{ user.fullname }},</p>
 
-Gracias por registrarte en nuestra página web {{ url('front_index') }}
+<p>Gracias por registrarte en nuestra página web <a href="{{ url('front_index') }}">{{ domain_name }}</a></p>
 
-El último paso para completar to registro es activar la cuenta usando el siguiente enlace
+<p>El último paso para completar to registro es activar la cuenta usando este <a href="{{ url('front_activate_password', { 'id': user.id, 'key': user.activationKey }) }}">enlace</a></p>
 
-Pinche aqui: {{ url('front_activate_user', { 'id': user.id, 'key': user.activationKey }) }}
+<p>Si el enlace anterior no funciona copie y pegue esta url en su navegador: {{ url('front_activate_user', { 'id': user.id, 'key': user.activationKey }) }}</p>
 
-Atentamente, el equipo de {{ domain_name }}
+<p>Atentamente, el equipo de {{ domain_name }}</p>

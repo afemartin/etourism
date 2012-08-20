@@ -187,12 +187,13 @@ class UserController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                $template = $user->getLocale() == 'es' ? 'activation.es.txt.twig' : 'activation.en.txt.twig';
+                $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:activation.%s.txt.twig', $user->getLocale());
+
                 $message = \Swift_Message::newInstance()
                         ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.accountactivation.subject'))
                         ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
                         ->setTo($user->getEmail())
-                        ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('user' => $user)));
+                        ->setBody($this->renderView($template, array('user' => $user)), 'text/html');
                 
                 $this->get('mailer')->send($message);
 
@@ -202,13 +203,13 @@ class UserController extends Controller
             }
         }
         
-        // setting table will have only one row with id=1
-        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
+        // load the template with the legal stuff in the proper language
+        $legal = $this->renderView($this->findLocalizedTemplate('PFCDTourismBundle:Front/User:legal.%s.txt.twig', $this->get('session')->getLocale()));
 
         return $this->render('PFCDTourismBundle:Front/User:create.html.twig', array(
-            'user'     => $user,
-            'settings' => $settings,
-            'form'     => $form->createView(),
+            'user'  => $user,
+            'legal' => $legal,
+            'form'  => $form->createView(),
         ));
     }
 
@@ -314,5 +315,25 @@ class UserController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
+    }
+      
+    /**
+     * Given the route of a template and the wanted locale, it find if the template exists
+     * if not it return the fallback template ('en' english language) 
+     * 
+     * @param string $template route of the template with a "%s" representing the locale
+     * @param string $locale the locale 2-digits code
+     * @return string route of the found template
+     */
+    private function findLocalizedTemplate($template, $locale)
+    {
+        $template_localized = sprintf($template, $locale);
+        
+        if (!$this->get('templating')->exists($template_localized))
+        {
+            $template_localized = sprintf($template, 'en');
+        }
+        
+        return $template_localized;
     }
 }

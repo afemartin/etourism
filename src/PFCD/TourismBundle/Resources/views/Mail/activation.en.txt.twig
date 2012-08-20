@@ -1,9 +1,9 @@
-Hello {{ user.fullname }},
+<p>Hello {{ user.fullname }},</p>
 
-Thank you for register in our website {{ url('front_index') }}
+<p>Thank you for register in our website {{ url('front_index') }}</p>
 
-The last step of the registration proccess is activate your account
+<p>The last step of the registration proccess is activate your account, you can do it by using this <a href="{{ url('front_activate_password', { 'id': user.id, 'key': user.activationKey }) }}">link</a></p>
 
-Click here: {{ url('front_activate_user', { 'id': user.id, 'key': user.activationKey }) }}
+<p>If the previous link does not work, please try to copy this url and paste at your browser: {{ url('front_activate_user', { 'id': user.id, 'key': user.activationKey }) }}</p>
 
-Sincerely, the {{ domain_name }} team
+<p>Sincerely, the {{ domain_name }} team</p>
