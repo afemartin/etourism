@@ -199,7 +199,7 @@ back.activity.read.subtitle: In this list there are detailed information stored 
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
 
-back.media.gallery.subtitle: Use this section to upload your images. You can "Remove" the images that you don't want to show or add new ones by pressing button "Add new image" and then "Upload"
+back.media.gallery.subtitle: Use this section to upload your images. You can "Remove" the images that you don't want to show or add new ones by pressing button "Add new image" and then "Upload". The recommended size (in pixels) for each image is between 640x480px and 960x720px. The maximum size (in Kb) of each image file is 256Kb
 back.media.video.subtitle: Use this field to paste the embed code of any video you want to show. First you must upload your video to a known website such as Youtube or Vimeo and after that paste here the proper embed code. You can preview the video pressing the button "Preview" once you paste the embed code. Press "Help" button to see an example of how get that code
 back.media.geolocation.subtitle: Use this field to write a phisical address that Google Maps will find at the map. You can also drag and drop the marker to improve the acuracy of the location. The zoom you use will be the one that will be show to the users (only for activities)
 

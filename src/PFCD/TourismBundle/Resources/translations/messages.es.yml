@@ -199,7 +199,7 @@ back.activity.read.subtitle: En esta lista se muestra información detallada sob
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
-back.media.gallery.subtitle: Utilice esta seción para añadir sus imágenes. Puede "Eliminar" las imágenes que no quiera mostrar o añadir  nuevas pulsando el botón "Añadir nueva imagen" y después "Subir"
+back.media.gallery.subtitle: Utilice esta seción para añadir sus imágenes. Puede "Eliminar" las imágenes que no quiera mostrar o añadir  nuevas pulsando el botón "Añadir nueva imagen" y después "Subir". El tamaño recomendado (en píxeles) para cada imagen es de entre 640x480px y 960x720px. El tamaño máximo (en Kb) de cada imagen es 256Kb
 back.media.video.subtitle: Utilice este campo para pegar el código para insertar el vídeo que quiera mostrar. Primero debe subir el vídeo a alguna página como Youtube or Vimeo y después insertar aqui el código correspondiente. Puede previsualizar el video pulsando el botón "Previsualizar" una vez que haya insertado el código. Pulse el botón de "Ayuda" para ver un ejemplo de como obtener el código
 back.media.geolocation.subtitle: Utilice este campo para escribir una direc´ión física que Google Maps buscará en el mapa. También puede arrastrar y soltar el marcador para mejorar la precisión  del lugar inidicado. El zoom que use se guardara y será el que se use por defecto al mostrar el mapa a los usuarios (solo para actividades)
 

@@ -32,7 +32,16 @@ PFCD\TourismBundle\Entity\Activity:
         shortDesc:
             - NotBlank: { groups: [Default] }
         file:
-            - Image:    { maxSize: 512k }
+            - Image:    { maxSize: 32k }
+            
+PFCD\TourismBundle\Entity\Article:
+    properties:
+        title:
+            - NotBlank: { groups: [Default] }
+        shortDesc:
+            - NotBlank: { groups: [Default] }
+        file:
+            - Image:    { maxSize: 32k }
             
 PFCD\TourismBundle\Entity\Reservation:
     properties:
@@ -42,4 +51,4 @@ PFCD\TourismBundle\Entity\Reservation:
 PFCD\TourismBundle\Entity\Image:
     properties:
         file:
-            - Image:    { maxSize: 512k }
+            - Image:    { maxSize: 256k }
