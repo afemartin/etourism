@@ -254,7 +254,7 @@ back.article.update.title: Article edit
 back.article.update.subtitle: Use this form to edit the article information
 
 back.settings.title: Settings
-back.settings.subtitle: Use this form to edit the information of the website that the user will see. You also can temporarily disable the website during maintenance work
+back.settings.subtitle: Use this form to edit the information of the website that the user will see
 
 back.support.title: Technical support
 back.support.subtitle: If you detect any error at your administration panel please contact with the Technical Administrator using this form
@@ -335,8 +335,6 @@ form.payment.field.status.help: <b>Pending payment:</b> The accepted reservation
 form.article.field.status.help: <b>Pending:</b> The article is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The article is visible<hr/><b>Deleted:</b> The article is not visible
 
 form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
-
-form.settings.field.enabled.help: Uncheck this option to disable the webpage for users. A warning message "Under maintenance" will be shown to the users. ONLY disable for short periods of time to perform any technical change at the webpage
 
 form.field.translatable.help: This is a multilanguage field. Now you can edit this field in %language%. To edit this field content in other language please switch the language at the top bar.
 

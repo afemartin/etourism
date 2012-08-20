@@ -31,27 +31,9 @@ class Settings
      */
     private $aboutDesc;
 
-    /**
-     * @Gedmo\Translatable
-     * @ORM\Column(name="user_legal", type="text")
-     */
-    private $userLegal;
-
-    /**
-     * @Gedmo\Translatable
-     * @ORM\Column(name="organization_legal", type="text")
-     */
-    private $organizationLegal;
-    
-    /**
-     * @ORM\Column(name="enabled", type="boolean")
-     */
-    private $enabled;
-        
     public function __construct()
     {
         $this->id = 1;
-        $this->enabled = false;
     }
 
     /**
@@ -104,64 +86,4 @@ class Settings
         return $this->aboutDesc;
     }
 
-    /**
-     * Set userLegal
-     *
-     * @param text $userLegal
-     */
-    public function setUserLegal($userLegal)
-    {
-        $this->userLegal = $userLegal;
-    }
-
-    /**
-     * Get userLegal
-     *
-     * @return text 
-     */
-    public function getUserLegal()
-    {
-        return $this->userLegal;
-    }
-
-    /**
-     * Set organizationLegal
-     *
-     * @param text $organizationLegal
-     */
-    public function setOrganizationLegal($organizationLegal)
-    {
-        $this->organizationLegal = $organizationLegal;
-    }
-
-    /**
-     * Get organizationLegal
-     *
-     * @return text 
-     */
-    public function getOrganizationLegal()
-    {
-        return $this->organizationLegal;
-    }
-
-    /**
-     * Set enabled
-     *
-     * @param boolean $enabled
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
-    /**
-     * Get enabled
-     *
-     * @return boolean 
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-    
 }
