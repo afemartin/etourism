@@ -9,8 +9,6 @@ $loader->registerNamespaces(array(
     'Sensio'           => __DIR__.'/../vendor/bundles',
     'JMS'              => __DIR__.'/../vendor/bundles',
     'Sonata'           => __DIR__.'/../vendor/bundles',
-    'Imagine'          => __DIR__.'/../vendor/imagine/lib',
-    'Avalanche'        => __DIR__.'/../vendor/bundles',
     'Stof'             => __DIR__.'/../vendor/bundles',
     'Gedmo'            => __DIR__.'/../vendor/gedmo-doctrine-extensions/lib',
     'Doctrine\\Common' => __DIR__.'/../vendor/doctrine-common/lib',

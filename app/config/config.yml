@@ -68,19 +68,6 @@ jms_i18n_routing:
     locales: %locales%
     strategy: prefix_except_default
 
-# AvalancheImagine Configuration
-avalanche_imagine:
-    filters:
-        thumbnail_180x120:
-            type:    thumbnail
-            options: { size: [180, 120], mode: outbound, quality: 120, format: jpg }
-        thumbnail_170x120:
-            type:    thumbnail
-            options: { size: [170, 120], mode: outbound, quality: 120, format: jpg }
-        thumbnail_80x80:
-            type:    thumbnail
-            options: { size: [80, 80], mode: outbound, quality: 120, format: jpg }
- 
 # StofDoctrineExtensions Configuration
 stof_doctrine_extensions:
     default_locale: %locale%
