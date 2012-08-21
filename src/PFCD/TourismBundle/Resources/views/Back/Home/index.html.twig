@@ -137,7 +137,7 @@
                     <td><a href="{{ path('back_payment_read', { 'id': payment.id }) }}">{{ payment.id }}</a></td>
                     <td>{% if payment.reservation.user %}<a href="{{ path('back_user_read', { 'id': payment.reservation.user.id }) }}">{{ payment.reservation.user.firstname }}</a>{% endif %}</td>
                     <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title|truncate(50) }}</a></td>
-                    <td>{{ payment.price }}{{ payment.currency.sign }}</td>
+                    <td>{{ payment.price|number_format_currency(payment.currency) }}</td>
                     <td>{% if payment.reservation.session.date %}{{ payment.reservation.session.date|date('Y-m-d') }}{% endif %}</td>
                     <td>{% if payment.reservation.session.time %}{{ payment.reservation.session.time|date('H:i') }}{% endif %}</td>
                     <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d H:i') }}{% endif %}</td>

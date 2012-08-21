@@ -17,7 +17,6 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\Article;
-use PFCD\TourismBundle\Entity\Language;
 
 /**
  * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\OrganizationRepository")
@@ -200,8 +199,7 @@ class Organization implements AdvancedUserInterface
     private $articles;
             
     /**
-     * @ORM\ManyToMany(targetEntity="Language")
-     * @ORM\JoinTable(name="organization_language")
+     * @ORM\Column(name="languages", type="string", nullable=true)
      */
     private $languages;
 
@@ -881,23 +879,33 @@ class Organization implements AdvancedUserInterface
     }
     
     /**
-     * Add languages
+     * Set languages
      *
-     * @param Language $languages
+     * @param array $languages
      */
-    public function addLanguage(Language $languages)
+    public function setLanguages($languages)
     {
-        $this->languages[] = $languages;
+        $this->languages = implode('|', $languages);
     }
 
     /**
      * Get languages
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return array
      */
     public function getLanguages()
     {
-        return $this->languages;
+        return explode('|', $this->languages);
+    }
+
+    /**
+     * Check if the given language is supported
+     *
+     * @return boolean
+     */
+    public function isSupportedLanguage($language)
+    {
+        return strpos($this->languages, $language) !== false;
     }
 
     /**

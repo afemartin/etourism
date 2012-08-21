@@ -40,7 +40,7 @@
         {% endfor %}
         <tr>
             <th>{{ 'Price'|trans }}</th>
-            <td>{% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
+            <td>{% if activity.price %}{{ activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Capacity'|trans }}</th>
@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <th>{{ 'Languages'|trans }}</th>
-            <td>{% for language in activity.languages %}{{ macros.languageFlag(language.code) }} {{ language.name|trans }}{% if not loop.last %} - {% endif %}{% endfor %}</td>
+            <td>{% for language in activity.languages %}{{ macros.languageFlag(language) }} {{ language|locale }}{% if not loop.last %} - {% endif %}{% endfor %}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>

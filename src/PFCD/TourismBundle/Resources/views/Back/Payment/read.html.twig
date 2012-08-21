@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <th>{{ 'Price'|trans }}</th>
-            <td>{{ payment.price }}{{ payment.currency.sign }}</td>
+            <td>{{ payment.price|number_format_currency(payment.currency) }}</td>
         </tr>
         <tr>
             <th>{{ 'Comment'|trans }}</th>

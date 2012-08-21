@@ -40,14 +40,14 @@ class OrganizationType extends AbstractType
             $builder->add('phone');
             $builder->add('bankName', 'text', array('required' => false, 'help' => 'form.organization.field.bankname.help'));
             $builder->add('bankAccount', 'text', array('required' => false, 'help' => 'form.organization.field.bankaccount.help'));
-            $builder->add('locale', 'choice', array('choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
+            $builder->add('locale', 'choice', array('choices' => $options['supported_languages'], 'empty_value' => 'Select your language', 'localelist' => true));
         }
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('languages', 'entity', array('class' => 'PFCDTourismBundle:Language', 'property' => 'name', 'multiple' => true, 'expanded' => true));
+            $builder->add('languages', 'choice', array('choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Logo', 'help' => 'form.organization.field.logo.help'));
-            $builder->add('donate', 'checkbox', array('help' => 'form.organization.field.donate.help'));
-            $builder->add('donateDesc', 'textarea', array('attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
+            $builder->add('donate', 'checkbox', array('required' => false, 'help' => 'form.organization.field.donate.help'));
+            $builder->add('donateDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
         }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {
@@ -57,7 +57,7 @@ class OrganizationType extends AbstractType
     
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'language' => 'en');
+        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'language' => 'en', 'supported_languages' => array());
     }
 
     public function getName()

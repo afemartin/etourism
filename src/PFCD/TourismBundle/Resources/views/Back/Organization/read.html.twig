@@ -93,6 +93,10 @@
             <td>{{ organization.bankaccount }}</td>
         </tr>
         <tr>
+            <th>{{ 'Languages'|trans }}</th>
+            <td>{% for language in organization.languages %}{{ macros.languageFlag(language) }} {{ language|locale }}{% if not loop.last %} - {% endif %}{% endfor %}</td>
+        </tr>
+        <tr>
             <th>{{ 'Created'|trans }}</th>
             <td>{{ organization.created|date('Y-m-d H:i:s') }}</td>
         </tr>

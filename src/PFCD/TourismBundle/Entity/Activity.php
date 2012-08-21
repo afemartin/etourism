@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Session;
 use PFCD\TourismBundle\Entity\Resource;
-use PFCD\TourismBundle\Entity\Currency;
-use PFCD\TourismBundle\Entity\Language;
 use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
@@ -61,7 +59,7 @@ class Activity
     private $fullDesc;
 
     /**
-     * @ORM\Column(name="price", type="float", nullable=true)
+     * @ORM\Column(name="price", type="float")
      */
     private $price;
 
@@ -69,8 +67,7 @@ class Activity
      * @var string $currency ISO 4217
      * @link http://en.wikipedia.org/wiki/ISO_4217
      * 
-     * @ORM\ManyToOne(targetEntity="Currency")
-     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     * @ORM\Column(name="currency", type="string", length=3)
      */
     private $currency;
 
@@ -145,8 +142,7 @@ class Activity
     private $resources;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Language")
-     * @ORM\JoinTable(name="activity_language")
+     * @ORM\Column(name="languages", type="string", nullable=true)
      */
     private $languages;
     
@@ -288,9 +284,9 @@ class Activity
     /**
      * Set currency
      *
-     * @param Currency $currency
+     * @param string $currency
      */
-    public function setCurrency(Currency $currency)
+    public function setCurrency($currency)
     {
         $this->currency = $currency;
     }
@@ -298,7 +294,7 @@ class Activity
     /**
      * Get currency
      *
-     * @return Currency 
+     * @return string 
      */
     public function getCurrency()
     {
@@ -590,23 +586,33 @@ class Activity
     }
 
     /**
-     * Add languages
+     * Set languages
      *
-     * @param Language $languages
+     * @param array $languages
      */
-    public function addLanguage(Language $languages)
+    public function setLanguages($languages)
     {
-        $this->languages[] = $languages;
+        $this->languages = implode('|', $languages);
     }
 
     /**
      * Get languages
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return array
      */
     public function getLanguages()
     {
-        return $this->languages;
+        return explode('|', $this->languages);
+    }
+    
+    /**
+     * Check if the given language is supported
+     *
+     * @return boolean
+     */
+    public function isSupportedLanguage($language)
+    {
+        return strpos($this->languages, $language) !== false;
     }
 
     /**

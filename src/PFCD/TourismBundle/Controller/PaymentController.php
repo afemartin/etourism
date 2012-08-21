@@ -165,6 +165,7 @@ class PaymentController extends Controller
         {
             $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         }
+        $options['supported_currencies'] = $this->container->getParameter('currencies');
 
         $editForm = $this->createForm(new PaymentType(), $payment, $options);
 

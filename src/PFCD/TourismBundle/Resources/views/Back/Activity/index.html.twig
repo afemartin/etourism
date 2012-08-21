@@ -31,7 +31,7 @@
     <tr class="status-{{ activity.status }}">
         <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.id }}</a></td>
         <td>{{ activity.title }}</td>
-        <td>{% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
+        <td>{% if activity.price %}{{ activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
         <td>{{ activity.capacity }} {{ 'Persons'|trans }}</td>
         <td>{% if activity.duration %}{{ macros.timeToDuration(activity.duration) }}{% endif %}</td>
         <td>{% if activity.created %}{{ activity.created|date('Y-m-d') }}{% endif %}</td>

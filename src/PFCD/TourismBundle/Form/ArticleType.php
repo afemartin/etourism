@@ -22,7 +22,7 @@ class ArticleType extends AbstractType
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('languages', 'entity', array('class' => 'PFCDTourismBundle:Language', 'property' => 'name', 'multiple' => true, 'expanded' => true));
+            $builder->add('languages', 'choice', array('choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
             $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'entity.article.field.status.' . Article::STATUS_PENDING, Article::STATUS_ENABLED => 'entity.article.field.status.' . Article::STATUS_ENABLED, Article::STATUS_DELETED => 'entity.article.field.status.' . Article::STATUS_DELETED), 'help' => 'form.article.field.status.help'));
         }
@@ -30,7 +30,7 @@ class ArticleType extends AbstractType
 
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'language' => 'en');
+        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'language' => 'en', 'supported_languages' => array());
     }
     
     public function getName()

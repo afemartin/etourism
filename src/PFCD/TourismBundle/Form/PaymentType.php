@@ -16,7 +16,7 @@ class PaymentType extends AbstractType
         if ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
         {
             $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.payment.field.price.help'));
-            $builder->add('currency', 'entity', array('class' => 'PFCDTourismBundle:Currency', 'property' => 'name', 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
+            $builder->add('currency', 'choice', array('choices' => $options['supported_currencies'], 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
         }
         $builder->add('type', 'choice', array('choices' => array(Payment::TYPE_BANK_TRANSFER => 'entity.payment.field.type.' . Payment::TYPE_BANK_TRANSFER, Payment::TYPE_CASH => 'entity.payment.field.type.' . Payment::TYPE_CASH), 'empty_value' => 'Select a payment method'));
         $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
@@ -28,7 +28,7 @@ class PaymentType extends AbstractType
 
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE);
+        return array('domain' => Constants::BACK, 'type' => Constants::FORM_UPDATE, 'supported_currencies' => array());
     }
     
     public function getName()

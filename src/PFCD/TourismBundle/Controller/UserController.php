@@ -44,6 +44,7 @@ class UserController extends Controller
     {
         $options['domain'] = Constants::ADMIN;
         $options['type'] = Constants::FORM_CREATE;
+        $options['supported_languages'] = $this->container->getParameter('locales');
         
         $user = new User();
         $form = $this->createForm(new UserType(), $user, $options);
@@ -104,8 +105,9 @@ class UserController extends Controller
 
         if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
 
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::ADMIN;
         $options['type'] = Constants::FORM_UPDATE;
+        $options['supported_languages'] = $this->container->getParameter('locales');
         
         $editForm   = $this->createForm(new UserType(), $user, $options);
 
@@ -251,6 +253,7 @@ class UserController extends Controller
         
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_UPDATE;
+        $options['supported_languages'] = $this->container->getParameter('locales');
         
         $editForm = $this->createForm(new UserType(), $user, $options);
         

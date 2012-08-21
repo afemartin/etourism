@@ -59,6 +59,7 @@ class OrganizationController extends Controller
         $options['domain'] = Constants::ADMIN;
         $options['type'] = Constants::FORM_CREATE;
         $options['language'] = $this->get('session')->getLocale();
+        $options['supported_languages'] = $this->container->getParameter('locales');
         
         $organization  = new Organization();
         $form = $this->createForm(new OrganizationType(), $organization, $options);
@@ -180,6 +181,7 @@ class OrganizationController extends Controller
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         $options['language'] = $this->get('session')->getLocale();
+        $options['supported_languages'] = $this->container->getParameter('locales');
         
         $editForm = $this->createForm(new OrganizationType(), $organization, $options);
         

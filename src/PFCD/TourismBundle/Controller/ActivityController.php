@@ -55,6 +55,7 @@ class ActivityController extends Controller
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
         $options['language'] = $this->get('session')->getLocale();
+        $options['supported_currencies'] = $this->container->getParameter('currencies');
         
         $activity = new Activity();
         $form = $this->createForm(new ActivityType(), $activity, $options);
@@ -168,6 +169,8 @@ class ActivityController extends Controller
         $options['type'] = Constants::FORM_UPDATE;
         $options['organization'] = $activity->getOrganization()->getId();
         $options['language'] = $this->get('session')->getLocale();
+        $options['supported_languages'] = $this->container->getParameter('locales');
+        $options['supported_currencies'] = $this->container->getParameter('currencies');
         
         $editForm = $this->createForm(new ActivityType(), $activity, $options);
 

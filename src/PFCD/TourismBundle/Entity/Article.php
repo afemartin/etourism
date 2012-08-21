@@ -10,7 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use PFCD\TourismBundle\Entity\Organization;
-use PFCD\TourismBundle\Entity\Language;
 use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
@@ -94,8 +93,7 @@ class Article
     private $gallery;
         
     /**
-     * @ORM\ManyToMany(targetEntity="Language")
-     * @ORM\JoinTable(name="article_language")
+     * @ORM\Column(name="languages", type="string", nullable=true)
      */
     private $languages;
     
@@ -397,23 +395,33 @@ class Article
     }
     
     /**
-     * Add languages
+     * Set languages
      *
-     * @param Language $languages
+     * @param array $languages
      */
-    public function addLanguage(Language $languages)
+    public function setLanguages($languages)
     {
-        $this->languages[] = $languages;
+        $this->languages = implode('|', $languages);
     }
 
     /**
      * Get languages
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return array
      */
     public function getLanguages()
     {
-        return $this->languages;
+        return explode('|', $this->languages);
+    }
+    
+    /**
+     * Check if the given language is supported
+     *
+     * @return boolean
+     */
+    public function isSupportedLanguage($language)
+    {
+        return strpos($this->languages, $language) !== false;
     }
     
     /**

@@ -23,13 +23,13 @@ class UserType extends AbstractType
         $builder->add('birthday', 'birthday', array('required' => false, 'widget' => 'choice', 'years' => range(date('Y') - 5, date('Y') - 90), 'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'), 'attr' => array('class' => 'date-choice-compact')));
         $builder->add('gender', 'choice', array('required' => false, 'choices' => array(User::GENDER_MALE => 'entity.user.field.gender.' . User::GENDER_MALE, User::GENDER_FEMALE => 'entity.user.field.gender.' . User::GENDER_FEMALE), 'expanded' => true));
         $builder->add('country', 'country', array('required' => false, 'empty_value' => 'Select your country'));
-        if ($options['type'] == Constants::FORM_UPDATE || $options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
+        if ($options['type'] == Constants::FORM_UPDATE || $options['domain'] == Constants::ADMIN)
         {
             $builder->add('city');
             $builder->add('address');
             $builder->add('postalCode');
             $builder->add('phone');
-            $builder->add('locale', 'choice', array('required' => false, 'choices' => array('en' => 'English', 'es' => 'Spanish'), 'empty_value' => 'Select your language'));
+            $builder->add('locale', 'choice', array('choices' => $options['supported_languages'], 'empty_value' => 'Select your language', 'localelist' => true));
         }
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
         {
@@ -39,7 +39,7 @@ class UserType extends AbstractType
     
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE);
+        return array('domain' => Constants::FRONT, 'type' => Constants::FORM_CREATE, 'supported_languages' => array());
     }
     
     public function getName()
