@@ -34,7 +34,7 @@
 <h2>{{ 'front.activity.read.details'|trans }}</h2>
 <div class="info-details row">
     <div class="span9">
-        <p><b>{{ 'Price'|trans }}</b>: {% if activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
+        <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
         {% if activity.duration %}
         <p><b>{{ 'Duration'|trans }}</b>: {{ macros.timeToDuration(activity.duration) }}</p>
         {% endif %}
