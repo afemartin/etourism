@@ -5,6 +5,7 @@
 {% block body %}
 <h1>{{ organization.name }} {% if organization.acronim %}({{ organization.acronim }}){% endif %}</h1>
 <h6>{% if organization.country and organization.city and organization.foundationyear %}{{ 'front.organization.read.subtitle'|trans({'%country%': organization.country|country, '%city%': organization.city, '%year%': organization.foundationyear}) }}{% endif %}</h6>
+{% if app.session.locale in organization.languages %}
 <div class="info-container row">
     <div class="info-desc span9">
         {% if organization.video %}
@@ -16,6 +17,9 @@
         <p>{{ organization.fullDesc|raw }}</p>
     </div>
 </div>
+{% else %}
+<div class="alert" style="margin-top: 9px">{{ 'front.organization.read.languagenotsupported'|trans }}: {% for language in organization.languages %}<a href="{{ localize_route(language) }}">{{ language|locale }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</div>
+{% endif %}
 {% if organization.donate or organization.email %}
 <div style="text-align:right">
     {% if organization.donate and organization.status == 1 %}

@@ -9,6 +9,7 @@
 <h1>{{ article.title }} <small><a href="{{ path('front_organization_read', { 'id': article.organization.id }) }}">{{ article.organization.name }}</a></small></h1>
 <div class="info-container row">
     <div class="info-desc span9">
+    {% if app.session.locale in article.languages %}
         {% if article.video %}
         <div class="info-video pull-right">
             {{ article.video|raw }}
@@ -16,6 +17,9 @@
         {% endif %}
         <p>{{ article.shortDesc }}</p>
         {{ article.fullDesc|raw }}
+    {% else %}
+    <div class="alert">{{ 'front.article.read.languagenotsupported'|trans }}: {% for language in article.languages %}<a href="{{ localize_route(language) }}">{{ language|locale }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</div>
+    {% endif %}
     </div>
             
     <div class="span3">

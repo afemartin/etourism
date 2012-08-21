@@ -5,6 +5,7 @@
 <h6>{% if organization.country and organization.city and organization.foundationyear %}{{ 'front.organization.read.subtitle'|trans({'%country%': organization.country|country, '%city%': organization.city, '%year%': organization.foundationyear}) }}{% endif %}</h6>
 <div class="info-container row">
     <div class="info-desc span9">
+    {% if app.session.locale in organization.languages %}
         {% if organization.video %}
         <div class="info-video pull-right">
             {{ organization.video|raw }}
@@ -12,6 +13,9 @@
         {% endif %}
         <p>{{ organization.shortDesc }}</p>
         <p>{{ organization.fullDesc|raw }}</p>
+    {% else %}
+    <div class="alert">{{ 'front.organization.read.languagenotsupported'|trans }}: {% for language in organization.languages %}<a href="{{ localize_route(language) }}">{{ language|locale }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</div>
+    {% endif %}
     </div>
 
     <div class="span3">

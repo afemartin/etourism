@@ -11,6 +11,7 @@
 
 {% block body %}
 <h1>{{ activity.title }} <small><a href="{{ path('front_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></small></h1>
+{% if app.session.locale in activity.languages %}
 <div class="info-container row">
     <div class="info-desc span9">
         {% if activity.video %}
@@ -22,12 +23,15 @@
         {{ activity.fullDesc|raw }}
     </div>
 </div>
+{% else %}
+<div class="alert" style="margin-top: 9px">{{ 'front.activity.read.languagenotsupported'|trans }}: {% for language in activity.languages %}<a href="{{ localize_route(language) }}">{{ language|locale }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</div>
+{% endif %}
 
 <h2>{{ 'front.activity.read.details'|trans }}</h2>
 <div class="info-details row">
     <div class="span9">
         <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
-        {% if activity.duration %}
+        {% if activity.duration and activity.duration|date('H:i') != '00:00' %}
         <p><b>{{ 'Duration'|trans }}</b>: {{ macros.timeToDuration(activity.duration) }}</p>
         {% endif %}
         <p><b>{{ 'Capacity'|trans }}</b>: {{ activity.capacity }} {{ 'Persons'|trans }}</p>
@@ -45,7 +49,7 @@
 {% else %}
 <h2>{{ 'front.activity.read.availability'|trans }}</h2>
 <div class="info-calendar row">
-    <div class="span9">{{ 'front.activity.read.sessionsnotfound'|trans }}</div>
+    <div class="span9">{{ 'front.activity.read.sessionsnotfound'|trans({ '%link%': path('front_organization_contact', { 'id': activity.organization.id }) })|raw }}</div>
 </div>
 {% endif %}
 

@@ -11,6 +11,7 @@
 <h1>{{ activity.title }} <small><a href="{{ path('front_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></small></h1>
 <div class="info-container row">
     <div class="info-desc span9">
+    {% if app.session.locale in activity.languages %}
         {% if activity.video %}
         <div class="info-video pull-right">
             {{ activity.video|raw }}
@@ -18,6 +19,9 @@
         {% endif %}
         <p>{{ activity.shortDesc }}</p>
         {{ activity.fullDesc|raw }}
+    {% else %}
+    <div class="alert">{{ 'front.activity.read.languagenotsupported'|trans }}: {% for language in activity.languages %}<a href="{{ localize_route(language) }}">{{ language|locale }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</div>
+    {% endif %}
     </div>
             
     <div class="span3">
