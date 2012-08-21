@@ -15,8 +15,12 @@
     <p><b>{{ 'front.reservation.summary.activity'|trans }}</b>: {{ session.activity.title }}</p>
     <p><b>{{ 'front.reservation.summary.sessiondate'|trans }}</b>: {{ session.date|date('Y-m-d') }}</p>
     <p><b>{{ 'front.reservation.summary.sessiontime'|trans }}</b>: {% if session.time %}{{ session.time|date('H:i') }}{% else %}{{ 'front.reservation.summary.sessiontime.undefined'|trans }}{% endif %}</p>
-    <p><b>{{ 'front.reservation.summary.availability'|trans }}</b>: {% set capacity = session.activity.capacity %}{% for reservation in session.reservations %}{% set capacity = capacity - reservation.persons %}{% endfor %}{{ capacity }}</p>
+    <p><b>{{ 'front.reservation.summary.availability'|trans }}</b>: {{ capacity }}</p>
 </div>
+
+{% if error %}
+<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ 'alert.error.reservation.capacityexceeded'|trans({ '%link%': path('front_organization_contact', { 'id': session.activity.organization.id }) })|raw }}</div>
+{% endif %}
 
 {% if session.status == 1 and session.activity.status == 1 and session.activity.organization.status == 1 and user.status == 1 %}
 <form class="form-horizontal" action="{{ path('front_reservation_create', { 'activityId': app.request.get('activityId'), 'sessionId': app.request.get('sessionId') }) }}" method="post" {{ form_enctype(form) }}>

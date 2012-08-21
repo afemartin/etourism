@@ -304,6 +304,8 @@ alert.error.reservation.lockedorganization: Esta organización no es capaz de re
 alert.error.reservation.lockedactivity: Esta actividad no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
 alert.error.reservation.lockedsession: Esta sesión no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
 
+alert.error.reservation.capacityexceeded: Ha intentado crear una reserva para más personas que plazas restantes disponibles.<br/>Para mas información sobre disponibilidad <a href="%link%">contacte</a> con la organización
+
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 

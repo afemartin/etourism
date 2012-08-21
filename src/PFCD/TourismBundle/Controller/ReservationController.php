@@ -398,6 +398,18 @@ class ReservationController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
 
         if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
+        
+        $capacity = $session->getActivity()->getCapacity();
+        
+        foreach ($session->getReservations() as $prev_reservation)
+        {
+            if ($prev_reservation->getStatus() == Reservation::STATUS_REQUESTED || $prev_reservation->getStatus() == Reservation::STATUS_ACCEPTED)
+            {
+                $capacity -= $prev_reservation->getPersons();
+            }
+        }
+        
+        $error = false;
 
         $request = $this->getRequest();
         
@@ -407,19 +419,28 @@ class ReservationController extends Controller
 
             if ($form->isValid())
             {
-                $reservation->setUser($user);
-                $reservation->setSession($session);
-                $em->persist($reservation);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('front_reservation_read', array('id' => $reservation->getId())));
+                if ($reservation->getPersons() <= $capacity)
+                {
+                    $reservation->setUser($user);
+                    $reservation->setSession($session);
+                    $em->persist($reservation);
+                    $em->flush();
+                
+                    return $this->redirect($this->generateUrl('front_reservation_read', array('id' => $reservation->getId())));
+                }
+                else
+                {
+                    $error = true;
+                }
             }
         }    
 
         return $this->render('PFCDTourismBundle:Front/Reservation:create.html.twig', array(
             'reservation' => $reservation,
             'session'     => $session,
+            'capacity'    => $capacity,
             'user'        => $user,
+            'error'       => $error,
             'form'        => $form->createView()
         ));
     }
