@@ -18,7 +18,7 @@
     <p><b>{{ 'front.reservation.summary.availability'|trans }}</b>: {% set capacity = session.activity.capacity %}{% for reservation in session.reservations %}{% set capacity = capacity - reservation.persons %}{% endfor %}{{ capacity }}</p>
 </div>
 
-{% if session.activity.status == 1 and session.activity.organization.status == 1 and user.status == 1 %}
+{% if session.status == 1 and session.activity.status == 1 and session.activity.organization.status == 1 and user.status == 1 %}
 <form class="form-horizontal" action="{{ path('front_reservation_create', { 'activityId': app.request.get('activityId'), 'sessionId': app.request.get('sessionId') }) }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <div class="form-actions">
@@ -33,5 +33,7 @@
 <div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ 'alert.error.reservation.lockedorganization'|trans({ '%link%': path('front_contact') })|raw }}</div>
 {% elseif session.activity.status != 1 %}
 <div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ 'alert.error.reservation.lockedactivity'|trans({ '%link%': path('front_organization_contact', { 'id': session.activity.organization.id }) })|raw }}</div>
+{% elseif session.status != 1 %}
+<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ 'alert.error.reservation.lockedsession'|trans({ '%link%': path('front_organization_contact', { 'id': session.activity.organization.id }) })|raw }}</div>
 {% endif %}
 {% endblock %}

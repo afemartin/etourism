@@ -302,6 +302,7 @@ alert.success.reservationaccepted: The payment for the activity has been created
 alert.error.reservation.lockeduser: Your user account is locked. You can not create new reservations. For more information <a href="%link%">contact</a> the site administrator
 alert.error.reservation.lockedorganization: This organization is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> the site administrator
 alert.error.reservation.lockedactivity: This activity is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> with the organization
+alert.error.reservation.lockedsession: This session is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> with the organization
 
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you dont remember your password we will send you a link to your email account in order to allow you to set a new password
