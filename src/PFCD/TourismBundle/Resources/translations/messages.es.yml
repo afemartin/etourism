@@ -276,6 +276,7 @@ footer.copyrigth: Copyright © %years% %domain% - Creado por <a href="https://gi
 
 alert.info.beta: Esta web esta en versión de pruebas durante su desarrollo
 
+alert.info.organizationpreview: Esta es una vista previa de tu organización
 alert.info.activitypreview: Esta es una vista previa de tu actividad. El botón para reservar está deshabilitado en esta vista preliminar
 alert.info.articlepreview: Esta es una vista previa de tu noticia
 

@@ -276,6 +276,7 @@ footer.copyrigth: Copyright © %years% %domain% - Created by <a href="https://gi
 
 alert.info.beta: This website is a beta version only for development testing purpose
 
+alert.info.organizationpreview: This is a preview of your organization
 alert.info.activitypreview: This is a preview of your activity. The reservation button is disabled in this preview
 alert.info.articlepreview: This is a preview of your article
 
