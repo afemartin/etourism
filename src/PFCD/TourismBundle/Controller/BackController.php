@@ -188,6 +188,20 @@ class BackController extends Controller
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION')) {
+            
+            $locale = $this->container->get('security.context')->getToken()->getUser()->getLocale();
+            
+            if ($locale)
+            {
+                return $this->redirect($this->generateUrl('back_index', array('_locale' => $locale)));
+            }
+            else
+            {
+                return $this->redirect($this->generateUrl('back_index'));
+            }
+        }
 
         return $this->render('PFCDTourismBundle:Back/Home:login.html.twig', array(
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
