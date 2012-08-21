@@ -31,6 +31,8 @@ PFCD\TourismBundle\Entity\Activity:
             - NotBlank: { groups: [Default] }
         shortDesc:
             - NotBlank: { groups: [Default] }
+        price:
+            - Min:      { limit: 0, message: "activity.price.error", groups: [Default] }
         file:
             - Image:    { maxSize: 32k }
             

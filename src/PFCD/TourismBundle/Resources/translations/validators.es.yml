@@ -4,3 +4,4 @@
 
 password.match.error: Los campos de contraseña deben coincidir
 reservation.persons.error: Debe seleccionar al menos una persona
+activity.price.error: Debe seleccionar un precio válido para la actividad or '0' si la actividad es gratuita
