@@ -18,7 +18,7 @@
 </div>
 {% if organization.donate or organization.email %}
 <div style="text-align:right">
-    {% if organization.donate %}
+    {% if organization.donate and organization.status == 1 %}
     <a class="btn btn-mini" href="{{ path('front_organization_donate', { 'id': organization.id }) }}"><i class="icon-gift"></i> {{ 'Donate'|trans }}</a>
     {% endif %}
     {% if organization.email %}

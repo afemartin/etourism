@@ -484,7 +484,7 @@ class OrganizationController extends Controller
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
         
         $filter['id'] = $id;
-        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
+        $filter['status'] = array(Organization::STATUS_ENABLED);
         
         $em = $this->getDoctrine()->getEntityManager();
 
