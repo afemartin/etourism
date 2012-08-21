@@ -63,7 +63,13 @@
     {% endif %}
     <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
     {% if form.hasParent() and 'choice' in form.parent.vars.types %}
+        {% if form.parent.vars.countrylist %}
+        {{ label|country }}</label>
+        {% elseif form.parent.vars.localelist %}
+        {{ label|locale }}</label>
+        {% else %}
         {{ label|trans }}</label>
+        {% endif %}            
     {% endif %}
 {% endspaceless %}
 {% endblock checkbox_widget %}
@@ -75,7 +81,13 @@
     {% endif %}
     <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
     {% if form.hasParent() and 'choice' in form.parent.vars.types %}
+        {% if form.parent.vars.countrylist %}
+        {{ label|country }}</label>
+        {% elseif form.parent.vars.localelist %}
+        {{ label|locale }}</label>
+        {% else %}
         {{ label|trans }}</label>
+        {% endif %}  
     {% endif %}
 {% endspaceless %}
 {% endblock radio_widget %}
@@ -121,7 +133,7 @@
     {{ block('field_widget')|raw }}
 {% endspaceless %}
 {% endblock money_widget %}
-    
+
 {% block widget_choice_options %}
 {% spaceless %}
     {% for choice, label in options %}
@@ -134,6 +146,8 @@
         {% else %}
             {% if countrylist %}
             <option value="{{ choice }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ label|country }}</option>
+            {% elseif localelist %}
+            <option value="{{ choice }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ label|locale }}</option>
             {% else %}
             <option value="{{ choice }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ label|trans }}</option>
             {% endif %}

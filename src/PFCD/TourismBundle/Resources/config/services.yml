@@ -34,3 +34,10 @@ services:
         class: PFCD\TourismBundle\Form\Extension\CountryListTypeExtension
         tags:
             - { name: form.type_extension, alias: field }
+        
+    # This extension allow to automatically translate a locale ISO code to a
+    # language name for field choice with a subset of countries
+    form.type_extension.localelist:
+        class: PFCD\TourismBundle\Form\Extension\LocaleListTypeExtension
+        tags:
+            - { name: form.type_extension, alias: field }
