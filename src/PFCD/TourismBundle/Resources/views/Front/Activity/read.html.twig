@@ -26,7 +26,7 @@
 <h2>{{ 'front.activity.read.details'|trans }}</h2>
 <div class="info-details row">
     <div class="span9">
-        <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price }}{{ activity.currency.sign }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
+        <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
         {% if activity.duration %}
         <p><b>{{ 'Duration'|trans }}</b>: {{ macros.timeToDuration(activity.duration) }}</p>
         {% endif %}
@@ -56,7 +56,7 @@
         <ul class="thumbnails">
             {% for image in activity.gallery %}
             <li class="span">
-                <a class="thumbnail" href="{{ asset(image.path) }}" title="{{ image.description }}" rel="images">
+                <a class="info-image thumbnail" href="{{ asset(image.path) }}" title="{{ image.description }}" rel="images">
                     <img src="{{ asset(image.path) }}" />
                 </a>
             </li>
