@@ -395,6 +395,10 @@ class ReservationController extends Controller
 
         if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
         
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
+
         $request = $this->getRequest();
         
         if ($request->getMethod() == 'POST')
@@ -403,12 +407,6 @@ class ReservationController extends Controller
 
             if ($form->isValid())
             {
-                $user = $this->get('security.context')->getToken()->getUser()->getId();
-                
-                $user = $em->getRepository('PFCDTourismBundle:User')->find($user);
-                
-                if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
-                
                 $reservation->setUser($user);
                 $reservation->setSession($session);
                 $em->persist($reservation);
@@ -421,6 +419,7 @@ class ReservationController extends Controller
         return $this->render('PFCDTourismBundle:Front/Reservation:create.html.twig', array(
             'reservation' => $reservation,
             'session'     => $session,
+            'user'        => $user,
             'form'        => $form->createView()
         ));
     }

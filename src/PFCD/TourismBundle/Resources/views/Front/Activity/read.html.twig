@@ -34,7 +34,7 @@
     </div>
 </div>
 
-{% if activity.sessions|length > 0 and activity.status != 2 %}
+{% if activity.sessions|length > 0 and activity.status == 1 and activity.organization.status == 1 %}
 <h2>{{ 'front.activity.read.availability'|trans }} <small>{{ 'front.activity.read.availability.small'|trans }}</small></h2>
 <div class="info-calendar row">
     <div class="span9">

@@ -134,6 +134,7 @@ front.reservation.index.subtitle: In this list there are all the reservations yo
 front.reservation.create.title: Booking activity
 front.reservation.create.subtitle: Please fill the following information to complete your reservation
 front.reservation.summary.title: Details of the reservation
+front.reservation.summary.organization: Organization
 front.reservation.summary.activity: Activity
 front.reservation.summary.sessiondate: Session date
 front.reservation.summary.sessiontime: Session time
@@ -293,7 +294,13 @@ alert.success.resetpassword: Your password has been reset successfully. Use your
 alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank you!
 alert.success.supportenquiry: Your support enquiry was successfully sent. Thank you!
 
+alert.success.createorganization: Your registration request was successfully sent. In a few days we will contact you fo verify the information before to activate youar account. Thank you!
+
 alert.success.reservationaccepted: The payment for the activity has been created succesfully and an email has been sent to the user to proceed to the payment of the reservation
+
+alert.error.reservation.lockeduser: Your user account is locked. You can not create new reservations. For more information <a href="%link%">contact</a> the site administrator
+alert.error.reservation.lockedorganization: This organization is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> the site administrator
+alert.error.reservation.lockedactivity: This activity is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> with the organization
 
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you dont remember your password we will send you a link to your email account in order to allow you to set a new password
@@ -342,7 +349,7 @@ form.field.required.help: Indicates required field
 
 email.contactenquiry.subject: Contact enquiry from %name%
 email.supportenquiry.subject: Support enquiry from %name%
-email.registration.subject: Support enquiry from %name%
+email.registration.subject: Registration request from %name%
 email.rememberpassword.subject: Reset password
 email.accountactivation.subject: Activation of your account
 email.reservationaccepted.subject: Reservation accepted
@@ -412,8 +419,6 @@ Firstname: First name
 Lastname: Last name
 Birthday: Birthday
 Gender: Gender
-Male: Male
-Female: Female
 Country: Country
 City: City
 Address: Address
@@ -434,6 +439,7 @@ entity.user.field.status.0: Pending
 entity.user.field.status.1: Enabled
 entity.user.field.status.2: Locked
 entity.user.field.status.3: Deleted
+
 
 ################################################################################
 ##### Organization (Form)
@@ -611,7 +617,7 @@ Search: Search
 Homedesc: Home page Content
 Aboutdesc: About us Content
 Userlegal: Terms of use and Conditions (Users)
-Organizationlegal : Terms of use and Conditions (Organizations)
+Organizationlegal: Terms of use and Conditions (Organizations)
 
 
 ################################################################################

@@ -134,6 +134,7 @@ front.reservation.index.subtitle: En esta lista se encuentran todas las reservas
 front.reservation.create.title: Reservar actividad
 front.reservation.create.subtitle: Rellene los siguientes campos del formulario para realizar la reserva
 front.reservation.summary.title: Detalles de la reserva
+front.reservation.summary.organization: Organización
 front.reservation.summary.activity: Actividad
 front.reservation.summary.sessiondate: Fecha de la sesión
 front.reservation.summary.sessiontime: Hora de la sesión
@@ -293,9 +294,13 @@ alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. U
 alert.success.contactenquiry: Su petición ha sido enviada correctamente. Muchas gracias
 alert.success.supportenquiry: Su petición ha sido enviada correctamente. Muchas gracias
 
-alert.success.createorganization: Su solicitud ha sido enviada correctamente. Muchas gracias
+alert.success.createorganization: Su petición de registro ha sido enviada correctamente. En pocos días nos pondremos en contacto con usted para verificar todos los datos antes de activar su cuenta. Muchas gracias
 
 alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pago de la reserva
+
+alert.error.reservation.lockeduser: Su cuenta de usuario está bloqueada. Por este motivo no puede crear nuevas reservas. Para más información <a href="%link%">contacte</a> con el administrador
+alert.error.reservation.lockedorganization: Esta organización no es capaz de recibir reservas en este momento. Para más información <a href="%link%">contacte</a> con el administrador
+alert.error.reservation.lockedactivity: Esta actividad no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
 
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
@@ -342,6 +347,9 @@ form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar 
 
 form.field.required.help: Indica campo obligatorio
 
+email.contactenquiry.subject: Mensaje de contacto de %name%
+email.supportenquiry.subject: Mensaje de soporte de %name%
+email.registration.subject: Solicitud de registro de %name%
 email.rememberpassword.subject: Restablecer contraseña
 email.accountactivation.subject: Activación de la cuenta
 email.reservationaccepted.subject: Reserva aceptada
