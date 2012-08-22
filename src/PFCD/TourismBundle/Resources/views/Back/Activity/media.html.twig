@@ -51,7 +51,7 @@
                 <a id="btn_remove_map" class="btn btn-danger" onclick="removeMap()" style="display: none"><i class="icon-trash icon-white"></i> {{ 'back.media.button.remove'|trans }}</a>
             </div>
             <div class="map-preview" style="margin-top: 20px">
-                <div id="map_canvas"></div>
+                <div id="map_canvas" style="display: none"></div>
             </div>
         </div>
         
@@ -106,6 +106,7 @@
         geocoder = new google.maps.Geocoder();
         
         $('#btn_remove_map').show();
+        $('#map_canvas').show();
         
         google.maps.event.addListener(marker, 'drag', function() {
             updateMarkerPosition(marker.getPosition());
@@ -113,7 +114,11 @@
         
         google.maps.event.addListener(map, 'zoom_changed', function() {
             updateZoomLevel(map.getZoom());
-        }); 
+        });
+        
+        // each time the google map modal is open it resize and set the original center position
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(marker.getPosition());
     }
 
     function geocode() {
@@ -147,6 +152,7 @@
         $("#map_canvas").removeAttr('style');
         map = null;
         $('#btn_remove_map').hide();
+        $('#map_canvas').hide();
     }    
 </script>
 {% if activity.geolocation %}
