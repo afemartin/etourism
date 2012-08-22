@@ -223,6 +223,7 @@ class ActivityController extends Controller
         if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
         $options['entity'] = Constants::ACTIVITY;
+        $options['language'] = $this->get('session')->getLocale();
         
         $editForm = $this->createForm(new MediaType(), $activity, $options);
         
