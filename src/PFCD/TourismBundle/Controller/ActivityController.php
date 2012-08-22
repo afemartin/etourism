@@ -324,7 +324,9 @@ class ActivityController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
         
-        $countries = $em->getRepository('PFCDTourismBundle:Activity')->findCountriesFront();
+        $locale = $this->get('session')->getLocale();
+
+        $countries = $em->getRepository('PFCDTourismBundle:Activity')->findCountriesFront($locale);
         
         // the country filter should be displayed only if there are 2 or more different countries
         $countryfilter = count($countries) > 1;
@@ -347,7 +349,7 @@ class ActivityController extends Controller
         
         $country = $organizationFilter->getCountry() ?: null;
 
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront(null, $country);
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($locale, null, $country, null, null, 'a.created', 'DESC');
 
         return $this->render('PFCDTourismBundle:Front/Activity:index.html.twig', array(
             'activities'    => $activities,

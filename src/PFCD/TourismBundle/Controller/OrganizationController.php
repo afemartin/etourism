@@ -301,13 +301,18 @@ class OrganizationController extends Controller
         $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
         
         $em = $this->getDoctrine()->getEntityManager();
+        
+        $locale = $this->get('session')->getLocale();
 
-        $countries = $em->getRepository('PFCDTourismBundle:Organization')->findCountriesFront();
+        $countries = $em->getRepository('PFCDTourismBundle:Organization')->findCountriesFront($locale);
         
         // the country filter should be displayed only if there are 2 or more different countries
         $countryfilter = count($countries) > 1;
         
-        foreach ($countries as $country) $options['countries'][$country['country']] = $country['country'];
+        foreach ($countries as $country)
+        {
+            $options['countries'][$country['country']] = $country['country'];
+        }
         
         $organizationFilter = new OrganizationFilter();
         
@@ -320,12 +325,9 @@ class OrganizationController extends Controller
             $form->bindRequest($request);
         }
         
-        $country = $organizationFilter->getCountry();
-        
-        if ($country) $filter['country'] = $country;
-        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
-        
-        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findBy($filter);
+        $country = $organizationFilter->getCountry() ?: null;
+       
+        $organizations = $em->getRepository('PFCDTourismBundle:Organization')->findListFront($locale, $country);
 
         return $this->render('PFCDTourismBundle:Front/Organization:index.html.twig', array(
             'organizations' => $organizations,
@@ -400,23 +402,11 @@ class OrganizationController extends Controller
 
         if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
         
-        unset($filter);
-        $filter['organization'] = $id;
-        $filter['status'] = Activity::STATUS_ENABLED;
+        $locale = $this->get('session')->getLocale();
+
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($locale, $id, null, array(Activity::STATUS_ENABLED), null, 'a.created', 'DESC', 2);
         
-        $orderBy['created'] = 'DESC';
-        
-        $limit = 2;
-        
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter, $orderBy, $limit);
-        
-        unset($filter);
-        $filter['organization'] = $id;
-        $filter['status'] = Article::STATUS_ENABLED;
-        
-        $orderBy['created'] = 'DESC';
-        
-        $articles = $em->getRepository('PFCDTourismBundle:Article')->findBy($filter, $orderBy, $limit);
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($locale, $id, null, array(Article::STATUS_ENABLED), null, 'a.created', 'DESC', 2);
 
         return $this->render('PFCDTourismBundle:Front/Organization:read.html.twig', array(
             'organization' => $organization,
@@ -442,7 +432,9 @@ class OrganizationController extends Controller
         
         if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
 
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($id);
+        $locale = $this->get('session')->getLocale();
+
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($locale, $id);
         
         return $this->render('PFCDTourismBundle:Front/Organization:activities.html.twig', array(
             'organization' => $organization,
@@ -467,7 +459,9 @@ class OrganizationController extends Controller
         
         if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
 
-        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($id);
+        $locale = $this->get('session')->getLocale();
+
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($locale, $id);
         
         return $this->render('PFCDTourismBundle:Front/Organization:articles.html.twig', array(
             'organization' => $organization,

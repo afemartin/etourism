@@ -322,7 +322,9 @@ class ArticleController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
         
-        $countries = $em->getRepository('PFCDTourismBundle:Article')->findCountriesFront();
+        $locale = $this->get('session')->getLocale();
+
+        $countries = $em->getRepository('PFCDTourismBundle:Article')->findCountriesFront($locale);
         
         // the country filter should be displayed only if there are 2 or more different countries
         $countryfilter = count($countries) > 1;
@@ -345,7 +347,7 @@ class ArticleController extends Controller
         
         $country = $organizationFilter->getCountry() ?: null;
 
-        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront(null, $country);
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($locale, null, $country, null, null, 'a.created', 'DESC');
 
         return $this->render('PFCDTourismBundle:Front/Article:index.html.twig', array(
             'articles'      => $articles,

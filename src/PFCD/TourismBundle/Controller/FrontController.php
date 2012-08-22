@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\User;
+use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Article;
 use PFCD\TourismBundle\Entity\Enquiry;
@@ -265,8 +266,10 @@ class FrontController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByStatus(Activity::STATUS_ENABLED);
-        $articles = $em->getRepository('PFCDTourismBundle:Article')->findByStatus(Article::STATUS_ENABLED);
+        $locale = $this->get('session')->getLocale();
+        
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($locale, null, null, array(Activity::STATUS_ENABLED), array(Organization::STATUS_ENABLED), 'a.created', 'DESC', 5);
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($locale, null, null, array(Article::STATUS_ENABLED), array(Organization::STATUS_ENABLED), 'a.created', 'DESC', 5);
 
         return $this->render('PFCDTourismBundle:Front/Home:sidebar.html.twig', array(
             'activities' => $activities,

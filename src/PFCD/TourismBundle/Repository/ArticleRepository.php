@@ -10,7 +10,7 @@ use PFCD\TourismBundle\Entity\Organization;
 class ArticleRepository extends EntityRepository
 {
 
-    public function findListFront($organization = null, $country = null)
+    public function findListFront($locale = null, $organization = null, $country = null, $status_art = null, $status_org = null, $sort = null, $order = null, $limit = null)
     {
         $qb = $this->createQueryBuilder('a');
         
@@ -29,16 +29,26 @@ class ArticleRepository extends EntityRepository
             $qb->setParameter('country', $country);
         }
         
+        if ($locale !== null)
+        {
+            $qb->andWhere('a.languages LIKE :locale');
+            $qb->setParameter('locale', '%'.$locale.'%');
+        }
+        
         $qb->andWhere('a.status IN (:status_art)');
-        $qb->setParameter('status_art', array(Article::STATUS_ENABLED));
+        $qb->setParameter('status_art', $status_art ? $status_art : array(Article::STATUS_ENABLED));
         
         $qb->andWhere('o.status IN (:status_org)');
-        $qb->setParameter('status_org', array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
+        $qb->setParameter('status_org', $status_org ? $status_org : array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
+        
+        if ($sort) $qb->orderBy($sort, $order);
+        
+        if ($limit) $qb->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }
     
-    public function findCountriesFront()
+    public function findCountriesFront($locale = null)
     {
         $qb = $this->createQueryBuilder('a');
         
@@ -50,6 +60,12 @@ class ArticleRepository extends EntityRepository
         
         $qb->andWhere('o.status IN (:status_org)');
         $qb->setParameter('status_org', array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED));
+        
+        if ($locale !== null)
+        {
+            $qb->andWhere('a.languages LIKE :locale');
+            $qb->setParameter('locale', '%'.$locale.'%');
+        }
         
         $qb->groupBy('o.country');
 
