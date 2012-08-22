@@ -899,16 +899,6 @@ class Organization implements AdvancedUserInterface
     }
 
     /**
-     * Check if the given language is supported
-     *
-     * @return boolean
-     */
-    public function isSupportedLanguage($language)
-    {
-        return strpos($this->languages, $language) !== false;
-    }
-
-    /**
      * Checks whether the user's account has expired.
      *
      * @return Boolean true if the user's account is non expired, false otherwise

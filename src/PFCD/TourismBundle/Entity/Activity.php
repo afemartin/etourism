@@ -606,16 +606,6 @@ class Activity
     }
     
     /**
-     * Check if the given language is supported
-     *
-     * @return boolean
-     */
-    public function isSupportedLanguage($language)
-    {
-        return strpos($this->languages, $language) !== false;
-    }
-
-    /**
      * Get resources
      *
      * @return Doctrine\Common\Collections\Collection 
