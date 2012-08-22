@@ -20,9 +20,6 @@ class FrontController extends Controller
 
     public function indexAction()
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $em = $this->getDoctrine()->getEntityManager();
 
         $content = $em->getRepository('PFCDTourismBundle:Settings')->find(1)->getHomeDesc();
@@ -244,9 +241,6 @@ class FrontController extends Controller
      */
     public function aboutAction()
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $em = $this->getDoctrine()->getEntityManager();
 
         $content = $em->getRepository('PFCDTourismBundle:Settings')->find(1)->getAboutDesc();
@@ -261,9 +255,6 @@ class FrontController extends Controller
      */
     public function sidebarAction()
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $em = $this->getDoctrine()->getEntityManager();
 
         $locale = $this->get('session')->getLocale();

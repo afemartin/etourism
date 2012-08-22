@@ -118,9 +118,6 @@ class OrganizationController extends Controller
      */
     public function backPreviewAction($id)
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $filter['id'] = $id;
         $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
         
@@ -167,6 +164,10 @@ class OrganizationController extends Controller
      */
     public function backUpdateAction($id)
     {
+        // @FIXME: Here we can not use setTranslationFallback(false) because that makes
+        // the fields do not store at the DDBB, created issue at stof/StofDoctrineExtensionsBundle
+        // Issue #145: [translatable] Wrong behavior with Entity that ...
+        // https://github.com/stof/StofDoctrineExtensionsBundle/issues/145
         $em = $this->getDoctrine()->getEntityManager();
 
         $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
@@ -297,9 +298,6 @@ class OrganizationController extends Controller
      */
     public function frontIndexAction()
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $em = $this->getDoctrine()->getEntityManager();
         
         $locale = $this->get('session')->getLocale();
@@ -390,9 +388,6 @@ class OrganizationController extends Controller
      */
     public function frontReadAction($id)
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $filter['id'] = $id;
         $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
         
@@ -420,9 +415,6 @@ class OrganizationController extends Controller
      */
     public function frontActivitiesAction($id)
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $filter['id'] = $id;
         $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
         
@@ -447,9 +439,6 @@ class OrganizationController extends Controller
      */
     public function frontArticlesAction($id)
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $filter['id'] = $id;
         $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
         
@@ -474,9 +463,6 @@ class OrganizationController extends Controller
      */
     public function frontDonateAction($id)
     {
-        // force translation fallback to display something and not just an empty text
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(true);
-        
         $filter['id'] = $id;
         $filter['status'] = array(Organization::STATUS_ENABLED);
         
