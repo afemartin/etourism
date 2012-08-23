@@ -374,6 +374,7 @@ email.supportenquiry.subject: Mensaje de soporte de %name%
 email.registration.subject: Solicitud de registro de %name%
 email.rememberpassword.subject: Restablecer contraseña
 email.accountactivation.subject: Activación de la cuenta
+email.reservationaccepted.subject: Reserva creada
 email.reservationaccepted.subject: Reserva aceptada
 
 

@@ -1,4 +1,6 @@
-A contact enquiry was made by {{ enquiry.name }} ({{ enquiry.email }}) at {{ "now" | date("Y-m-d H:i") }}
+<p>A contact enquiry was made by {{ enquiry.name }} ({{ enquiry.email }})</p>
 
-Subject: {{ enquiry.subject }}
-Message: {{ enquiry.message }}
+<p>Subject: {{ enquiry.subject }}</p>
+<p>Message: {{ enquiry.message }}</p>
+
+<p>Sincerely, the {{ domain_name }} team</p>

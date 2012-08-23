@@ -1,0 +1,7 @@
+<p>Hola {{ organization.name }},</p>
+
+<p>El usuario <a href="{{ url('back_user_read', { 'id': user.id }) }}">{{ user.fullname }}</a> ({{ user.email }}) ha creado una nueva reserva para la actividad "{{ reservation.session.activity.title }}"</p>
+
+<p>Por favor, acceda al panel de administración para aceptar la <a href="{{ url('back_reservation_read', { 'id': reservation.id }) }}">reserva</a></p>
+
+<p>Atentamente, el equipo de {{ domain_name }}</p>

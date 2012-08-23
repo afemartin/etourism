@@ -290,8 +290,8 @@ class ReservationController extends Controller
                     
                     if ($user && $user->getEmail())
                     {
-                        // after accept the reservation and create the payment a email is sent automatically to the user to proceed with the payment
-                        $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:reservation.%s.txt.twig', $user->getLocale());
+                        // after accept the reservation and create the payment an email is sent automatically to the user to proceed with the payment
+                        $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:reservation.accepted.%s.txt.twig', $user->getLocale());
                     
                         $message = \Swift_Message::newInstance()
                                 ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.reservationaccepted.subject', array(), 'messages', $user->getLocale()))
@@ -425,7 +425,23 @@ class ReservationController extends Controller
                     $reservation->setSession($session);
                     $em->persist($reservation);
                     $em->flush();
+                    
+                    $organization = $session->getActivity()->getOrganization();
                 
+                    if ($organization && $organization->getEmail())
+                    {
+                        // after create the reservation an email is sent automatically to the user to proceed with the payment
+                        $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:reservation.created.%s.txt.twig', $organization->getLocale());
+                    
+                        $message = \Swift_Message::newInstance()
+                                ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.reservationcreated.subject', array(), 'messages', $user->getLocale()))
+                                ->setFrom($user->getEmail())
+                                ->setTo($organization->getEmail())
+                                ->setBody($this->renderView($template, array('organization' => $organization, 'user' => $user, 'reservation' => $reservation)), 'text/html');
+
+                        $this->get('mailer')->send($message);
+                    }
+                    
                     return $this->redirect($this->generateUrl('front_reservation_read', array('id' => $reservation->getId())));
                 }
                 else

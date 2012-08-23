@@ -288,9 +288,9 @@ class BackController extends Controller
             {
                 $message = \Swift_Message::newInstance()
                         ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.supportenquiry.subject', array('%name%' => $enquiry->getName())))
-                        ->setFrom($this->container->getParameter('pfcd_tourism.emails.outgoing_email'))
+                        ->setFrom($enquiry->getEmail())
                         ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
-                        ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)));
+                        ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)), 'text/html');
                 
                 $this->get('mailer')->send($message);
 
