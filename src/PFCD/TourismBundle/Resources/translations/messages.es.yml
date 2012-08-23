@@ -147,8 +147,6 @@ front.reservation.summary.sessiontime.undefined: Por confirmar
 front.reservation.summary.availability: Plazas disponibles
 front.reservation.read.title: Detalles de la reserva
 front.reservation.read.subtitle: En esta lista se muestra información detallada sobre la reserva
-front.reservation.update.title: Editar reserva
-front.reservation.update.subtitle: Rellene este formulario para añadir o modificar detalles de la reserva
 
 front.payment.index.title: Lista de pagos
 front.payment.index.subtitle: En esta lista se encuentran todos los pagos que le pertenecen

@@ -153,11 +153,6 @@ front_reservation_read:
     defaults: { _controller: "PFCDTourismBundle:Reservation:frontRead" }
     requirements: { _method: get, id: \d+ }
 
-front_reservation_update:
-    pattern:  /user/reservation/{id}/edit
-    defaults: { _controller: "PFCDTourismBundle:Reservation:frontUpdate" }
-    requirements: { id: \d+ }
-
 front_reservation_delete:
     pattern:  /user/reservation/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Reservation:frontDelete" }

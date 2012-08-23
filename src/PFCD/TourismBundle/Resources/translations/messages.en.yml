@@ -147,8 +147,6 @@ front.reservation.summary.sessiontime.undefined: To confirm
 front.reservation.summary.availability: Available places
 front.reservation.read.title: Reservation details
 front.reservation.read.subtitle: In this list there are detailed information stored about your reservation
-front.reservation.update.title: Edit reservation
-front.reservation.update.subtitle: Use this form to edit your reservation
 
 front.payment.index.title: Payment list
 front.payment.index.subtitle: In this list there are all the payments that belong to you

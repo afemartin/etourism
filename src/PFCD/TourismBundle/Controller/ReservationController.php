@@ -488,49 +488,6 @@ class ReservationController extends Controller
     }
     
     /**
-     * Edits an existent Reservation entity and store it when the form is submitted and valid
-     * 
-     * @Secure(roles="ROLE_USER")
-     */
-    public function frontUpdateAction($id)
-    {
-        $filter['id'] = $id;
-        $filter['user'] = $this->get('security.context')->getToken()->getUser()->getId();
-                
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $reservation = $em->getRepository('PFCDTourismBundle:Reservation')->findOneBy($filter);
-
-        if (!$reservation) throw $this->createNotFoundException('Unable to find Reservation entity.');
-        
-        $options['domain'] = Constants::FRONT;
-        $options['type'] = Constants::FORM_UPDATE;
-        $options['validation_groups'] = 'Front';
-        
-        $editForm = $this->createForm(new ReservationType(), $reservation, $options);
-
-        $request = $this->getRequest();
-        
-        if ($request->getMethod() == 'POST')
-        {
-            $editForm->bindRequest($request);
-
-            if ($editForm->isValid())
-            {
-                $em->persist($reservation);
-                $em->flush();
-                
-                return $this->redirect($this->generateUrl('front_reservation_read', array('id' => $id)));
-            }
-        }    
-
-        return $this->render('PFCDTourismBundle:Front/Reservation:update.html.twig', array(
-            'reservation' => $reservation,
-            'edit_form'   => $editForm->createView(),
-        ));
-    }
-
-    /**
      * Deletes a Reservation entity
      * 
      * @Secure(roles="ROLE_USER")
