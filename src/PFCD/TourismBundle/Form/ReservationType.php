@@ -30,7 +30,14 @@ class ReservationType extends AbstractType
                 }));
         }
         $builder->add('persons', 'integer', array('attr' => array('class' => 'input-mini')));
-        $builder->add('comment', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge')));
+        if ($options['domain'] == Constants::FRONT)
+        {
+            $builder->add('comment', 'textarea', array('required' => false, 'property_path' => false, 'attr' => array('class' => 'input-xxlarge')));
+        }
+        else
+        {
+            $builder->add('note', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.reservation.field.note.help'));
+        }
         $builder->add('session', 'hidden', array('property_path' => false));
         if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
         {

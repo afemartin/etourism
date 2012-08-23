@@ -1,0 +1,9 @@
+<p>Hola {{ organization.name }},</p>
+
+<p>El usuario <a href="{{ url('back_user_read', { 'id': user.id }) }}">{{ user.fullname }}</a> ({{ user.email }}) ha actualizado el pago de una reserva para la actividad "{{ payment.reservation.session.activity.title }}"</p>
+
+{% if comment %}<p>El usuario añadió este comentario: "<i>{{ comment }}</i>"</p>{% endif %}
+
+<p>Por favor, acceda al panel de administración si necesita actualizar el estado del <a href="{{ url('back_payment_read', { 'id': payment.id }) }}">pago</a></p>
+
+<p>Atentamente, el equipo de {{ domain_name }}</p>

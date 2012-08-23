@@ -40,7 +40,7 @@
             <th>{{ 'Date'|trans }}</th>
             <th>{{ 'Time'|trans }}</th>
             <th>{{ 'Persons'|trans }}</th>
-            <th>{{ 'Comment'|trans }}</th>
+            <th>{{ 'Note'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
@@ -62,7 +62,7 @@
         {% set total_persons = total_persons + reservation.persons %}
         {% endfor %}
         <td>{{ total_persons }} ({{ (total_persons/session.activity.capacity)*100 }}%)</td>
-        <td>{{ session.comment|truncate(25) }}</td>
+        <td>{{ session.note|truncate(25) }}</td>
         <td>{% if session.created %}{{ session.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if session.updated %}{{ session.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ session.statusText|trans }}</td>

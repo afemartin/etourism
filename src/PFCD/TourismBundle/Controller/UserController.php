@@ -194,7 +194,7 @@ class UserController extends Controller
                 $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:activation.%s.txt.twig', $user->getLocale());
 
                 $message = \Swift_Message::newInstance()
-                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.accountactivation.subject'))
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.accountactivation.subject', array(), 'messages', $user->getLocale()))
                         ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
                         ->setTo($user->getEmail())
                         ->setBody($this->renderView($template, array('user' => $user)), 'text/html');

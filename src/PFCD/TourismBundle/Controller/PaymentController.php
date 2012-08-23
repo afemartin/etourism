@@ -222,13 +222,13 @@ class PaymentController extends Controller
      */
     public function frontUpdateAction($id)
     {
-        $user = $this->get('security.context')->getToken()->getUser()->getId();
+        $user = $this->get('security.context')->getToken()->getUser();
         
         $em = $this->getDoctrine()->getEntityManager();
 
         $payment = $em->getRepository('PFCDTourismBundle:Payment')->find($id);
 
-        if (!$payment || $payment->getReservation()->getUser()->getId() != $user) throw $this->createNotFoundException('Unable to find Payment entity.');
+        if (!$payment || $payment->getReservation()->getUser()->getId() != $user->getId()) throw $this->createNotFoundException('Unable to find Payment entity.');
 
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_UPDATE;
@@ -244,9 +244,29 @@ class PaymentController extends Controller
 
             if ($editForm->isValid())
             {
+                $comment = $editForm->get('comment')->getData();
+                    
                 $em->persist($payment);
                 $em->flush();
+                
+                $organization = $payment->getReservation()->getSession()->getActivity()->getOrganization();
+                
+                if ($organization && $organization->getEmail())
+                {
+                    // when update the payment an email is sent automatically to the organization to solve the questions of the user
+                    $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:payment.updated.%s.txt.twig', $organization->getLocale());
 
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.paymentupdated.subject', array(), 'messages', $organization->getLocale()))
+                            ->setFrom($user->getEmail())
+                            ->setTo($organization->getEmail())
+                            ->setBody($this->renderView($template, array('organization' => $organization, 'user' => $user, 'payment' => $payment, 'comment' => $comment)), 'text/html');
+
+                    $this->get('mailer')->send($message);
+                    
+                    $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.paymentupdated'));
+                }
+                
                 return $this->redirect($this->generateUrl('front_payment_read', array('id' => $id)));
             }
         }
@@ -255,6 +275,26 @@ class PaymentController extends Controller
             'payment'   => $payment,
             'edit_form' => $editForm->createView(),
         ));
+    }
+        
+    /**
+     * Given the route of a template and the wanted locale, it find if the template exists
+     * if not it return the fallback template ('en' english language) 
+     * 
+     * @param string $template route of the template with a "%s" representing the locale
+     * @param string $locale the locale 2-digits code
+     * @return string route of the found template
+     */
+    private function findLocalizedTemplate($template, $locale)
+    {
+        $template_localized = sprintf($template, $locale);
+        
+        if (!$this->get('templating')->exists($template_localized))
+        {
+            $template_localized = sprintf($template, 'en');
+        }
+        
+        return $template_localized;
     }
     
 }

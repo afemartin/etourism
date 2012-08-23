@@ -2,6 +2,8 @@
 
 <p>The user <a href="{{ url('back_user_read', { 'id': user.id }) }}">{{ user.fullname }}</a> ({{ user.email }}) has created a new reservation for the activity "{{ reservation.session.activity.title }}"</p>
 
+{% if comment %}<p>The user add this comment: "<i>{{ comment }}</i>"</p>{% endif %}
+
 <p>Please, login in to the administration panel to accept the <a href="{{ url('back_reservation_read', { 'id': reservation.id }) }}">reservation</a></p>
 
 <p>Sincerely, the {{ domain_name }} team</p>

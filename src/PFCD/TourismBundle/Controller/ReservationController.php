@@ -426,18 +426,20 @@ class ReservationController extends Controller
                     $em->persist($reservation);
                     $em->flush();
                     
+                    $comment = $form->get('comment')->getData();
+                    
                     $organization = $session->getActivity()->getOrganization();
                 
                     if ($organization && $organization->getEmail())
                     {
-                        // after create the reservation an email is sent automatically to the user to proceed with the payment
+                        // when create the reservation an email is sent automatically to the organization to accept or reject the reservation
                         $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:reservation.created.%s.txt.twig', $organization->getLocale());
                     
                         $message = \Swift_Message::newInstance()
-                                ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.reservationcreated.subject', array(), 'messages', $user->getLocale()))
+                                ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.reservationcreated.subject', array(), 'messages', $organization->getLocale()))
                                 ->setFrom($user->getEmail())
                                 ->setTo($organization->getEmail())
-                                ->setBody($this->renderView($template, array('organization' => $organization, 'user' => $user, 'reservation' => $reservation)), 'text/html');
+                                ->setBody($this->renderView($template, array('organization' => $organization, 'user' => $user, 'reservation' => $reservation, 'comment' => $comment)), 'text/html');
 
                         $this->get('mailer')->send($message);
                     }
@@ -588,4 +590,5 @@ class ReservationController extends Controller
         
         return $template_localized;
     }
+    
 }

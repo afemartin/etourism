@@ -153,19 +153,21 @@ front.reservation.update.subtitle: Use this form to edit your reservation
 front.payment.index.title: Payment list
 front.payment.index.subtitle: In this list there are all the payments that belong to you
 front.payment.summary.title: Details of the payment
+front.payment.summary.organization: Organization
 front.payment.summary.activity: Activity
 front.payment.summary.sessiondate: Session date
 front.payment.summary.sessiontime: Session time
 front.payment.summary.sessiontime.undefined: To confirm
 front.payment.summary.persons: Persons
 front.payment.summary.price: Price
+front.payment.summary.status: Status
 front.payment.help.title: Payment methods
 front.payment.help.banktransfer: You can pay via bank transfer to our bank account using the following information<br />&bullet; Bank "%bankname%"<br />&bullet; Account number "%bankaccount%"
 front.payment.help.cash: You can pay with cash at the moment you start the activity
 front.payment.read.title: Payment details
 front.payment.read.subtitle: In this list there are detailed information stored about your payment
 front.payment.update.title: Edit payment
-front.payment.update.subtitle: Use this form to edit your payment
+front.payment.update.subtitle: Use this form to edit your payment. You can select the payment method you preffer (unless the activity description says something against it) and you also can add a comment in order to inform or ask anything about the payment status
 
 front.article.index.title: Article list
 front.article.index.subtitle: In this list there are all the articles published in the system
@@ -317,6 +319,8 @@ alert.success.createorganization: Your registration request was successfully sen
 
 alert.success.reservationaccepted: The payment for the activity has been created succesfully and an email has been sent to the user to proceed to the payment of the reservation
 
+alert.success.paymentupdated: The payment has been updated and an email has been sent to the organization with your comment about the payment
+
 alert.error.reservation.lockeduser: Your user account is locked. You can not create new reservations. For more information <a href="%link%">contact</a> the site administrator
 alert.error.reservation.lockedorganization: This organization is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> the site administrator
 alert.error.reservation.lockedactivity: This activity is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> with the organization
@@ -354,10 +358,13 @@ form.activity.field.status.help: <b>Pending:</b> The activity is not visible (on
 form.resource.field.name.help: The name of this resource must be clear enough to indentify it among all the resources listed at each activity
 form.resource.field.status.help: <b>Available:</b> The resource is available rigth now<hr/><b>Not available:</b> The resource is not available rigth now<hr/><b>Deleted:</b> The resource wont be available anymore
 
+form.session.field.note.help: You can use this field to record relevant information about this session
 form.session.field.status.help: <b>Pending:</b> The session is not visible<hr/><b>Enabled:</b> The session is visible and allow reservations<hr/><b>Locked:</b> The session is visible but do not allow reservations<hr/><b>Deleted:</b> The session is not visible
   
+form.reservation.field.note.help: You can use this field to record relevant information about this reservation
 form.reservation.field.status.help: <b>Requested:</b> The reservation is requested by the user<hr/><b>Accepted:</b> The reservation is accepted by the organization (if the activity has price it will be generated the associated "payment" automatically)<hr/><b>Rejected:</b> The reservation is rejected by the organization<hr/><b>Canceled:</b> The reservation is canceled by the user before or after to be accepted
   
+form.payment.field.note.help: You can use this field to record relevant information about this payment
 form.payment.field.price.help: This price was automatically calculated based on the price of the activity and the number of persons. DO NOT MODIFY IT unless you are completely sure about it
 form.payment.field.status.help: <b>Pending payment:</b> The accepted reservation generate automatically the associated pending payment until the user paid it<hr/><b>Paid:</b> The organization receive the payment from the user<hr/><b>Pending refund:</b> The user cancel the reservation after paid it so the organization will have to refund the money<hr/><b>Refunded:</b> The organization has refunded the money to the user
 
@@ -374,8 +381,9 @@ email.supportenquiry.subject: Support enquiry from %name%
 email.registration.subject: Registration request from %name%
 email.rememberpassword.subject: Reset password
 email.accountactivation.subject: Activation of your account
-email.reservationaccepted.subject: Reservation created
+email.reservationcreated.subject: Reservation created
 email.reservationaccepted.subject: Reservation accepted
+email.paymentupdated.subject: Payment updated
 
 
 ################################################################################
@@ -506,7 +514,6 @@ Shortdesc: Short description
 Fulldesc: Full description
 Price: Price
 Currency: Currency
-EUR: €
 Free: Free
 Capacity: Capacity
 Duration: Duration
@@ -558,6 +565,7 @@ Starttime3: Start time 3
 Starttime4: Start time 4
 
 Comment: Comment
+Note: Note
 
 entity.session.field.status.0: Pending
 entity.session.field.status.1: Enabled
@@ -658,6 +666,7 @@ Cancel: Cancel
 Send: Send
 
 Save changes: Save changes
+Save changes and send comment: Save changes and send comment
 Cancel changes: Cancel changes
 
 Read more: Read more

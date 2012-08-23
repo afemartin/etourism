@@ -571,7 +571,7 @@ class OrganizationController extends Controller
             if ($form->isValid())
             {
                 $message = \Swift_Message::newInstance()
-                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName())))
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName()), 'messages', $organization->getLocale()))
                         ->setFrom($enquiry->getEmail())
                         ->setTo($organization->getEmail())
                         ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)), 'text/html');

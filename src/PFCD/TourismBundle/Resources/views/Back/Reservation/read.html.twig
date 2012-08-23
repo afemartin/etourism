@@ -42,8 +42,8 @@
             <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
         </tr>
         <tr>
-            <th>{{ 'Comment'|trans }}</th>
-            <td>{{ reservation.comment }}</td>
+            <th>{{ 'Note'|trans }}</th>
+            <td>{{ reservation.note }}</td>
         </tr>
         <tr>
             <th>{{ 'Created'|trans }}</th>

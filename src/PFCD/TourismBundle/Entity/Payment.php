@@ -57,9 +57,9 @@ class Payment
     private $currency;
         
     /**
-     * @ORM\Column(name="comment", type="string", nullable=true)
+     * @ORM\Column(name="note", type="string", nullable=true)
      */
-    private $comment;
+    private $note;
 
     /**
      * @ORM\Column(name="created", type="datetime")
@@ -205,23 +205,23 @@ class Payment
     }
     
     /**
-     * Set comment
+     * Set note
      *
-     * @param integer $comment
+     * @param integer $note
      */
-    public function setComment($comment)
+    public function setNote($note)
     {
-        $this->comment = $comment;
+        $this->note = $note;
     }
 
     /**
-     * Get comment
+     * Get note
      *
      * @return integer 
      */
-    public function getComment()
+    public function getNote()
     {
-        return $this->comment;
+        return $this->note;
     }
 
     /**

@@ -153,19 +153,21 @@ front.reservation.update.subtitle: Rellene este formulario para añadir o modifi
 front.payment.index.title: Lista de pagos
 front.payment.index.subtitle: En esta lista se encuentran todos los pagos que le pertenecen
 front.payment.summary.title: Detalles del pago
+front.payment.summary.organization: Organización
 front.payment.summary.activity: Actividad
 front.payment.summary.sessiondate: Fecha de la sesión
 front.payment.summary.sessiontime: Hora de la sesión
 front.payment.summary.sessiontime.undefined: Por confirmar
 front.payment.summary.persons: Personas
 front.payment.summary.price: Precio
+front.payment.summary.status: Estado
 front.payment.help.title: Modos de pago
 front.payment.help.banktransfer: Puede pagar via transferencia bancaria a nuestra cuenta usando los siguientes datos<br />&bullet; Banco "%bankname%"<br />&bullet; Número de cuenta "%bankaccount%"
 front.payment.help.cash: Puede pagar en efectivo en el momento de realizar la actividad
 front.payment.read.title: Detalles del pago
 front.payment.read.subtitle: En esta lista se muestra información detallada sobre el pago
 front.payment.update.title: Editar pago
-front.payment.update.subtitle: Rellene este formulario para añadir o modificar detalles del pago
+front.payment.update.subtitle: Rellene este formulario para añadir o modificar detalles del pago. Puede seleccionar el metodo de pago que prefiera (a menos que en la descripción de la actividad diga lo contrario) y además puede añadir un comentario para avisar o preguntar sobre el estado del pago
 
 front.article.index.title: Lista de noticias
 front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
@@ -327,6 +329,8 @@ alert.error.reservation.capacityexceeded: Ha intentado crear una reserva para m�
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 
+alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un email a la organización con su comentario acerca del pago
+
 popover.generatesessions.title: Generar múltiples sesiones
 popover.generatesessions.content: En esta sección puede generar un conjunto de sesiones siguiendo un patrón
 
@@ -354,10 +358,13 @@ form.activity.field.status.help: <b>Pendiente:</b> La actividad no es visible (s
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
 form.resource.field.status.help: <b>Disponible:</b> El recurso está disponible ahora<hr/><b>No disponible:</b> El recurso no está disponible ahora<hr/><b>Eliminado:</b> El recurso no estará disponible de nuevo
 
+form.session.field.note.help: Puede usar este campo para anotar información relevante acerca de la sesión
 form.session.field.status.help: <b>Pendiente:</b> La sesión no es visible<hr/><b>Activada:</b> La sesión es visible y admite reservas<hr/><b>Bloqueada:</b> La sesión es visible pero no admite reservas<hr/><b>Eliminada:</b> La sesión no es visible
 
+form.reservation.field.note.help: Puede usar este campo para anotar información relevante acerca de la reserva
 form.reservation.field.status.help: <b>Solicitada:</b> La reserva es solicitada por el usuario<hr/><b>Aceptada:</b> La reserva es aceptada por la organización (si la actividad tiene precio se generará el "pago" correspondiente de manera automática)<hr/><b>Rechazada:</b> La reserva es rechazada por la organización<hr/><b>Cancelada:</b> La reserva es cancelada por el usuario antes o después de ser aceptada
 
+form.payment.field.note.help: Puede usar este campo para anotar información relevante acerca del pago
 form.payment.field.price.help: Este precio ha sido calculado automaticamente en base al precio de la actividad y al número de personas. NO LO MODIFIQUE a menos que esté completamente seguro de ello
 form.payment.field.status.help: <b>Pago pendiente:</b> La reserva aceptada generará automáticamente el pago pendiente a la espera de que el usuario lo pague<hr/><b>Pagado:</b> La organización ha recibido el pago del usuario<hr/><b>Devolución pendiente:</b> El usuario ha cancelado la reserva despues de haber pagado, por lo tanto la organización deberá devolver el dinero del pago<hr/><b>Devuelto:</b> La organización ha devuelto el dinero del pago al usuario
 
@@ -374,8 +381,9 @@ email.supportenquiry.subject: Mensaje de soporte de %name%
 email.registration.subject: Solicitud de registro de %name%
 email.rememberpassword.subject: Restablecer contraseña
 email.accountactivation.subject: Activación de la cuenta
-email.reservationaccepted.subject: Reserva creada
+email.reservationcreated.subject: Reserva creada
 email.reservationaccepted.subject: Reserva aceptada
+email.paymentupdated.subject: Actualización de pago
 
 
 ################################################################################
@@ -506,7 +514,6 @@ Shortdesc: Descripción breve
 Fulldesc: Descripción completa
 Price: Precio
 Currency: Moneda
-EUR: €
 Free: Gratis
 Capacity: Capacidad
 Duration: Duración
@@ -558,6 +565,7 @@ Starttime3: Hora inicio 3
 Starttime4: Hora inicio 4
 
 Comment: Comentario
+Note: Nota
 
 entity.session.field.status.0: Pendiente
 entity.session.field.status.1: Activada
@@ -658,6 +666,7 @@ Cancel: Cancelar
 Send: Enviar
 
 Save changes: Guardar cambios
+Save changes and send comment: Guardar cambios y enviar comentario
 Cancel changes: Cancelar cambios
 
 Read more: Leer más

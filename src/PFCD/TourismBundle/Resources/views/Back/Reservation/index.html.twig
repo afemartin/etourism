@@ -40,7 +40,7 @@
             <th>{{ 'Activity'|trans }}</th>
             <th>{{ 'Session'|trans }}</th>
             <th>{{ 'Persons'|trans }}</th>
-            <th>{{ 'Comment'|trans }}</th>
+            <th>{{ 'Note'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Payment'|trans }}</th>
@@ -56,7 +56,7 @@
         <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(25) }}</a></td>
         <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %} {% if reservation.session.time %}({{ reservation.session.time|date('H:i') }}){% endif %}</td>
         <td>{{ reservation.persons }}</td>
-        <td>{{ reservation.comment|truncate(25) }}</td>
+        <td>{{ reservation.note|truncate(25) }}</td>
         <td>{% if reservation.created %}{{ reservation.created|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>

@@ -41,7 +41,7 @@
             <th>{{ 'Session'|trans }}</th>
             <th>{{ 'Type'|trans }}</th>
             <th>{{ 'Price'|trans }}</th>
-            <th>{{ 'Comment'|trans }}</th>
+            <th>{{ 'Note'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Reservation'|trans }}</th>
@@ -58,7 +58,7 @@
         <td>{% if payment.reservation.session.date %}{{ payment.reservation.session.date|date('Y-m-d') }}{% endif %} {% if payment.reservation.session.time %}({{ payment.reservation.session.time|date('H:i') }}){% endif %}</td>
         <td>{{ payment.typeText|trans }}</td>
         <td>{{ payment.price|number_format_currency(payment.currency) }}</td>
-        <td>{{ payment.comment|truncate(25) }}</td>
+        <td>{{ payment.note|truncate(25) }}</td>
         <td>{% if payment.created %}{{ payment.created|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if payment.updated %}{{ payment.updated|date('Y-m-d H:i') }}{% endif %}</td>
         <td>{% if payment.reservation %}<a href="{{ path('back_reservation_read', { 'id': payment.reservation.id }) }}"><i class="icon-book"></i></a>{% endif %}</td>

@@ -92,7 +92,7 @@ class BackController extends Controller
                     $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:remember.back.%s.txt.twig', $organization->getLocale());
                     
                     $message = \Swift_Message::newInstance()
-                            ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.rememberpassword.subject'))
+                            ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.rememberpassword.subject', array(), 'messages', $organization->getLocale()))
                             ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
                             ->setTo($organization->getEmail())
                             ->setBody($this->renderView($template, array('organization' => $organization)), 'text/html');
