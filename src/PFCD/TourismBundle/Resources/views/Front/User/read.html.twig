@@ -67,6 +67,7 @@
 
 {% if app.user and app.user.id == user.id %}
 <a class="btn btn-primary" href="{{ path('front_user_update') }}"><i class="icon-pencil icon-white"></i> {{ 'front.user.button.update'|trans }}</a>
+<a class="btn btn-primary" href="{{ path('front_user_security') }}"><i class="icon-lock icon-white"></i> {{ 'Change password'|trans }}</a>
 <form id="delete_user_form" class="pull-right" action="{{ path('front_user_delete') }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'front.user.button.delete'|trans }}</button>

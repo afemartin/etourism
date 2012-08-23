@@ -113,6 +113,7 @@
 
 <a class="btn btn-primary" href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.organization.button.update'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_organization_media', { 'id': organization.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.organization.button.media'|trans }}</a>
+<a class="btn btn-primary" href="{{ path('back_organization_security', { 'id': organization.id }) }}"><i class="icon-lock icon-white"></i> {{ 'Change password'|trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
 <a class="btn btn-inverse" href="{{ path('back_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.organization.button.index'|trans }}</a>
 {% endif %}

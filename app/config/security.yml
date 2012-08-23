@@ -40,16 +40,17 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        trans_secured_area:
-            pattern: /translation/.*
-            provider: all_users
-            anonymous: true
-            form_login:
-                check_path: translation_login_check
-                login_path: translation_login
-            logout:
-                path:   translation_logout
-                target: translation_index
+         # Area to create a translation panel (future development)
+#        trans_secured_area:
+#            pattern: /translation/.*
+#            provider: all_users
+#            anonymous: true
+#            form_login:
+#                check_path: translation_login_check
+#                login_path: translation_login
+#            logout:
+#                path:   translation_logout
+#                target: translation_index
         back_secured_area:
             pattern: /admin/.*
             provider: back_users
@@ -74,12 +75,19 @@ security:
                 target: front_index
 
     access_control:
-        translation_login:
-            path: /translation/login
+        # Area to create a translation panel (future development)
+#        translation_login:
+#            path: /translation/login
+#            roles: IS_AUTHENTICATED_ANONYMOUSLY
+#        translation_area:
+#            path: /translation/.*
+#            roles: [ROLE_USER, ROLE_ORGANIZATION, ROLE_ADMIN]
+        back_reset:
+            path: /admin/reset.*
             roles: IS_AUTHENTICATED_ANONYMOUSLY
-        translation_area:
-            path: /translation/.*
-            roles: [ROLE_USER, ROLE_ORGANIZATION, ROLE_ADMIN]
+        back_remember:
+            path: /admin/remember
+            roles: IS_AUTHENTICATED_ANONYMOUSLY
         back_login:
             path: /admin/login
             roles: IS_AUTHENTICATED_ANONYMOUSLY

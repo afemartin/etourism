@@ -16,7 +16,15 @@ back_logout:
     pattern:  /logout
     options:  { i18n: false }
     requirements: { _method: get }
-
+    
+back_remember_password:
+    pattern:  /remember
+    defaults: { _controller: PFCDTourismBundle:Back:rememberPassword }     
+    
+back_reset_password:
+    pattern:  /reset-{id}-key-{key}
+    defaults: { _controller: PFCDTourismBundle:Back:resetPassword }
+    
 
 ################################################################################
 ##### BACK CONTROLLER ##########################################################
@@ -101,6 +109,10 @@ back_organization_media:
     pattern:  /organization/{id}/media
     defaults: { _controller: "PFCDTourismBundle:Organization:backMedia" }
     requirements: { id: \d+ }
+    
+back_organization_security:
+    pattern:  /organization/{id}/security
+    defaults: { _controller: "PFCDTourismBundle:Organization:backSecurity" }
 
 back_organization_delete:
     pattern:  /organization/{id}/delete

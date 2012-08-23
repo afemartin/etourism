@@ -5,6 +5,8 @@ namespace PFCD\TourismBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+
 use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\User;
@@ -277,6 +279,64 @@ class UserController extends Controller
         return $this->render('PFCDTourismBundle:Front/User:update.html.twig', array(
             'user'      => $user,
             'edit_form' => $editForm->createView(),
+        ));
+    }
+
+    /**
+     * Display a form to change the current password
+     *
+     * @Secure(roles="ROLE_USER")
+     */
+    public function frontSecurityAction()
+    {
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $user = $em->getRepository('PFCDTourismBundle:User')->find($id);
+
+        if (!$user) throw $this->createNotFoundException('Unable to find User entity.');
+
+        $form = $this->createFormBuilder($user, array('validation_groups' => array('Change')))
+                ->add('old_password', 'password', array('property_path' => false, 'label' => 'Current password'))
+                ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'password.match.error', 'first_name' => 'New password', 'second_name' => 'Repeat password'))
+                ->getForm();
+
+        $request = $this->getRequest();
+        
+        $error = false;
+                
+        if ($request->getMethod() == 'POST')
+        {
+            $current_password = $user->getPassword();
+
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                $encoder = new MessageDigestPasswordEncoder('sha1', false, 1);
+                $old_password = $encoder->encodePassword($form->get('old_password')->getData(), $user->getSalt());
+                
+                if ($current_password == $old_password)
+                {
+                    $em->persist($user);
+                    $em->flush();
+                    
+                    $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.changepassword'));
+                    
+                    return $this->redirect($this->generateUrl('front_user_read', array('id'=>$id)));
+                }
+                else
+                {
+                    $error = true;
+                }    
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Front/User:security.html.twig', array(
+            'user'  => $user,
+            'error' => $error,
+            'form'  => $form->createView()
         ));
     }
     

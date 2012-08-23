@@ -123,7 +123,7 @@ class FrontController extends Controller
                 }
                 else
                 {
-                    $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:remember.%s.txt.twig', $user->getLocale());
+                    $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:remember.front.%s.txt.twig', $user->getLocale());
                     
                     $message = \Swift_Message::newInstance()
                             ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.rememberpassword.subject'))

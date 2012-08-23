@@ -1,0 +1,7 @@
+<p>Hello {{ organization.name }},</p>
+
+<p>You requested in our website <a href="{{ url('front_index') }}">{{ domain_name }}</a> to reset your password, you can do it by using this <a href="{{ url('back_reset_password', { 'id': organization.id, 'key': organization.resetKey }) }}">link</a></p>
+
+<p>If the previous link does not work, please try to copy this url and paste at your browser: {{ url('back_reset_password', { 'id': organization.id, 'key': organization.resetKey }) }}</p>
+
+<p>Sincerely, the {{ domain_name }} team</p>

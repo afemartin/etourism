@@ -76,10 +76,13 @@ front.login.title: User sign in
 front.login.subtitle: Please fill the following information to sign in to your user account. If you do not create already your account <a href="%link%">sign up here</a>
 
 front.rememberpassword.title: Remember password
-front.rememberpassword.subtitle: Please fill your email account to send a link to your email account in order to allow you to set a new password
+front.rememberpassword.subtitle: If you do not remember your password fill your email and we will send to you a link to allow you to set a new password
 
 front.resetpassword.title: Reset password
 front.resetpassword.subtitle: Insert your new password
+
+front.changepassword.title: Change password
+front.changepassword.subtitle: Insert your current password and the insert the new password that will replace the old one
 
 front.contact.title: Contact us
 front.contact.subtitle: Want to send us feedback or report some error?
@@ -167,6 +170,15 @@ front.payment.update.subtitle: Use this form to edit your payment
 front.article.index.title: Article list
 front.article.index.subtitle: In this list there are all the articles published in the system
 front.article.read.languagenotsupported: The complete information related to the article is not available in this language. Please, select one of the following available languages
+
+back.rememberpassword.title: Remember password
+back.rememberpassword.subtitle: Please fill your email account to send a link to your email account in order to allow you to set a new password
+
+back.resetpassword.title: Reset password
+back.resetpassword.subtitle: Insert your new password
+
+back.changepassword.title: Change password
+back.changepassword.subtitle: Insert your current password and the insert the new password that will replace the old one
 
 back.home.title: Home page
 back.home.subtitle: This is the summary of the most important information about your activities status
@@ -295,6 +307,9 @@ alert.success.rememberpassword: We send you an email with a reset link for your 
 alert.error.resetpassword: The link received to reset the password it is not valid or you already reset your password before. Please contact us if you continue having problems to reset your password
 alert.success.resetpassword: Your password has been reset successfully. Use your new password to login into the system
 
+alert.error.changepassword: The current password you introduced does not match with your current password stored into the system. Introduce again your current password
+alert.success.changepassword: Your password has been changed successfully. Use your new password to login into the system the next time
+
 alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank you!
 alert.success.supportenquiry: Your support enquiry was successfully sent. Thank you!
 
@@ -369,6 +384,7 @@ email.reservationaccepted.subject: Reservation accepted
 Username: Username
 Email: Email
 Password: Password
+Current password: Current password
 New password: New password
 Repeat password: Repeat password
 
@@ -647,6 +663,7 @@ Read more: Read more
 
 Remember password: Remember password
 Reset password: Reset password
+Change password: Change password
 
 front.user.button.update: Edit information
 front.user.button.delete: Delete my account

@@ -75,11 +75,14 @@ back.header.subtitle: Panel de Administración
 front.login.title: Acceso de usuario
 front.login.subtitle: Rellene los siguientes campos para acceder a su cuenta de usuario. Si aun no ha creado su cuenta <a href="%link%">regístrese aquí</a>
 
-front.rememberpassword.title: Reacordar contraseña
+front.rememberpassword.title: Recordar contraseña
 front.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 
 front.resetpassword.title: Restablecer contraseña
 front.resetpassword.subtitle: Introduzca su nueva contraseña
+
+front.changepassword.title: Cambiar contraseña
+front.changepassword.subtitle: Introduzca su contraseña actual y la nueva contraseña que quiere guardar para sustituir a la anterior
 
 front.contact.title: Contacto
 front.contact.subtitle: ¿Quiere reportar algun problema en la página o hacer alguna sugerencia?
@@ -167,6 +170,15 @@ front.payment.update.subtitle: Rellene este formulario para añadir o modificar 
 front.article.index.title: Lista de noticias
 front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
 front.article.read.languagenotsupported: La información completa relacionada con esta noticia no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
+
+back.rememberpassword.title: Recordar contraseña
+back.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
+
+back.resetpassword.title: Restablecer contraseña
+back.resetpassword.subtitle: Introduzca su nueva contraseña
+
+back.changepassword.title: Cambiar contraseña
+back.changepassword.subtitle: Introduzca su contraseña actual y la nueva contraseña que quiere guardar para sustituir a la anterior
 
 back.home.title: Portada
 back.home.subtitle: Aqui se muestra un resumen con la información mas relevante acerca del estado de las actividades
@@ -295,6 +307,9 @@ alert.success.rememberpassword: Le hemos enviado un correo electronico con un en
 alert.error.resetpassword: El enlace utilizado para reestablecer su contraseña no es válido o ya ha sido usado anteriormente. Por favor pongase en contacto con nosotros si no consigue restablecer su contraseña
 alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. Utilicela para acceder al sistema
 
+alert.error.changepassword: La contraseña actual que ha introducido no coincide con la contraseña actual que tiene guardada en el sistema. Introduzca de nuevo su contraseña actual
+alert.success.changepassword: Su contraseña ha sido cambiada con ésito. Utilice su nueva contraseña para acceder al sistema la próxima vez
+
 alert.success.contactenquiry: Su petición ha sido enviada correctamente. Muchas gracias
 alert.success.supportenquiry: Su petición ha sido enviada correctamente. Muchas gracias
 
@@ -369,6 +384,7 @@ email.reservationaccepted.subject: Reserva aceptada
 Username: Usuario
 Email: Email
 Password: Contraseña
+Current password: Contraseña actual
 New password: Nueva contraseña
 Repeat password: Repita contraseña
 
@@ -647,6 +663,7 @@ Read more: Leer más
 
 Remember password: Recordar contraseña
 Reset password: Restablecer contraseña
+Change password: Cambiar contraseña
 
 front.user.button.update: Editar información
 front.user.button.delete: Eliminar mi cuenta

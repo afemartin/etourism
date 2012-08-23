@@ -1,10 +1,12 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% block title %}Administrator Panel{% endblock %}
-
 {% block container %}
     <div class="span12">
-        <div style="width: 375px; margin: 0 auto">
+        {% if app.session.hasFlash('alert-info') %}<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-info') }}</div>{% endif %}
+        {% if app.session.hasFlash('alert-success') %}<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-success') }}</div>{% endif %}
+        {% if app.session.hasFlash('alert-warning') %}<div class="alert fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-warning') }}</div>{% endif %}
+        {% if app.session.hasFlash('alert-error') %}<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ app.session.flash('alert-error') }}</div>{% endif %}
+        <div style="width: 425px; margin: 50px auto">
             {% if error %}
             <div class="alert alert-error fade in">
                 <button class="close" data-dismiss="alert">×</button>
@@ -26,8 +28,16 @@
                 </div>
                 <div class="form-actions">
                     <button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> {{ 'Login'|trans }}</button>
+                    <a id="reset_password" href="{{ path('back_remember_password') }}" class="btn" rel="popover" data-original-title="{{ 'popover.resetpassword.title'|trans }}" data-content="{{ 'popover.resetpassword.content'|trans }}"> {{ 'Remember password'|trans }}</a>
                 </div>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('#reset_password').popover();
+</script>
 {% endblock %}

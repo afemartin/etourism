@@ -8,6 +8,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Constants;
 
+use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Session;
 use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\Settings;
@@ -23,6 +24,137 @@ use \DateInterval;
  */
 class BackController extends Controller
 {
+    /**
+     * Show the login page of the administrator page for organizations and admin
+     */
+    public function loginAction()
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION')) {
+            
+            $locale = $this->container->get('security.context')->getToken()->getUser()->getLocale();
+            
+            if ($locale)
+            {
+                return $this->redirect($this->generateUrl('back_index', array('_locale' => $locale)));
+            }
+            else
+            {
+                return $this->redirect($this->generateUrl('back_index'));
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Back/Home:login.html.twig', array(
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+        ));
+    }
+    
+    /**
+     * Send an email to the organization with a link to reset his/her password
+     */
+    public function rememberPasswordAction()
+    {
+        $organization = new Organization();
+        
+        $form = $this->createFormBuilder($organization, array('validation_groups' => array('Remember')))
+                ->add('email', 'email')
+                ->getForm();
+
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                $em = $this->getDoctrine()->getEntityManager();
+
+                $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneByEmail($organization->getEmail());
+
+                if (!$organization)
+                {
+                    $this->get('session')->setFlash('alert-error', $this->get('translator')->trans('alert.error.rememberpassword'));
+                }
+                else
+                {
+                    $template = $this->findLocalizedTemplate('PFCDTourismBundle:Mail:remember.back.%s.txt.twig', $organization->getLocale());
+                    
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.rememberpassword.subject'))
+                            ->setFrom($this->container->getParameter('pfcd_tourism.emails.no_reply_email'))
+                            ->setTo($organization->getEmail())
+                            ->setBody($this->renderView($template, array('organization' => $organization)), 'text/html');
+                    
+                    $this->get('mailer')->send($message);
+
+                    $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.rememberpassword'));
+                    
+                    return $this->redirect($this->generateUrl('back_login'));
+                }
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Back/Home:rememberPassword.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * Check that the resetKey is valid and show the organization a form to create a new password
+     */
+    public function resetPasswordAction($id, $key)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+        $form = $this->createFormBuilder($organization, array('validation_groups' => array('Reset')))
+                ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'password.match.error', 'first_name' => 'New password', 'second_name' => 'Repeat password'))
+                ->getForm();
+
+        if (!$organization || $organization->getResetKey() !== $key)
+        {
+            $this->get('session')->setFlash('alert-error', $this->get('translator')->trans('alert.error.resetpassword'));
+            
+            return $this->redirect($this->generateUrl('back_login'));
+        }
+        else
+        {
+            $request = $this->getRequest();
+            
+            if ($request->getMethod() == 'POST')
+            {
+                $form->bindRequest($request);
+
+                if ($form->isValid())
+                {
+                    $em->persist($organization);
+                    $em->flush();
+
+                    $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.resetpassword'));
+                    
+                    return $this->redirect($this->generateUrl('back_login'));
+                }
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Back/Home:resetPassword.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+    
     /**
      * Show the home page of the back-end administrator page
      */
@@ -172,42 +304,25 @@ class BackController extends Controller
             'form' => $form->createView()
         ));
     }
-    
-    /**
-     * Show the login page of the administrator page for organizations and admin
-     */
-    public function loginAction()
-    {
-        $request = $this->getRequest();
-        $session = $request->getSession();
 
-        // get the login error if there is one
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+    /**
+     * Given the route of a template and the wanted locale, it find if the template exists
+     * if not it return the fallback template ('en' english language) 
+     * 
+     * @param string $template route of the template with a "%s" representing the locale
+     * @param string $locale the locale 2-digits code
+     * @return string route of the found template
+     */
+    private function findLocalizedTemplate($template, $locale)
+    {
+        $template_localized = sprintf($template, $locale);
+        
+        if (!$this->get('templating')->exists($template_localized))
+        {
+            $template_localized = sprintf($template, 'en');
         }
         
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION')) {
-            
-            $locale = $this->container->get('security.context')->getToken()->getUser()->getLocale();
-            
-            if ($locale)
-            {
-                return $this->redirect($this->generateUrl('back_index', array('_locale' => $locale)));
-            }
-            else
-            {
-                return $this->redirect($this->generateUrl('back_index'));
-            }
-        }
-
-        return $this->render('PFCDTourismBundle:Back/Home:login.html.twig', array(
-            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
-        ));
+        return $template_localized;
     }
+    
 }
-
-?>

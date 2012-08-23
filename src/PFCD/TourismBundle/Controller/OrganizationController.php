@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+
 use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Organization;
@@ -252,6 +254,60 @@ class OrganizationController extends Controller
         return $this->render('PFCDTourismBundle:Back/Organization:media.html.twig', array(
             'organization' => $organization,
             'edit_form'    => $editForm->createView(),
+        ));
+    }
+    
+    /**
+     * Display a form to change the current password
+     */
+    public function backSecurityAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+
+        $form = $this->createFormBuilder($organization, array('validation_groups' => array('Change')))
+                ->add('old_password', 'password', array('property_path' => false, 'label' => 'Current password'))
+                ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'password.match.error', 'first_name' => 'New password', 'second_name' => 'Repeat password'))
+                ->getForm();
+
+        $request = $this->getRequest();
+        
+        $error = false;
+                
+        if ($request->getMethod() == 'POST')
+        {
+            $current_password = $organization->getPassword();
+
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                $encoder = new MessageDigestPasswordEncoder('sha1', false, 1);
+                $old_password = $encoder->encodePassword($form->get('old_password')->getData(), $organization->getSalt());
+                
+                if ($current_password == $old_password)
+                {
+                    $em->persist($organization);
+                    $em->flush();
+                    
+                    $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.changepassword'));
+                    
+                    return $this->redirect($this->generateUrl('back_organization_read', array('id'=>$id)));
+                }
+                else
+                {
+                    $error = true;
+                }    
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Back/Organization:security.html.twig', array(
+            'organization'  => $organization,
+            'error'         => $error,
+            'form'          => $form->createView()
         ));
     }
 

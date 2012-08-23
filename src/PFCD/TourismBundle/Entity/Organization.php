@@ -333,6 +333,16 @@ class Organization implements AdvancedUserInterface
     {
         return $this->salt;
     }
+    
+    /**
+     * Get key for reset password by mail (after change the password the link will be useless)
+     *
+     * @return string 
+     */
+    public function getResetKey()
+    {
+        return md5('reset-key-'.$this->password.'-salted-with-'.$this->salt);
+    }
 
     /**
      * Set name

@@ -5,7 +5,7 @@ PFCD\TourismBundle\Entity\User:
         email:
             - Email:    { groups: [Remember, Default] }
         password:
-            - NotBlank: { groups: [Reset, Default] }
+            - NotBlank: { groups: [Reset, Change, Default] }
             
 PFCD\TourismBundle\Entity\Organization:
     constraints:
@@ -15,9 +15,9 @@ PFCD\TourismBundle\Entity\Organization:
         username:
             - NotBlank: { groups: [Default] }
         email:
-            - Email:    { groups: [Default] }
+            - Email:    { groups: [Remember, Default] }
         password:
-            - NotBlank: { groups: [Default] }
+            - NotBlank: { groups: [Reset, Change, Default] }
         name:
             - NotBlank: { groups: [Default] }
         shortDesc:

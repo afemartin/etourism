@@ -1,0 +1,21 @@
+{% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ 'Change password'|trans }}{% endblock%}
+
+{% block body %}
+<h1>{{ 'front.changepassword.title'|trans }}</h1>
+<p>{{ 'front.changepassword.subtitle'|trans }}</p>
+
+{% if error %}<div class="alert alert-error fade in"><button data-dismiss="alert" class="close">×</button>{{ 'alert.error.changepassword'|trans }}</div>{% endif %}
+
+<form class="form-horizontal" action="{{ path('front_user_security') }}" method="post">
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit"><i class="icon-lock icon-white"></i> {{ 'Change password'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('front_user_read', { 'id': user.id }) }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
+        <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
+    </div>
+</form>
+{% endblock %}  

@@ -67,6 +67,10 @@ front_user_update:
     pattern:  /user/edit
     defaults: { _controller: "PFCDTourismBundle:User:frontUpdate" }
 
+front_user_security:
+    pattern:  /user/security
+    defaults: { _controller: "PFCDTourismBundle:User:frontSecurity" }
+
 front_user_delete:
     pattern:  /user/delete
     defaults: { _controller: "PFCDTourismBundle:User:frontDelete" }
