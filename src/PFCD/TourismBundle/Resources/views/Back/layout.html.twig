@@ -54,7 +54,7 @@
             
     {% if helptooltip is defined and helptooltip %}
         <script type="text/javascript">
-            $('.field-help-tooltip').tooltip({'placement' : 'right'});
+            $('.field-help-tooltip').tooltip({'placement' : 'right', 'delay' : { 'hide' : 500 } });
         </script>
     {% endif %}
             
