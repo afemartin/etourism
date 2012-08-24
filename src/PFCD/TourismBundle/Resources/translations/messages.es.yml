@@ -528,6 +528,10 @@ Daysweek: Días de la semana
 
 Select a currency: Seleccione una moneda
 
+currency.name.EUR: Euro
+currency.name.USD: Dolar
+currency.name.ETB: Birr etíope
+
 entity.activity.field.status.0: Pendiente
 entity.activity.field.status.1: Activada
 entity.activity.field.status.2: Bloqueada

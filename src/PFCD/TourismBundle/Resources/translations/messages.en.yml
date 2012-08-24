@@ -528,6 +528,10 @@ Daysweek: Days of the week
 
 Select a currency: Select a currency
 
+currency.name.EUR: Euro
+currency.name.USD: Dollar
+currency.name.ETB: Ethiopian birr
+
 entity.activity.field.status.0: Pending
 entity.activity.field.status.1: Enabled
 entity.activity.field.status.2: Locked
