@@ -175,7 +175,7 @@ front_payment_update:
     
 
 ################################################################################
-##### ARTICLE CONTROLLER ##########################################################
+##### ARTICLE CONTROLLER #######################################################
 ################################################################################
     
 front_article_index:
@@ -186,3 +186,18 @@ front_article_read:
     pattern:  /article/{id}
     defaults: { _controller: "PFCDTourismBundle:Article:frontRead" }
     requirements: { _method: get, id: \d+ }
+    
+
+################################################################################
+##### COMMENT CONTROLLER #######################################################
+################################################################################
+
+front_comment_activity:
+    pattern:  /activity/{id}/comment
+    defaults: { _controller: "PFCDTourismBundle:Comment:frontActivity" }
+    requirements: { _method: post, id: \d+ }
+
+front_comment_article:
+    pattern:  /article/{id}/comment
+    defaults: { _controller: "PFCDTourismBundle:Comment:frontArticle" }
+    requirements: { _method: post, id: \d+ }

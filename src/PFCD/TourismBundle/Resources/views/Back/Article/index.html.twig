@@ -2,7 +2,7 @@
 
 {% import "PFCDTourismBundle::macros.html.twig" as macros %}
 
-{% set sectiontab = 'news' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 6: {sorter: false} }, sortList: [[2,1]] }' %}
+{% set sectiontab = 'news' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 6: {sorter: false}, 7: {sorter: false} }, sortList: [[2,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.article.index.title'|trans }}</h1>
@@ -20,6 +20,7 @@
             <th>{{ 'Organization'|trans }}</th>
             {% endif %}
             <th colspan="2">{{ 'Edit'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
         {% endif %}
         <td><a href="{{ path('back_article_update', { 'id': article.id }) }}"><i class="icon-pencil"></i></a></td>
         <td><a href="{{ path('back_article_media', { 'id': article.id }) }}"><i class="icon-picture"></i></a></td>
+        <td><a href="{{ path('back_comment_article', { 'id': article.id }) }}"><i class="icon-comment"></i></a></td>
     </tr>
     {% endfor %}
     </tbody>

@@ -90,6 +90,46 @@
 </div>
 {% endif %}
 
+<h2>{{ 'front.activity.read.comments'|trans }}</h2>
+<div class="info-comments row">
+    <div class="span9">
+        {% for comment in comments %}
+            {% if comment.user %}
+            <div class="user-comment">
+                <p><small>{{ 'front.comment.title.user'|trans({ '%link%': path('front_user_read', { 'id': comment.user.id }), '%name%': comment.user.fullname, '%date%': comment.created|date('Y-m-d H:i') })|raw }}</small></p>
+                <p>{{ comment.comment }}</p>
+            </div>
+            {% elseif comment.organization %}
+            <div class="org-comment">
+                <p><small>{{ 'front.comment.title.organization'|trans({ '%link%': path('front_organization_read', { 'id': comment.organization.id }), '%name%': comment.organization.name, '%date%': comment.created|date('Y-m-d H:i') })|raw }}</small></p>
+                <p>{{ comment.comment }}</p>
+            </div>
+            {% else %}
+            <div class="admin-comment">
+                <p><small>{{ 'front.comment.title.admin'|trans({ '%date%': comment.created|date('Y-m-d H:i') })|raw }}</small></p>
+                <p>{{ comment.comment }}</p>
+            </div>
+            {% endif %}
+            {% if not loop.last %}
+            <hr style="margin: 9px 0"/>
+            {% endif %}
+        {% else %}
+            {{ 'front.activity.read.nocommentsfound'|trans }}
+        {% endfor %}
+    </div>
+</div>
+{% if app.user %}
+<div class="info-comments row">
+    <div class="span9" style="padding-left: 20px">
+        <form action="{{ path('front_comment_activity', { 'id': activity.id }) }}" method="post" {{ form_enctype(comment_form) }}>
+            {{ form_widget(comment_form.comment) }}
+            {{ form_rest(comment_form) }}
+            <br />
+            <button class="btn btn-primary" type="submit"><i class="icon-comment icon-white"></i> {{ 'Add comment'|trans }}</button>
+        </form>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}

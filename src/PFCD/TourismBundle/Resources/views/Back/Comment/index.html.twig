@@ -1,0 +1,37 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% set sectiontab = 'comment' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 3: {sorter: false}, 6: {sorter: false}, 7: {sorter: false} }, sortList: [[4,1]] }' %}
+
+{% block body %}
+<h1>{{ 'back.comment.index.title'|trans }}</h1>
+<p>{{ 'back.comment.index.subtitle'|trans }}</p>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Topic'|trans }}</th>
+            <th>{{ 'Author'|trans }}</th>
+            <th>{{ 'Comment'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
+            <th>{{ 'Edit'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for comment in comments %}
+    <tr class="status-{{ comment.status }}">
+        <td>{{ comment.id }}</td>
+        <td>{% if comment.activity %}<i class="icon-leaf"></i> <a href="{{ path('back_activity_read', { 'id': comment.activity.id }) }}">{{ comment.activity.title|truncate(25) }}</a>{% elseif comment.article %}<i class="icon-bullhorn"></i> <a href="{{ path('back_article_read', { 'id': comment.article.id }) }}">{{ comment.article.title|truncate(25) }}</a>{% endif %}</td>
+        <td>{% if comment.user %}<i class="icon-user"></i> <a href="{{ path('back_user_read', { 'id': comment.user.id }) }}">{{ comment.user.fullname }}</a>{% elseif comment.organization %}<i class="icon-globe"></i> {{ comment.organization.name }}{% else %}<i class="icon-star"></i> {{ 'Administrator'|trans }}{% endif %}</td>
+        <td>{{ comment.comment|truncate(75) }}</td>
+        <td>{% if comment.created %}{{ comment.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+        <td>{{ comment.statusText|trans }}</td>
+        <td><a href="{% if comment.activity %}{{ path('back_comment_activity', { 'id': comment.activity.id }) }}{% elseif comment.article %}{{ path('back_comment_article', { 'id': comment.article.id }) }}{% endif %}"><i class="icon-comment"></i></a></td>
+        <td>{% if comment.user or comment.organization or is_granted('ROLE_ADMIN') %}<a href="{{ path('back_comment_update', { 'id': comment.id }) }}"><i class="icon-pencil"></i></a>{% endif %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

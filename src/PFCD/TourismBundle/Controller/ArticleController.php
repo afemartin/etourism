@@ -9,6 +9,8 @@ use PFCD\TourismBundle\Constants;
 use PFCD\TourismBundle\Entity\Article;
 use PFCD\TourismBundle\Form\ArticleType;
 use PFCD\TourismBundle\Form\MediaType;
+use PFCD\TourismBundle\Entity\Comment;
+use PFCD\TourismBundle\Form\CommentType;
 
 use PFCD\TourismBundle\Entity\OrganizationFilter;
 use PFCD\TourismBundle\Form\OrganizationFilterType;
@@ -369,9 +371,21 @@ class ArticleController extends Controller
         $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
         if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
+                
+        unset($filter);
+        $filter['article'] = $id;
+        $filter['status'] = array(Comment::STATUS_ENABLED);
+        
+        $comments = $em->getRepository('PFCDTourismBundle:Comment')->findBy($filter);
+        
+        $comment = new Comment();
+        
+        $form = $this->createForm(new CommentType(), $comment);
         
         return $this->render('PFCDTourismBundle:Front/Article:read.html.twig', array(
-            'article' => $article
+            'article'      => $article,
+            'comments'     => $comments,
+            'comment_form' => $form->createView(),
         ));
     }
     

@@ -40,14 +40,6 @@ Help: Ayuda
 
 
 ################################################################################
-##### Idiomas
-################################################################################
-
-English: Inglés
-Spanish: Español
-
-
-################################################################################
 ##### Browser (Metas&Tags)
 ################################################################################  
 
@@ -128,6 +120,8 @@ front.activity.read.availability: Disponibilidad
 front.activity.read.availability.small: Seleciona una sesión de la actividad
 front.activity.read.sessionsnotfound: No hay sesiones para la actividad en este momento. Para más información <a href="%link%">contacte</a> con la organización
 front.activity.read.languagenotsupported: La información completa relacionada con esta actividad no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
+front.activity.read.comments: Comentarios
+front.activity.read.nocommentsfound: Aún no hay comentarios acerca de esta actividad
 
 front.media.read.images: Imágenes
 front.media.read.images.small: Haga click en las imágenes para abrirlas en modo galería
@@ -170,6 +164,12 @@ front.payment.update.subtitle: Rellene este formulario para añadir o modificar 
 front.article.index.title: Lista de noticias
 front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
 front.article.read.languagenotsupported: La información completa relacionada con esta noticia no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
+front.article.read.comments: Comentarios
+front.article.read.nocommentsfound: Aún no hay comentarios acerca de esta noticia
+
+front.comment.title.user: <a href="%link%">%name%</a> a las %date%
+front.comment.title.organization: <a class="label label-info" href="%link%">%name%</a> a las %date%
+front.comment.title.admin: <span class="label label-inverse">Administrador</span> a las %date%
 
 back.rememberpassword.title: Recordar contraseña
 back.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
@@ -269,6 +269,14 @@ back.article.read.subtitle: En esta lista se muestra información detallada sobr
 back.article.update.title: Editar detalles
 back.article.update.subtitle: Rellene este formulario para añadir o modificar detalles de la noticia
 
+back.comment.index.title: Lista de comentarios
+back.comment.index.subtitle: En esta lista se encuentran los comentarios registrados en el sistema
+back.comment.read.title: Lista de comentarios
+back.comment.activity.read.subtitle: En esta sección se muestra el hilo de comentarios correspondiente a la siguiente actividad. Puede añadir su propio comentario
+back.comment.article.read.subtitle: En esta sección se muestra el hilo de comentarios correspondiente a la siguiente noticia. Puede añadir su propio comentario
+back.comment.update.title: Editar comentario
+back.comment.update.subtitle: Use este formulario para modificar el comentario
+
 back.settings.title: Ajustes
 back.settings.subtitle: Utilice este formulario para editar la información que los usuarios verán en la página
 
@@ -317,6 +325,8 @@ alert.success.createorganization: Su petición de registro ha sido enviada corre
 
 alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pago de la reserva
 
+alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un email a la organización con su comentario acerca del pago
+
 alert.error.reservation.lockeduser: Su cuenta de usuario está bloqueada. Por este motivo no puede crear nuevas reservas. Para más información <a href="%link%">contacte</a> con el administrador
 alert.error.reservation.lockedorganization: Esta organización no es capaz de recibir reservas en este momento. Para más información <a href="%link%">contacte</a> con el administrador
 alert.error.reservation.lockedactivity: Esta actividad no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
@@ -326,8 +336,6 @@ alert.error.reservation.capacityexceeded: Ha intentado crear una reserva para m�
 
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
-
-alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un email a la organización con su comentario acerca del pago
 
 popover.generatesessions.title: Generar múltiples sesiones
 popover.generatesessions.content: En esta sección puede generar un conjunto de sesiones siguiendo un patrón
@@ -625,6 +633,16 @@ entity.article.field.status.3: Eliminada
 
 
 ################################################################################
+##### Comentario (Formulario)
+################################################################################
+
+Add comment: Añadir comentario
+
+entity.comment.field.status.1: Activado
+entity.comment.field.status.3: Eliminado
+
+
+################################################################################
 ##### Contacto (Formulario)
 ################################################################################
 
@@ -634,10 +652,10 @@ Message: Mensaje
 
 
 ################################################################################
-##### Filtro (Form)
+##### Filtro (Formulario)
 ################################################################################
 
-Select an activity: Selecciona una actividad
+Select an activity: Seleccione una actividad
 From: Desde
 To: Hasta
 
@@ -645,7 +663,7 @@ Search: Buscar
 
 
 ################################################################################
-##### Ajustes (Form)
+##### Ajustes (Formulario)
 ################################################################################
 
 Homedesc: Contenido de la Portada

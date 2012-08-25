@@ -273,7 +273,7 @@ back_payment_update:
     
 
 ################################################################################
-##### ARTICLE CONTROLLER ##########################################################
+##### ARTICLE CONTROLLER #######################################################
 ################################################################################
     
 back_article_index:
@@ -308,4 +308,34 @@ back_article_media:
 back_article_delete:
     pattern:  /article/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Article:backDelete" }
+    requirements: { _method: post, id: \d+ }
+
+
+################################################################################
+##### COMMENT CONTROLLER #######################################################
+################################################################################
+
+back_comment_index:
+    pattern:  /comments
+    defaults: { _controller: "PFCDTourismBundle:Comment:backIndex" }
+    requirements: { _method: get, id: \d+ }
+
+back_comment_activity:
+    pattern:  /activity/{id}/comments
+    defaults: { _controller: "PFCDTourismBundle:Comment:backActivity" }
+    requirements: { id: \d+ }
+
+back_comment_article:
+    pattern:  /article/{id}/comments
+    defaults: { _controller: "PFCDTourismBundle:Comment:backArticle" }
+    requirements: { id: \d+ }
+    
+back_comment_update:
+    pattern:  /comment/{id}/edit
+    defaults: { _controller: "PFCDTourismBundle:Comment:backUpdate" }
+    requirements: { id: \d+ }
+    
+back_comment_delete:
+    pattern:  /comment/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:Comment:backDelete" }
     requirements: { _method: post, id: \d+ }

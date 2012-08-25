@@ -10,12 +10,15 @@ use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Entity\Article;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\CommentRepository")
  * @ORM\Table(name="comment")
  * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
+    const STATUS_ENABLED = 1;   // The comment is visible
+    const STATUS_DELETED = 3;   // The comment is not visible
+    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -60,12 +63,6 @@ class Comment
     private $comment;
 
     /**
-     * @ORM\OneToOne(targetEntity="Comment")
-     * @ORM\JoinColumn(name="reply_at", referencedColumnName="id")
-     */
-    private $replyAt;
-
-    /**
      * @ORM\Column(name="good", type="smallint", nullable=true)
      */
     private $good;
@@ -86,7 +83,7 @@ class Comment
     private $updated;
 
     /**
-     * @var integer $status 0=>Inactive, 1=>Active, 2=>Flaged, 3=>Deleted
+     * @var integer $status 0=>Pending, 1=>Enabled, 2=>Locked, 3=>Deleted
      * 
      * @ORM\Column(name="status", type="smallint")
      */
@@ -94,7 +91,7 @@ class Comment
 
     public function __construct()
     {
-        $this->status = 1;
+        $this->status = self::STATUS_ENABLED;
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
@@ -249,26 +246,6 @@ class Comment
     }
 
     /**
-     * Set replyAt
-     *
-     * @param smallint $replyAt
-     */
-    public function setReplyAt($replyAt)
-    {
-        $this->replyAt = $replyAt;
-    }
-
-    /**
-     * Get replyAt
-     *
-     * @return smallint 
-     */
-    public function getReplyAt()
-    {
-        return $this->replyAt;
-    }
-
-    /**
      * Set good
      *
      * @param integer $good
@@ -366,6 +343,16 @@ class Comment
     public function getStatus()
     {
         return $this->status;
+    }
+    
+    /**
+     * Get status in human readable mode
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return 'entity.comment.field.status.' . $this->status;
     }
 
 }

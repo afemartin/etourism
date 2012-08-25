@@ -1,0 +1,19 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme edit_form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'comment' %}
+
+{% block body %}
+<h1>{{ 'back.comment.update.title'|trans }}</h1>
+<p>{{ 'back.comment.update.subtitle'|trans }}</p>
+
+<form class="form-horizontal" action="{{ path('back_comment_update', { 'id': comment.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Save changes'|trans }}</button>
+        <a class="btn btn-inverse" href="{{ path('back_comment_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel changes'|trans }}</a>
+        <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
+    </div>
+</form>
+{% endblock %}

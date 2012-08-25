@@ -9,6 +9,8 @@ use PFCD\TourismBundle\Constants;
 use PFCD\TourismBundle\Entity\Activity;
 use PFCD\TourismBundle\Form\ActivityType;
 use PFCD\TourismBundle\Form\MediaType;
+use PFCD\TourismBundle\Entity\Comment;
+use PFCD\TourismBundle\Form\CommentType;
 
 use PFCD\TourismBundle\Entity\OrganizationFilter;
 use PFCD\TourismBundle\Form\OrganizationFilterType;
@@ -373,8 +375,20 @@ class ActivityController extends Controller
 
         if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
         
+        unset($filter);
+        $filter['activity'] = $id;
+        $filter['status'] = array(Comment::STATUS_ENABLED);
+        
+        $comments = $em->getRepository('PFCDTourismBundle:Comment')->findBy($filter);
+        
+        $comment = new Comment();
+        
+        $form = $this->createForm(new CommentType(), $comment);
+        
         return $this->render('PFCDTourismBundle:Front/Activity:read.html.twig', array(
-            'activity' => $activity
+            'activity'     => $activity,
+            'comments'     => $comments,
+            'comment_form' => $form->createView(),
         ));
     }
         

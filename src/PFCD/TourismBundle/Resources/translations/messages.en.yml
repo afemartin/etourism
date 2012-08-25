@@ -40,14 +40,6 @@ Help: Help
 
 
 ################################################################################
-##### Languages
-################################################################################
-
-English: English
-Spanish: Spanish
-
-
-################################################################################
 ##### Browser (Metas&Tags)
 ################################################################################
 
@@ -128,6 +120,8 @@ front.activity.read.availability: Availability
 front.activity.read.availability.small: Select a session for the activity
 front.activity.read.sessionsnotfound: There are no sessions for the activity at this time. For more information <a href="%link%">contact</a> with the organization
 front.activity.read.languagenotsupported: The complete information related to the activity is not available in this language. Please, select one of the following available languages
+front.activity.read.comments: Comments
+front.activity.read.nocommentsfound: There are no comments yet about this activity
 
 front.media.read.images: Images
 front.media.read.images.small: Click on the images to open them in gallery mode
@@ -170,6 +164,12 @@ front.payment.update.subtitle: Use this form to edit your payment. You can selec
 front.article.index.title: Article list
 front.article.index.subtitle: In this list there are all the articles published in the system
 front.article.read.languagenotsupported: The complete information related to the article is not available in this language. Please, select one of the following available languages
+front.article.read.comments: Comments
+front.article.read.nocommentsfound: There are no comments yet about this article
+
+front.comment.title.user: <a href="%link%">%name%</a> at %date%
+front.comment.title.organization: <a class="label label-info" href="%link%">%name%</a> at %date%
+front.comment.title.admin: <span class="label label-inverse">Administrator</span> at %date%
 
 back.rememberpassword.title: Remember password
 back.rememberpassword.subtitle: Please fill your email account to send a link to your email account in order to allow you to set a new password
@@ -268,6 +268,14 @@ back.article.read.title: Article details
 back.article.read.subtitle: In this list there are detailed information stored about this article
 back.article.update.title: Article edit
 back.article.update.subtitle: Use this form to edit the article information
+
+back.comment.index.title: Comment list
+back.comment.index.subtitle: In this list there are all the comments registered in the system
+back.comment.read.title: Comment list
+back.comment.activity.read.subtitle: In this section there is the thread of comment correspondent to the following activity. You can add your own comment
+back.comment.article.read.subtitle: In this section there is the thread of comment correspondent to the following article. You can add your own comment
+back.comment.update.title: Comment edit
+back.comment.update.subtitle: Use this form to edit the comment information
 
 back.settings.title: Settings
 back.settings.subtitle: Use this form to edit the information of the website that the user will see
@@ -622,6 +630,16 @@ entity.article.field.status.0: Pending
 entity.article.field.status.1: Enabled
 entity.article.field.status.2: Locked
 entity.article.field.status.3: Deleted
+
+
+################################################################################
+##### Comment (Form)
+################################################################################
+
+Add comment: Add comment
+
+entity.comment.field.status.1: Enabled
+entity.comment.field.status.3: Deleted
 
 
 ################################################################################

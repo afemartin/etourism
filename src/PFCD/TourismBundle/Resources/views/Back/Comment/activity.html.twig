@@ -1,0 +1,47 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% set sectiontab = 'comment' %}
+
+{% block body %}
+<h1>{{ 'back.comment.read.title'|trans }}</h1>
+<p>{{ 'back.comment.activity.read.subtitle'|trans }}</p>
+
+<h2>{{ activity.title }}</h2>
+<div class="info-comments row">
+    <div class="span12">
+        {% for comment in comments %}
+            {% if comment.user %}
+            <div class="user-comment">
+                <p><small>{{ 'front.comment.title.user'|trans({ '%link%': path('back_user_read', { 'id': comment.user.id }), '%name%': comment.user.fullname, '%date%': comment.created|date('Y-m-d H:i') })|raw }}</small> <a class="btn btn-mini" href="{{ path('back_comment_update', { 'id': comment.id }) }}"><i class="icon icon-pencil"></i> {{ 'Edit'|trans }}</a></p>
+                <p>{{ comment.comment }}</p>
+            </div>
+            {% elseif comment.organization %}
+            <div class="org-comment">
+                <p><small>{{ 'front.comment.title.organization'|trans({ '%link%': path('back_organization_read', { 'id': comment.organization.id }), '%name%': comment.organization.name, '%date%': comment.created|date('Y-m-d H:i') })|raw }}</small> <a class="btn btn-mini" href="{{ path('back_comment_update', { 'id': comment.id }) }}"><i class="icon icon-pencil"></i> {{ 'Edit'|trans }}</a></p>
+                <p>{{ comment.comment }}</p>
+            </div>
+            {% else %}
+            <div class="admin-comment">
+                <p><small>{{ 'front.comment.title.admin'|trans({ '%date%': comment.created|date('Y-m-d H:i') })|raw }}</small> {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-mini" href="{{ path('back_comment_update', { 'id': comment.id }) }}"><i class="icon icon-pencil"></i> {{ 'Edit'|trans }}</a>{% endif %}</p>
+                <p>{{ comment.comment }}</p>
+            </div>
+            {% endif %}
+            {% if not loop.last %}
+            <hr style="margin: 9px 0"/>
+            {% endif %}
+        {% else %}
+            {{ 'front.activity.read.nocommentsfound'|trans }}
+        {% endfor %}
+    </div>
+</div>
+<div class="info-comments row">
+    <div class="span12" style="padding-left: 20px">
+        <form action="{{ path('back_comment_activity', { 'id': activity.id }) }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form.comment) }}
+            {{ form_rest(form) }}
+            <br />
+            <button class="btn btn-primary" type="submit"><i class="icon-comment icon-white"></i> {{ 'Add comment'|trans }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
