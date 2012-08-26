@@ -4,6 +4,7 @@
 <h1>{{ 'front.reservation.index.title'|trans }}</h1>
 <p>{{ 'front.reservation.index.subtitle'|trans }}</p>
 
+{% if reservations|length > 0 %}
 <table class="table table-condensed">
     <thead>
         <tr>
@@ -14,7 +15,6 @@
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
             <th>{{ 'Payment'|trans }}</th>
-            {#<th>{{ 'Edit'|trans }}</th>#}
         </tr>
     </thead>
     <tbody>
@@ -27,9 +27,11 @@
         <td style="text-align:center">{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
         <td style="text-align:center">{{ reservation.statusText|trans }}</td>
         <td style="text-align:center">{% if reservation.payment %}<a href="{{ path('front_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a> {{ reservation.payment.statusText|trans }}{% endif %}</td>
-        {#<td><a href="{{ path('front_reservation_update', { 'id': reservation.id }) }}"><i class="icon-edit"></i></a></td>#}
     </tr>
     {% endfor %}
     </tbody>
 </table>
+{% else %}
+<p><i>{{ 'front.reservation.index.noreservationsfound'|trans }}</i></p>
+{% endif %}
 {% endblock %}

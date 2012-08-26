@@ -65,7 +65,7 @@ back.header.subtitle: Administration Panel
 ################################################################################
 
 front.login.title: User sign in
-front.login.subtitle: Please fill the following information to sign in to your user account. If you do not create already your account <a href="%link%">sign up here</a>
+front.login.subtitle: Please fill the following information to sign in to your user account. If you have not created your account yet <a href="%link%">sign up here</a>
 
 front.rememberpassword.title: Remember password
 front.rememberpassword.subtitle: If you do not remember your password fill your email and we will send to you a link to allow you to set a new password
@@ -130,6 +130,7 @@ front.media.read.geolocation.small: Click on the image to open the interactive m
 
 front.reservation.index.title: Reservation list
 front.reservation.index.subtitle: In this list there are all the reservations you registered in the system
+front.reservation.index.noreservationsfound: You have no reservations
 front.reservation.create.title: Booking activity
 front.reservation.create.subtitle: Please fill the following information to complete your reservation
 front.reservation.summary.title: Details of the reservation

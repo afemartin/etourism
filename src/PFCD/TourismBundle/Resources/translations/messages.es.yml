@@ -130,6 +130,7 @@ front.media.read.geolocation.small: Haga click en la imagen para abrir el mapa i
 
 front.reservation.index.title: Lista de reservas
 front.reservation.index.subtitle: En esta lista se encuentran todas las reservas que ha realizado
+front.reservation.index.noreservationsfound: No tiene reservas
 front.reservation.create.title: Reservar actividad
 front.reservation.create.subtitle: Rellene los siguientes campos del formulario para realizar la reserva
 front.reservation.summary.title: Detalles de la reserva
