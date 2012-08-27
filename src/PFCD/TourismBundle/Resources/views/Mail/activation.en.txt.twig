@@ -2,7 +2,7 @@
 
 <p>Thank you for register in our website <a href="{{ url('front_index') }}">{{ domain_name }}</a></p>
 
-<p>The last step of the registration proccess is activate your account, you can do it by using this <a href="{{ url('front_activate_user', { 'id': user.id, 'key': user.activationKey }) }}">link</a></p>
+<p>The last step of the registration process is activate your account, you can do it by using this <a href="{{ url('front_activate_user', { 'id': user.id, 'key': user.activationKey }) }}">link</a></p>
 
 <p>If the previous link does not work, please try to copy this url and paste at your browser: {{ url('front_activate_user', { 'id': user.id, 'key': user.activationKey }) }}</p>
 
