@@ -637,6 +637,9 @@ entity.article.field.status.3: Eliminada
 ##### Comentario (Formulario)
 ################################################################################
 
+Topic: Tema
+Author: Autor
+
 Add comment: Añadir comentario
 
 entity.comment.field.status.1: Activado
