@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Front:layout.html.twig' %}
 
-{% block title %}{{ 'News'|trans }}{% endblock%}
+{% block title %}{{ 'front.browser.organization.articles.title'|trans({'%organization%': organization.name}) }}{% endblock%}
 
 {% block body %}
 <h1>{{ organization.name }} <small>{{ 'front.organization.articles.title'|trans }}</small></h1>

@@ -43,7 +43,9 @@ Help: Help
 ##### Browser (Metas&Tags)
 ################################################################################
 
-front.browser.title: Home
+front.browser.title: Your online platform about cooperation tourism
+front.browser.organization.activities.title: %organization% activities
+front.browser.organization.articles.title: %organization% news
 
 User profile: User profile
 Edit profile: Edit profile
