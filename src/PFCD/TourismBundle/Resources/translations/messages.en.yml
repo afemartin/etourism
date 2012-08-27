@@ -25,7 +25,7 @@ Latest activities: Latest activities
 Latest news: Latest news
 
 front.advertise.join.title: Join us
-front.advertise.join.content: If you know about any cooperation organization that migth be insterested on using this webpage to offer their activities, please tell them to <a href="%link%">register here</a>
+front.advertise.join.content: If you know about any cooperation organization that might be interested on using this webpage to offer their activities, please tell them to <a href="%link%">register here</a>
 
 Menu: Menu
 Sessions: Sessions
@@ -86,7 +86,7 @@ front.user.create.subtitle: Please fill the following information to complete th
 front.user.create.termsandaconditions.title: Terms of use and Conditions
 front.user.create.termsandaconditions.warning: If you press "Sign up" you accept the <a onclick="%onclick%">terms of use and conditions</a> of this webpage
 front.user.read.title: User profile
-front.user.read.subtitle: In this list there are detailed information stored about this user
+front.user.read.subtitle: In this list there is detailed information stored about this user
 front.user.update.title: Edit your profile
 front.user.update.subtitle: Use this form to edit your account information
 
@@ -109,7 +109,7 @@ front.organization.articles.more: view all
 front.organization.donate.title: Donations
 front.organization.donate.subtitle: In this section you will find specific information about how to contribute with your donations to our organization
 front.organization.donate.details: Details
-front.organization.donate.banktransfer: You can make your donations via bank transfer to our bank account using the following information<br />&bullet; Bank "%bankname%"<br />&bullet; Account number "%bankaccount%"
+front.organization.donate.banktransfer: You can make your donations via bank transfer to our bank account using the following information<br/>&bullet; Bank "%bankname%"<br/>&bullet; Account number "%bankaccount%"
 front.organization.contact.title: Contact us
 front.organization.contact.subtitle: Fill this form to contact with us if you have any questions about our activities or any other information you want to know about our organization. We will try to answer you as soon as possible
 
@@ -141,7 +141,7 @@ front.reservation.summary.sessiontime: Session time
 front.reservation.summary.sessiontime.undefined: To confirm
 front.reservation.summary.availability: Available places
 front.reservation.read.title: Reservation details
-front.reservation.read.subtitle: In this list there are detailed information stored about your reservation
+front.reservation.read.subtitle: In this list there is detailed information stored about your reservation
 
 front.payment.index.title: Payment list
 front.payment.index.subtitle: In this list there are all the payments that belong to you
@@ -155,7 +155,7 @@ front.payment.summary.persons: Persons
 front.payment.summary.price: Price
 front.payment.summary.status: Status
 front.payment.help.title: Payment methods
-front.payment.help.banktransfer: You can pay via bank transfer to our bank account using the following information<br />&bullet; Bank "%bankname%"<br />&bullet; Account number "%bankaccount%"
+front.payment.help.banktransfer: You can pay via bank transfer to our bank account using the following information<br/>&bullet; Bank "%bankname%"<br/>&bullet; Account number "%bankaccount%"
 front.payment.help.cash: You can pay with cash at the moment you start the activity
 front.payment.read.title: Payment details
 front.payment.read.subtitle: In this list there are detailed information stored about your payment
@@ -194,7 +194,7 @@ back.user.index.subtitle: In this list there are all the users registered in the
 back.user.create.title: User creation
 back.user.create.subtitle: Use this form to create manually a new user
 back.user.read.title: User details
-back.user.read.subtitle: In this list there are detailed information stored about this user
+back.user.read.subtitle: In this list there is detailed information stored about this user
 back.user.update.title: User edit
 back.user.update.subtitle: Use this form to edit the user information
 
@@ -203,7 +203,7 @@ back.organization.index.subtitle: In this list there are all the organizations r
 back.organization.create.title: Organization creation
 back.organization.create.subtitle: Use this form to create manually a new organization
 back.organization.read.title: Organization details
-back.organization.read.subtitle: In this list there are detailed information stored about this organization
+back.organization.read.subtitle: In this list there is detailed information stored about this organization
 back.organization.update.title: Organization edit
 back.organization.update.subtitle: Use this form to edit the organization information
 
@@ -212,22 +212,22 @@ back.activity.index.subtitle: In this list there are all the activities register
 back.activity.create.title: Activity creation
 back.activity.create.subtitle: Use this form to create manually a new activity
 back.activity.read.title: Activity details
-back.activity.read.subtitle: In this list there are detailed information stored about this activity
+back.activity.read.subtitle: In this list there is detailed information stored about this activity
 back.activity.update.title: Activity edit
 back.activity.update.subtitle: Use this form to edit the activity information
 
 back.media.gallery.subtitle: Use this section to upload your images. You can "Remove" the images that you don't want to show or add new ones by pressing button "Add new image" and then "Upload". The recommended size (in pixels) for each image is between 640x480px and 960x720px. The maximum size (in Kb) of each image file is 256Kb. Each image has an associated description that could be added if wanted. These image descriptions are multi-language, it means that for store the description in the different languages you have to save the current description in the current language, change language to the new language, add the description in the new language and save again
 back.media.video.subtitle: Use this field to paste the embed code of any video you want to show. First you must upload your video to a known website such as Youtube or Vimeo and after that paste here the proper embed code. You can preview the video pressing the button "Preview" once you paste the embed code. Press "Help" button to see an example of how get that code
-back.media.geolocation.subtitle: Use this field to write a phisical address that Google Maps will find at the map. You can also drag and drop the marker to improve the acuracy of the location. The zoom you use will be the one that will be show to the users (only for activities)
+back.media.geolocation.subtitle: Use this field to write a physical address that Google Maps will find at the map. You can also drag and drop the marker to improve the accuracy of the location. The zoom you use will be the one that will be show to the users (only for activities)
 
 back.session.index.title: Session list
 back.session.index.subtitle: In this list there are all the sessions registered in the system
 back.session.create.title: Session creation
 back.session.create.subtitle: Use this form to create manually a new session
-back.session.generate.title: Multiple session generator
-back.session.generate.subtitle: Use this form to create automatucally a group of sessions
+back.session.generate.title: Multiple sessions generator
+back.session.generate.subtitle: Use this form to create automatically a group of sessions
 back.session.read.title: Session details
-back.session.read.subtitle: In this list there are detailed information stored about this session
+back.session.read.subtitle: In this list there is detailed information stored about this session
 back.session.update.title: Session edit
 back.session.update.subtitle: Use this form to edit the session information
 
@@ -236,7 +236,7 @@ back.reservation.index.subtitle: In this list there are all the reservations reg
 back.reservation.create.title: Reservation creation
 back.reservation.create.subtitle: Use this form to create manually a new reservation
 back.reservation.read.title: Reservation details
-back.reservation.read.subtitle: In this list there are detailed information stored about this reservation
+back.reservation.read.subtitle: In this list there is detailed information stored about this reservation
 back.reservation.update.title: Reservation edit
 back.reservation.update.subtitle: Use this form to edit the reservation information
 
@@ -245,7 +245,7 @@ back.payment.index.subtitle: In this list there are all the payments registered 
 back.payment.create.title: Payment creation
 back.payment.create.subtitle: Use this form to create manually a new payment
 back.payment.read.title: Payment details
-back.payment.read.subtitle: In this list there are detailed information stored about this payment
+back.payment.read.subtitle: In this list there is detailed information stored about this payment
 back.payment.update.title: Payment edit
 back.payment.update.subtitle: Use this form to edit the payment information
 
@@ -254,7 +254,7 @@ back.resource.index.subtitle: In this list there are all the resources registere
 back.resource.create.title: Resource creation
 back.resource.create.subtitle: Use this form to create manually a new resource
 back.resource.read.title: Resource details
-back.resource.read.subtitle: In this list there are detailed information stored about this resource
+back.resource.read.subtitle: In this list there is detailed information stored about this resource
 back.resource.update.title: Resource edit
 back.resource.update.subtitle: Use this form to edit the resource information
 
@@ -266,7 +266,7 @@ back.article.index.subtitle: In this list there are all the activities registere
 back.article.create.title: Article creation
 back.article.create.subtitle: Use this form to create manually a piece of article
 back.article.read.title: Article details
-back.article.read.subtitle: In this list there are detailed information stored about this article
+back.article.read.subtitle: In this list there is detailed information stored about this article
 back.article.update.title: Article edit
 back.article.update.subtitle: Use this form to edit the article information
 
@@ -304,31 +304,31 @@ alert.info.organizationpreview: This is a preview of your organization
 alert.info.activitypreview: This is a preview of your activity. The reservation button is disabled in this preview
 alert.info.articlepreview: This is a preview of your article
 
-alert.success.createuser: You have register your account successfully. Before to login you should check your email inbox to follow the instructions in order to activate the account. Thank you!
+alert.success.createuser: You have registered your account successfully. Before to sign in, you should check your email inbox to follow the instructions in order to activate the account. Thank you!
 alert.success.updateuser: Your changes have been saved successfully
 
-alert.error.activateuser: The link received to activate your account it is not valid or you already used before. Please contact us if you can not activate your account with the link provided
-alert.success.activateuser: Your account has been activated successfully. Use your email and password to login into the system
+alert.error.activateuser: The link received to activate your account it is not valid or you already used before. Please contact us if you cannot activate your account with the link provided
+alert.success.activateuser: Your account has been activated successfully. Use your email and password to sign in into the system
 
 alert.error.rememberpassword: There is no user with that email in our database. Sorry
 alert.success.rememberpassword: We send you an email with a reset link for your password. Please check your email inbox!
 
 alert.error.resetpassword: The link received to reset the password it is not valid or you already reset your password before. Please contact us if you continue having problems to reset your password
-alert.success.resetpassword: Your password has been reset successfully. Use your new password to login into the system
+alert.success.resetpassword: Your password has been reset successfully. Use your new password to sign in into the system
 
 alert.error.changepassword: The current password you introduced does not match with your current password stored into the system. Introduce again your current password
-alert.success.changepassword: Your password has been changed successfully. Use your new password to login into the system the next time
+alert.success.changepassword: Your password has been changed successfully. Use your new password to sign in into the system the next time
 
 alert.success.contactenquiry: Your contact enquiry was successfully sent. Thank you!
 alert.success.supportenquiry: Your support enquiry was successfully sent. Thank you!
 
-alert.success.createorganization: Your registration request was successfully sent. In a few days we will contact you fo verify the information before to activate youar account. Thank you!
+alert.success.createorganization: Your registration request was successfully sent. In a few days we will contact you to verify the information before to activate your account. Thank you!
 
-alert.success.reservationaccepted: The payment for the activity has been created succesfully and an email has been sent to the user to proceed to the payment of the reservation
+alert.success.reservationaccepted: The payment for the activity has been created successfully and an email has been sent to the user to proceed to the payment of the reservation
 
 alert.success.paymentupdated: The payment has been updated and an email has been sent to the organization with your comment about the payment
 
-alert.error.reservation.lockeduser: Your user account is locked. You can not create new reservations. For more information <a href="%link%">contact</a> the site administrator
+alert.error.reservation.lockeduser: Your user account is locked. You cannot create new reservations. For more information <a href="%link%">contact</a> the site administrator
 alert.error.reservation.lockedorganization: This organization is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> the site administrator
 alert.error.reservation.lockedactivity: This activity is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> with the organization
 alert.error.reservation.lockedsession: This session is not able to receive reservation at this moment. For more information <a href="%link%">contact</a> with the organization
@@ -336,7 +336,7 @@ alert.error.reservation.lockedsession: This session is not able to receive reser
 alert.error.reservation.capacityexceeded: You tried to create a reservation for more persons than the remaining available places. For more information about availability <a href="%link%">contact</a> with the organization
 
 popover.resetpassword.title: Reset my password
-popover.resetpassword.content: If you dont remember your password we will send you a link to your email account in order to allow you to set a new password
+popover.resetpassword.content: If you do not remember your password we will send you a link to your email account in order to allow you to set a new password
 
 popover.generatesessions.title: Generate multiple sessions
 popover.generatesessions.content: In this section you can generate a group of sessions following some pattern
@@ -346,24 +346,24 @@ modal.defaultconfirm.front.content: <p>This action is not reversible. Please, ma
 modal.defaultconfirm.back.content: <p>Please, make sure you really want to perform this action</p>
 
 modal.generatesessions.title: Are you sure you want generate all this sessions?
-modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br /><p>If you are sure about it please click "Generate"</p>
+modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br/><p>If you are sure about it please click "Generate"</p>
 
-form.user.field.status.help: <b>Pending:</b> The user has registered in the system but the account has not been validated yet. Can not access to the user private section<hr/><b>Enabled:</b> The user is able to make new reservations and manage the current reservations and payments<hr/><b>Locked:</b> The user is not able to make new reservations but it is able to manage the current reservations and payments<hr/><b>Deleted:</b> The user is not visible. Can not access to the user private section anymore
+form.user.field.status.help: <b>Pending:</b> The user has registered in the system but the account has not been validated yet. Cannot access to the user private section<hr/><b>Enabled:</b> The user is able to make new reservations and manage the current reservations and payments<hr/><b>Locked:</b> The user is not able to make new reservations but it is able to manage the current reservations and payments<hr/><b>Deleted:</b> The user is not visible. Cannot access to the user private section anymore
   
 form.organization.field.logo.help: This image must be the logo of the organization. Please upload an image with an exact width of 160 pixels and smaller than 32Kb
 form.organization.field.bankname.help: This is the name of your bank at which the users will pay the activities via bank transfer
 form.organization.field.bankaccount.help: This is the number of your bank account at which the users will pay the activities via bank transfer
 form.organization.field.donate.help: Mark this box if you want to enable the "Donations" section. Make sure you already fill the "Donations content" in all supported languages and also the "Bank name" and "Bank account number"
-form.organization.field.status.help: <b>Pending:</b> The organization request to join recently. It can not access to the administrator panel<hr/><b>Enabled:</b> The organization is visible and can receive reservations and donations<hr/><b>Locked:</b> The organization is visible but can not receive reservations nor donations<hr/><b>Deleted:</b> The organization is not visible. It can not access to the administrator panel
+form.organization.field.status.help: <b>Pending:</b> The organization request to join recently. It cannot access to the administrator panel<hr/><b>Enabled:</b> The organization is visible and can receive reservations and donations<hr/><b>Locked:</b> The organization is visible but cannot receive reservations nor donations<hr/><b>Deleted:</b> The organization is not visible. It cannot access to the administrator panel
   
 form.activity.field.image.help: This image will be display at the list of activities. Please upload an image with an exact width of 160 pixels and smaller than 32Kb
 form.activity.field.price.help: This will be the price of the activity per person
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity
-form.activity.field.duration.help: This is the duration of the activity in hours and minutes. If the activity duration can not be represented with the given hours, please leave empty this field and specify the duration at the "Full description"
-form.activity.field.status.help: <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The activity is visible and can receive reservations<hr/><b>Locked:</b> The activity is visible but can not receive reservations<hr/><b>Deleted:</b> The activity is not visible
+form.activity.field.duration.help: This is the duration of the activity in hours and minutes. If the activity duration cannot be represented with the given hours, please leave empty this field and specify the duration at the "Full description"
+form.activity.field.status.help: <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The activity is visible and can receive reservations<hr/><b>Locked:</b> The activity is visible but cannot receive reservations<hr/><b>Deleted:</b> The activity is not visible
 
-form.resource.field.name.help: The name of this resource must be clear enough to indentify it among all the resources listed at each activity
-form.resource.field.status.help: <b>Available:</b> The resource is available rigth now<hr/><b>Not available:</b> The resource is not available rigth now<hr/><b>Deleted:</b> The resource wont be available anymore
+form.resource.field.name.help: The name of this resource must be clear enough to identify it among all the resources listed at each activity
+form.resource.field.status.help: <b>Available:</b> The resource is available right now<hr/><b>Not available:</b> The resource is not available right now<hr/><b>Deleted:</b> The resource will not be available anymore
 
 form.session.field.note.help: You can use this field to record relevant information about this session
 form.session.field.status.help: <b>Pending:</b> The session is not visible<hr/><b>Enabled:</b> The session is visible and allow reservations<hr/><b>Locked:</b> The session is visible but do not allow reservations<hr/><b>Deleted:</b> The session is not visible
@@ -379,7 +379,7 @@ form.article.field.status.help: <b>Pending:</b> The article is not visible (only
 
 form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
 
-form.field.translatable.help: This is a multilanguage field. Now you can edit this field in %language%. To edit this field content in other language please switch the language at the top bar.
+form.field.translatable.help: This is a multi-language field. Now you can edit this field in %language%. To edit this field content in other language please switch the language at the top bar.
 
 form.field.required.help: Indicates required field
 
@@ -613,7 +613,7 @@ entity.reservation.field.status.3: Canceled
 Select a payment method: Select a payment method
 
 entity.payment.field.type.1: Credit card
-entity.payment.field.type.2: Paypal
+entity.payment.field.type.2: PayPal
 entity.payment.field.type.3: Bank transfer
 entity.payment.field.type.4: Cash
 
@@ -820,7 +820,7 @@ calendar.help.lock: Locked
 calendar.help.lock.desc: The organization has locked the reservations for this activity. Contact with the organization for more information
 calendar.help.available: Available
 calendar.help.available.desc: Reservation places available
-calendar.help.reducedavailability: Reduced availabilty
+calendar.help.reducedavailability: Reduced availability
 calendar.help.reducedavailability.desc: Less than 25% of the reservation places remain available
 calendar.help.noavailability: No availability
 calendar.help.noavailability.desc: All the reservation places are already reservated. Select another session or contact with the organization

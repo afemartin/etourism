@@ -48,7 +48,7 @@ front.browser.title: Portada
 User profile: Perfil de usuario
 Edit profile: Editar perfil
 
-back.browser.title: Panel de Administracion
+back.browser.title: Panel de Administración
 
 
 ################################################################################
@@ -65,7 +65,7 @@ back.header.subtitle: Panel de Administración
 ################################################################################  
 
 front.login.title: Acceso de usuario
-front.login.subtitle: Rellene los siguientes campos para acceder a su cuenta de usuario. Si aun no ha creado su cuenta <a href="%link%">regístrese aquí</a>
+front.login.subtitle: Rellene los siguientes campos para acceder a su cuenta de usuario. Si aún no ha creado su cuenta <a href="%link%">regístrese aquí</a>
 
 front.rememberpassword.title: Recordar contraseña
 front.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
@@ -77,7 +77,7 @@ front.changepassword.title: Cambiar contraseña
 front.changepassword.subtitle: Introduzca su contraseña actual y la nueva contraseña que quiere guardar para sustituir a la anterior
 
 front.contact.title: Contacto
-front.contact.subtitle: ¿Quiere reportar algun problema en la página o hacer alguna sugerencia?
+front.contact.subtitle: ¿Quiere reportar algún problema en la página o hacer alguna sugerencia?
 
 front.about.title: Acerca
 
@@ -109,7 +109,7 @@ front.organization.articles.more: ver todas
 front.organization.donate.title: Donaciones
 front.organization.donate.subtitle: Es esta sección encontrará información específica sobre como colaborar con nuestra organización mediante la aportación de donativos
 front.organization.donate.details: Detalles
-front.organization.donate.banktransfer: Puede efectuar sus donaciones via transferencia bancaria a nuestra cuenta usando los siguientes datos<br />&bullet; Banco "%bankname%"<br />&bullet; Número de cuenta "%bankaccount%"
+front.organization.donate.banktransfer: Puede efectuar sus donaciones via transferencia bancaria a nuestra cuenta usando los siguientes datos<br/>&bullet; Banco "%bankname%"<br/>&bullet; Número de cuenta "%bankaccount%"
 front.organization.contact.title: Contacte con nosotros
 front.organization.contact.subtitle: Rellene el siguiente formulario para ponerse en contacto con nosotros si tiene alguna pregunta acerca de nuestras actividades o algún otro tema sobre nuestra organización. Trataremos de responderle tan pronto como sea posible
 
@@ -117,7 +117,7 @@ front.activity.index.title: Lista de actividades
 front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas
 front.activity.read.details: Detalles
 front.activity.read.availability: Disponibilidad
-front.activity.read.availability.small: Seleciona una sesión de la actividad
+front.activity.read.availability.small: Selecciona una sesión de la actividad
 front.activity.read.sessionsnotfound: No hay sesiones para la actividad en este momento. Para más información <a href="%link%">contacte</a> con la organización
 front.activity.read.languagenotsupported: La información completa relacionada con esta actividad no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
 front.activity.read.comments: Comentarios
@@ -155,12 +155,12 @@ front.payment.summary.persons: Personas
 front.payment.summary.price: Precio
 front.payment.summary.status: Estado
 front.payment.help.title: Modos de pago
-front.payment.help.banktransfer: Puede pagar via transferencia bancaria a nuestra cuenta usando los siguientes datos<br />&bullet; Banco "%bankname%"<br />&bullet; Número de cuenta "%bankaccount%"
+front.payment.help.banktransfer: Puede pagar via transferencia bancaria a nuestra cuenta usando los siguientes datos<br/>&bullet; Banco "%bankname%"<br/>&bullet; Número de cuenta "%bankaccount%"
 front.payment.help.cash: Puede pagar en efectivo en el momento de realizar la actividad
 front.payment.read.title: Detalles del pago
 front.payment.read.subtitle: En esta lista se muestra información detallada sobre el pago
 front.payment.update.title: Editar pago
-front.payment.update.subtitle: Rellene este formulario para añadir o modificar detalles del pago. Puede seleccionar el metodo de pago que prefiera (a menos que en la descripción de la actividad diga lo contrario) y además puede añadir un comentario para avisar o preguntar sobre el estado del pago
+front.payment.update.subtitle: Rellene este formulario para añadir o modificar detalles del pago. Puede seleccionar el método de pago que prefiera (a menos que en la descripción de la actividad diga lo contrario) y además puede añadir un comentario para avisar o preguntar sobre el estado del pago
 
 front.article.index.title: Lista de noticias
 front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
@@ -182,7 +182,7 @@ back.changepassword.title: Cambiar contraseña
 back.changepassword.subtitle: Introduzca su contraseña actual y la nueva contraseña que quiere guardar para sustituir a la anterior
 
 back.home.title: Portada
-back.home.subtitle: Aqui se muestra un resumen con la información mas relevante acerca del estado de las actividades
+back.home.subtitle: Aqui se muestra un resumen con la información más relevante acerca del estado de las actividades
 back.home.nextevents: Próximos eventos
 back.home.nextevents.small: Información sobre las sesiones y recursos necesarios para los próximos 14 días
 back.home.lastevents: Últimos eventos
@@ -216,15 +216,15 @@ back.activity.read.subtitle: En esta lista se muestra información detallada sob
 back.activity.update.title: Editar detalles
 back.activity.update.subtitle: Rellene este formulario para añadir o modificar detalles de la actividad
 
-back.media.gallery.subtitle: Utilice esta seción para añadir sus imágenes. Puede "Eliminar" las imágenes que no quiera mostrar o añadir  nuevas pulsando el botón "Añadir nueva imagen" y después "Subir". El tamaño recomendado (en píxeles) para cada imagen es de entre 640x480px y 960x720px. El tamaño máximo (en Kb) de cada imagen es 256Kb. Cada imagen tiene una descripción asociada que se puede añadir si se desea. Esta descripción de imagen es de tipo multi-idioma, eso significa que para guardar la descripción en varios idiomas primero hay que guardar la descripción en el idioma actual, cambiar a un nuevo idioma, añadir la descripccion en el nuevo idioma y guardar de nuevo
-back.media.video.subtitle: Utilice este campo para pegar el código para insertar el vídeo que quiera mostrar. Primero debe subir el vídeo a alguna página como Youtube or Vimeo y después insertar aqui el código correspondiente. Puede previsualizar el video pulsando el botón "Previsualizar" una vez que haya insertado el código. Pulse el botón de "Ayuda" para ver un ejemplo de como obtener el código
-back.media.geolocation.subtitle: Utilice este campo para escribir una dirección física que Google Maps buscará en el mapa. También puede arrastrar y soltar el marcador para mejorar la precisión  del lugar inidicado. El zoom que use se guardara y será el que se use por defecto al mostrar el mapa a los usuarios (solo para actividades)
+back.media.gallery.subtitle: Utilice esta sección para añadir sus imágenes. Puede "Eliminar" las imágenes que no quiera mostrar o añadir  nuevas pulsando el botón "Añadir nueva imagen" y después "Subir". El tamaño recomendado (en píxeles) para cada imagen es de entre 640x480px y 960x720px. El tamaño máximo (en Kb) de cada imagen es 256Kb. Cada imagen tiene una descripción asociada que se puede añadir si se desea. Esta descripción de imagen es de tipo multi-idioma, eso significa que para guardar la descripción en varios idiomas primero hay que guardar la descripción en el idioma actual, cambiar a un nuevo idioma, añadir la descripción en el nuevo idioma y guardar de nuevo
+back.media.video.subtitle: Utilice este campo para pegar el código para insertar el vídeo que quiera mostrar. Primero debe subir el vídeo a alguna página como Youtube or Vimeo y después insertar aquí el código correspondiente. Puede previsualizar el video pulsando el botón "Previsualizar" una vez que haya insertado el código. Pulse el botón de "Ayuda" para ver un ejemplo de cómo obtener el código
+back.media.geolocation.subtitle: Utilice este campo para escribir una dirección física que Google Maps buscará en el mapa. También puede arrastrar y soltar el marcador para mejorar la precisión  del lugar indicado. El zoom que use se guardara y será el que se use por defecto al mostrar el mapa a los usuarios (solo para actividades)
 
 back.session.index.title: Lista de sesiones
 back.session.index.subtitle: En esta lista se encuentran las sesiones registrados en el sistema
 back.session.create.title: Añadir sesión
 back.session.create.subtitle: Rellene este formulario para crear una nueva sesión
-back.session.generate.title: Generar multiples sesiones
+back.session.generate.title: Generar múltiples sesiones
 back.session.generate.subtitle: Rellene este formulario para crear automáticamente un conjunto de sesiones
 back.session.read.title: Detalles de la sesión
 back.session.read.subtitle: En esta lista se muestra información detallada sobre la sesión
@@ -259,7 +259,7 @@ back.resource.update.title: Editar detalles
 back.resource.update.subtitle: Rellene este formulario para añadir o modificar detalles del recurso
 
 back.statistic.title: Estadísticas
-back.statistic.subtitle: Aqui se muestran unas gráficas con la información mas relevante de los resultados obtenidos
+back.statistic.subtitle: Aquí se muestran unas gráficas con la información más relevante de los resultados obtenidos
 
 back.article.index.title: Lista de noticias
 back.article.index.subtitle: En esta lista se encuentran las noticias registradas en el sistema
@@ -298,26 +298,26 @@ footer.copyrigth: Copyright © %years% %domain% - Creado por <a href="https://gi
 ##### Mensajes informativos
 ################################################################################
 
-alert.info.beta: Esta web esta en versión de pruebas durante su desarrollo
+alert.info.beta: Esta web está en versión de pruebas durante su desarrollo
 
 alert.info.organizationpreview: Esta es una vista previa de tu organización
 alert.info.activitypreview: Esta es una vista previa de tu actividad. El botón para reservar está deshabilitado en esta vista preliminar
 alert.info.articlepreview: Esta es una vista previa de tu noticia
 
-alert.success.createuser: El registro ha finalizado con exito. Antes de acceder debes usar el enlace que te hemos enviado a tu dirección de correo electrónico para que puedas activar tu cuenta. Muchas gracias
+alert.success.createuser: El registro ha finalizado con éxito. Antes de acceder debes usar el enlace que te hemos enviado a tu dirección de correo electrónico para que puedas activar tu cuenta. Muchas gracias
 alert.success.updateuser: Los cambios han sido guardados con éxito
 
-alert.error.activateuser: El enlace utilizado para activar su cuenta no es válido o ya ha sido usado anteriormente. Por favor pongase en contacto con nosotros si no consigue activar su cuenta con éxito
-alert.success.activateuser: Su cuenta ha sido activada con éxito. utilice su email y contraseña para acceder al sistema
+alert.error.activateuser: El enlace utilizado para activar su cuenta no es válido o ya ha sido usado anteriormente. Por favor póngase en contacto con nosotros si no consigue activar su cuenta con éxito
+alert.success.activateuser: Su cuenta ha sido activada con éxito. Utilice su email y contraseña para acceder al sistema
 
-alert.error.rememberpassword: No existe ningun usuario con ese email en nuestra base de datos. Lo sentimos
-alert.success.rememberpassword: Le hemos enviado un correo electronico con un enlace para que pueda restablecer su contraseña. Por favor revise su correo
+alert.error.rememberpassword: No existe ningún usuario con ese email en nuestra base de datos. Lo sentimos
+alert.success.rememberpassword: Le hemos enviado un correo electrónico con un enlace para que pueda restablecer su contraseña. Por favor revise su correo
 
-alert.error.resetpassword: El enlace utilizado para reestablecer su contraseña no es válido o ya ha sido usado anteriormente. Por favor pongase en contacto con nosotros si no consigue restablecer su contraseña
-alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. Utilicela para acceder al sistema
+alert.error.resetpassword: El enlace utilizado para restablecer su contraseña no es válido o ya ha sido usado anteriormente. Por favor póngase en contacto con nosotros si no consigue restablecer su contraseña
+alert.success.resetpassword: Su nueva contraseña ha sido guardada con éxito. Utilícela para acceder al sistema
 
 alert.error.changepassword: La contraseña actual que ha introducido no coincide con la contraseña actual que tiene guardada en el sistema. Introduzca de nuevo su contraseña actual
-alert.success.changepassword: Su contraseña ha sido cambiada con ésito. Utilice su nueva contraseña para acceder al sistema la próxima vez
+alert.success.changepassword: Su contraseña ha sido cambiada con éxito. Utilice su nueva contraseña para acceder al sistema la próxima vez
 
 alert.success.contactenquiry: Su petición ha sido enviada correctamente. Muchas gracias
 alert.success.supportenquiry: Su petición ha sido enviada correctamente. Muchas gracias
@@ -333,7 +333,7 @@ alert.error.reservation.lockedorganization: Esta organización no es capaz de re
 alert.error.reservation.lockedactivity: Esta actividad no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
 alert.error.reservation.lockedsession: Esta sesión no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
 
-alert.error.reservation.capacityexceeded: Ha intentado crear una reserva para más personas que plazas restantes disponibles. Para mas información sobre disponibilidad <a href="%link%">contacte</a> con la organización
+alert.error.reservation.capacityexceeded: Ha intentado crear una reserva para más personas que plazas restantes disponibles. Para más información sobre disponibilidad <a href="%link%">contacte</a> con la organización
 
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
@@ -343,23 +343,23 @@ popover.generatesessions.content: En esta sección puede generar un conjunto de 
 
 modal.defaultconfirm.title: ¿Está seguro que quiere realizar esta acción?
 modal.defaultconfirm.front.content: <p>Esta acción no es reversible. Por favor, asegurese de que realmente quiere realizar esta acción</p>
-modal.defaultconfirm.back.content: <p>Por favor, asegurese de que realmente quiere realizar esta acción</p>
+modal.defaultconfirm.back.content: <p>Por favor, asegúrese de que realmente quiere realizar esta acción</p>
 
 modal.generatesessions.title: ¿Está seguro que quiere generar las siguientes sesiones?
-modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegurese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br /><p>Si está seguro de ello pulse "Generar"</p>
+modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegúrese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br/><p>Si está seguro de ello pulse "Generar"</p>
   
 form.user.field.status.help: <b>Pendiente:</b> El usuario se ha registrado en el sistema pero la cuenta no se ha validado aún. No puede acceder a la zona privada de usuario<hr/><b>Activado:</b> El usuario es capaz de crear nuevas reservas y gestionar sus actuales reservas y pagos<hr/><b>Bloqueado:</b> El usuario no puede crear nuevas reservas pero puede gestionar sus actuales reservas y pagos<hr/><b>Eliminado:</b> El usuario no es visible. No puede acceder al panel de administración. No puede acceder a la zona privada de usuario de nuevo
 
 form.organization.field.logo.help: Esta imagen debe ser el logo de la organización. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
-form.organization.field.bankname.help: Este es el nombre de su banco al cual los usuarios realizarán el pago via tranferencia bancaria
-form.organization.field.bankaccount.help: Este el el número de su cuenta bancaria en la cual los usuarios realizarán el pago via tranferencia bancaria
-form.organization.field.donate.help: Marque esta casilla si quiere activar la sección "Donaciones". Asegurese de haber rellenado previamente "Contenido de Donaciones" en todos los idiomas soportados además de "Nombre del banco" y "Número de cuenta bancaria"
+form.organization.field.bankname.help: Este es el nombre de su banco al cual los usuarios realizarán el pago via transferencia bancaria
+form.organization.field.bankaccount.help: Este es el número de su cuenta bancaria en la cual los usuarios realizarán el pago via transferencia bancaria
+form.organization.field.donate.help: Marque esta casilla si quiere activar la sección "Donaciones". Asegúrese de haber rellenado previamente "Contenido de Donaciones" en todos los idiomas soportados además de "Nombre del banco" y "Número de cuenta bancaria"
 form.organization.field.status.help: <b>Pendiente:</b> La organización se ha registrado recientemente. No puede acceder al panel de administración<hr/><b>Activada:</b> La organización es visible y puede recibir reservas y donaciones<hr/><b>Bloqueada:</b> La organización es visible pero no puede recibir nuevas reservas ni donaciones<hr/><b>Eliminada:</b> La organización no es visible. No puede acceder al panel de administración
 
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
 form.activity.field.price.help: Este es el precio de la actividad por persona
-form.activity.field.capacity.help: Este es el número máximo de personas que podran participar en cada sesión de la actividad
-form.activity.field.duration.help: Esta es la duración de la actividad en horas y minutos. Si la duración de la actividad no se puede indicar con las horas dadas, deje vacio este campo y especifique la duración en la "Descripción completa"
+form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad
+form.activity.field.duration.help: Esta es la duración de la actividad en horas y minutos. Si la duración de la actividad no se puede indicar con las horas dadas, deje vacío este campo y especifique la duración en la "Descripción completa"
 form.activity.field.status.help: <b>Pendiente:</b> La actividad no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La actividad es visible y admite reservas<hr/><b>Bloqueada:</b> La actividad es visible pero no admite nuevas reservas<hr/><b>Eliminada:</b> La actividad no es visible
 
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
@@ -373,7 +373,7 @@ form.reservation.field.status.help: <b>Solicitada:</b> La reserva es solicitada 
 
 form.payment.field.note.help: Puede usar este campo para anotar información relevante acerca del pago
 form.payment.field.price.help: Este precio ha sido calculado automaticamente en base al precio de la actividad y al número de personas. NO LO MODIFIQUE a menos que esté completamente seguro de ello
-form.payment.field.status.help: <b>Pago pendiente:</b> La reserva aceptada generará automáticamente el pago pendiente a la espera de que el usuario lo pague<hr/><b>Pagado:</b> La organización ha recibido el pago del usuario<hr/><b>Devolución pendiente:</b> El usuario ha cancelado la reserva despues de haber pagado, por lo tanto la organización deberá devolver el dinero del pago<hr/><b>Devuelto:</b> La organización ha devuelto el dinero del pago al usuario
+form.payment.field.status.help: <b>Pago pendiente:</b> La reserva aceptada generará automáticamente el pago pendiente a la espera de que el usuario lo pague<hr/><b>Pagado:</b> La organización ha recibido el pago del usuario<hr/><b>Devolución pendiente:</b> El usuario ha cancelado la reserva después de haber pagado, por lo tanto la organización deberá devolver el dinero del pago<hr/><b>Devuelto:</b> La organización ha devuelto el dinero del pago al usuario
 
 form.article.field.status.help: <b>Pendiente:</b> La noticia no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La noticia es visible<hr/><b>Eliminada:</b> La noticia no es visible
 
@@ -406,7 +406,7 @@ Repeat password: Repita contraseña
 
 
 ################################################################################
-##### Entidades (singular&Plural)
+##### Entidades (Singular&Plural)
 ################################################################################
 
 User: Usuario
@@ -469,7 +469,7 @@ Month: Mes
 Year: Año
 
 Select your country: Seleccione su país
-Select your language: Selecione su idioma
+Select your language: Seleccione su idioma
 
 entity.user.field.gender.1: Hombre
 entity.user.field.gender.2: Mujer
@@ -504,7 +504,7 @@ Logo: Logotipo
 Donate: Donaciones
 Donatedesc: Contenido de Donaciones
 
-All countries: Todos los paises
+All countries: Todos los países
 
 entity.organization.field.status.0: Pendiente
 entity.organization.field.status.1: Activada
@@ -538,7 +538,7 @@ Daysweek: Días de la semana
 Select a currency: Seleccione una moneda
 
 currency.name.EUR: Euro
-currency.name.USD: Dolar
+currency.name.USD: Dólar
 currency.name.ETB: Birr etíope
 
 entity.activity.field.status.0: Pendiente
@@ -613,7 +613,7 @@ entity.reservation.field.status.3: Cancelada
 Select a payment method: Seleccione un modo de pago
 
 entity.payment.field.type.1: Tarjeta de crédito
-entity.payment.field.type.2: Paypal
+entity.payment.field.type.2: PayPal
 entity.payment.field.type.3: Transferencia bancaria
 entity.payment.field.type.4: Efectivo
 
@@ -819,7 +819,7 @@ Help: Ayuda
 calendar.help.lock: Bloqueada
 calendar.help.lock.desc: La organización ha bloqueado las reservas para esta actividad. Contacte con la organización para más información
 calendar.help.available: Disponible
-calendar.help.available.desc: Hay plaza disponibles para reservar
+calendar.help.available.desc: Hay plazas disponibles para reservar
 calendar.help.reducedavailability: Disponibilidad reducida
 calendar.help.reducedavailability.desc: Menos del 25% de las plazas siguen disponibles
 calendar.help.noavailability: No disponible
