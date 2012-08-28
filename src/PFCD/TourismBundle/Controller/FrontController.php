@@ -22,8 +22,13 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $content = $em->getRepository('PFCDTourismBundle:Settings')->find(1)->getHomeDesc();
+        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
 
+        // if there is non existent settings, create it
+        if (!$settings) $settings = new Settings();
+        
+        $content = $settings->getHomeDesc();
+        
         return $this->render('PFCDTourismBundle:Front/Home:index.html.twig', array(
             'content' => $content
         ));
@@ -243,8 +248,13 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $content = $em->getRepository('PFCDTourismBundle:Settings')->find(1)->getAboutDesc();
+        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
 
+        // if there is non existent settings, create it
+        if (!$settings) $settings = new Settings();
+        
+        $content = $settings->getAboutDesc();
+        
         return $this->render('PFCDTourismBundle:Front/Home:about.html.twig', array(
             'content' => $content
         ));
