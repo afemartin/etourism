@@ -86,7 +86,8 @@ front.about.title: Acerca
 front.user.create.title: Registro de usuario
 front.user.create.subtitle: Rellene los siguientes campos del formulario para registrarse en el sistema
 front.user.create.termsandaconditions.title: Términos y Condiciones de uso
-front.user.create.termsandaconditions.warning: Si pulsa "Registro" usted acepta los <a onclick="%onclick%">términos y condiciones de uso</a> de esta página
+front.user.create.privacypolicy.title: Política de privacidad
+front.user.create.legal.warning: Si pulsa "Registro" usted acepta los <a onclick="displayTermsAndConditions()">Términos y Condiciones de uso</a> y la <a onclick="displayPrivacyPolicy()">Política de privacidad</a> de esta página
 front.user.read.title: Perfil de usuario
 front.user.read.subtitle: En esta lista se muestra información detallada sobre el usuario
 front.user.update.title: Editar perfil
@@ -97,7 +98,8 @@ front.organization.index.subtitle: En esta lista se encuentran las organizacione
 front.organization.create.title: Únase, registre su organización
 front.organization.create.subtitle: Rellene los siguientes campos del formulario para enviar la solicitud de registro. Nuestro administrador validará la información antes de ponerse en contacto con usted, a través del email indicado, para asegurar que todo es correcto
 front.organization.create.termsandaconditions.title: Términos y Condiciones de uso
-front.organization.create.termsandaconditions.warning: Si pulsa "Registro" usted acepta los <a onclick="%onclick%">términos y condiciones de uso</a> de esta página
+front.organization.create.privacypolicy.title: Política de privacidad
+front.organization.create.legal.warning: Si pulsa "Registro" usted acepta los <a onclick="displayTermsAndConditions()">Términos y Condiciones de uso</a> y la <a onclick="displayPrivacyPolicy()">Política de privacidad</a> de esta página
 front.organization.read.subtitle: Trabajando en %city% (%country%) desde %year%
 front.organization.read.languagenotsupported: La información completa relacionada con esta organización no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
 front.organization.activities.title: Lista de actividades

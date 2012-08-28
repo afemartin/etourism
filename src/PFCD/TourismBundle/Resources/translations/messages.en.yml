@@ -86,7 +86,8 @@ front.about.title: About us
 front.user.create.title: User registration
 front.user.create.subtitle: Please fill the following information to complete the registration
 front.user.create.termsandaconditions.title: Terms of use and Conditions
-front.user.create.termsandaconditions.warning: If you press "Sign up" you accept the <a onclick="%onclick%">terms of use and conditions</a> of this webpage
+front.user.create.privacypolicy.title: Privacy policy
+front.user.create.legal.warning: If you press "Sign up" you accept the <a onclick="displayTermsAndConditions()">Terms of use and Conditions</a> and the <a onclick="displayPrivacyPolicy()">Privacy Policy</a> of this webpage
 front.user.read.title: User profile
 front.user.read.subtitle: In this list there is detailed information stored about this user
 front.user.update.title: Edit your profile
@@ -97,7 +98,8 @@ front.organization.index.subtitle: In this list there are all the organizations 
 front.organization.create.title: Join us, register your organization
 front.organization.create.subtitle: Please fill the following information to complete the registration request. Our administrator will validate the information before contact you, through the given email address, to ensure everything it is correct
 front.organization.create.termsandaconditions.title: Terms of use and Conditions
-front.organization.create.termsandaconditions.warning: If you press "Join" you accept the <a onclick="%onclick%">terms of use and conditions</a> of this webpage
+front.organization.create.privacypolicy.title: Privacy policy
+front.organization.create.legal.warning: If you press "Join" you accept the <a onclick="displayTermsAndConditions()">Terms of use and Conditions</a> and the <a onclick="displayPrivacyPolicy()">Privacy Policy</a> of this webpage
 front.organization.read.subtitle: Working in %city% (%country%) since %year%
 front.organization.read.languagenotsupported: The complete information related to the organization is not available in this language. Please, select one of the following available languages
 front.organization.activities.title: List of activities

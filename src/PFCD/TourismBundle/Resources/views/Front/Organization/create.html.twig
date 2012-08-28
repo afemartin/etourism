@@ -19,11 +19,16 @@
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3>{{ 'front.organization.create.termsandaconditions.title'|trans }}</h3>
             </div>
-            <div class="modal-body">
-                {{ legal|raw }}
-            </div>
+            <div class="modal-body">{{ termsandaconditions|raw }}</div>
         </div>
-        <p style="margin: 5px 0 0"><small>{{ 'front.organization.create.termsandaconditions.warning'|trans({'%onclick%': 'displayTermsAndConditions()'})|raw }}</small></p>
+        <div id="privacy_policy_modal" class="modal hide">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>{{ 'front.organization.create.privacypolicy.title'|trans }}</h3>
+            </div>
+            <div class="modal-body">{{ privacypolicy|raw }}</div>
+        </div>
+        <p style="margin: 5px 0 0"><small>{{ 'front.organization.create.legal.warning'|trans|raw }}</small></p>
     </div>
 </form>
 {% endblock %}
@@ -31,8 +36,13 @@
 {% block javascripts %}
 {{ parent() }}
 <script type="text/javascript">
-    function displayTermsAndConditions() {
+    function displayTermsAndConditions()
+    {
         $('#terms_and_conditions_modal').modal('show');
+    }
+    function displayPrivacyPolicy()
+    {
+        $('#privacy_policy_modal').modal('show');
     }
 </script>
 {% endblock %}

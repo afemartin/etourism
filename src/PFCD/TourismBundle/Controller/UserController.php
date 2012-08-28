@@ -207,13 +207,15 @@ class UserController extends Controller
             }
         }
         
-        // load the template with the legal stuff in the proper language
-        $legal = $this->renderView($this->findLocalizedTemplate('PFCDTourismBundle:Front/User:legal.%s.txt.twig', $this->get('session')->getLocale()));
+        // load the templates with the legal stuff in the proper language
+        $termsandaconditions = $this->renderView($this->findLocalizedTemplate('PFCDTourismBundle:Legal:terms_and_conditions.user.%s.txt.twig', $this->get('session')->getLocale()));
+        $privacypolicy = $this->renderView($this->findLocalizedTemplate('PFCDTourismBundle:Legal:privacy_policy.user.%s.txt.twig', $this->get('session')->getLocale()));
 
         return $this->render('PFCDTourismBundle:Front/User:create.html.twig', array(
-            'user'  => $user,
-            'legal' => $legal,
-            'form'  => $form->createView(),
+            'user'                => $user,
+            'termsandaconditions' => $termsandaconditions,
+            'privacypolicy'       => $privacypolicy,
+            'form'                => $form->createView(),
         ));
     }
 

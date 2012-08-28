@@ -429,13 +429,15 @@ class OrganizationController extends Controller
             }
         }
         
-        // load the template with the legal stuff in the proper language
-        $legal = $this->renderView($this->findLocalizedTemplate('PFCDTourismBundle:Front/Organization:legal.%s.txt.twig', $this->get('session')->getLocale()));
+        // load the templates with the legal stuff in the proper language
+        $termsandaconditions = $this->renderView($this->findLocalizedTemplate('PFCDTourismBundle:Legal:terms_and_conditions.organization.%s.txt.twig', $this->get('session')->getLocale()));
+        $privacypolicy = $this->renderView($this->findLocalizedTemplate('PFCDTourismBundle:Legal:privacy_policy.organization.%s.txt.twig', $this->get('session')->getLocale()));
 
         return $this->render('PFCDTourismBundle:Front/Organization:create.html.twig', array(
-            'organization' => $organization,
-            'legal'        => $legal,
-            'form'         => $form->createView(),
+            'organization'        => $organization,
+            'termsandaconditions' => $termsandaconditions,
+            'privacypolicy'       => $privacypolicy,
+            'form'                => $form->createView(),
         ));
     }
 
