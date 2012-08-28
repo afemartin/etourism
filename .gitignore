@@ -1,12 +1,8 @@
-# Bootstrap
-app/bootstrap*
-
 # Symfony directories
 vendor/*
 */cache/*
 */logs/*
 web/bundles/*
-web/media/*
 web/uploads/*
 
 # Configuration files
