@@ -133,7 +133,7 @@ class Organization implements AdvancedUserInterface
     private $bankAccount;
     
     /**
-     * @ORM\Column(name="donate", type="boolean")
+     * @ORM\Column(name="donate", type="boolean", nullable=true)
      */
     private $donate;
     
