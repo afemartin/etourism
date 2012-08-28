@@ -40,11 +40,11 @@ class OrganizationType extends AbstractType
             $builder->add('phone');
             $builder->add('bankName', 'text', array('required' => false, 'help' => 'form.organization.field.bankname.help'));
             $builder->add('bankAccount', 'text', array('required' => false, 'help' => 'form.organization.field.bankaccount.help'));
-            $builder->add('locale', 'choice', array('choices' => $options['supported_languages'], 'empty_value' => 'Select your language', 'localelist' => true));
+            $builder->add('locale', 'choice', array('choices' => $options['supported_languages'], 'empty_value' => 'Select your language', 'localelist' => true, 'help' => 'form.organization.field.locale.help'));
         }
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('languages', 'choice', array('choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true));
+            $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.organization.field.languages.help'));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Logo', 'help' => 'form.organization.field.logo.help'));
             $builder->add('donate', 'checkbox', array('required' => false, 'help' => 'form.organization.field.donate.help'));
             $builder->add('donateDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));

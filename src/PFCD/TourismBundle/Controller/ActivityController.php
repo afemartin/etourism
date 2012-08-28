@@ -151,9 +151,6 @@ class ActivityController extends Controller
      */
     public function backUpdateAction($id)
     {
-        // disable translation fallback to avoid display wrong information at input fields
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(false);
-        
         $filter['id'] = $id;
                 
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
@@ -208,9 +205,6 @@ class ActivityController extends Controller
      */
     public function backMediaAction($id)
     {
-        // disable translation fallback to avoid display wrong information at input fields
-        $this->container->get('stof_doctrine_extensions.listener.translatable')->setTranslationFallback(false);
-        
         $filter['id'] = $id;
                 
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))

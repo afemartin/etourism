@@ -358,12 +358,15 @@ form.organization.field.logo.help: Esta imagen debe ser el logo de la organizaci
 form.organization.field.bankname.help: Este es el nombre de su banco al cual los usuarios realizarán el pago via transferencia bancaria
 form.organization.field.bankaccount.help: Este es el número de su cuenta bancaria en la cual los usuarios realizarán el pago via transferencia bancaria
 form.organization.field.donate.help: Marque esta casilla si quiere activar la sección "Donaciones". Asegúrese de haber rellenado previamente "Contenido de Donaciones" en todos los idiomas soportados además de "Nombre del banco" y "Número de cuenta bancaria"
+form.organization.field.locale.help: Este es el idioma en el que se mostrará el panel de administración y en el que recibirá los email de alerta
+form.organization.field.languages.help: Estos son los idiomas en los que la organización se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
 form.organization.field.status.help: <b>Pendiente:</b> La organización se ha registrado recientemente. No puede acceder al panel de administración<hr/><b>Activada:</b> La organización es visible y puede recibir reservas y donaciones<hr/><b>Bloqueada:</b> La organización es visible pero no puede recibir nuevas reservas ni donaciones<hr/><b>Eliminada:</b> La organización no es visible. No puede acceder al panel de administración
 
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
 form.activity.field.price.help: Este es el precio de la actividad por persona
 form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad
 form.activity.field.duration.help: Esta es la duración de la actividad en horas y minutos. Si la duración de la actividad no se puede indicar con las horas dadas, deje vacío este campo y especifique la duración en la "Descripción completa"
+form.activity.field.languages.help: Estos son los idiomas en los que la actividad se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
 form.activity.field.status.help: <b>Pendiente:</b> La actividad no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La actividad es visible y admite reservas<hr/><b>Bloqueada:</b> La actividad es visible pero no admite nuevas reservas<hr/><b>Eliminada:</b> La actividad no es visible
 
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
@@ -379,11 +382,12 @@ form.payment.field.note.help: Puede usar este campo para anotar información rel
 form.payment.field.price.help: Este precio ha sido calculado automaticamente en base al precio de la actividad y al número de personas. NO LO MODIFIQUE a menos que esté completamente seguro de ello
 form.payment.field.status.help: <b>Pago pendiente:</b> La reserva aceptada generará automáticamente el pago pendiente a la espera de que el usuario lo pague<hr/><b>Pagado:</b> La organización ha recibido el pago del usuario<hr/><b>Devolución pendiente:</b> El usuario ha cancelado la reserva después de haber pagado, por lo tanto la organización deberá devolver el dinero del pago<hr/><b>Devuelto:</b> La organización ha devuelto el dinero del pago al usuario
 
+form.article.field.languages.help: Estos son los idiomas en los que la noticia se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
 form.article.field.status.help: <b>Pendiente:</b> La noticia no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La noticia es visible<hr/><b>Eliminada:</b> La noticia no es visible
 
 form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar el código para insertar el vídeo y pegarlo en este campo
 
-form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar su contenido en %language%. Para editar este campo en otro idioma cambie el idioma en la barra superior
+form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar su contenido en %language%. Para editar este campo en otro idioma cambie el idioma en la barra superior. Si ya ha rellenado anteriormente este campo en otro idioma y aun no tenía ningún valor guardado en este idioma, aparecerá el campo en el idioma anterior para que sirva como referencia a la hora de realizar la traducción
 
 form.field.required.help: Indica campo obligatorio
 

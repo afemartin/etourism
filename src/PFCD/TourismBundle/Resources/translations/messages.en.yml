@@ -358,12 +358,15 @@ form.organization.field.logo.help: This image must be the logo of the organizati
 form.organization.field.bankname.help: This is the name of your bank at which the users will pay the activities via bank transfer
 form.organization.field.bankaccount.help: This is the number of your bank account at which the users will pay the activities via bank transfer
 form.organization.field.donate.help: Mark this box if you want to enable the "Donations" section. Make sure you already fill the "Donations content" in all supported languages and also the "Bank name" and "Bank account number"
+form.organization.field.locale.help: This is the language in which is shown the administration panel and in which you receive the email alerts
+form.organization.field.languages.help: These are the languages ​​in which the organization will be displayed to users. Be sure to translate all fields before activating a new language
 form.organization.field.status.help: <b>Pending:</b> The organization request to join recently. It cannot access to the administrator panel<hr/><b>Enabled:</b> The organization is visible and can receive reservations and donations<hr/><b>Locked:</b> The organization is visible but cannot receive reservations nor donations<hr/><b>Deleted:</b> The organization is not visible. It cannot access to the administrator panel
   
 form.activity.field.image.help: This image will be display at the list of activities. Please upload an image with an exact width of 160 pixels and smaller than 32Kb
 form.activity.field.price.help: This will be the price of the activity per person
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity
 form.activity.field.duration.help: This is the duration of the activity in hours and minutes. If the activity duration cannot be represented with the given hours, please leave empty this field and specify the duration at the "Full description"
+form.activity.field.languages.help: These are the languages ​​in which the activity will be displayed to users. Be sure to translate all fields before activating a new language
 form.activity.field.status.help: <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The activity is visible and can receive reservations<hr/><b>Locked:</b> The activity is visible but cannot receive reservations<hr/><b>Deleted:</b> The activity is not visible
 
 form.resource.field.name.help: The name of this resource must be clear enough to identify it among all the resources listed at each activity
@@ -379,11 +382,12 @@ form.payment.field.note.help: You can use this field to record relevant informat
 form.payment.field.price.help: This price was automatically calculated based on the price of the activity and the number of persons. DO NOT MODIFY IT unless you are completely sure about it
 form.payment.field.status.help: <b>Pending payment:</b> The accepted reservation generate automatically the associated pending payment until the user paid it<hr/><b>Paid:</b> The organization receive the payment from the user<hr/><b>Pending refund:</b> The user cancel the reservation after paid it so the organization will have to refund the money<hr/><b>Refunded:</b> The organization has refunded the money to the user
 
+form.article.field.languages.help: These are the languages ​​in which the article will be displayed to users. Be sure to translate all fields before activating a new language
 form.article.field.status.help: <b>Pending:</b> The article is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The article is visible<hr/><b>Deleted:</b> The article is not visible
 
 form.media.field.video.help: YOUTUBE - Follow the next steps to generate the embed code and paste into the this field
 
-form.field.translatable.help: This is a multi-language field. Now you can edit this field in %language%. To edit this field content in other language please switch the language at the top bar.
+form.field.translatable.help: This is a multi-language field. Now you can edit this field in %language%. To edit this field content in other language please switch the language at the top bar. If you have previously filled this field in another language and it has no value stored yet in this language, the field will be filled with the previous language to serve as a reference to write the translation
 
 form.field.required.help: Indicates required field
 
