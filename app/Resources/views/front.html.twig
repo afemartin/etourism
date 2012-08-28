@@ -22,7 +22,7 @@
                         {{ 'Welcome'|trans }} <a class="" href="{{ path('front_user_read', { 'id': app.user.id }) }}">{{ app.user.firstname }}</a> <a class="btn btn-danger" href="{{ path('front_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a>
                         {% else %}
                         <a class="btn btn-primary" href="{{ path('front_login') }}"><i class="icon-user icon-white"></i> {{ 'Login'|trans }}</a>
-                        <a class="btn btn-warning" href="{{ path('front_user_create') }}"><i class="icon-globe icon-white"></i> {{ 'Register'|trans }}</a>
+                        <a class="btn btn-warning" href="{{ path('front_user_create') }}"><i class="icon-edit icon-white"></i> {{ 'Register'|trans }}</a>
                         {% endif %}
                     </div>
                 </div>
@@ -42,12 +42,12 @@
                 <div class="navbar-inner">
                     <div class="container">
                         <ul class="nav">
-                            <li id="navbar-tab-home"><a href="{{ path('front_index') }}">{{ 'Home'|trans }}</a></li>
-                            <li id="navbar-tab-organization"><a href="{{ path('front_organization_index') }}">{{ 'Organizations'|trans }}</a></li>
-                            <li id="navbar-tab-activity"><a href="{{ path('front_activity_index') }}">{{ 'Activities'|trans }}</a></li>
-                            <li id="navbar-tab-news"><a href="{{ path('front_article_index') }}">{{ 'News'|trans }}</a></li>
-                            <li id="navbar-tab-contact"><a href="{{ path('front_contact') }}">{{ 'Contact'|trans }}</a></li>
-                            <li id="navbar-tab-about"><a href="{{ path('front_about') }}">{{ 'About'|trans }}</a></li>
+                            <li id="navbar-tab-home"><a href="{{ path('front_index') }}"><i class="icon-home icon-white"></i> {{ 'Home'|trans }}</a></li>
+                            <li id="navbar-tab-organization"><a href="{{ path('front_organization_index') }}"><i class="icon-globe icon-white"></i> {{ 'Organizations'|trans }}</a></li>
+                            <li id="navbar-tab-activity"><a href="{{ path('front_activity_index') }}"><i class="icon-leaf icon-white"></i> {{ 'Activities'|trans }}</a></li>
+                            <li id="navbar-tab-news"><a href="{{ path('front_article_index') }}"><i class="icon-bullhorn icon-white"></i> {{ 'News'|trans }}</a></li>
+                            <li id="navbar-tab-contact"><a href="{{ path('front_contact') }}"><i class="icon-envelope icon-white"></i> {{ 'Contact'|trans }}</a></li>
+                            <li id="navbar-tab-about"><a href="{{ path('front_about') }}"><i class="icon-question-sign icon-white"></i> {{ 'About'|trans }}</a></li>
                         </ul>
                         <ul class="nav pull-right">
                             <li class="dropdown">
