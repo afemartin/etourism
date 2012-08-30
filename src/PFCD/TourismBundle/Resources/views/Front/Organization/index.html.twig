@@ -33,7 +33,7 @@
             <h5><i class="icon-gift"></i> <a href="{{ path('front_organization_donate', { 'id': organization.id }) }}">{{ 'Donate'| trans}}</a></h5>
             {% endif %}
             {% if organization.webpage %}
-            <h5><i class="icon-share"></i> <a href="{{ organization.webpage }}">{{ 'Webpage'| trans}}</a></h5>
+            <h5><i class="icon-share"></i> <a href="{{ organization.webpage }}" target="_blank">{{ 'Webpage'| trans}}</a></h5>
             {% endif %}
             {% if organization.email %}
             <h5><i class="icon-envelope"></i> <a href="{{ path('front_organization_contact', { 'id': organization.id }) }}">{{ 'Contact'| trans}}</a></h5>

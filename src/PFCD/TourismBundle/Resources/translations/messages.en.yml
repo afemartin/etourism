@@ -295,7 +295,7 @@ back.entity.preview.actions: List of available actions
 ##### Footer
 ################################################################################  
 
-footer.copyrigth: Copyright © %years% %domain% - Created by <a href="https://github.com/afemartin">afemartin</a>
+footer.copyrigth: Copyright © %years% %domain% - Created by <a href="https://github.com/afemartin" target="_blank">afemartin</a>
 
 
 ################################################################################

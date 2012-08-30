@@ -54,7 +54,7 @@
         {% endfor %}
         <tr>
             <th>{{ 'Webpage'|trans }}</th>
-            <td>{{ organization.webpage }}</td>
+            <td>{% if organization.webpage %}<a href="{{ organization.webpage }}" target="_blank">{{ organization.webpage }}</a>{% endif %}</td>
         </tr>
         <tr>
             <th>{{ 'Foundationyear'|trans }}</th>
