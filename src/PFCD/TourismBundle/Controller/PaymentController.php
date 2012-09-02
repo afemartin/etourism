@@ -76,7 +76,7 @@ class PaymentController extends Controller
                     $id = $this->get('security.context')->getToken()->getUser()->getId();
                     
                     // verify that the reserved activity belong to the logged organization
-                    if ($paymentFilter->getActivity()->getOrganization()->getId() != $id)
+                    if ($paymentFilter->getActivity() && $paymentFilter->getActivity()->getOrganization()->getId() != $id)
                     {
                         throw new AccessDeniedException();
                     }
