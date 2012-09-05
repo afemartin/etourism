@@ -39,7 +39,7 @@
         <form action="{{ path('back_comment_activity', { 'id': activity.id }) }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form.comment) }}
             {{ form_rest(form) }}
-            <br />
+            <br/>
             <button class="btn btn-primary" type="submit"><i class="icon-comment icon-white"></i> {{ 'Add comment'|trans }}</button>
         </form>
     </div>

@@ -76,7 +76,7 @@
         <form action="{{ path('front_comment_article', { 'id': article.id }) }}" method="post" {{ form_enctype(comment_form) }}>
             {{ form_widget(comment_form.comment) }}
             {{ form_rest(comment_form) }}
-            <br />
+            <br/>
             <button class="btn btn-primary" type="submit"><i class="icon-comment icon-white"></i> {{ 'Add comment'|trans }}</button>
         </form>
     </div>
