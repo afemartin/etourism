@@ -81,6 +81,8 @@
         </form>
     </div>
 </div>
+{% else %}
+<i>{{ 'front.comment.forbidden'|trans({ '%login%': path('front_login'), '%register%': path('front_user_create') })|raw }}</i>
 {% endif %}
 {% endblock %}
 

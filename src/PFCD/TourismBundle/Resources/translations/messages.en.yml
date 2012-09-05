@@ -175,6 +175,7 @@ front.article.read.nocommentsfound: There are no comments yet about this article
 front.comment.title.user: <a href="%link%">%name%</a> at %date%
 front.comment.title.organization: <a class="label label-info" href="%link%">%name%</a> at %date%
 front.comment.title.admin: <span class="label label-inverse">Administrator</span> at %date%
+front.comment.forbidden: You need to <a href="%login%">sign in</a> as a user to add comments. If you do not have a user account yet you can <a href="%register%">sign up here</a>
 
 back.rememberpassword.title: Remember password
 back.rememberpassword.subtitle: Please fill your email account to send a link to your email account in order to allow you to set a new password

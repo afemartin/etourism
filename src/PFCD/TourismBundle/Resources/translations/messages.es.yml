@@ -175,6 +175,7 @@ front.article.read.nocommentsfound: Aún no hay comentarios acerca de esta notic
 front.comment.title.user: <a href="%link%">%name%</a> a las %date%
 front.comment.title.organization: <a class="label label-info" href="%link%">%name%</a> a las %date%
 front.comment.title.admin: <span class="label label-inverse">Administrador</span> a las %date%
+front.comment.forbidden: Necesita <a href="%login%">identificarse</a> como usuario para añadir comentarios. Si aún no ha creado su cuenta <a href="%register%">regístrese aquí</a>
 
 back.rememberpassword.title: Recordar contraseña
 back.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
