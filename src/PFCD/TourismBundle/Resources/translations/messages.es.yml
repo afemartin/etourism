@@ -96,6 +96,7 @@ front.user.update.subtitle: En cualquier momento puede editar los datos personal
 
 front.organization.index.title: Lista de organizaciones
 front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este proyecto
+front.organization.index.noorganizationsfound: Aún no hay organizaciones publicadas en este idioma
 front.organization.create.title: Únase, registre su organización
 front.organization.create.subtitle: Rellene los siguientes campos del formulario para enviar la solicitud de registro. Nuestro administrador validará la información antes de ponerse en contacto con usted, a través del email indicado, para asegurar que todo es correcto
 front.organization.create.termsandaconditions.title: Términos y Condiciones de uso
@@ -120,6 +121,7 @@ front.organization.contact.subtitle: Rellene el siguiente formulario para poners
 
 front.activity.index.title: Lista de actividades
 front.activity.index.subtitle: En esta lista se encuentran las actividades ofrecidas
+front.activity.index.noactivitiesfound: Aún no hay actividades publicadas en este idioma
 front.activity.read.details: Detalles
 front.activity.read.availability: Disponibilidad
 front.activity.read.availability.small: Selecciona una sesión de la actividad
@@ -169,6 +171,7 @@ front.payment.update.subtitle: Rellene este formulario para añadir o modificar 
 
 front.article.index.title: Lista de noticias
 front.article.index.subtitle: En esta lista se encuentran las noticias publicadas recientemente
+front.article.index.noarticlesfound: Aún no hay noticias publicadas en este idioma
 front.article.read.languagenotsupported: La información completa relacionada con esta noticia no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
 front.article.read.comments: Comentarios
 front.article.read.nocommentsfound: Aún no hay comentarios acerca de esta noticia
@@ -391,7 +394,7 @@ form.article.field.status.help: <b>Pendiente:</b> La noticia no es visible (solo
 
 form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar el código para insertar el vídeo y pegarlo en este campo
 
-form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar su contenido en %language%. Para editar este campo en otro idioma cambie el idioma en la barra superior. Si ya ha rellenado anteriormente este campo en otro idioma y aun no tenía ningún valor guardado en este idioma, aparecerá el campo en el idioma anterior para que sirva como referencia a la hora de realizar la traducción
+form.field.translatable.help: Este es un campo multi-idioma. Ahora puede editar su contenido en %language%. Para editar este campo en otro idioma cambie el idioma en la barra superior. Si ya ha rellenado anteriormente este campo en otro idioma y aún no tenía ningún valor guardado en este idioma, aparecerá el campo en el idioma anterior para que sirva como referencia a la hora de realizar la traducción
 
 form.field.required.help: Indica campo obligatorio
 

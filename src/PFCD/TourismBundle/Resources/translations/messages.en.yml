@@ -96,6 +96,7 @@ front.user.update.subtitle: Use this form to edit your account information
 
 front.organization.index.title: Organization list
 front.organization.index.subtitle: In this list there are all the organizations registered in the system
+front.organization.index.noorganizationsfound: There are no organizations yet published in this language
 front.organization.create.title: Join us, register your organization
 front.organization.create.subtitle: Please fill the following information to send the registration request. Our administrator will validate the information before contact you, through the given email address, to ensure everything it is correct
 front.organization.create.termsandaconditions.title: Terms of use and Conditions
@@ -120,6 +121,7 @@ front.organization.contact.subtitle: Fill this form to contact with us if you ha
 
 front.activity.index.title: Activity list
 front.activity.index.subtitle: In this list there are all the activities registered in the system
+front.activity.index.noactivitiesfound: There are no activities yet published in this language
 front.activity.read.details: Details
 front.activity.read.availability: Availability
 front.activity.read.availability.small: Select a session for the activity
@@ -169,6 +171,7 @@ front.payment.update.subtitle: Use this form to edit your payment. You can selec
 
 front.article.index.title: Article list
 front.article.index.subtitle: In this list there are all the articles published in the system
+front.article.index.noarticlesfound: There are no articles yet published in this language
 front.article.read.languagenotsupported: The complete information related to the article is not available in this language. Please, select one of the following available languages
 front.article.read.comments: Comments
 front.article.read.nocommentsfound: There are no comments yet about this article

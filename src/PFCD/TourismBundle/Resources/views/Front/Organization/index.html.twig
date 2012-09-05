@@ -50,6 +50,8 @@
     <div class="info-divisor span9"></div>
 </div>
 {% endif %}
+{% else %}
+<i>{{ 'front.organization.index.noorganizationsfound'|trans }}</i>
 {% endfor %}
 {% endblock %}
 
