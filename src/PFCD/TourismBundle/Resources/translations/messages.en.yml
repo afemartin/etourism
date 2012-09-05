@@ -123,7 +123,7 @@ front.activity.index.subtitle: In this list there are all the activities registe
 front.activity.read.details: Details
 front.activity.read.availability: Availability
 front.activity.read.availability.small: Select a session for the activity
-front.activity.read.sessionsnotfound: There are no sessions for the activity at this time. For more information <a href="%link%">contact</a> with the organization
+front.activity.read.nosessionsfound: There are no sessions for the activity at this time. For more information <a href="%link%">contact</a> with the organization
 front.activity.read.languagenotsupported: The complete information related to the activity is not available in this language. Please, select one of the following available languages
 front.activity.read.comments: Comments
 front.activity.read.nocommentsfound: There are no comments yet about this activity

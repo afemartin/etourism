@@ -123,7 +123,7 @@ front.activity.index.subtitle: En esta lista se encuentran las actividades ofrec
 front.activity.read.details: Detalles
 front.activity.read.availability: Disponibilidad
 front.activity.read.availability.small: Selecciona una sesión de la actividad
-front.activity.read.sessionsnotfound: No hay sesiones para la actividad en este momento. Para más información <a href="%link%">contacte</a> con la organización
+front.activity.read.nosessionsfound: No hay sesiones para la actividad en este momento. Para más información <a href="%link%">contacte</a> con la organización
 front.activity.read.languagenotsupported: La información completa relacionada con esta actividad no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
 front.activity.read.comments: Comentarios
 front.activity.read.nocommentsfound: Aún no hay comentarios acerca de esta actividad
