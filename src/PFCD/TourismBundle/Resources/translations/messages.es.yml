@@ -332,6 +332,8 @@ alert.success.reservationaccepted: El pago para la actividad ha sido creado con 
 
 alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un email a la organización con su comentario acerca del pago
 
+alert.success.updatesettings: Los cambios han sido guardados con éxito
+
 alert.error.reservation.lockeduser: Su cuenta de usuario está bloqueada. Por este motivo no puede crear nuevas reservas. Para más información <a href="%link%">contacte</a> con el administrador
 alert.error.reservation.lockedorganization: Esta organización no es capaz de recibir reservas en este momento. Para más información <a href="%link%">contacte</a> con el administrador
 alert.error.reservation.lockedactivity: Esta actividad no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
