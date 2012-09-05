@@ -6,6 +6,7 @@ Welcome: Welcome
 Login: Sign in
 Logout: Sign out
 Register: Sign up
+Join: Join in
 
 
 ################################################################################
@@ -24,7 +25,7 @@ Language: Language
 Latest activities: Latest activities
 Latest news: Latest news
 
-front.advertise.join.title: Join us
+front.advertise.join.title: Join us, register your organization
 front.advertise.join.content: If you know about any cooperation organization that might be interested on using this webpage to offer their activities, please tell them to <a href="%link%">register here</a>
 
 Menu: Menu
@@ -96,10 +97,10 @@ front.user.update.subtitle: Use this form to edit your account information
 front.organization.index.title: Organization list
 front.organization.index.subtitle: In this list there are all the organizations registered in the system
 front.organization.create.title: Join us, register your organization
-front.organization.create.subtitle: Please fill the following information to complete the registration request. Our administrator will validate the information before contact you, through the given email address, to ensure everything it is correct
+front.organization.create.subtitle: Please fill the following information to send the registration request. Our administrator will validate the information before contact you, through the given email address, to ensure everything it is correct
 front.organization.create.termsandaconditions.title: Terms of use and Conditions
 front.organization.create.privacypolicy.title: Privacy policy
-front.organization.create.legal.warning: If you press "Join" you accept the <a onclick="displayTermsAndConditions()">Terms of use and Conditions</a> and the <a onclick="displayPrivacyPolicy()">Privacy Policy</a> of this webpage
+front.organization.create.legal.warning: If you press "Join in" you accept the <a onclick="displayTermsAndConditions()">Terms of use and Conditions</a> and the <a onclick="displayPrivacyPolicy()">Privacy Policy</a> of this webpage
 front.organization.read.subtitle: Working in %city% (%country%) since %year%
 front.organization.read.languagenotsupported: The complete information related to the organization is not available in this language. Please, select one of the following available languages
 front.organization.activities.title: List of activities

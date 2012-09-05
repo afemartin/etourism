@@ -2,7 +2,7 @@
 
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
-{% block title %}{{ 'Register'|trans }}{% endblock%}
+{% block title %}{{ 'Join'|trans }}{% endblock%}
 
 {% block body %}
 <h1>{{ 'front.organization.create.title'|trans }}</h1>
@@ -11,7 +11,7 @@
 <form class="form-horizontal" action="{{ path('front_organization_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <div class="form-actions">
-        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Register'|trans }}</button>
+        <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Join'|trans }}</button>
         <a class="btn btn-inverse" href="{{ path('front_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
         <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
         <div id="terms_and_conditions_modal" class="modal hide">

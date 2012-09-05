@@ -84,8 +84,9 @@
                     {% block sidebar %}{% endblock %}
                     {% if not is_granted('ROLE_USER') %}
                     <div class="well well-small">
-                        <h3>{{ 'front.advertise.join.title'|trans }}</h3>
-                        <p>{{ 'front.advertise.join.content'|trans({'%link%': path('front_organization_create')})|raw }}</p>    
+                        <h3 style="line-height: 22px">{{ 'front.advertise.join.title'|trans }}</h3>
+                        <hr style="margin: 5px 0">
+                        {{ 'front.advertise.join.content'|trans({'%link%': path('front_organization_create')})|raw }}
                     </div>
                     {% endif %}
                 </div>

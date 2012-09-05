@@ -6,6 +6,7 @@ Welcome: Bienvenido
 Login: Acceso
 Logout: Desconexión
 Register: Registro
+Join: Unirse
 
 
 ################################################################################
@@ -24,8 +25,8 @@ Language: Idioma
 Latest activities: Últimas actividades
 Latest news: Últimas noticias
 
-front.advertise.join.title: Únete
-front.advertise.join.content: Si conoces alguna organización de cooperación que pueda estar interesada en usar esta página para ofrecer sus actividades, avísales que pueden <a href="%link%">registrarse aqui</a>
+front.advertise.join.title: Únase, registre su organización
+front.advertise.join.content: Si conoce alguna organización de cooperación que pueda estar interesada en usar esta página para ofrecer sus actividades, avíseles que pueden <a href="%link%">registrarse aqui</a>
 
 Menu: Menu
 Sessions: Sesiones
@@ -99,7 +100,7 @@ front.organization.create.title: Únase, registre su organización
 front.organization.create.subtitle: Rellene los siguientes campos del formulario para enviar la solicitud de registro. Nuestro administrador validará la información antes de ponerse en contacto con usted, a través del email indicado, para asegurar que todo es correcto
 front.organization.create.termsandaconditions.title: Términos y Condiciones de uso
 front.organization.create.privacypolicy.title: Política de privacidad
-front.organization.create.legal.warning: Si pulsa "Registro" usted acepta los <a onclick="displayTermsAndConditions()">Términos y Condiciones de uso</a> y la <a onclick="displayPrivacyPolicy()">Política de privacidad</a> de esta página
+front.organization.create.legal.warning: Si pulsa "Unirse" usted acepta los <a onclick="displayTermsAndConditions()">Términos y Condiciones de uso</a> y la <a onclick="displayPrivacyPolicy()">Política de privacidad</a> de esta página
 front.organization.read.subtitle: Trabajando en %city% (%country%) desde %year%
 front.organization.read.languagenotsupported: La información completa relacionada con esta organización no está disponible en este idioma. Por favor, seleccione uno de los siguientes idiomas disponibles
 front.organization.activities.title: Lista de actividades
