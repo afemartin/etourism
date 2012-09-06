@@ -42,7 +42,9 @@
         
     {% if datepicker is defined and datepicker %}
         <script src="{{ asset('js/datepicker-bootstrap.js') }}"></script>
+        {% if app.session.locale != 'en' %}
         <script src="{{ asset('js/datepicker-bootstrap.' ~ app.session.locale ~ '.js') }}"></script>
+        {% endif %}
         <script type="text/javascript">
             $('input.datepicker-bootstrap').datepicker({'format' : 'dd/mm/yyyy', 'weekStart' : 1, 'autoclose' : true,  'language' : '{{ app.session.locale }}'});
         </script>
