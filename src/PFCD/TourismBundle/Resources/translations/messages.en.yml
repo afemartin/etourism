@@ -377,6 +377,7 @@ form.activity.field.languages.help: These are the languages ​​in which the a
 form.activity.field.status.help: <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The activity is visible and can receive reservations<hr/><b>Locked:</b> The activity is visible but cannot receive reservations<hr/><b>Deleted:</b> The activity is not visible
 
 form.resource.field.name.help: The name of this resource must be clear enough to identify it among all the resources listed at each activity
+form.resource.field.note.help: You can use this field to record relevant information about this resource
 form.resource.field.status.help: <b>Available:</b> The resource is available right now<hr/><b>Not available:</b> The resource is not available right now<hr/><b>Deleted:</b> The resource will not be available anymore
 
 form.session.field.note.help: You can use this field to record relevant information about this session

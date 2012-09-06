@@ -45,9 +45,9 @@ class Resource
     private $name;
 
     /**
-     * @ORM\Column(name="description", type="string", length=512, nullable=true)
+     * @ORM\Column(name="note", type="string", nullable=true)
      */
-    private $description;
+    private $note;
 
     /**
      * @var integer $status 0=>Unknown, 1=>Material (internal), 2=>Human (internal), 3=>Material (external), 4=>Human (external)
@@ -126,23 +126,23 @@ class Resource
     }
 
     /**
-     * Set description
+     * Set note
      *
-     * @param string $description
+     * @param string $note
      */
-    public function setDescription($description)
+    public function setNote($note)
     {
-        $this->description = $description;
+        $this->note = $note;
     }
 
     /**
-     * Get description
+     * Get note
      *
      * @return string 
      */
-    public function getDescription()
+    public function getNote()
     {
-        return $this->description;
+        return $this->note;
     }
 
     /**

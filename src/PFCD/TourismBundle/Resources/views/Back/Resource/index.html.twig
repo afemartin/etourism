@@ -1,6 +1,6 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'resource' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 6: {sorter: false}, 7: {sorter: false} }, sortList: [[3,0],[1,0]] }' %}
+{% set sectiontab = 'resource' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 3: {sorter: false}, 7: {sorter: false}, 8: {sorter: false} }, sortList: [[4,0],[1,0]] }' %}
 
 {% block body %}
 <h1>{{ 'back.resource.index.title'|trans }}</h1>
@@ -12,6 +12,7 @@
             <th>{{ 'Id'|trans }}</th>
             <th>{{ 'Name'|trans }}</th>
             <th>{{ 'Type'|trans }}</th>
+            <th>{{ 'Note'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
@@ -27,6 +28,7 @@
         <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
         <td>{{ resource.name }}</td>
         <td>{{ resource.typeText|trans }}</td>
+        <td>{{ resource.note|truncate(50) }}</td>
         <td>{% if resource.created %}{{ resource.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if resource.updated %}{{ resource.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ resource.statusText|trans }}</td>

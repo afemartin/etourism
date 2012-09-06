@@ -377,6 +377,7 @@ form.activity.field.languages.help: Estos son los idiomas en los que la activida
 form.activity.field.status.help: <b>Pendiente:</b> La actividad no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La actividad es visible y admite reservas<hr/><b>Bloqueada:</b> La actividad es visible pero no admite nuevas reservas<hr/><b>Eliminada:</b> La actividad no es visible
 
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
+form.resource.field.note.help: Puede usar este campo para anotar información relevante acerca del recurso
 form.resource.field.status.help: <b>Disponible:</b> El recurso está disponible ahora<hr/><b>No disponible:</b> El recurso no está disponible ahora<hr/><b>Eliminado:</b> El recurso no estará disponible de nuevo
 
 form.session.field.note.help: Puede usar este campo para anotar información relevante acerca de la sesión
