@@ -21,6 +21,7 @@
                 {% if day.date|date('n') > month %}{% set class = 'next-month' %}{% endif %}
                 {% if day.date < today %}{% set class = 'past-day' %}{% endif %}
                 <td class='{{ class }}'>
+                    <div class='label day-number'>{{ day.date|date('j') }}</div>
                     <div class="sessions">
                         {% if day.sessions is defined %}
                             {% for session in day.sessions %}
@@ -32,14 +33,13 @@
                                 {% endif %}
                                 {# if is date past or session has been set as "locked" it wont be possible to create a reservation for that session #}
                                 {% if (day.date < today) or (session.status == 2) %}
-                                    <div class="label">{{ 'Session'|trans }} {% if session.time != 'undefined' %}({{ session.time|date('H:i') }}){% endif %}</div>
+                                    <div class="label">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
                                 {% else %}
-                                    <div class="session{{ session.id }} label {{ label }}" onclick="selectSession({{ session.id }})">{{ 'Session'|trans }} {% if session.time != 'undefined' %}({{ session.time|date('H:i') }}){% endif %}</div>
+                                    <div class="session{{ session.id }} label {{ label }}" onclick="selectSession({{ session.id }})">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <div class='label day-number'>{{ day.date|date('j') }}</div>
                 </td>
             {% if day.date|date('N') == 7 %}</tr>{% endif %}            
         {% endfor %}

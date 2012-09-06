@@ -180,6 +180,8 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
     background-image: url("../img/tablesorter-asc.png");
 }
 
+/* CALENDAR */
+
 .calendar {
     table-layout: fixed;
 }
@@ -194,9 +196,12 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
     text-align: center;
 }
 
+.calendar tbody td {
+    padding: 4px 6px;
+}
+
 .calendar .sessions {
-    height: 40px;
-    overflow: auto;
+    min-height: 40px;
 }
 
 .calendar .past-day {
@@ -206,6 +211,7 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
 .calendar .label {
     margin-top: 3px;
     margin-bottom: 3px;
+    padding: 2px 4px;
     -webkit-user-select: none;
      -khtml-user-select: none;
        -moz-user-select: none;
@@ -220,16 +226,14 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
     background-color: #CCC;
 }
 
-.calendar .day-number {
+.calendar .label.day-number {
     float: right;
+    text-align: center;
+    width: 12px;
 }
 
-.calendar .label:first-child {
-    margin-top: 0;
-}
-
-.calendar .label:last-child {
-    margin-bottom: 0;
+.calendar .sessions .label:first-child {
+    margin-right: 23px;
 }
 
 .calendar .label[class*="session"] {
@@ -243,7 +247,8 @@ textarea.wysihtml5-bootstrap.input-xxlarge {
 }
 
 .calendar .label[class*="session"].active {
-   background-color: #000;
+    border: 2px solid #000;
+    padding: 0 2px;
 }
 
 .icon-loading {
