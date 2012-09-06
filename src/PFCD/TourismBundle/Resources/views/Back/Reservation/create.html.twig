@@ -8,6 +8,10 @@
 <h1>{{ 'back.reservation.create.title'|trans }}</h1>
 <p>{{ 'back.reservation.create.subtitle'|trans }}</p>
 
+{% if error %}
+<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ 'alert.error.reservation.invalidsession'|trans }}</div>
+{% endif %}
+
 <form class="form-horizontal" action="{{ path('back_reservation_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <div class="form-actions">
@@ -21,7 +25,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $('#reservation_session').after('<div class="control-group"><div id="reservation_calendar" class="controls"></div></div>')
+        $('#reservation_session').after('<div class="control-group"><label for="reservation_session" class="control-label">{{ 'Session'|trans }}</label><div id="reservation_calendar" class="controls"></div></div>')
+        if ($('#reservation_activity').val())
+        {
+            getCalendar($('#reservation_activity').val(), {{ 'now'|date('Y') }}, {{ 'now'|date('m') }});
+        }
+        
         $('#reservation_activity').change(function() {
             if ($(this).val())
             {

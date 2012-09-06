@@ -144,9 +144,9 @@ front_reservation_index:
     requirements: { _method: get, id: \d+ }
 
 front_reservation_create:
-    pattern:  /activity/{activityId}/booking/{sessionId}
+    pattern:  /booking/{sessionId}
     defaults: { _controller: PFCDTourismBundle:Reservation:frontCreate}
-    requirements: { activityId: \d+, sessionId: \d+ }
+    requirements: { sessionId: \d+ }
 
 front_reservation_read:
     pattern:  /user/reservation/{id}

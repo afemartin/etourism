@@ -204,7 +204,7 @@ class Activity
     /**
      * Set title
      *
-     * @param integer $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -214,11 +214,36 @@ class Activity
     /**
      * Get title
      *
-     * @return integer 
+     * @return string 
      */
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Get message composed by the title and the corresponding status
+     * (only if it is different from STATUS_ENABLE)
+     * 
+     * @return string 
+     */
+    public function getTitleAndStatus()
+    {
+        if ($this->status != self::STATUS_ENABLED)
+        {
+            // Retrieve the container to get the translator service:
+            // This practice it is not recommended but for this case it is the
+            // only way to translate the status and put together with the title
+            global $kernel;
+            if ('AppCache' == get_class($kernel)) $kernel = $kernel->getKernel();
+            $translator = $kernel->getContainer()->get('translator');
+
+            return $this->title . ' (' . $translator->trans($this->getStatusText()) . ')';
+        }
+        else
+        {
+            return $this->title;
+        }
     }
 
     /**

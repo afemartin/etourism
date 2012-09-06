@@ -31,11 +31,24 @@
                                 {% elseif session.percentage > 75 %}
                                     {% set label = 'label-warning' %}
                                 {% endif %}
-                                {# if is date past or session has been set as "locked" it wont be possible to create a reservation for that session #}
-                                {% if (day.date < today) or (session.status == 2) %}
+                                {% if (day.date < today) %}
+                                    {# if is date past it wont be possible to create a reservation for that session #}
                                     <div class="label">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
+                                {% elseif session.status == 2 and not (is_granted('ROLE_ORGANIZATION') or is_granted('ROLE_ADMIN')) %}
+                                    {# if session has been set as "locked" it wont be possible to create a reservation for that session from the front-end #}
+                                    <div class="label">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
+                                {% elseif session.percentage >= 100 and not (is_granted('ROLE_ORGANIZATION') or is_granted('ROLE_ADMIN')) %}
+                                    {# if session is at full capacity it wont be possible to create a reservation for that session from the front-end #}
+                                    <div class="label label-important">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
+                                {% elseif session.status == 2 and (is_granted('ROLE_ORGANIZATION') or is_granted('ROLE_ADMIN')) %}
+                                    {# if session has been set as "locked" it will be possible to create a reservation for that session from the back-end #}
+                                    <div class="session{{ session.id }} label session-capacity-tooltip" onclick="selectSession({{ session.id }})" data-original-title="{{ 'calendar.help.capacity'|trans({ '%available%': session.persons }) }}">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
+                                {% elseif is_granted('ROLE_ORGANIZATION') or is_granted('ROLE_ADMIN') %}
+                                    {# in any other case it will be possible to create a reservation for that session from the back-end with a tooltip to know how many places are left #}
+                                    <div class="session{{ session.id }} label {{ label }} session-capacity-tooltip" onclick="selectSession({{ session.id }})" data-original-title="{{ 'calendar.help.capacity'|trans({ '%available%': session.persons }) }}">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
                                 {% else %}
-                                    <div class="session{{ session.id }} label {{ label }}" onclick="selectSession({{ session.id }})">{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
+                                    {# in any other case it will be possible to create a reservation for that session from the front-end with a tooltip to know how many places are left only for low availability sessions #}
+                                    <div class="session{{ session.id }} label {{ label }} {% if session.percentage > 75 %}session-capacity-tooltip{% endif %}" onclick="selectSession({{ session.id }})" {% if session.percentage > 75 %}data-original-title="{{ 'calendar.help.capacity'|trans({ '%available%': session.persons }) }}"{% endif %}>{% if session.time != 'undefined' %}{{ session.time|date('H:i') }}{% else %}&nbsp;{% endif %}</div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -46,7 +59,7 @@
     </tbody>
 </table>
 
-<h4>{{ 'Help'|trans }} <a onclick="$('#calendar_help').fadeIn()"><i class="icon-question-sign"></i></a></h4>
+<h4>{{ 'Help'|trans }} <a onclick="$('#calendar_help').fadeToggle()"><i class="icon-question-sign"></i></a></h4>
 <table id="calendar_help" cellpadding="3px" style="display:none; margin-bottom:5px">
     <tr>
         <td align="right"><span class="label label-success">{{ 'calendar.help.available'|trans }}</span></td>
@@ -65,3 +78,7 @@
         <td><span>{{ 'calendar.help.lock.desc'|trans }}</span></td>
     </tr>
 </table>
+
+<script type="text/javascript">
+    $('.session-capacity-tooltip').tooltip({ 'placement' : 'top' });
+</script>

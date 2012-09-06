@@ -336,6 +336,7 @@ alert.success.createorganization: Su petición de registro ha sido enviada corre
 alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pago de la reserva
 
 alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un email a la organización con su comentario acerca del pago
+alert.warning.paymentpriceupdated: El precio del pago ha cambiado de %old_price% a %new_price%, debería comprobar que todo es correcto y contactar con el usuario que realizó esta reserva
 
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
@@ -345,6 +346,7 @@ alert.error.reservation.lockedactivity: Esta actividad no admite reservas en est
 alert.error.reservation.lockedsession: Esta sesión no admite reservas en este momento. Para más información <a href="%link%">contacte</a> con la organización
 
 alert.error.reservation.capacityexceeded: Ha intentado crear una reserva para más personas que plazas restantes disponibles. Para más información sobre disponibilidad <a href="%link%">contacte</a> con la organización
+alert.error.reservation.invalidsession: Debe seleccionar una sesión para efectuar la reserva
 
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
@@ -370,8 +372,8 @@ form.organization.field.languages.help: Estos son los idiomas en los que la orga
 form.organization.field.status.help: <b>Pendiente:</b> La organización se ha registrado recientemente. No puede acceder al panel de administración<hr/><b>Activada:</b> La organización es visible y puede recibir reservas y donaciones<hr/><b>Bloqueada:</b> La organización es visible pero no puede recibir nuevas reservas ni donaciones<hr/><b>Eliminada:</b> La organización no es visible. No puede acceder al panel de administración
 
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
-form.activity.field.price.help: Este es el precio de la actividad por persona
-form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad
+form.activity.field.price.help: Este es el precio de la actividad por persona. Puede modificarlo en cualquier momento, pero los pagos generados previamente mantendrán el precio anterior
+form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad. Si decide reducir la capacidad asegurese que ninguna sesión actual vaya a sobrepasar la nueva capacidad
 form.activity.field.duration.help: Esta es la duración de la actividad en horas y minutos. Si la duración de la actividad no se puede indicar con las horas dadas, deje vacío este campo y especifique la duración en la "Descripción completa"
 form.activity.field.languages.help: Estos son los idiomas en los que la actividad se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
 form.activity.field.status.help: <b>Pendiente:</b> La actividad no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La actividad es visible y admite reservas<hr/><b>Bloqueada:</b> La actividad es visible pero no admite nuevas reservas<hr/><b>Eliminada:</b> La actividad no es visible
@@ -383,6 +385,7 @@ form.resource.field.status.help: <b>Disponible:</b> El recurso está disponible 
 form.session.field.note.help: Puede usar este campo para anotar información relevante acerca de la sesión
 form.session.field.status.help: <b>Pendiente:</b> La sesión no es visible<hr/><b>Activada:</b> La sesión es visible y admite reservas<hr/><b>Bloqueada:</b> La sesión es visible pero no admite reservas<hr/><b>Eliminada:</b> La sesión no es visible
 
+form.reservation.field.persons.help: Si incrementa/decrementa el número de personas, el precio del pago (si está pendiente de pagar) será automáticamente incrementado/decrementado proporcionalmente
 form.reservation.field.note.help: Puede usar este campo para anotar información relevante acerca de la reserva
 form.reservation.field.status.help: <b>Solicitada:</b> La reserva es solicitada por el usuario<hr/><b>Aceptada:</b> La reserva es aceptada por la organización (si la actividad tiene precio se generará el "pago" correspondiente de manera automática)<hr/><b>Rechazada:</b> La reserva es rechazada por la organización<hr/><b>Cancelada:</b> La reserva es cancelada por el usuario antes o después de ser aceptada
 
@@ -842,3 +845,5 @@ calendar.help.reducedavailability: Disponibilidad reducida
 calendar.help.reducedavailability.desc: Menos del 25% de las plazas siguen disponibles
 calendar.help.noavailability: No disponible
 calendar.help.noavailability.desc: Todas las plazas han sido reservadas. Seleccione otra sesión o contacte con la organización
+
+calendar.help.capacity: quedan %available% plazas

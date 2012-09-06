@@ -43,7 +43,7 @@
 <div class="info-calendar row">
     <div class="span9">
         <div id="reservation_calendar"></div>
-        <a id="reservation_create" class="btn btn-primary pull-right disabled" href="#"><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.create'|trans }}</a>
+        <a id="reservation_create" class="btn btn-primary pull-right disabled" href="#" onclick="return false" ><i class="icon-pencil icon-white"></i> {{ 'front.reservation.button.create'|trans }}</a>
     </div>
 </div>
 {% else %}
@@ -191,6 +191,7 @@
             
             $('#reservation_create').addClass('disabled');
             $('#reservation_create').attr('href', '#');
+            $('#reservation_create').attr('onclick', 'return false');
             
             $.ajax({
                 type: "GET",
@@ -204,10 +205,11 @@
         
         function selectSession(id)
         {
-            $('#reservation_create').attr('href', '{{ path('front_reservation_create', { 'activityId': activity.id, 'sessionId': null }) }}' + '/' + id);
-            $('#reservation_create').removeClass('disabled');
             $('.calendar .label.active').removeClass('active');
             $('.session'+id).addClass('active');
+            $('#reservation_create').attr('onclick', '');
+            $('#reservation_create').attr('href', '{{ path('front_reservation_create', { 'sessionId': null }) }}' + '/' + id);
+            $('#reservation_create').removeClass('disabled');
         }
     </script>
 {% endif %}

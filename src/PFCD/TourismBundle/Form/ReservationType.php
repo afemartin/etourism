@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Reservation;
+use PFCD\TourismBundle\Entity\Activity;
 
 class ReservationType extends AbstractType
 {
@@ -17,19 +18,28 @@ class ReservationType extends AbstractType
     {
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('activity', 'entity', array('class' => 'PFCDTourismBundle:Activity', 'property' => 'title', 'property_path' => false, 'empty_value' => 'Select an activity'));
+            $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'property_path' => false, 'empty_value' => 'Select an activity'));
         }
         elseif ($options['domain'] == Constants::BACK && $options['organization'] != null && $options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('activity', 'entity', array('class' => 'PFCDTourismBundle:Activity', 'property' => 'title', 'property_path' => false, 'empty_value' => 'Select an activity',
+            $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'property_path' => false, 'empty_value' => 'Select an activity',
                 'query_builder' => function(EntityRepository $er) use ($options) {
                         return $er->createQueryBuilder('a')
-                                ->where('a.organization = :organization')
-                                ->orderBy('a.title', 'ASC')
-                                ->setParameter('organization', $options['organization']);
+                                  ->where('a.organization = :organization')
+                                  ->andWhere('a.status IN (:status)')
+                                  ->orderBy('a.title', 'ASC')
+                                  ->setParameter('organization', $options['organization'])
+                                  ->setParameter('status', array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
                 }));
         }
-        $builder->add('persons', 'integer', array('attr' => array('class' => 'input-mini')));
+        if (($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK) && $options['type'] == Constants::FORM_UPDATE)
+        {
+            $builder->add('persons', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.reservation.field.persons.help'));
+        }
+        else
+        {
+            $builder->add('persons', 'integer', array('attr' => array('class' => 'input-mini')));
+        }
         if ($options['domain'] == Constants::FRONT)
         {
             $builder->add('comment', 'textarea', array('required' => false, 'property_path' => false, 'attr' => array('class' => 'input-xxlarge')));

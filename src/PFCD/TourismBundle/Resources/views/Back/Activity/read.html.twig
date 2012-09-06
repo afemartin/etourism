@@ -17,6 +17,12 @@
             <th>{{ 'Id'|trans }}</th>
             <td>{{ activity.id }}</td>
         </tr>
+        {% if is_granted('ROLE_ADMIN') %}
+        <tr>
+            <th>{{ 'Organization'|trans }}</th>
+            <td>{{ activity.organization.name }}</td>
+        </tr>
+        {% endif %}
         {% for language, fields in translations %}
             {% for field, value in fields %}
                 <tr>

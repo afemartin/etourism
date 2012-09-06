@@ -12,6 +12,7 @@ use PFCD\TourismBundle\Entity\Reservation;
 use PFCD\TourismBundle\Form\ReservationType;
 use PFCD\TourismBundle\Entity\ReservationFilter;
 use PFCD\TourismBundle\Form\ReservationFilterType;
+use PFCD\TourismBundle\Entity\Session;
 
 use PFCD\TourismBundle\Entity\Payment;
 
@@ -143,7 +144,14 @@ class ReservationController extends Controller
                 
                 $session = $em->getRepository('PFCDTourismBundle:Session')->find($sessionId);
 
-                if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
+                if (!$session)
+                {
+                    return $this->render('PFCDTourismBundle:Back/Reservation:create.html.twig', array(
+                        'reservation' => $reservation,
+                        'form'        => $form->createView(),
+                        'error'       => true,
+                    ));
+                }
                 
                 $reservation->setSession($session);
                 
@@ -185,7 +193,8 @@ class ReservationController extends Controller
 
         return $this->render('PFCDTourismBundle:Back/Reservation:create.html.twig', array(
             'reservation' => $reservation,
-            'form'        => $form->createView()
+            'form'        => $form->createView(),
+            'error'       => false,
         ));
     }
 
@@ -240,6 +249,18 @@ class ReservationController extends Controller
                 throw new AccessDeniedException();
             }
         }
+        
+        $capacity = $reservation->getSession()->getActivity()->getCapacity();
+        
+        foreach ($reservation->getSession()->getReservations() as $prev_reservation)
+        {
+            if ($prev_reservation->getStatus() == Reservation::STATUS_REQUESTED || $prev_reservation->getStatus() == Reservation::STATUS_ACCEPTED)
+            {
+                $capacity -= $prev_reservation->getPersons();
+            }
+        }
+        
+        $prevPersons = $reservation->getPersons();
 
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
@@ -264,7 +285,15 @@ class ReservationController extends Controller
                 {
                     $session = $em->getRepository('PFCDTourismBundle:Session')->find($sessionId);
 
-                    if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
+                    if (!$session)
+                    {
+                        return $this->render('PFCDTourismBundle:Back/Reservation:update.html.twig', array(
+                            'reservation' => $reservation,
+                            'edit_form'   => $editForm->createView(),
+                            'capacity'    => $capacity,
+                            'error'       => true,
+                        ));
+                    }
 
                     $reservation->setSession($session);
                 }
@@ -304,6 +333,20 @@ class ReservationController extends Controller
                         $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.reservationaccepted'));
                     }
                 }
+                elseif ($reservation->getPayment() != null && $reservation->getPayment()->getStatus() == Payment::STATUS_PENDING_P && $prevPersons != $reservation->getPersons())
+                {
+                    // if the payment exist, it was not paid yet and the number of persons have been modified then we recalculate the price
+                    
+                    $payment = $reservation->getPayment();
+                    $oldPrice = $payment->getPrice();
+                    $newPrice = ($oldPrice / $prevPersons) * $reservation->getPersons();
+                    $payment->setPrice($newPrice);
+                    
+                    $em->persist($payment);
+                    $em->flush();
+                    
+                    $this->get('session')->setFlash('alert-warning', $this->get('translator')->trans('alert.warning.paymentpriceupdated', array('%old_price%' => $oldPrice, '%new_price%' => $newPrice)));
+                }
 
                 return $this->redirect($this->generateUrl('back_reservation_read', array('id' => $id)));
             }
@@ -312,6 +355,8 @@ class ReservationController extends Controller
         return $this->render('PFCDTourismBundle:Back/Reservation:update.html.twig', array(
             'reservation' => $reservation,
             'edit_form'   => $editForm->createView(),
+            'capacity'    => $capacity,
+            'error'       => false,
         ));
     }
 
@@ -380,7 +425,7 @@ class ReservationController extends Controller
      * 
      * @Secure(roles="ROLE_USER")
      */
-    public function frontCreateAction($activityId, $sessionId)
+    public function frontCreateAction($sessionId)
     {
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_CREATE;
@@ -391,7 +436,10 @@ class ReservationController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
         
-        $session = $em->getRepository('PFCDTourismBundle:Session')->find($sessionId);
+        $filter['id'] = $sessionId;
+        $filter['status'] = array(Session::STATUS_ENABLED);
+        
+        $session = $em->getRepository('PFCDTourismBundle:Session')->findOneBy($filter);
 
         if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
         
