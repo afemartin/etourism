@@ -300,7 +300,7 @@ back.entity.preview.actions: Lista de acciones disponibles
 ##### Pie
 ################################################################################  
 
-footer.copyrigth: Copyright © %years% %domain% - Creado por <a href="https://github.com/afemartin" target="_blank">afemartin</a>
+footer.copyrigth: Copyright © %year% %domain% - Creado por <a href="https://github.com/afemartin" target="_blank">afemartin</a>
 
 
 ################################################################################
