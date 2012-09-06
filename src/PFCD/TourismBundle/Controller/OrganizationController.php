@@ -120,12 +120,9 @@ class OrganizationController extends Controller
      */
     public function backPreviewAction($id)
     {
-        $filter['id'] = $id;
-        $filter['status'] = array(Organization::STATUS_ENABLED, Organization::STATUS_LOCKED);
-        
         $em = $this->getDoctrine()->getEntityManager();
 
-        $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
+        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
 
         if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
         
@@ -134,24 +131,12 @@ class OrganizationController extends Controller
             throw new AccessDeniedException();
         }
         
-        unset($filter);
-        $filter['organization'] = $id;
-        $filter['status'] = Activity::STATUS_ENABLED;
+        $locale = $this->get('session')->getLocale();
+
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($locale, $id, null, array(Activity::STATUS_ENABLED), null, 'a.created', 'DESC', 2);
         
-        $orderBy['created'] = 'DESC';
-        
-        $limit = 2;
-        
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter, $orderBy, $limit);
-        
-        unset($filter);
-        $filter['organization'] = $id;
-        $filter['status'] = Article::STATUS_ENABLED;
-        
-        $orderBy['created'] = 'DESC';
-        
-        $articles = $em->getRepository('PFCDTourismBundle:Article')->findBy($filter, $orderBy, $limit);
-        
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($locale, $id, null, array(Article::STATUS_ENABLED), null, 'a.created', 'DESC', 2);
+
         $this->get('session')->setFlash('alert-info', $this->get('translator')->trans('alert.info.organizationpreview'));
         
         return $this->render('PFCDTourismBundle:Back/Organization:preview.html.twig', array(
