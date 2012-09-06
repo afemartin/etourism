@@ -49,7 +49,7 @@
 {% else %}
 <h2>{{ 'front.activity.read.availability'|trans }}</h2>
 <div class="info-calendar row">
-    <div class="span9">{{ 'front.activity.read.nosessionsfound'|trans({ '%link%': path('front_organization_contact', { 'id': activity.organization.id }) })|raw }}</div>
+    <div class="span9"><i>{{ 'front.activity.read.nosessionsfound'|trans({ '%link%': path('front_organization_contact', { 'id': activity.organization.id }) })|raw }}</i></div>
 </div>
 {% endif %}
 
