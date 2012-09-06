@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ activity.title }} <small><a href="{{ path('front_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></small></h1>
+<h1>{{ activity.title }} <small><a href="{{ path('front_organization_read', { 'id': activity.organization.id }) }}" target="_blank">{{ activity.organization.name }}</a></small></h1>
 <div class="info-container row">
     <div class="info-desc span9">
     {% if app.session.locale in activity.languages %}
@@ -25,12 +25,12 @@
     </div>
             
     <div class="span3">
-        <div class="well well-small">
+        <div class="well">
             <h1>{{ 'Preview'|trans }}</h1>
             <p>{{ 'back.entity.preview.actions'|trans }}</p>
             <p><a class="btn btn-primary" href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.activity.button.update'|trans }}</a></p>
             <p><a class="btn btn-primary" href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.activity.button.media'|trans }}</a></p>
-            <p><a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a></p>
+            <a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a>
         </div>
     </div>
 </div>
