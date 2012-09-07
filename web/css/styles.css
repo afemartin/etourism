@@ -89,6 +89,10 @@ h4 {
     margin-bottom: 0px;
 }
 
+.well .form-horizontal.mini {
+    margin-bottom: -18px;
+}
+
 #login {
     margin-top: 20px;
 }
