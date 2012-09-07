@@ -386,6 +386,7 @@ class OrganizationController extends Controller
         
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_CREATE;
+        $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
         
         $organization = new Organization();
