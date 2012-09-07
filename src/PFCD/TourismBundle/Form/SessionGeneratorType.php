@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Session;
+use PFCD\TourismBundle\Entity\Activity;
 
 class SessionGeneratorType extends AbstractType
 {
@@ -27,8 +28,10 @@ class SessionGeneratorType extends AbstractType
                 'query_builder' => function(EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('a')
                             ->where('a.organization = :organization')
+                            ->andWhere('a.status IN (:status)')
                             ->orderBy('a.title', 'ASC')
-                            ->setParameter('organization', $options['organization']);
+                            ->setParameter('organization', $options['organization'])
+                            ->setParameter('status', array(Activity::STATUS_PENDING, Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
                 }));
         }
 
