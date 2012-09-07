@@ -2,7 +2,7 @@
 
 {% import "PFCDTourismBundle::macros.html.twig" as macros %}
 
-{% set sectiontab = 'activity' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 9: {sorter: false}, 10: {sorter: false}, 11: {sorter: false} }, sortList: [[6,1]] }' %}
+{% set sectiontab = 'activity' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 6: {sorter: false}, 10: {sorter: false}, 11: {sorter: false}, 12: {sorter: false} }, sortList: [[7,1]] }' %}
 
 {% block body %}
 <button class="btn pull-right" onclick="$('#activity_modal_help').modal('show')"><i class="icon-question-sign"></i> {{ 'Help'|trans }}</button>
@@ -20,6 +20,7 @@
             <th>{{ 'Capacity'|trans }}</th>
             <th>{{ 'Duration'|trans }}</th>
             <th>{{ 'Note'|trans }}</th>
+            <th>{{ 'Languages'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
@@ -34,11 +35,12 @@
     {% for activity in activities %}
     <tr class="status-{{ activity.status }}">
         <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}"><i class="icon-eye-open"></i></a></td>
-        <td>{{ activity.title }}</td>
+        <td>{{ activity.title|truncate(50) }}</td>
         <td>{% if activity.price %}{{ activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</td>
         <td>{{ activity.capacity }} {{ 'Persons'|trans }}</td>
         <td>{% if activity.duration %}{{ macros.timeToDuration(activity.duration) }}{% endif %}</td>
         <td>{{ activity.note|truncate(25) }}</td>
+        <td>{% for language in activity.languages %}{{ macros.languageFlag(language) }}{% endfor %}</td>
         <td>{% if activity.created %}{{ activity.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if activity.updated %}{{ activity.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ activity.statusText|trans }}</td>

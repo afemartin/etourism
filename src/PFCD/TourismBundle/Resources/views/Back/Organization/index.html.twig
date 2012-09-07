@@ -1,6 +1,8 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
-{% set sectiontab = 'organization' %}
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
+{% set sectiontab = 'organization' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 7: {sorter: false}, 11: {sorter: false}, 12: {sorter: false} }, sortList: [[8,1]] }' %}
 
 {% block body %}
 <h1>{{ 'back.organization.index.title'|trans }}</h1>
@@ -16,6 +18,7 @@
             <th>{{ 'Acronim'|trans }}</th>
             <th>{{ 'Country'|trans }}</th>
             <th>{{ 'City'|trans }}</th>
+            <th>{{ 'Languages'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
@@ -32,6 +35,7 @@
         <td>{{ organization.acronim }}</td>
         <td>{{ organization.country|country }}</td>
         <td>{{ organization.city }}</td>
+        <td>{% for language in organization.languages %}{{ macros.languageFlag(language) }}{% endfor %}</td>
         <td>{% if organization.created %}{{ organization.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if organization.updated %}{{ organization.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ organization.statusText|trans }}</td>
