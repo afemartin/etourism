@@ -65,6 +65,10 @@
             <td>{% for language in activity.languages %}{{ macros.languageFlag(language) }} {{ language|locale }}{% if not loop.last %} - {% endif %}{% endfor %}</td>
         </tr>
         <tr>
+            <th>{{ 'Note'|trans }}</th>
+            <td>{{ activity.note }}</td>
+        </tr>
+        <tr>
             <th>{{ 'Created'|trans }}</th>
             <td>{{ activity.created|date('Y-m-d H:i:s') }}</td>
         </tr>

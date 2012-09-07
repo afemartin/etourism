@@ -109,6 +109,11 @@ class Activity
     private $video;
     
     /**
+     * @ORM\Column(name="note", type="string", nullable=true)
+     */
+    private $note;
+    
+    /**
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
@@ -478,6 +483,26 @@ class Activity
     public function getVideo()
     {
         return $this->video;
+    }
+    
+    /**
+     * Set note
+     *
+     * @param string $note
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 
     /**

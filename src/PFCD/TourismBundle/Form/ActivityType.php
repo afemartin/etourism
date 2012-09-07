@@ -45,6 +45,7 @@ class ActivityType extends AbstractType
             }
             $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.activity.field.languages.help'));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Image', 'help' => 'form.activity.field.image.help'));
+            $builder->add('note', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.activity.field.note.help'));
             $builder->add('status', 'choice', array('choices' => array(Activity::STATUS_PENDING => 'entity.activity.field.status.' . Activity::STATUS_PENDING, Activity::STATUS_ENABLED => 'entity.activity.field.status.' . Activity::STATUS_ENABLED, Activity::STATUS_LOCKED => 'entity.activity.field.status.' . Activity::STATUS_LOCKED, Activity::STATUS_DELETED => 'entity.activity.field.status.' . Activity::STATUS_DELETED), 'help' => 'form.activity.field.status.help'));
         }
     }
