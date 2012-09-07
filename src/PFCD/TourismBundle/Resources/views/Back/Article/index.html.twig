@@ -5,6 +5,9 @@
 {% set sectiontab = 'news' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 5: {sorter: false}, 6: {sorter: false}, 7: {sorter: false} }, sortList: [[2,1]] }' %}
 
 {% block body %}
+<button class="btn pull-right" onclick="$('#article_modal_help').modal('show')"><i class="icon-question-sign"></i> {{ 'Help'|trans }}</button>
+{{ macros.modalHelp('article')}}
+
 <h1>{{ 'back.article.index.title'|trans }}</h1>
 <p>{{ 'back.article.index.subtitle'|trans }}</p>
 

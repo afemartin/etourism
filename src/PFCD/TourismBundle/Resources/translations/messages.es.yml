@@ -360,6 +360,34 @@ modal.defaultconfirm.back.content: <p>Por favor, asegúrese de que realmente qui
 
 modal.generatesessions.title: ¿Está seguro que quiere generar las siguientes sesiones?
 modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegúrese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br/><p>Si está seguro de ello pulse "Generar"</p>
+
+modal.help.resource.title: Acerca de los recursos
+modal.help.resource.content: >
+  <p>Descripción sobre los recursos</p>
+
+modal.help.activity.title: Acerca de las actividades
+modal.help.activity.content: >
+  <p>Descripción sobre las actividades</p>
+
+modal.help.session.title: Acerca de las sesiones
+modal.help.session.content: >
+  <p>Descripción sobre las sesiones</p>
+
+modal.help.reservation.title: Acerca de los reservas
+modal.help.reservation.content: >
+  <p>Descripción sobre lss reservas</p>
+
+modal.help.payment.title: Acerca de los pagos
+modal.help.payment.content: >
+  <p>Descripción sobre los pagos</p>
+
+modal.help.article.title: Acerca de las noticias
+modal.help.article.content: >
+  <p>Descripción sobre las noticias</p>
+
+modal.help.comment.title: Acerca de los comentarios
+modal.help.comment.content: >
+  <p>Descripción sobre los comentarios</p>
   
 form.user.field.status.help: <b>Pendiente:</b> El usuario se ha registrado en el sistema pero la cuenta no se ha validado aún. No puede acceder a la zona privada de usuario<hr/><b>Activado:</b> El usuario es capaz de crear nuevas reservas y gestionar sus actuales reservas y pagos<hr/><b>Bloqueado:</b> El usuario no puede crear nuevas reservas pero puede gestionar sus actuales reservas y pagos<hr/><b>Eliminado:</b> El usuario no es visible. No puede acceder al panel de administración. No puede acceder a la zona privada de usuario de nuevo
 

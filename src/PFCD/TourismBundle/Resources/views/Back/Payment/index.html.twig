@@ -1,10 +1,15 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
 
 {% set sectiontab = 'payment' %}{% set datepicker = 1 %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 6: {sorter: false}, 9: {sorter: false}, 11: {sorter: false} }, sortList: [[8,1]] }' %}
 
 {% block body %}
+<button class="btn pull-right" onclick="$('#payment_modal_help').modal('show')"><i class="icon-question-sign"></i> {{ 'Help'|trans }}</button>
+{{ macros.modalHelp('payment')}}
+
 <h1>{{ 'back.payment.index.title'|trans }}</h1>
 <p>{{ 'back.payment.index.subtitle'|trans }}</p>
 

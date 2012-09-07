@@ -361,6 +361,34 @@ modal.defaultconfirm.back.content: <p>Please, make sure you really want to perfo
 modal.generatesessions.title: Are you sure you want generate all this sessions?
 modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br/><p>If you are sure about it please click "Generate"</p>
 
+modal.help.resource.title: About the resources
+modal.help.resource.content: >
+  <p>Description about resources</p>
+
+modal.help.activity.title: About the activities
+modal.help.activity.content: >
+  <p>Description about activities</p>
+
+modal.help.session.title: About the sessions
+modal.help.session.content: >
+  <p>Description about sessions</p>
+
+modal.help.reservation.title: About the reservations
+modal.help.reservation.content: >
+  <p>Description about reservations</p>
+
+modal.help.payment.title: About the payments
+modal.help.payment.content: >
+  <p>Description about payments</p>
+
+modal.help.article.title: About the articles
+modal.help.article.content: >
+  <p>Description about articles</p>
+
+modal.help.comment.title: About the comments
+modal.help.comment.content: >
+  <p>Description about comments</p>
+
 form.user.field.status.help: <b>Pending:</b> The user has registered in the system but the account has not been validated yet. Cannot access to the user private section<hr/><b>Enabled:</b> The user is able to make new reservations and manage the current reservations and payments<hr/><b>Locked:</b> The user is not able to make new reservations but it is able to manage the current reservations and payments<hr/><b>Deleted:</b> The user is not visible. Cannot access to the user private section anymore
   
 form.organization.field.logo.help: This image must be the logo of the organization. Please upload an image with an exact width of 160 pixels and smaller than 32Kb

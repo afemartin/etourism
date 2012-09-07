@@ -30,6 +30,18 @@
 </div>
 {% endmacro %}
 
+{% macro modalHelp(entity) %}
+<div id="{{ entity }}_modal_help" class="modal hide">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>{{ ('modal.help.' ~ entity ~ '.title')|trans }}</h3>
+    </div>
+    <div class="modal-body">
+        {{ ('modal.help.' ~ entity ~ '.content')|trans|raw }}
+    </div>
+</div>
+{% endmacro %}
+
 {% macro languageFlag(language) %}
 <img src="{{ asset('img/blank.gif') }}" class="flag flag-{{ language }}" />
 {% endmacro %}

@@ -1,8 +1,13 @@
 {% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
 
+{% import "PFCDTourismBundle::macros.html.twig" as macros %}
+
 {% set sectiontab = 'resource' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 3: {sorter: false}, 7: {sorter: false}, 8: {sorter: false} }, sortList: [[4,0],[1,0]] }' %}
 
 {% block body %}
+<button class="btn pull-right" onclick="$('#resource_modal_help').modal('show')"><i class="icon-question-sign"></i> {{ 'Help'|trans }}</button>
+{{ macros.modalHelp('resource')}}
+
 <h1>{{ 'back.resource.index.title'|trans }}</h1>
 <p>{{ 'back.resource.index.subtitle'|trans }}</p>
 
