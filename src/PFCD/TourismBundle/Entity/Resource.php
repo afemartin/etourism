@@ -55,7 +55,16 @@ class Resource
      * @ORM\Column(name="type", type="smallint")
      */
     private $type;
-   
+
+    /**
+     * @var boolean true means that this resource it is unique and may be shared
+     *              by several activities, so it is necessary to check if it is
+     *              already required by another session of another activity
+     * 
+     * @ORM\Column(name="conflict", type="boolean", nullable=true)
+     */
+    private $conflict;
+    
     /**
      * @ORM\Column(name="created", type="datetime")
      */
@@ -173,6 +182,26 @@ class Resource
     public function getTypeText()
     {
         return $this->type ? 'entity.resource.field.type.' . $this->type : null;
+    }
+    
+    /**
+     * Set conflict
+     *
+     * @param boolean $conflict
+     */
+    public function setConflict($conflict)
+    {
+        $this->conflict = $conflict;
+    }
+
+    /**
+     * Get conflict
+     *
+     * @return boolean 
+     */
+    public function getConflict()
+    {
+        return $this->conflict;
     }
 
     /**

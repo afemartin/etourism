@@ -28,6 +28,10 @@
             <td>{% for activity in resource.activities %}<a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
         </tr>
         <tr>
+            <th>{{ 'Conflict'|trans }}</th>
+            <td>{% if resource.conflict %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
+        </tr>
+        <tr>
             <th>{{ 'Created'|trans }}</th>
             <td>{{ resource.created|date('Y-m-d H:i:s') }}</td>
         </tr>

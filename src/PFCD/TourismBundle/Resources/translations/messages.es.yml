@@ -415,6 +415,7 @@ form.activity.field.status.help: >
 
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
 form.resource.field.note.help: Puede usar este campo para anotar información relevante acerca del recurso
+form.resource.field.conflict.help: Marque esta casilla si quiere comprobar que este recurso no será necesitado para realizar dos o mas actividades al mismo tiempo
 form.resource.field.status.help: <b>Disponible:</b> El recurso está disponible ahora<hr/><b>No disponible:</b> El recurso no está disponible ahora<hr/><b>Eliminado:</b> El recurso no estará disponible de nuevo
 
 form.session.field.note.help: Puede usar este campo para anotar información relevante acerca de la sesión
@@ -557,6 +558,8 @@ Logo: Logotipo
 Donate: Donaciones
 Donatedesc: Contenido de Donaciones
 
+entity.organization.donatedisabled: Para mostrar esta sección tiene que marcar la casilla "Donaciones" y rellenar los campos "Nombre del banco" y "Numero de cuenta bancaria" (además su organización debe estar Activada)
+
 All countries: Todos los países
 
 entity.organization.field.status.0: Pendiente
@@ -608,6 +611,8 @@ Type: Tipo
 Description: Descripción
 Amount: Cantidad
 
+Conflict: Comprobar conflictos
+
 entity.resource.field.type.0: Otro
 entity.resource.field.type.1: Material (interno)
 entity.resource.field.type.2: Humano (interno)
@@ -616,7 +621,7 @@ entity.resource.field.type.4: Humano (externo)
 
 entity.resource.field.status.1: Disponible
 entity.resource.field.status.2: No disponible
-entity.resource.field.status.3: Eliminad
+entity.resource.field.status.3: Eliminado
 
 
 ################################################################################

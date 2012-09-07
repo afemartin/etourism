@@ -2,7 +2,7 @@
 
 {% import "PFCDTourismBundle::macros.html.twig" as macros %}
 
-{% set sectiontab = 'resource' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 3: {sorter: false}, 7: {sorter: false}, 8: {sorter: false} }, sortList: [[4,0],[1,0]] }' %}
+{% set sectiontab = 'resource' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 3: {sorter: false}, 4: {sorter: false}, 8: {sorter: false}, 9: {sorter: false} }, sortList: [[5,0],[1,0]] }' %}
 
 {% block body %}
 <button class="btn pull-right" onclick="$('#resource_modal_help').modal('show')"><i class="icon-question-sign"></i> {{ 'Help'|trans }}</button>
@@ -18,6 +18,7 @@
             <th>{{ 'Name'|trans }}</th>
             <th>{{ 'Type'|trans }}</th>
             <th>{{ 'Note'|trans }}</th>
+            <th>{{ 'Conflict'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
@@ -34,6 +35,7 @@
         <td>{{ resource.name }}</td>
         <td>{{ resource.typeText|trans }}</td>
         <td>{{ resource.note|truncate(50) }}</td>
+        <td>{% if resource.conflict %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
         <td>{% if resource.created %}{{ resource.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if resource.updated %}{{ resource.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ resource.statusText|trans }}</td>

@@ -81,6 +81,10 @@
             <td>{{ organization.phone }}</td>
         </tr>
         <tr>
+            <th>{{ 'Donate'|trans }}</th>
+            <td>{% if organization.donate and organization.bankname and organization.bankaccount and organization.status == 1 %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i> <i>{{ 'entity.organization.donatedisabled'|trans }}</i>{% endif %}</td>
+        </tr>
+        <tr>
             <th>{{ 'Bankname'|trans }}</th>
             <td>{{ organization.bankname }}</td>
         </tr>

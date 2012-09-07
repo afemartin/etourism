@@ -415,6 +415,7 @@ form.activity.field.status.help: >
 
 form.resource.field.name.help: The name of this resource must be clear enough to identify it among all the resources listed at each activity
 form.resource.field.note.help: You can use this field to record relevant information about this resource
+form.resource.field.conflict.help: Mark this box if you want to check that this resource will not be required at the same time by two or more different activities
 form.resource.field.status.help: <b>Available:</b> The resource is available right now<hr/><b>Not available:</b> The resource is not available right now<hr/><b>Deleted:</b> The resource will not be available anymore
 
 form.session.field.note.help: You can use this field to record relevant information about this session
@@ -557,6 +558,8 @@ Logo: Logo
 Donate: Donations
 Donatedesc: Donations content
 
+entity.organization.donatedisabled: To show this section you have to check the "Donations" box and complete the fields "Bank name" and "Bank account number" (also your organization must be Enabled)
+
 All countries: All countries
 
 entity.organization.field.status.0: Pending
@@ -607,6 +610,8 @@ entity.activity.field.status.3: Deleted
 Type: Type
 Description: Description
 Amount: Amount
+
+Conflict: Check conflicts
 
 entity.resource.field.type.0: Other
 entity.resource.field.type.1: Material (internal)
