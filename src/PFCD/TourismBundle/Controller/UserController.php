@@ -13,8 +13,7 @@ use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Form\UserType;
 
 /**
- * User controller.
- *
+ * User controller
  */
 class UserController extends Controller
 {
@@ -176,6 +175,7 @@ class UserController extends Controller
         
         $options['domain'] = Constants::FRONT;
         $options['type'] = Constants::FORM_CREATE;
+        $options['supported_languages'] = $this->container->getParameter('locales');
         
         $user = new User();
         $form = $this->createForm(new UserType(), $user, $options);

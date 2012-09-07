@@ -54,7 +54,9 @@
 
 
 {# Field types #}
-{# Añadimos al final de las fechas el icono de calendario y en los campos de precio tambien #}
+{# Añadimos integracion con los filtros 'country' y 'locale' de SonataIntlBundle #}
+{# Añadimos bootstrap-upload pluging para los ficheros de imágenes #}
+{# Añadimos al final de las fechas el icono de calendario y en los campos de precio quitamos el signo de currency #}
         
 {% block checkbox_widget %}
 {% spaceless %}
@@ -66,7 +68,7 @@
         {% if form.parent.vars.countrylist %}
         {{ label|country }}</label>
         {% elseif form.parent.vars.localelist %}
-        {{ label|locale }}</label>
+        {{ label|locale|capitalize }}</label>
         {% else %}
         {{ label|trans }}</label>
         {% endif %}            
@@ -84,7 +86,7 @@
         {% if form.parent.vars.countrylist %}
         {{ label|country }}</label>
         {% elseif form.parent.vars.localelist %}
-        {{ label|locale }}</label>
+        {{ label|locale|capitalize }}</label>
         {% else %}
         {{ label|trans }}</label>
         {% endif %}  
@@ -147,7 +149,7 @@
             {% if countrylist %}
             <option value="{{ choice }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ label|country }}</option>
             {% elseif localelist %}
-            <option value="{{ choice }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ label|locale }}</option>
+            <option value="{{ choice }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ label|locale|capitalize }}</option>
             {% else %}
             <option value="{{ choice }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ label|trans }}</option>
             {% endif %}

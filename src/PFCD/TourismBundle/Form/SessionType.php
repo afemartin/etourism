@@ -35,9 +35,9 @@ class SessionType extends AbstractType
                 }));
         }
         $builder->add('date', 'date', array('widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
-        $builder->add('time', 'time', array('required' => false, 'hours' => range(23, 0), 'minutes' => range(60-$step, 0, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
+        $builder->add('time', 'time', array('required' => false, 'hours' => range(0, 23), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
         $builder->add('note', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.session.field.note.help'));
-        if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
+        if ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK)
         {
             $builder->add('status', 'choice', array('choices' => array(Session::STATUS_PENDING => 'entity.session.field.status.' . Session::STATUS_PENDING, Session::STATUS_ENABLED => 'entity.session.field.status.' . Session::STATUS_ENABLED, Session::STATUS_LOCKED => 'entity.session.field.status.' . Session::STATUS_LOCKED, Session::STATUS_DELETED => 'entity.session.field.status.' . Session::STATUS_DELETED), 'help' => 'form.session.field.status.help'));
         }

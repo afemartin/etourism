@@ -26,9 +26,6 @@ class PaymentType extends AbstractType
         else
         {
             $builder->add('note', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.payment.field.note.help'));
-        }
-        if ($options['type'] == Constants::FORM_UPDATE && ($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK))
-        {
             $builder->add('status', 'choice', array('choices' => array(Payment::STATUS_PENDING_P => 'entity.payment.field.status.' . Payment::STATUS_PENDING_P, Payment::STATUS_PAID => 'entity.payment.field.status.' . Payment::STATUS_PAID, Payment::STATUS_PENDING_R => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R, Payment::STATUS_REFUNDED => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R), 'help' => 'form.payment.field.status.help'));
         }
     }

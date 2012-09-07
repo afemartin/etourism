@@ -20,10 +20,10 @@ class ArticleType extends AbstractType
         $builder->add('title', 'text', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
+        $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.article.field.languages.help'));
+        $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.article.field.languages.help'));
-            $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
             $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'entity.article.field.status.' . Article::STATUS_PENDING, Article::STATUS_ENABLED => 'entity.article.field.status.' . Article::STATUS_ENABLED, Article::STATUS_DELETED => 'entity.article.field.status.' . Article::STATUS_DELETED), 'help' => 'form.article.field.status.help'));
         }
     }

@@ -29,9 +29,9 @@ class UserType extends AbstractType
             $builder->add('address');
             $builder->add('postalCode');
             $builder->add('phone');
-            $builder->add('locale', 'choice', array('choices' => $options['supported_languages'], 'empty_value' => 'Select your language', 'localelist' => true));
         }
-        if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
+        $builder->add('locale', 'choice', array('choices' => $options['supported_languages'], 'empty_value' => 'Select your language', 'localelist' => true));
+        if ($options['domain'] == Constants::ADMIN)
         {
             $builder->add('status', 'choice', array('choices' => array(User::STATUS_PENDING => 'entity.user.field.status.' . User::STATUS_PENDING, User::STATUS_ENABLED => 'entity.user.field.status.' . User::STATUS_ENABLED, User::STATUS_LOCKED => 'entity.user.field.status.' . User::STATUS_LOCKED, User::STATUS_DELETED => 'entity.user.field.status.' . User::STATUS_DELETED), 'help' => 'form.user.field.status.help'));
         }

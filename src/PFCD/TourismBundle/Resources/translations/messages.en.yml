@@ -537,9 +537,8 @@ entity.user.field.status.3: Deleted
 ##### Organization (Form)
 ################################################################################
 
-Username: Username
 Email: Email
-Name: Name
+Organizationname: Organization name
 Acronim: Acronim
 Country: Country
 City: City

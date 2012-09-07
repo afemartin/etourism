@@ -72,9 +72,12 @@ h4 {
     margin-top: 18px;
 }
 
+.form-horizontal .control-label {
+    height: 18px;
+}
+
 .form-horizontal.mini .control-label {
     width: 80px;
-    height: 18px;
 }
 
 .form-horizontal.mini .controls {

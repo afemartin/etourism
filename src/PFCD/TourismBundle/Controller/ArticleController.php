@@ -57,6 +57,7 @@ class ArticleController extends Controller
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
         $options['language'] = $this->get('session')->getLocale();
+        $options['supported_languages'] = $this->container->getParameter('locales');
         
         $article = new Article();
         $form = $this->createForm(new ArticleType(), $article, $options);
