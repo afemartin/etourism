@@ -33,7 +33,7 @@ class ActivityType extends AbstractType
         {
             if ($options['organization'] != null)
             {
-                $builder->add('resources', 'entity', array('class' => 'PFCDTourismBundle:Resource', 'property' => 'name', 'multiple' => true, 'expanded' => true,
+                $builder->add('resources', 'entity', array('attr' => array('style' => 'display: inline-block'), 'class' => 'PFCDTourismBundle:Resource', 'property' => 'name', 'multiple' => true, 'expanded' => true, 'help' => 'form.activity.field.resources.help',
                     'query_builder' => function(EntityRepository $er) use ($options) {
                         return $er->createQueryBuilder('r')
                                 ->where('r.organization = :organization')

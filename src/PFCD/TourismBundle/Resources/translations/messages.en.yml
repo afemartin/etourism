@@ -375,9 +375,14 @@ form.activity.field.image.help: This image will be display at the list of activi
 form.activity.field.price.help: This will be the price of the activity per person. You can modify it at any time, but payments previously generated keep the previous price
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity. If you reduce the previous capacity make sure that no current sessions will exceed the new capacity
 form.activity.field.duration.help: This is the duration of the activity in hours and minutes. If the activity duration cannot be represented with the given hours, please leave empty this field and specify the duration at the "Full description"
+form.activity.field.resources.help: Select the required resources to do the activity. You can add new resources in the "<i class="icon-wrench icon-white"></i> Resources" section
 form.activity.field.languages.help: These are the languages ​​in which the activity will be displayed to users. Be sure to translate all fields before activating a new language
 form.activity.field.note.help: You can use this field to record relevant and private information about this activity
-form.activity.field.status.help: <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/><b>Enabled:</b> The activity is visible and can receive reservations<hr/><b>Locked:</b> The activity is visible but cannot receive reservations<hr/><b>Deleted:</b> The activity is not visible
+form.activity.field.status.help: >
+  <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/>
+  <b>Enabled:</b> The activity is visible and can receive reservations<hr/>
+  <b>Locked:</b> The activity is visible but cannot receive reservations<hr/>
+  <b>Deleted:</b> The activity is not visible
 
 form.resource.field.name.help: The name of this resource must be clear enough to identify it among all the resources listed at each activity
 form.resource.field.note.help: You can use this field to record relevant information about this resource
