@@ -7,16 +7,16 @@
 {% block body %}
 <div class="row">
     <div class="span">
+        {% if countryfilter %}
+        <form class="form-inline pull-right" style="margin: 5px 0" action="{{ path('front_organization_index') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form.country) }}
+            {{ form_rest(form) }}
+            <button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> {{ 'Search'|trans }}</button>
+        </form>
+        {% endif %}
         <h1>{{ 'front.organization.index.title'|trans }}</h1>
-        <p>{{ 'front.organization.index.subtitle'|trans }}</p>
+        <p>{{ 'front.organization.index.subtitle'|trans({'%link%': path('front_organization_create')})|raw }}</p>
     </div>
-    {% if countryfilter %}
-    <form class="form-inline pull-right" action="{{ path('front_organization_index') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form.country) }}
-        {{ form_rest(form) }}
-        <button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> {{ 'Search'|trans }}</button>
-    </form>
-    {% endif %}
 </div>
 
 {% for organization in organizations %}

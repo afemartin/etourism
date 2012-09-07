@@ -7,16 +7,16 @@
 {% block body %}
 <div class="row">
     <div class="span">
+        {% if countryfilter %}
+        <form class="form-inline pull-right" style="margin: 5px 0" action="{{ path('front_article_index') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form.country) }}
+            {{ form_rest(form) }}
+            <button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> {{ 'Search'|trans }}</button>
+        </form>
+        {% endif %}
         <h1>{{ 'front.article.index.title'|trans }}</h1>
         <p>{{ 'front.article.index.subtitle'|trans }}</p>
     </div>
-    {% if countryfilter %}
-    <form class="form-inline pull-right" action="{{ path('front_article_index') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form.country) }}
-        {{ form_rest(form) }}
-        <button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i> {{ 'Search'|trans }}</button>
-    </form>
-    {% endif %}
 </div>
 
 {% for article in articles %}

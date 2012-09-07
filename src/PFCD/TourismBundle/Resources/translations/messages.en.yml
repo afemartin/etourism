@@ -95,7 +95,7 @@ front.user.update.title: Edit your profile
 front.user.update.subtitle: Use this form to edit your account information
 
 front.organization.index.title: Organization list
-front.organization.index.subtitle: In this list there are all the organizations registered in the system
+front.organization.index.subtitle: In this list there are all the organizations registered in the system. If you know about any cooperation organization that also might be interested on using this webpage to show their activities, please tell them to <a href="%link%">register here</a>
 front.organization.index.noorganizationsfound: There are no organizations yet published in this language
 front.organization.create.title: Join us, register your organization
 front.organization.create.subtitle: Please fill the following information to send the registration request. Our administrator will validate the information before contact you, through the given email address, to ensure everything it is correct

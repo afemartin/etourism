@@ -95,7 +95,7 @@ front.user.update.title: Editar perfil
 front.user.update.subtitle: En cualquier momento puede editar los datos personales de su perfil de usuario
 
 front.organization.index.title: Lista de organizaciones
-front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este proyecto
+front.organization.index.subtitle: En esta lista se encuentran las organizaciones que participan en este proyecto. Si conoce alguna organización de cooperación que también pueda estar interesada en usar esta página para mostrar sus actividades, avíseles que pueden <a href="%link%">registrarse aqui</a>
 front.organization.index.noorganizationsfound: Aún no hay organizaciones publicadas en este idioma
 front.organization.create.title: Únase, registre su organización
 front.organization.create.subtitle: Rellene los siguientes campos del formulario para enviar la solicitud de registro. Nuestro administrador validará la información antes de ponerse en contacto con usted, a través del email indicado, para asegurar que todo es correcto
