@@ -14,7 +14,7 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
             <th>{{ 'Name'|trans }}</th>
             <th>{{ 'Type'|trans }}</th>
             <th>{{ 'Note'|trans }}</th>
@@ -30,7 +30,7 @@
     <tbody>
     {% for resource in resources %}
     <tr class="status-{{ resource.status }}">
-        <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
+        <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}"><i class="icon-eye-open"></i></a></td>
         <td>{{ resource.name }}</td>
         <td>{{ resource.typeText|trans }}</td>
         <td>{{ resource.note|truncate(50) }}</td>

@@ -19,7 +19,7 @@
                     <th colspan="6"><h4><i class="icon-calendar"></i> {{ 'Sessions'|trans }} <small><a href="{{ path('back_session_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
                 </tr>
                 <tr>
-                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'View'|trans }}</th>
                     <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Date'|trans }}</th>
                     <th>{{ 'Time'|trans }}</th>
@@ -30,7 +30,7 @@
             <tbody>
             {% for session in sessions %}
             <tr class="status-{{ session.status }}">
-                <td><a href="{{ path('back_session_read', { 'id': session.id }) }}">{{ session.id }}</a></td>
+                <td><a href="{{ path('back_session_read', { 'id': session.id }) }}"><i class="icon-eye-open"></i></a></td>
                 <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title|truncate(25) }}</a></td>
                 <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
@@ -52,7 +52,7 @@
                     <th colspan="6"><h4><i class="icon-wrench"></i> {{ 'Resources'|trans }} <small><a href="{{ path('back_resource_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
                 </tr>
                 <tr>
-                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'View'|trans }}</th>
                     <th>{{ 'Name'|trans }}</th>
                     <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Session date'|trans }}</th>
@@ -64,7 +64,7 @@
                     {% for activity in resource.activities %}
                         {% for session in activity.sessions %}
                         <tr class="status-{{ resource.status }}">
-                            <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
+                            <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}"><i class="icon-eye-open"></i></a></td>
                             <td>{{ resource.name }}</td>
                             <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title|truncate(25) }}</a></td>
                             <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
@@ -88,7 +88,7 @@
                     <th colspan="9"><h4><i class="icon-book"></i> {{ 'Reservations'|trans }} <small><a href="{{ path('back_reservation_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
                 </tr>
                 <tr>
-                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'View'|trans }}</th>
                     <th>{{ 'User'|trans }}</th>
                     <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Session date'|trans }}</th>
@@ -102,7 +102,7 @@
             <tbody>
                 {% for reservation in reservations %}
                 <tr class="status-{{ reservation.status }}">
-                    <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
+                    <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}"><i class="icon-eye-open"></i></a></td>
                     <td>{% if reservation.user %}<a href="{{ path('back_user_read', { 'id': reservation.user.id }) }}">{{ reservation.user.firstname }}</a>{% endif %}</td>
                     <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(50) }}</a></td>
                     <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
@@ -123,7 +123,7 @@
                     <th colspan="10"><h4><i class="icon-inbox"></i> {{ 'Payments'|trans }} <small><a href="{{ path('back_payment_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
                 </tr>
                 <tr>
-                    <th>{{ 'Id'|trans }}</th>
+                    <th>{{ 'View'|trans }}</th>
                     <th>{{ 'User'|trans }}</th>
                     <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Session date'|trans }}</th>
@@ -138,7 +138,7 @@
             <tbody>
                 {% for payment in payments %}
                 <tr class="status-{{ payment.status }}">
-                    <td><a href="{{ path('back_payment_read', { 'id': payment.id }) }}">{{ payment.id }}</a></td>
+                    <td><a href="{{ path('back_payment_read', { 'id': payment.id }) }}"><i class="icon-eye-open"></i></a></td>
                     <td>{% if payment.reservation.user %}<a href="{{ path('back_user_read', { 'id': payment.reservation.user.id }) }}">{{ payment.reservation.user.firstname }}</a>{% endif %}</td>
                     <td><a href="{{ path('back_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title|truncate(50) }}</a></td>
                     <td>{% if payment.reservation.session.date %}{{ payment.reservation.session.date|date('Y-m-d') }}{% endif %}</td>

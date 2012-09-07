@@ -9,14 +9,8 @@
 <p>{{ 'back.session.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
-    <colgroup>
-        <col class="first-column">
-    </colgroup>
+    <colgroup class="first-column"></colgroup>
     <tbody>
-        <tr>
-            <th>{{ 'Id'|trans }}</th>
-            <td>{{ session.id }}</td>
-        </tr>
         <tr>
             <th>{{ 'Activity'|trans }}</th>
             <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title }}</a></td>

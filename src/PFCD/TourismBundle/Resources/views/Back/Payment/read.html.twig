@@ -7,14 +7,8 @@
 <p>{{ 'back.payment.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
-    <colgroup>
-        <col class="first-column">
-    </colgroup>
+    <colgroup class="first-column"></colgroup>
     <tbody>
-        <tr>
-            <th>{{ 'Id'|trans }}</th>
-            <td>{{ payment.id }}</td>
-        </tr>
         <tr>
             <th>{{ 'User'|trans }}</th>
             <td>{% if payment.reservation.user %}<a href="{{ path('back_user_read', { 'id': payment.reservation.user.id }) }}">{{ payment.reservation.user.fullname }}</a> ({{ payment.reservation.user.email }}){% endif %}</td>

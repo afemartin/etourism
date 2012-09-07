@@ -9,7 +9,7 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
             <th>{{ 'Email'|trans }}</th>
             <th>{{ 'Firstname'|trans }}</th>
             <th>{{ 'Lastname'|trans }}</th>
@@ -28,7 +28,7 @@
     <tbody>
     {% for user in users %}
     <tr class="status-{{ user.status }}">
-        <td><a href="{{ path('back_user_read', { 'id': user.id }) }}">{{ user.id }}</a></td>
+        <td><a href="{{ path('back_user_read', { 'id': user.id }) }}"><i class="icon-eye-open"></i></a></td>
         <td>{{ user.email }}</td>
         <td>{{ user.firstname }}</td>
         <td>{{ user.lastname }}</td>

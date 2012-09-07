@@ -40,7 +40,7 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
             <th>{{ 'Activity'|trans }}</th>
             <th>{{ 'Date'|trans }}</th>
             <th>{{ 'Time'|trans }}</th>
@@ -58,7 +58,7 @@
     <tbody>
     {% for session in sessions %}
     <tr class="status-{{ session.status }}">
-        <td><a href="{{ path('back_session_read', { 'id': session.id }) }}">{{ session.id }}</a></td>
+        <td><a href="{{ path('back_session_read', { 'id': session.id }) }}"><i class="icon-eye-open"></i></a></td>
         <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title|truncate(25) }}</a></td>
         <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
         <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>

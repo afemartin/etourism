@@ -14,7 +14,7 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
             <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Title'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
@@ -23,13 +23,13 @@
             <th>{{ 'Organization'|trans }}</th>
             {% endif %}
             <th colspan="2">{{ 'Edit'|trans }}</th>
-            <th>{{ 'View'|trans }}</th>
+            <th>{{ 'View list'|trans }}</th>
         </tr>
     </thead>
     <tbody>
     {% for article in articles %}
     <tr class="status-{{ article.status }}">
-        <td><a href="{{ path('back_article_read', { 'id': article.id }) }}">{{ article.id }}</a></td>
+        <td><a href="{{ path('back_article_read', { 'id': article.id }) }}"><i class="icon-eye-open"></i></a></td>
         <td>{{ article.title }}</td>
         <td>{% if article.created %}{{ article.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if article.updated %}{{ article.updated|date('Y-m-d') }}{% endif %}</td>

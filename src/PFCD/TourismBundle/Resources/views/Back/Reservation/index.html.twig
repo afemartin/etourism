@@ -40,7 +40,7 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'View'|trans }}</th>
             <th>{{ 'User'|trans }}</th>
             <th>{{ 'Activity'|trans }}</th>
             <th>{{ 'Session'|trans }}</th>
@@ -56,7 +56,7 @@
     <tbody>
     {% for reservation in reservations %}
     <tr class="status-{{ reservation.status }}">
-        <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
+        <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}"><i class="icon-eye-open"></i></a></td>
         <td>{% if reservation.user %}<a href="{{ path('back_user_read', { 'id': reservation.user.id }) }}">{{ reservation.user.firstname }}</a>{% endif %}</td>
         <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(25) }}</a></td>
         <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %} {% if reservation.session.time %}({{ reservation.session.time|date('H:i') }}){% endif %}</td>

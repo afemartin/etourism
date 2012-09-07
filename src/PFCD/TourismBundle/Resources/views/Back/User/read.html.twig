@@ -9,18 +9,8 @@
 <p>{{ 'back.user.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
-    <colgroup>
-        <col class="first-column">
-    </colgroup>
+    <colgroup class="first-column"></colgroup>
     <tbody>
-        <tr>
-            <th>{{ 'Id'|trans }}</th>
-            <td>{{ user.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Email'|trans }}</th>
-            <td>{{ user.email }}</td>
-        </tr>
         <tr>
             <th>{{ 'Firstname'|trans }}</th>
             <td>{{ user.firstname }}</td>
@@ -28,6 +18,10 @@
         <tr>
             <th>{{ 'Lastname'|trans }}</th>
             <td>{{ user.lastname }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Email'|trans }}</th>
+            <td>{{ user.email }}</td>
         </tr>
         <tr>
             <th>{{ 'Birthday'|trans }}</th>

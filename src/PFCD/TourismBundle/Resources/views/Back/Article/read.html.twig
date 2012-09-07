@@ -9,14 +9,8 @@
 <p>{{ 'back.article.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
-    <colgroup>
-        <col class="first-column">
-    </colgroup>
+    <colgroup class="first-column"></colgroup>
     <tbody>
-        <tr>
-            <th>{{ 'Id'|trans }}</th>
-            <td>{{ article.id }}</td>
-        </tr>
         {% if is_granted('ROLE_ADMIN') %}
         <tr>
             <th>{{ 'Organization'|trans }}</th>

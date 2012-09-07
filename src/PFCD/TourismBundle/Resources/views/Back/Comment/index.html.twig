@@ -2,7 +2,7 @@
 
 {% import "PFCDTourismBundle::macros.html.twig" as macros %}
 
-{% set sectiontab = 'comment' %}{% set tablesorter = '{ headers: { 0: {sorter: false}, 3: {sorter: false}, 6: {sorter: false}, 7: {sorter: false} }, sortList: [[4,1]] }' %}
+{% set sectiontab = 'comment' %}{% set tablesorter = '{ headers: { 2: {sorter: false}, 5: {sorter: false}, 6: {sorter: false} }, sortList: [[3,1]] }' %}
 
 {% block body %}
 <button class="btn pull-right" onclick="$('#comment_modal_help').modal('show')"><i class="icon-question-sign"></i> {{ 'Help'|trans }}</button>
@@ -14,20 +14,18 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th>{{ 'Id'|trans }}</th>
             <th>{{ 'Topic'|trans }}</th>
             <th>{{ 'Author'|trans }}</th>
             <th>{{ 'Comment'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Status'|trans }}</th>
-            <th>{{ 'View'|trans }}</th>
+            <th>{{ 'View list'|trans }}</th>
             <th>{{ 'Edit'|trans }}</th>
         </tr>
     </thead>
     <tbody>
     {% for comment in comments %}
     <tr class="status-{{ comment.status }}">
-        <td>{{ comment.id }}</td>
         <td>{% if comment.activity %}<i class="icon-leaf"></i> <a href="{{ path('back_activity_read', { 'id': comment.activity.id }) }}">{{ comment.activity.title|truncate(25) }}</a>{% elseif comment.article %}<i class="icon-bullhorn"></i> <a href="{{ path('back_article_read', { 'id': comment.article.id }) }}">{{ comment.article.title|truncate(25) }}</a>{% endif %}</td>
         <td>{% if comment.user %}<i class="icon-user"></i> <a href="{{ path('back_user_read', { 'id': comment.user.id }) }}">{{ comment.user.fullname }}</a>{% elseif comment.organization %}<i class="icon-globe"></i> {{ comment.organization.name }}{% else %}<i class="icon-star"></i> {{ 'Administrator'|trans }}{% endif %}</td>
         <td>{{ comment.comment|truncate(75) }}</td>
