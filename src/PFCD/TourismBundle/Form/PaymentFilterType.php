@@ -17,11 +17,11 @@ class PaymentFilterType extends AbstractType
     {
         if ($options['domain'] == Constants::ADMIN)
         {
-            $builder->add('activity', 'entity', array('required' => false, 'class' => 'PFCDTourismBundle:Activity', 'property' => 'title', 'empty_value' => 'Select an activity'));
+            $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'required' => false, 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'empty_value' => 'Select an activity'));
         }
         elseif ($options['domain'] == Constants::BACK && $options['organization'] != null)
         {
-            $builder->add('activity', 'entity', array('required' => false, 'class' => 'PFCDTourismBundle:Activity', 'property' => 'title', 'empty_value' => 'Select an activity',
+            $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'required' => false, 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'empty_value' => 'Select an activity',
                 'query_builder' => function(EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('a')
                             ->where('a.organization = :organization')
