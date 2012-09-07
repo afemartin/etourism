@@ -6,17 +6,11 @@
     <div class="tab-content">
         <div class="tab-pane fade in active" id="tab1">
             {% for activity in activities %}
-                <table>
-                    <tr>
-                        <td valign="top">
-                            <img class="thumbnail pull-left hidden-tablet" style="margin-right: 5px; width: 80px" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/80x80&text=no+image{% endif %}" />
-                        </td>
-                        <td valign="top">
-                            <h6><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h6>
-                            {{ activity.shortDesc|truncate(100) }}
-                        </td>
-                    </tr>
-                </table>
+                <div style="display: inline-block">
+                    <img class="thumbnail pull-left hidden-tablet" style="margin: 2px 8px 2px 0; width: 80px" alt="{{ activity.title }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/80x80&text=no+image{% endif %}" />
+                    <h6><a href="{{ path('front_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a></h6>
+                    {{ activity.shortDesc|truncate(100) }}
+                </div>
                 {% if not loop.last %}
                 <hr style="margin: 9px 0" />
                 {% endif %}
