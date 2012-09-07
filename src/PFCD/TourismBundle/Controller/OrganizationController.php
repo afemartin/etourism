@@ -517,7 +517,7 @@ class OrganizationController extends Controller
 
         $organization = $em->getRepository('PFCDTourismBundle:Organization')->findOneBy($filter);
         
-        if (!$organization || !$organization->getDonate()) throw $this->createNotFoundException('Unable to find Organization entity.');
+        if (!$organization || !$organization->getDonate() || !$organization->getBankName() || !$organization->getBankAccount()) throw $this->createNotFoundException('Unable to find Organization entity.');
         
         return $this->render('PFCDTourismBundle:Front/Organization:donate.html.twig', array(
             'organization' => $organization

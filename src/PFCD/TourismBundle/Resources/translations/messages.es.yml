@@ -163,6 +163,7 @@ front.payment.summary.price: Precio
 front.payment.summary.status: Estado
 front.payment.help.title: Modos de pago
 front.payment.help.banktransfer: Puede pagar via transferencia bancaria a nuestra cuenta usando los siguientes datos<br/>&bullet; Banco "%bankname%"<br/>&bullet; Número de cuenta "%bankaccount%"
+front.payment.help.nobankinfo: El pago via "Transferencia bancaria" no está disponible todavía para esta organización. Si quiere saber más acerca de este tipo de pago puede enviar un comentario acerca de ello a la organización
 front.payment.help.cash: Puede pagar en efectivo en el momento de realizar la actividad
 front.payment.read.title: Detalles del pago
 front.payment.read.subtitle: En esta lista se muestra información detallada sobre el pago

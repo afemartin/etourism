@@ -163,6 +163,7 @@ front.payment.summary.price: Price
 front.payment.summary.status: Status
 front.payment.help.title: Payment methods
 front.payment.help.banktransfer: You can pay via bank transfer to our bank account using the following information<br/>&bullet; Bank "%bankname%"<br/>&bullet; Account number "%bankaccount%"
+front.payment.help.nobankinfo: The "bank transfer" payment method it is not available for this organization yet. If you wanted to know more about this payment method you can send a comment to the organization about it
 front.payment.help.cash: You can pay with cash at the moment you start the activity
 front.payment.read.title: Payment details
 front.payment.read.subtitle: In this list there are detailed information stored about your payment

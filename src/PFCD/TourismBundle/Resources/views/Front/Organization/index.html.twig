@@ -29,7 +29,7 @@
         <div style="margin: 5px 0 0 5px">
             <h5><i class="icon-leaf"></i> <a href="{{ path('front_organization_activities', { 'id': organization.id }) }}">{{ 'Activities'| trans}}</a></h5>
             <h5><i class="icon-bullhorn"></i> <a href="{{ path('front_organization_articles', { 'id': organization.id }) }}">{{ 'News'| trans}}</a></h5>
-            {% if organization.donate and organization.status == 1 %}
+            {% if organization.donate and organization.bankname and organization.bankaccount and organization.status == 1 %}
             <h5><i class="icon-gift"></i> <a href="{{ path('front_organization_donate', { 'id': organization.id }) }}">{{ 'Donate'| trans}}</a></h5>
             {% endif %}
             {% if organization.webpage %}

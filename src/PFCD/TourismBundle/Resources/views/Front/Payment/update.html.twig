@@ -8,7 +8,7 @@
 
 <div class="well">
     <h3>{{ 'front.payment.summary.title'|trans }}:</h3>
-    <hr style="margin-top: 0"/>
+    <hr style="margin: 0 0 5px"/>
     <p><b>{{ 'front.payment.summary.organization'|trans }}</b>: {{ payment.reservation.session.activity.organization.name }}</p>
     <p><b>{{ 'front.payment.summary.activity'|trans }}</b>: {{ payment.reservation.session.activity.title }}</p>
     <p><b>{{ 'front.payment.summary.sessiondate'|trans }}</b>: {{ payment.reservation.session.date|date('Y-m-d') }}</p>
@@ -17,9 +17,20 @@
     <p><b>{{ 'front.payment.summary.price'|trans }}</b>: {{ payment.price|number_format_currency(payment.currency) }} {% if payment.reservation.persons > 1 %}<small>({{ (payment.price/payment.reservation.persons)|number_format_currency(payment.reservation.session.activity.currency) }}/{{ 'Person'|trans }})</small>{% endif %}</p>
     <p><b>{{ 'front.payment.summary.status'|trans }}</b>: {{ payment.statusText|trans }}</p>
     <h3>{{ 'front.payment.help.title'|trans }}:</h3>
-    <hr style="margin-top: 0"/>
-    <p><b>{{ 'Bank transfer'|trans }}</b>: {{ 'front.payment.help.banktransfer'|trans({'%bankname%': payment.reservation.session.activity.organization.bankname, '%bankaccount%': payment.reservation.session.activity.organization.bankaccount})|raw }}</p>
-    <p><b>{{ 'Cash'|trans }}</b>: {{ 'front.payment.help.cash'|trans }}</p>
+    <hr style="margin: 0 0 5px"/>
+    <p>
+        {% if payment.reservation.session.activity.organization.donate and payment.reservation.session.activity.organization.bankname and payment.reservation.session.activity.organization.bankaccount and payment.reservation.session.activity.organization.status == 1 %}
+            <b>{{ 'Bank transfer'|trans }}</b>:
+            {{ 'front.payment.help.banktransfer'|trans({'%bankname%': payment.reservation.session.activity.organization.bankname, '%bankaccount%': payment.reservation.session.activity.organization.bankaccount})|raw }}
+        {% else %}
+            <b><del>{{ 'Bank transfer'|trans }}</del></b>:
+            <i class="icon-warning-sign"></i> <i>{{ 'front.payment.help.nobankinfo'|trans }}</i>
+        {% endif %}
+    </p>
+    <p>
+        <b>{{ 'Cash'|trans }}</b>:
+        {{ 'front.payment.help.cash'|trans }}
+    </p>
 </div>
 
 <form class="form-horizontal" action="{{ path('front_payment_update', { 'id': payment.id }) }}" method="post" {{ form_enctype(edit_form) }}>
