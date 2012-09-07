@@ -207,7 +207,7 @@ class Payment
     /**
      * Set note
      *
-     * @param integer $note
+     * @param string $note
      */
     public function setNote($note)
     {
@@ -217,7 +217,7 @@ class Payment
     /**
      * Get note
      *
-     * @return integer 
+     * @return string 
      */
     public function getNote()
     {
