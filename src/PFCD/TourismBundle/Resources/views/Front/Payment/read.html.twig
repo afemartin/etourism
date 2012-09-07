@@ -5,14 +5,25 @@
 <p>{{ 'front.payment.read.subtitle'|trans }}</p>
 
 <table class="table table-condensed">
+    <colgroup>
+        <col class="first-column">
+    </colgroup>
     <tbody>
         <tr>
             <th>{{ 'Organization'|trans }}</th>
-            <td>{{ payment.reservation.session.activity.organization.name }}</a></td>
+            {% if payment.reservation.session.activity.organization.status == 1 or payment.reservation.session.activity.organization.status == 2 %}
+            <td><a href="{{ path('front_organization_read', { 'id': payment.reservation.session.activity.organization.id }) }}">{{ payment.reservation.session.activity.organization.name }}</a></td>
+            {% else %}
+            <td>{{ payment.reservation.session.activity.organization.name }}</td>
+            {% endif %}
         </tr>
         <tr>
             <th>{{ 'Activity'|trans }}</th>
+            {% if payment.reservation.session.activity.status == 1 or payment.reservation.session.activity.status == 2 %}
+            <td><a href="{{ path('front_activity_read', { 'id': payment.reservation.session.activity.id }) }}">{{ payment.reservation.session.activity.title }}</a></td>
+            {% else %}
             <td>{{ payment.reservation.session.activity.title }}</td>
+            {% endif %}
         </tr>
         <tr>
             <th>{{ 'Persons'|trans }}</th>

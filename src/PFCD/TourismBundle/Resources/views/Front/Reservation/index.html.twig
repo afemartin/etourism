@@ -21,7 +21,11 @@
     {% for reservation in reservations %}
     <tr class="status-{{ reservation.status }}">
         <td style="text-align:center"><a href="{{ path('front_reservation_read', { 'id': reservation.id }) }}"><i class="icon-eye-open"></i></a></td>
+        {% if reservation.session.activity.status == 1 or reservation.session.activity.status == 2 %}
         <td><a href="{{ path('front_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(50) }}</a></td>
+        {% else %}
+        <td>{{ reservation.session.activity.title|truncate(50) }}</td>
+        {% endif %}
         <td style="text-align:center">{{ reservation.persons }}</td>
         <td style="text-align:center">{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}{% if reservation.session.time %} ({{ reservation.session.time|date('H:i') }}){% endif %}</td>
         <td style="text-align:center">{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
