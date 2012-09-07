@@ -23,6 +23,10 @@
             <td>{{ article.organization.name }}</td>
         </tr>
         {% endif %}
+        <tr>
+            <th>{{ 'Image'|trans }}</th>
+            <td><img width="160px" alt="{{ article.image }}" src="{% if article.image %}{{ asset(article.image) }}{% else %}http://placehold.it/160x120&text=no+image{% endif %}" /></td>
+        </tr>
         {% for language, fields in translations %}
             {% for field, value in fields %}
                 <tr>

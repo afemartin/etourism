@@ -23,6 +23,10 @@
             <td>{{ activity.organization.name }}</td>
         </tr>
         {% endif %}
+        <tr>
+            <th>{{ 'Image'|trans }}</th>
+            <td><img width="160px" alt="{{ activity.image }}" src="{% if activity.image %}{{ asset(activity.image) }}{% else %}http://placehold.it/160x120&text=no+image{% endif %}" /></td>
+        </tr>
         {% for language, fields in translations %}
             {% for field, value in fields %}
                 <tr>

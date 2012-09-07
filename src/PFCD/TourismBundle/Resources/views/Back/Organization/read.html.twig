@@ -35,6 +35,10 @@
             <th>{{ 'Acronim'|trans }}</th>
             <td>{{ organization.acronim }}</td>
         </tr>
+        <tr>
+            <th>{{ 'Logo'|trans }}</th>
+            <td><img width="160px" alt="{{ organization.name }}" src="{% if organization.logo %}{{ asset(organization.logo) }}{% else %}http://placehold.it/160x120&text=no+image{% endif %}" /></td>
+        </tr>
         {% for language, fields in translations %}
             {% for field, value in fields %}
                 <tr>
