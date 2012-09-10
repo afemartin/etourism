@@ -390,7 +390,11 @@ modal.help.comment.title: Acerca de los comentarios
 modal.help.comment.content: >
   <p>Descripción sobre los comentarios</p>
   
-form.user.field.status.help: <b>Pendiente:</b> El usuario se ha registrado en el sistema pero la cuenta no se ha validado aún. No puede acceder a la zona privada de usuario<hr/><b>Activado:</b> El usuario es capaz de crear nuevas reservas y gestionar sus actuales reservas y pagos<hr/><b>Bloqueado:</b> El usuario no puede crear nuevas reservas pero puede gestionar sus actuales reservas y pagos<hr/><b>Eliminado:</b> El usuario no es visible. No puede acceder al panel de administración. No puede acceder a la zona privada de usuario de nuevo
+form.user.field.status.help: >
+  <b>Pendiente:</b> El usuario se ha registrado en el sistema pero la cuenta no se ha validado aún. No puede acceder a la zona privada de usuario<hr/>
+  <b>Activado:</b> El usuario es capaz de crear nuevas reservas y gestionar sus actuales reservas y pagos<hr/>
+  <b>Bloqueado:</b> El usuario no puede crear nuevas reservas pero puede gestionar sus actuales reservas y pagos<hr/>
+  <b>Eliminado:</b> El usuario no es visible. No puede acceder al panel de administración. No puede acceder a la zona privada de usuario de nuevo
 
 form.organization.field.logo.help: Esta imagen debe ser el logo de la organización. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
 form.organization.field.bankname.help: Este es el nombre de su banco al cual los usuarios realizarán el pago via transferencia bancaria
@@ -398,7 +402,11 @@ form.organization.field.bankaccount.help: Este es el número de su cuenta bancar
 form.organization.field.donate.help: Marque esta casilla si quiere activar la sección "Donaciones". Asegúrese de haber rellenado previamente "Contenido de Donaciones" en todos los idiomas soportados además de "Nombre del banco" y "Número de cuenta bancaria"
 form.organization.field.locale.help: Este es el idioma en el que se mostrará el panel de administración y en el que recibirá los email de alerta
 form.organization.field.languages.help: Estos son los idiomas en los que la organización se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
-form.organization.field.status.help: <b>Pendiente:</b> La organización se ha registrado recientemente. No puede acceder al panel de administración<hr/><b>Activada:</b> La organización es visible y puede recibir reservas y donaciones<hr/><b>Bloqueada:</b> La organización es visible pero no puede recibir nuevas reservas ni donaciones<hr/><b>Eliminada:</b> La organización no es visible. No puede acceder al panel de administración
+form.organization.field.status.help: >
+  <b>Pendiente:</b> La organización se ha registrado recientemente. No puede acceder al panel de administración<hr/>
+  <b>Activada:</b> La organización es visible y puede recibir reservas y donaciones<hr/>
+  <b>Bloqueada:</b> La organización es visible pero no puede recibir nuevas reservas ni donaciones<hr/>
+  <b>Eliminada:</b> La organización no es visible. No puede acceder al panel de administración
 
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
 form.activity.field.price.help: Este es el precio de la actividad por persona. Puede modificarlo en cualquier momento, pero los pagos generados previamente mantendrán el precio anterior
@@ -416,21 +424,39 @@ form.activity.field.status.help: >
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
 form.resource.field.note.help: Puede usar este campo para anotar información relevante acerca del recurso
 form.resource.field.conflict.help: Marque esta casilla si quiere comprobar que este recurso no será necesitado para realizar dos o mas actividades al mismo tiempo
-form.resource.field.status.help: <b>Disponible:</b> El recurso está disponible ahora<hr/><b>No disponible:</b> El recurso no está disponible ahora<hr/><b>Eliminado:</b> El recurso no estará disponible de nuevo
+form.resource.field.status.help: >
+  <b>Disponible:</b> El recurso está disponible ahora<hr/>
+  <b>No disponible:</b> El recurso no está disponible ahora<hr/>
+  <b>Eliminado:</b> El recurso no estará disponible de nuevo
 
 form.session.field.note.help: Puede usar este campo para anotar información relevante acerca de la sesión
-form.session.field.status.help: <b>Pendiente:</b> La sesión no es visible<hr/><b>Activada:</b> La sesión es visible y admite reservas<hr/><b>Bloqueada:</b> La sesión es visible pero no admite reservas<hr/><b>Eliminada:</b> La sesión no es visible
+form.session.field.status.help: >
+  <b>Pendiente:</b> La sesión no es visible<hr/>
+  <b>Activada:</b> La sesión es visible y admite reservas<hr/>
+  <b>Bloqueada:</b> La sesión es visible pero no admite reservas<hr/>
+  <b>Eliminada:</b> La sesión no es visible
 
 form.reservation.field.persons.help: Si incrementa/decrementa el número de personas, el precio del pago (si está pendiente de pagar) será automáticamente incrementado/decrementado proporcionalmente
 form.reservation.field.note.help: Puede usar este campo para anotar información relevante acerca de la reserva
-form.reservation.field.status.help: <b>Solicitada:</b> La reserva es solicitada por el usuario<hr/><b>Aceptada:</b> La reserva es aceptada por la organización (si la actividad tiene precio se generará el "pago" correspondiente de manera automática)<hr/><b>Rechazada:</b> La reserva es rechazada por la organización<hr/><b>Cancelada:</b> La reserva es cancelada por el usuario antes o después de ser aceptada
+form.reservation.field.status.help: >
+  <b>Solicitada:</b> La reserva es solicitada por el usuario<hr/>
+  <b>Aceptada:</b> La reserva es aceptada por la organización (si la actividad tiene precio se generará el "pago" correspondiente de manera automática)<hr/>
+  <b>Rechazada:</b> La reserva es rechazada por la organización<hr/>
+  <b>Cancelada:</b> La reserva es cancelada por el usuario antes o después de ser aceptada
 
 form.payment.field.note.help: Puede usar este campo para anotar información relevante acerca del pago
 form.payment.field.price.help: Este precio ha sido calculado automaticamente en base al precio de la actividad y al número de personas. NO LO MODIFIQUE a menos que esté completamente seguro de ello
-form.payment.field.status.help: <b>Pago pendiente:</b> La reserva aceptada generará automáticamente el pago pendiente a la espera de que el usuario lo pague<hr/><b>Pagado:</b> La organización ha recibido el pago del usuario<hr/><b>Devolución pendiente:</b> El usuario ha cancelado la reserva después de haber pagado, por lo tanto la organización deberá devolver el dinero del pago<hr/><b>Devuelto:</b> La organización ha devuelto el dinero del pago al usuario
+form.payment.field.status.help: >
+  <b>Pago pendiente:</b> La reserva aceptada generará automáticamente el pago pendiente a la espera de que el usuario lo pague<hr/>
+  <b>Pagado:</b> La organización ha recibido el pago del usuario<hr/>
+  <b>Devolución pendiente:</b> El usuario ha cancelado la reserva después de haber pagado, por lo tanto la organización deberá devolver el dinero del pago<hr/>
+  <b>Devuelto:</b> La organización ha devuelto el dinero del pago al usuario
 
 form.article.field.languages.help: Estos son los idiomas en los que la noticia se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
-form.article.field.status.help: <b>Pendiente:</b> La noticia no es visible (solo en modo "Vista previa")<hr/><b>Activada:</b> La noticia es visible<hr/><b>Eliminada:</b> La noticia no es visible
+form.article.field.status.help: >
+  <b>Pendiente:</b> La noticia no es visible (solo en modo "Vista previa")<hr/>
+  <b>Activada:</b> La noticia es visible<hr/>
+  <b>Eliminada:</b> La noticia no es visible
 
 form.media.field.video.help: YOUTUBE - Sigue los siguientes pasos para generar el código para insertar el vídeo y pegarlo en este campo
 
