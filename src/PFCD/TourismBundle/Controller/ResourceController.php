@@ -10,7 +10,7 @@ use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Form\ResourceType;
 
 /**
- * Resource controller.
+ * Resource controller
  */
 class ResourceController extends Controller
 {
@@ -33,7 +33,7 @@ class ResourceController extends Controller
         else
         {
             $organization = $this->get('security.context')->getToken()->getUser()->getId();
-            $resources = $em->getRepository('PFCDTourismBundle:Resource')->findByOrganization($organization);
+            $resources = $em->getRepository('PFCDTourismBundle:Resource')->findByOrganization($organization, array(Resource::STATUS_ENABLED));
         }
 
         return $this->render('PFCDTourismBundle:Back/Resource:index.html.twig', array(
@@ -48,6 +48,12 @@ class ResourceController extends Controller
     {
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
+                
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            // parameter used to filter and show only the resources that belong to the logged organization
+            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
         
         $resource = new Resource();
         $form = $this->createForm(new ResourceType(), $resource, $options);
@@ -61,14 +67,7 @@ class ResourceController extends Controller
             if ($form->isValid())
             {
                 $em = $this->getDoctrine()->getEntityManager();
-
-                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-                {
-                    $id = $this->get('security.context')->getToken()->getUser()->getId();
-                    $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-                    $resource->setOrganization($organization);
-                }
-
+                
                 $em->persist($resource);
                 $em->flush();
 
@@ -125,7 +124,7 @@ class ResourceController extends Controller
         $resource = $em->getRepository('PFCDTourismBundle:Resource')->findOneBy($filter);
 
         if (!$resource) throw $this->createNotFoundException('Unable to find Resource entity.');
-
+        
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         
@@ -139,6 +138,9 @@ class ResourceController extends Controller
 
             if ($editForm->isValid())
             {
+                
+                // TODO: Check for conflict in case the locked date range is modified
+                
                 $em->persist($resource);
                 $em->flush();
 

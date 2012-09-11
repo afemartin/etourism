@@ -184,17 +184,17 @@ class Organization implements AdvancedUserInterface
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="activity")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="organization")
      */
     private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity="Resource", mappedBy="resource")
+     * @ORM\OneToMany(targetEntity="ResourceCategory", mappedBy="organization")
      */
     private $resources;
     
     /**
-     * @ORM\OneToMany(targetEntity="Article", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="organization")
      */
     private $articles;
             

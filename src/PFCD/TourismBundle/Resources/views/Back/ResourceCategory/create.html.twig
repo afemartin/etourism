@@ -1,0 +1,41 @@
+{% extends 'PFCDTourismBundle:Back:layout.html.twig' %}
+
+{% form_theme form 'PFCDTourismBundle:Form:fields.html.twig' %}
+
+{% set sectiontab = 'resource' %}{% set helptooltip = 1 %}
+
+{% block body %}
+<h1>{{ 'back.resourcecategory.create.title'|trans }}</h1>
+<p>{{ 'back.resourcecategory.create.subtitle'|trans }}</p>
+
+<div class="row">
+    <div class="span9">
+        <form class="form-horizontal" action="{{ path('back_resource_category_create') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+            <div class="form-actions">
+                <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> {{ 'Create'|trans }}</button>
+                <a class="btn btn-inverse" href="{{ path('back_resource_index') }}"><i class="icon-remove icon-white"></i> {{ 'Cancel'|trans }}</a>
+                <span class='field-required-desc'>*</span> <b>{{ 'form.field.required.help'|trans }}</b>
+            </div>
+        </form>
+    </div>
+    <div class="span3">
+        <div class="well well-small">
+            <table class="table table-bordered table-condensed" style="margin: 0">
+                <thead>
+                    <tr>
+                        <th>{{ 'Categories'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td><a href="{{ path('back_resource_category_read', { 'id': category.id }) }}"><i class="icon-eye-open"></i></a> {{ category.name }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

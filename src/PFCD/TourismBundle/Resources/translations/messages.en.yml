@@ -268,6 +268,11 @@ back.resource.read.subtitle: In this list there is detailed information stored a
 back.resource.update.title: Resource edit
 back.resource.update.subtitle: Use this form to edit the resource information
 
+back.resourcecategory.create.title: Category creation
+back.resourcecategory.create.subtitle: Use this form to create manually a new category
+back.resourcecategory.read.title: Category details
+back.resourcecategory.read.subtitle: In this list there is detailed information stored about this category
+
 back.statistic.title: Statistics
 back.statistic.subtitle: These are the graphs of the most important information about the obtained results
 
@@ -339,9 +344,11 @@ alert.success.reservationaccepted: The payment for the activity has been created
 alert.success.paymentupdated: The payment has been updated and an email has been sent to the organization with your comment about the payment
 alert.warning.paymentpriceupdated: Payment price has change from %old_price% to %new_price%, you should check that everything it is correct and then contact with the user that made this reservation
 
-alert.error.deleteorganization: You cannot delete the Organization since there are some associated Activities that you must to delete first
-alert.error.deleteactivity: You cannot delete the Activity since there are some associated Sessions that you must to delete first
-alert.error.deletesession: You cannot delete the Session since there are some associated Reservations that you must to reject or cancel first
+alert.error.deleteorganization: You cannot delete the Organization since there are some associated Activities that you must to delete before
+alert.error.deleteactivity: You cannot delete the Activity since there are some associated Sessions that you must to delete before
+alert.error.deletesession: You cannot delete the Session since there are some associated Reservations that you must to reject or cancel before
+
+alert.error.deletecategory: You cannot delete the Category since there are some associated Resources that you must to delete before
 
 alert.success.updatesettings: Your changes have been saved successfully
 
@@ -433,6 +440,11 @@ form.resource.field.status.help: >
   <b>Not available:</b> The resource is not available right now<hr/>
   <b>Deleted:</b> The resource will not be available anymore
 
+form.resourcecategory.field.name.help: The name of this category must short and clear enough to classify all the resources that can be used independently for the same activity
+form.resourcecategory.field.status.help: >
+  <b>Enabled:</b> The category is available to create new associated resources<hr/>
+  <b>Deleted:</b> The category is not available
+
 form.session.field.note.help: You can use this field to record relevant information about this session
 form.session.field.status.help: >
   <b>Pending:</b> The session is not visible<hr/>
@@ -505,6 +517,9 @@ Activities: Activities
 
 Article: Article
 Articles: Articles
+
+Category: Category
+Categories: Categories
 
 Resource: Resource
 Resources: Resources
@@ -643,14 +658,15 @@ Amount: Amount
 
 Conflict: Check conflicts
 
-entity.resource.field.type.0: Other
-entity.resource.field.type.1: Material (internal)
-entity.resource.field.type.2: Human (internal)
-entity.resource.field.type.3: Material (external)
-entity.resource.field.type.4: Human (external)
+Datestartlock: Lock start date
+Dateendlock: Lock end date
+
+Select a category: Select a category
+
+entity.resourcecategory.field.status.1: Enabled
+entity.resourcecategory.field.status.3: Deleted
 
 entity.resource.field.status.1: Available
-entity.resource.field.status.2: Not available
 entity.resource.field.status.3: Deleted
 
 
@@ -859,6 +875,8 @@ back.resource.button.create: Create a new resource
 back.resource.button.read: Show this resource
 back.resource.button.update: Edit this resource
 back.resource.button.delete: Delete this resource
+
+back.resourcecategory.button.create: Create a new category
 
 back.article.button.index: Back to the list
 back.article.button.create: Create an article

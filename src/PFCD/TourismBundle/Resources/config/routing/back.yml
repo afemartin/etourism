@@ -177,9 +177,18 @@ back_resource_create:
     pattern:  /resource/new
     defaults: { _controller: "PFCDTourismBundle:Resource:backCreate" }
 
+back_resource_category_create:
+    pattern:  /resource/category/new
+    defaults: { _controller: "PFCDTourismBundle:ResourceCategory:backCreate" }
+
 back_resource_read:
     pattern:  /resource/{id}
     defaults: { _controller: "PFCDTourismBundle:Resource:backRead" }
+    requirements: { _method: get, id: \d+ }
+
+back_resource_category_read:
+    pattern:  /resource/category/{id}
+    defaults: { _controller: "PFCDTourismBundle:ResourceCategory:backRead" }
     requirements: { _method: get, id: \d+ }
 
 back_resource_update:
@@ -190,6 +199,11 @@ back_resource_update:
 back_resource_delete:
     pattern:  /resource/{id}/delete
     defaults: { _controller: "PFCDTourismBundle:Resource:backDelete" }
+    requirements: { _method: post, id: \d+ }
+
+back_resource_category_delete:
+    pattern:  /resource/category/{id}/delete
+    defaults: { _controller: "PFCDTourismBundle:ResourceCategory:backDelete" }
     requirements: { _method: post, id: \d+ }
 
 

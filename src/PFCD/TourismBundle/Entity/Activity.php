@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Session;
-use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Entity\Image;
 
@@ -141,12 +140,6 @@ class Activity
     private $sessions;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Resource", inversedBy="activities")
-     * @ORM\JoinTable(name="activity_resource")
-     */
-    private $resources;
-    
-    /**
      * @ORM\Column(name="languages", type="string", nullable=true)
      */
     private $languages;
@@ -161,7 +154,6 @@ class Activity
         $this->status = self::STATUS_PENDING;
         $this->gallery = new ArrayCollection();
         $this->sessions = new ArrayCollection();
-        $this->resources = new ArrayCollection();
         $this->comments = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
@@ -626,16 +618,6 @@ class Activity
     }
 
     /**
-     * Add resources
-     *
-     * @param Resource $resources
-     */
-    public function addResource(Resource $resources)
-    {
-        $this->resources[] = $resources;
-    }
-
-    /**
      * Set languages
      *
      * @param array $languages
@@ -653,16 +635,6 @@ class Activity
     public function getLanguages()
     {
         return explode('|', $this->languages);
-    }
-    
-    /**
-     * Get resources
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getResources()
-    {
-        return $this->resources;
     }
     
     /**

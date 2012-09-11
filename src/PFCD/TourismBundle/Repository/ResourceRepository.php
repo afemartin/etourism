@@ -9,32 +9,26 @@ use PFCD\TourismBundle\Entity\Reservation;
 class ResourceRepository extends EntityRepository
 {
 
-    public function findAllFiltered($organization = null, $resource = null, $dateStart = null, $dateEnd = null, $status = null)
+    public function findAllRequired($organization = null, $dateStart = null, $dateEnd = null, $status = null)
     {
         $qb = $this->createQueryBuilder('r');
         
-        $qb->select('r, a, s');
+        $qb->select('r, c, s');
         
-        $qb->innerJoin('r.activities', 'a');
+        $qb->innerJoin('r.category', 'c');
         $qb->where('1 = 1');
-        
-        if ($resource !== null)
-        {
-            $qb->andWhere('r.id = :resource');
-            $qb->setParameter('resource', $resource);
-        }
         
         if ($organization !== null)
         {
-            $qb->andWhere('a.organization = :organization');
+            $qb->andWhere('c.organization = :organization');
             $qb->setParameter('organization', $organization);
         }
         
-        $qb->innerJoin('a.sessions', 's');
+        $qb->innerJoin('r.sessions', 's');
         $qb->innerJoin('s.reservations', 'r2');
         $qb->andWhere('r2.status = :status');
         $qb->setParameter('status', Reservation::STATUS_ACCEPTED);
-            
+        
         if ($dateStart !== null)
         {
             $qb->andWhere('s.date >= :start_date');
@@ -53,10 +47,24 @@ class ResourceRepository extends EntityRepository
             $qb->setParameter('status', $status);
         }
 
-//        $qb->orderBy('r.updated', 'DESC');
-
-        // var_dump($qb->getDQL());
-        // var_dump($qb->getQuery()->getSQL());
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function findByOrganization($organization, $status = null)
+    {
+        $qb = $this->createQueryBuilder('r');
+        
+        $qb->select('r, c');
+        
+        $qb->innerJoin('r.category', 'c');
+        $qb->andWhere('c.organization = :organization');
+        $qb->setParameter('organization', $organization);
+        
+        if ($status !== null && !empty($status))
+        {
+            $qb->andWhere('r.status IN (:status)');
+            $qb->setParameter('status', $status);
+        }
 
         return $qb->getQuery()->getResult();
     }

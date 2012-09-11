@@ -16,7 +16,7 @@
         <tr>
             <th>{{ 'View'|trans }}</th>
             <th>{{ 'Name'|trans }}</th>
-            <th>{{ 'Type'|trans }}</th>
+            <th>{{ 'Category'|trans }}</th>
             <th>{{ 'Note'|trans }}</th>
             <th>{{ 'Conflict'|trans }}</th>
             <th>{{ 'Created'|trans }}</th>
@@ -33,14 +33,14 @@
     <tr class="status-{{ resource.status }}">
         <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}"><i class="icon-eye-open"></i></a></td>
         <td>{{ resource.name }}</td>
-        <td>{{ resource.typeText|trans }}</td>
+        <td><a href="{{ path('back_resource_category_read', { 'id': resource.category.id }) }}">{{ resource.category.name }}</a></td>
         <td>{{ resource.note|truncate(50) }}</td>
         <td>{% if resource.conflict %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
         <td>{% if resource.created %}{{ resource.created|date('Y-m-d') }}{% endif %}</td>
         <td>{% if resource.updated %}{{ resource.updated|date('Y-m-d') }}{% endif %}</td>
         <td>{{ resource.statusText|trans }}</td>
         {% if is_granted('ROLE_ADMIN') %}
-        <td><a href="{{ path('back_organization_read', { 'id': resource.organization.id }) }}">{{ resource.organization.name }}</a></td>
+        <td><a href="{{ path('back_organization_read', { 'id': resource.category.organization.id }) }}">{{ resource.category.organization.name }}</a></td>
         {% endif %}
         <td><a href="{{ path('back_resource_update', { 'id': resource.id }) }}"><i class="icon-edit"></i></a></td>
     </tr>
@@ -48,5 +48,6 @@
     </tbody>
 </table>
 
+<a class="btn btn-primary" href="{{ path('back_resource_category_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.resourcecategory.button.create'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_resource_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.resource.button.create'|trans }}</a>
 {% endblock %}

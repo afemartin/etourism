@@ -5,9 +5,9 @@ namespace PFCD\TourismBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use PFCD\TourismBundle\Entity\Organization;
-
-use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Resource;
+use PFCD\TourismBundle\Entity\ResourceCategory;
+use PFCD\TourismBundle\Entity\Session;
 
 /**
  * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\ResourceRepository")
@@ -16,15 +16,8 @@ use PFCD\TourismBundle\Entity\Activity;
  */
 class Resource
 {
-    const TYPE_UNKNOWN      = 0;
-    const TYPE_MATERIAL_INT = 1;
-    const TYPE_HUMAN_INT    = 2;
-    const TYPE_MATERIAL_EXT = 3;
-    const TYPE_HUMAN_EXT    = 4;
-
-    const STATUS_ENABLED = 1;   // The resource is available rigth now
-    const STATUS_LOCKED  = 2;   // The resource is not available rigth now
-    const STATUS_DELETED = 3;   // The resource wont be available anymore
+    const STATUS_ENABLED = 1;   // The resource category is enabled
+    const STATUS_DELETED = 3;   // The resource category is not visible
     
     /**
      * @ORM\Id
@@ -34,10 +27,10 @@ class Resource
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="resources")
-     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="ResourceCategory", inversedBy="resources")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    private $organization;
+    private $category;
 
     /**
      * @ORM\Column(name="name", type="string", length=128)
@@ -50,13 +43,6 @@ class Resource
     private $note;
 
     /**
-     * @var integer $status 0=>Unknown, 1=>Material (internal), 2=>Human (internal), 3=>Material (external), 4=>Human (external)
-     * 
-     * @ORM\Column(name="type", type="smallint")
-     */
-    private $type;
-
-    /**
      * @var boolean true means that this resource it is unique and may be shared
      *              by several activities, so it is necessary to check if it is
      *              already required by another session of another activity
@@ -64,6 +50,16 @@ class Resource
      * @ORM\Column(name="conflict", type="boolean", nullable=true)
      */
     private $conflict;
+    
+    /**
+     * @ORM\Column(name="date_start_lock", type="date", nullable=true)
+     */
+    private $dateStartLock;
+    
+    /**
+     * @ORM\Column(name="date_end_lock", type="date", nullable=true)
+     */
+    private $dateEndLock;
     
     /**
      * @ORM\Column(name="created", type="datetime")
@@ -83,14 +79,14 @@ class Resource
     private $status;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Activity", mappedBy="resources")
+     * @ORM\ManyToMany(targetEntity="Session", mappedBy="resources")
      */
-    private $activities;
+    private $sessions;
 
     public function __construct()
     {
         $this->status = self::STATUS_ENABLED;
-        $this->activities = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
@@ -155,36 +151,6 @@ class Resource
     }
 
     /**
-     * Set type
-     *
-     * @param smallint $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * Get type
-     *
-     * @return smallint 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-    
-    /**
-     * Get type in human readable mode
-     *
-     * @return string
-     */
-    public function getTypeText()
-    {
-        return $this->type ? 'entity.resource.field.type.' . $this->type : null;
-    }
-    
-    /**
      * Set conflict
      *
      * @param boolean $conflict
@@ -202,6 +168,46 @@ class Resource
     public function getConflict()
     {
         return $this->conflict;
+    }
+    
+    /**
+     * Set dateStartLock
+     *
+     * @param date $dateStartLock
+     */
+    public function setDateStartLock($dateStartLock)
+    {
+        $this->dateStartLock = $dateStartLock;
+    }
+
+    /**
+     * Get dateStartLock
+     *
+     * @return date 
+     */
+    public function getDateStartLock()
+    {
+        return $this->dateStartLock;
+    }
+    
+    /**
+     * Set dateEndLock
+     *
+     * @param date $dateEndLock
+     */
+    public function setDateEndLock($dateEndLock)
+    {
+        $this->dateEndLock = $dateEndLock;
+    }
+
+    /**
+     * Get dateEndLock
+     *
+     * @return date 
+     */
+    public function getDateEndLock()
+    {
+        return $this->dateEndLock;
     }
 
     /**
@@ -275,43 +281,43 @@ class Resource
     }
 
     /**
-     * Set organization
+     * Set category
      *
-     * @param Organization $organization
+     * @param ResourceCategory $category
      */
-    public function setOrganization(Organization $organization)
+    public function setCategory(ResourceCategory $category)
     {
-        $this->organization = $organization;
+        $this->category = $category;
     }
 
     /**
-     * Get organization
+     * Get category
      *
-     * @return Organization 
+     * @return ResourceCategory 
      */
-    public function getOrganization()
+    public function getCategory()
     {
-        return $this->organization;
+        return $this->category;
     }
 
     /**
-     * Add activities
+     * Add sessions
      *
-     * @param Activity $activities
+     * @param Session $sessions
      */
-    public function addActivity(Activity $activities)
+    public function addSession(Session $sessions)
     {
-        $this->activities[] = $activities;
+        $this->sessions[] = $sessions;
     }
 
     /**
-     * Get activities
+     * Get sessions
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getActivities()
+    public function getSessions()
     {
-        return $this->activities;
+        return $this->sessions;
     }
 
 }

@@ -11,6 +11,16 @@
 <table class="table table-striped table-bordered table-condensed">
     <colgroup class="first-column"></colgroup>
     <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+        <tr>
+            <th>{{ 'Organization'|trans }}</th>
+            <td>{{ resource.category.organization.name }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>{{ 'Category'|trans }}</th>
+            <td>{{ resource.category.name }}</td>
+        </tr>
         <tr>
             <th>{{ 'Name'|trans }}</th>
             <td>{{ resource.name }}</td>
@@ -20,12 +30,43 @@
             <td>{{ resource.note }}</td>
         </tr>
         <tr>
-            <th>{{ 'Type'|trans }}</th>
-            <td>{{ resource.typeText|trans }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'Activities'|trans }}</th>
-            <td>{% for activity in resource.activities %}<a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
+            <th>{{ 'Sessions'|trans }}</th>
+            <td>
+                {% if resource.sessions|length > 0 %}
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th>{{ 'View'|trans }}</th>
+                            <th>{{ 'Activity'|trans }}</th>
+                            <th>{{ 'Date'|trans }}</th>
+                            <th>{{ 'Time'|trans }}</th>
+                            <th>{{ 'Persons'|trans }}</th>
+                            <th>{{ 'Capacity'|trans }}</th>
+                            <th>{{ 'Note'|trans }}</th>
+                            <th>{{ 'Status'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for session in resource.sessions %}
+                    <tr class="status-{{ session.status }}">
+                        <td><a href="{{ path('back_session_read', { 'id': session.id }) }}"><i class="icon-eye-open"></i></a></td>
+                        <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title|truncate(25) }}</a></td>
+                        <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
+                        <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
+                        {% set total_persons = 0 %}
+                        {% for reservation in session.reservations %}
+                        {% set total_persons = total_persons + reservation.persons %}
+                        {% endfor %}
+                        <td>{{ total_persons }}</td>
+                        <td>{{ ((total_persons/session.activity.capacity)*100)|number_format }}%</td>
+                        <td>{{ session.note|truncate(25) }}</td>
+                        <td>{{ session.statusText|trans }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <th>{{ 'Conflict'|trans }}</th>

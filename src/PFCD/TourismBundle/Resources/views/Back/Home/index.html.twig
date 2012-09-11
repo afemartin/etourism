@@ -24,6 +24,7 @@
                     <th>{{ 'Date'|trans }}</th>
                     <th>{{ 'Time'|trans }}</th>
                     <th>{{ 'Persons'|trans }}</th>
+                    <th>{{ 'Capacity'|trans }}</th>
                     <th>{{ 'Status'|trans }}</th>
                 </tr>
             </thead>
@@ -38,7 +39,8 @@
                 {% for reservation in session.reservations %}
                 {% set total_persons = total_persons + reservation.persons %}
                 {% endfor %}
-                <td>{{ total_persons }} ({{ (total_persons/session.activity.capacity)*100 }}%)</td>
+                <td>{{ total_persons }}</td>
+                <td>{{ ((total_persons/session.activity.capacity)*100)|number_format }}%</td>
                 <td>{{ session.statusText|trans }}</td>
             </tr>
             {% endfor %}
