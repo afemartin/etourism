@@ -104,14 +104,18 @@ class OrganizationController extends Controller
             throw new AccessDeniedException();
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $enableFormView = ($organization->getStatus() == Organization::STATUS_PENDING || $organization->getStatus() == Organization::STATUS_LOCKED) ? $this->createChangeStatusForm($id, Organization::STATUS_ENABLED)->createView() : null;        
+        $lockFormView = ($organization->getStatus() == Organization::STATUS_ENABLED) ? $this->createChangeStatusForm($id, Organization::STATUS_LOCKED)->createView() : null;
+        $deleteFormView = ($organization->getStatus() != Organization::STATUS_DELETED) ? $this->createChangeStatusForm($id, Organization::STATUS_DELETED)->createView() : null;
 
         $translations = $em->getRepository('StofDoctrineExtensionsBundle:Translation')->findTranslations($organization);
         
         return $this->render('PFCDTourismBundle:Back/Organization:read.html.twig', array(
             'organization' => $organization,
             'translations' => $translations,
-            'delete_form'  => $deleteForm->createView(),
+            'enable_form'  => $enableFormView,
+            'lock_form'    => $lockFormView,
+            'delete_form'  => $deleteFormView,
         ));
     }
     
@@ -280,7 +284,7 @@ class OrganizationController extends Controller
                     
                     $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.changepassword'));
                     
-                    return $this->redirect($this->generateUrl('back_organization_read', array('id'=>$id)));
+                    return $this->redirect($this->generateUrl('back_organization_read', array('id' => $id)));
                 }
                 else
                 {
@@ -297,13 +301,13 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Deletes a Organization entity
+     * Changes the status of the Organization entity
      * 
      * @Secure(roles="ROLE_ADMIN")
      */
-    public function backDeleteAction($id)
+    public function backStatusAction($id, $status)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createChangeStatusForm($id, $status);
         
         $request = $this->getRequest();
 
@@ -315,13 +319,54 @@ class OrganizationController extends Controller
             $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
 
             if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
-
-            if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
+            
+            switch ($status)
             {
-                throw new AccessDeniedException();
+                case Organization::STATUS_ENABLED:
+                    if ($organization->getStatus() != Organization::STATUS_PENDING && $organization->getStatus() != Organization::STATUS_LOCKED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Organization::STATUS_LOCKED:
+                    if ($organization->getStatus() != Organization::STATUS_ENABLED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Organization::STATUS_DELETED:
+                    if ($organization->getStatus() == Organization::STATUS_DELETED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    
+                    $filter['organization'] = $organization->getId();
+                    $filter['status'] = array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED);
+                    
+                    $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter);
+                    
+                    if ($activities)
+                    {
+                        $error = $this->get('translator')->trans('alert.error.deleteorganization') . ':';
+                        
+                        $error .= '<ul>';
+                        foreach ($activities as $activity) $error .= '<li>' . $activity->getTitle() . ' (' . $this->get('translator')->trans($activity->getStatusText()) . ')</li>';
+                        $error .= '</ul>';
+                            
+                        $this->get('session')->setFlash('alert-error', $error);
+                        
+                        return $this->redirect($this->generateUrl('back_organization_read', array('id' => $id)));
+                    }
+                    break;
+                    
+                default:
+                    throw new AccessDeniedException();
+                    break;
             }
 
-            $organization->setStatus(Organization::STATUS_DELETED);
+            $organization->setStatus($status);
             $em->persist($organization);
             $em->flush();
         }
@@ -586,9 +631,9 @@ class OrganizationController extends Controller
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/
     
-    private function createDeleteForm($id)
+    private function createChangeStatusForm($id, $status)
     {
-        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
+        return $this->createFormBuilder(array('id' => $id, 'status' => $status))->add('id', 'hidden')->add('status', 'hidden')->getForm();
     }
     
     /**

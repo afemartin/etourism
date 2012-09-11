@@ -339,6 +339,8 @@ alert.success.reservationaccepted: El pago para la actividad ha sido creado con 
 alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un email a la organización con su comentario acerca del pago
 alert.warning.paymentpriceupdated: El precio del pago ha cambiado de %old_price% a %new_price%, debería comprobar que todo es correcto y contactar con el usuario que realizó esta reserva
 
+alert.error.deleteorganization: No puede eliminar la Organización ya que existen algunas Actividades asociadas que debe eliminar primero
+  
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
 alert.error.reservation.lockeduser: Su cuenta de usuario está bloqueada. Por este motivo no puede crear nuevas reservas. Para más información <a href="%link%">contacte</a> con el administrador
@@ -356,8 +358,8 @@ popover.generatesessions.title: Generar múltiples sesiones
 popover.generatesessions.content: En esta sección puede generar un conjunto de sesiones siguiendo un patrón
 
 modal.defaultconfirm.title: ¿Está seguro que quiere realizar esta acción?
-modal.defaultconfirm.front.content: <p>Esta acción no es reversible. Por favor, asegurese de que realmente quiere realizar esta acción</p>
-modal.defaultconfirm.back.content: <p>Por favor, asegúrese de que realmente quiere realizar esta acción</p>
+modal.defaultconfirm.front.content: <p>Esta acción <b>no es reversible</b>. Por favor, asegúrese de que realmente quiere realizar esta acción</p>
+modal.defaultconfirm.back.content: <p>Esta acción <b>no es reversible</b>. Por favor, asegúrese de que realmente quiere realizar esta acción</p>
 
 modal.generatesessions.title: ¿Está seguro que quiere generar las siguientes sesiones?
 modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegúrese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br/><p>Si está seguro de ello pulse "Generar"</p>
@@ -809,7 +811,9 @@ back.organization.button.read: Mostrar esta organización
 back.organization.button.preview: Vista previa
 back.organization.button.update: Editar información
 back.organization.button.media: Editar multimedia
-back.organization.button.delete: Eliminar esta organización
+back.organization.button.enable: Activar
+back.organization.button.lock: Bloquear
+back.organization.button.delete: Eliminar
 
 back.activity.button.index: Volver atrás
 back.activity.button.create: Añadir una nueva actividad

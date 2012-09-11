@@ -56,10 +56,6 @@ class OrganizationType extends AbstractType
             $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.organization.field.languages.help'));
             $builder->add('file', 'file', array('required' => false, 'label' => 'Logo', 'help' => 'form.organization.field.logo.help'));
         }
-        if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_UPDATE)
-        {
-            $builder->add('status', 'choice', array('choices' => array(Organization::STATUS_PENDING => 'entity.organization.field.status.' . Organization::STATUS_PENDING, Organization::STATUS_ENABLED => 'entity.organization.field.status.' . Organization::STATUS_ENABLED, Organization::STATUS_LOCKED => 'entity.organization.field.status.' . Organization::STATUS_LOCKED, Organization::STATUS_DELETED => 'entity.organization.field.status.' . Organization::STATUS_DELETED), 'help' => 'form.organization.field.status.help'));
-        }
     }
     
     public function getDefaultOptions(array $options)

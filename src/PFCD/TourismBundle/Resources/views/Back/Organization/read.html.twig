@@ -106,7 +106,36 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ organization.statusText|trans }} <a data-original-title="{{ 'form.organization.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>
+                {{ organization.statusText|trans }} <a data-original-title="{{ 'form.organization.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% if delete_form %}
+                    <div class="pull-right">
+                        <form id="delete_organization_form" style="margin: 0 0 0 5px;" action="{{ path('back_organization_status', { 'id': organization.id, 'status': delete_form.vars.value.status }) }}" method="post">
+                            {{ form_widget(delete_form) }}
+                            <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.organization.button.delete'|trans }}</button>
+                        </form>
+                    </div>
+                    {{ macros.modalConfirm('delete_organization_form', 'delete_modal') }}
+                    {% endif %}
+                    {% if lock_form %}
+                    <div class="pull-right">
+                        <form style="margin: 0 0 0 5px;" action="{{ path('back_organization_status', { 'id': organization.id, 'status': lock_form.vars.value.status }) }}" method="post">
+                            {{ form_widget(lock_form) }}
+                            <button class="btn btn-mini" type="submit"><i class="icon-ban-circle"></i> {{ 'back.organization.button.lock'|trans }}</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                    {% if enable_form %}
+                    <div class="pull-right">
+                        <form style="margin: 0 0 0 5px;" action="{{ path('back_organization_status', { 'id': organization.id, 'status': enable_form.vars.value.status }) }}" method="post">
+                            {{ form_widget(enable_form) }}
+                            <button class="btn btn-mini btn-success" type="submit"><i class="icon-ok-circle icon-white"></i> {{ 'back.organization.button.enable'|trans }}</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
@@ -114,17 +143,9 @@
 <a class="btn btn-primary" href="{{ path('back_organization_update', { 'id': organization.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.organization.button.update'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_organization_media', { 'id': organization.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.organization.button.media'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_organization_security', { 'id': organization.id }) }}"><i class="icon-lock icon-white"></i> {{ 'Change password'|trans }}</a>
-{% if is_granted('ROLE_ADMIN') %}
-<a class="btn btn-inverse" href="{{ path('back_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.organization.button.index'|trans }}</a>
-{% endif %}
 <a class="btn btn-info" href="{{ path('back_organization_preview', { 'id': organization.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.organization.button.preview'|trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
-<form id="delete_organization_form" class="pull-right" action="{{ path('back_organization_delete', { 'id': organization.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.organization.button.delete'|trans }}</button>
-</form>
-
-{{ macros.modalConfirm('delete_organization_form', 'delete_modal') }}
+<a class="btn btn-inverse pull-right" href="{{ path('back_organization_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.organization.button.index'|trans }}</a>
 {% endif %}
 {% endblock %}
 

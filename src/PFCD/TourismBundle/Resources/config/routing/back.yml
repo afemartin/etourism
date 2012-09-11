@@ -114,10 +114,10 @@ back_organization_security:
     pattern:  /organization/{id}/security
     defaults: { _controller: "PFCDTourismBundle:Organization:backSecurity" }
 
-back_organization_delete:
-    pattern:  /organization/{id}/delete
-    defaults: { _controller: "PFCDTourismBundle:Organization:backDelete" }
-    requirements: { _method: post, id: \d+ }
+back_organization_status:
+    pattern:  /organization/{id}/status/{status}
+    defaults: { _controller: "PFCDTourismBundle:Organization:backStatus" }
+    requirements: { _method: post, id: \d+, status: \d+ }
 
 
 ################################################################################
