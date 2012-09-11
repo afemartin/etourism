@@ -13,6 +13,7 @@ use PFCD\TourismBundle\Entity\SessionGenerator;
 use PFCD\TourismBundle\Form\SessionGeneratorType;
 use PFCD\TourismBundle\Entity\SessionFilter;
 use PFCD\TourismBundle\Form\SessionFilterType;
+use PFCD\TourismBundle\Entity\Reservation;
 
 /**
  * Session controller
@@ -265,11 +266,15 @@ class SessionController extends Controller
             }
         }
         
-        $deleteForm = $this->createDeleteForm($id);
+        $enableFormView = ($session->getStatus() == Session::STATUS_LOCKED) ? $this->createChangeStatusForm($id, Session::STATUS_ENABLED)->createView() : null;        
+        $lockFormView = ($session->getStatus() == Session::STATUS_ENABLED) ? $this->createChangeStatusForm($id, Session::STATUS_LOCKED)->createView() : null;
+        $deleteFormView = ($session->getStatus() != Session::STATUS_DELETED) ? $this->createChangeStatusForm($id, Session::STATUS_DELETED)->createView() : null;
 
         return $this->render('PFCDTourismBundle:Back/Session:read.html.twig', array(
             'session'     => $session,
-            'delete_form' => $deleteForm->createView(),
+            'enable_form'  => $enableFormView,
+            'lock_form'    => $lockFormView,
+            'delete_form'  => $deleteFormView,
         ));
     }
     
@@ -326,11 +331,11 @@ class SessionController extends Controller
     }
 
     /**
-     * Deletes a Session entity
+     * Changes the status of the Session entity
      */
-    public function backDeleteAction($id)
+    public function backStatusAction($id, $status)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createChangeStatusForm($id, $status);
         
         $request = $this->getRequest();
 
@@ -353,8 +358,63 @@ class SessionController extends Controller
                     throw new AccessDeniedException();
                 }
             }
+            
+            switch ($status)
+            {
+                case Session::STATUS_ENABLED:
+                    if ($session->getStatus() != Session::STATUS_LOCKED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Session::STATUS_LOCKED:
+                    if ($session->getStatus() != Session::STATUS_ENABLED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Session::STATUS_DELETED:
+                    if ($session->getStatus() == Session::STATUS_DELETED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    
+                    $dateStart = new \DateTime();
+                    $dateStart->sub(new \DateInterval('P7D'));
+                    $dateStart->setTime(0, 0, 0);
+                    
+                    // if the session is an old one you can delete the session without have to check if there is any reservation requested or accepted
+                    if ($session->getDate() > $dateStart)
+                    {
+                        $filter['session'] = $session->getId();
+                        $filter['status'] = array(Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED);
+
+                        // since there can be a lot of existing reservations we will only display the 10 first reservations found
+                        $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findBy($filter, null, 10);
+
+                        if ($reservations)
+                        {
+                            $error = $this->get('translator')->trans('alert.error.deletesession') . ':';
+
+                            $error .= '<ul>';
+                            foreach ($reservations as $reservation) $error .= '<li>' .  $this->get('translator')->trans('Reservation') . ' [ ' . ($reservation->getUser() ? ($reservation->getUser()->getFullname() . ' ; ') : '') . $reservation->getPersons() . ' ' . $this->get('translator')->trans('Persons') . ' ] (' . $this->get('translator')->trans($reservation->getStatusText()) . ')</li>';
+                            $error .= (count($reservations) == 10) ? '<li>...</li></ul>' : '</ul>';
+
+                            $this->get('session')->setFlash('alert-error', $error);
+
+                            return $this->redirect($this->generateUrl('back_session_read', array('id' => $id)));
+                        }
+                    }
+                    break;
+                    
+                default:
+                    throw new AccessDeniedException();
+                    break;
+            }
         
-            $session->setStatus(Session::STATUS_DELETED);
+            $session->setStatus($status);
             $em->persist($session);
             $em->flush();
         }
@@ -367,8 +427,8 @@ class SessionController extends Controller
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/
     
-    private function createDeleteForm($id)
+    private function createChangeStatusForm($id, $status)
     {
-        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
+        return $this->createFormBuilder(array('id' => $id, 'status' => $status))->add('id', 'hidden')->add('status', 'hidden')->getForm();
     }
 }

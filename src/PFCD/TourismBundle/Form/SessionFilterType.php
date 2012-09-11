@@ -21,7 +21,7 @@ class SessionFilterType extends AbstractType
         {
             $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'required' => false, 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'empty_value' => 'Select an activity'));
         }
-        elseif ($options['domain'] == Constants::BACK && $options['organization'] != null)
+        elseif ($options['domain'] == Constants::BACK)
         {
             $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'required' => false, 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'empty_value' => 'Select an activity',
                 'query_builder' => function(EntityRepository $er) use ($options) {
@@ -36,7 +36,7 @@ class SessionFilterType extends AbstractType
         $builder->add('dateEnd', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
         $builder->add('startTime', 'time', array('required' => false, 'hours' => range(0, 23), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
         $builder->add('daysWeek', 'choice', array('choices' => array(Constants::MONDAY => 'dayweek.3dig.' . Constants::MONDAY, Constants::TUESDAY => 'dayweek.3dig.' . Constants::TUESDAY, Constants::WEDNESDAY => 'dayweek.3dig.' . Constants::WEDNESDAY, Constants::THURSDAY => 'dayweek.3dig.' . Constants::THURSDAY, Constants::FRIDAY => 'dayweek.3dig.' . Constants::FRIDAY, Constants::SATURDAY => 'dayweek.3dig.' . Constants::SATURDAY, Constants::SUNDAY => 'dayweek.3dig.' . Constants::SUNDAY), 'multiple' => true, 'expanded' => true));
-        $builder->add('status', 'choice', array('choices' => array(Session::STATUS_PENDING => 'entity.session.field.status.' . Session::STATUS_PENDING, Session::STATUS_ENABLED => 'entity.session.field.status.' . Session::STATUS_ENABLED, Session::STATUS_LOCKED => 'entity.session.field.status.' . Session::STATUS_LOCKED, Session::STATUS_DELETED => 'entity.session.field.status.' . Session::STATUS_DELETED), 'multiple' => true, 'expanded' => true));
+        $builder->add('status', 'choice', array('choices' => array(Session::STATUS_ENABLED => 'entity.session.field.status.' . Session::STATUS_ENABLED, Session::STATUS_LOCKED => 'entity.session.field.status.' . Session::STATUS_LOCKED, Session::STATUS_DELETED => 'entity.session.field.status.' . Session::STATUS_DELETED), 'multiple' => true, 'expanded' => true));
     }
 
     public function getDefaultOptions(array $options)

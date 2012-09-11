@@ -15,7 +15,6 @@ use PFCD\TourismBundle\Entity\Reservation;
  */
 class Session
 {
-    const STATUS_PENDING = 0;   // The session is not visible
     const STATUS_ENABLED = 1;   // The session is visible and allow reservations
     const STATUS_LOCKED  = 2;   // The session is visible but do not allow reservations
     const STATUS_DELETED = 3;   // The session is not visible
@@ -80,7 +79,7 @@ class Session
 
     public function __construct()
     {
-        $this->status = self::STATUS_PENDING;
+        $this->status = self::STATUS_ENABLED;
         $this->reservations = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
@@ -265,7 +264,7 @@ class Session
     {
         return 'entity.session.field.status.' . $this->status;
     }
-           
+    
     /**
      * Add reservations
      *

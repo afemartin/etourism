@@ -4,7 +4,7 @@ namespace PFCD\TourismBundle\Entity;
 
 use PFCD\TourismBundle\Constants;
 
-use PFCD\TourismBundle\Entity\Activity;
+use PFCD\TourismBundle\Entity\Session;
 
 use \DateTime;
 use \DateInterval;
@@ -34,7 +34,7 @@ class SessionFilter
         
         $this->daysWeek = array(Constants::MONDAY, Constants::TUESDAY, Constants::WEDNESDAY, Constants::THURSDAY, Constants::FRIDAY, Constants::SATURDAY, Constants::SUNDAY);
         
-        $this->status = array(Activity::STATUS_PENDING, Activity::STATUS_ENABLED, Activity::STATUS_LOCKED);
+        $this->status = array(Session::STATUS_ENABLED, Session::STATUS_LOCKED);
     }
     
     public function getActivity()

@@ -340,7 +340,8 @@ alert.success.paymentupdated: The payment has been updated and an email has been
 alert.warning.paymentpriceupdated: Payment price has change from %old_price% to %new_price%, you should check that everything it is correct and then contact with the user that made this reservation
 
 alert.error.deleteorganization: You cannot delete the Organization since there are some associated Activities that you must to delete first
-alert.error.deleteactivity:  You cannot delete the Activity since there are some associated Sessions that you must to delete first
+alert.error.deleteactivity: You cannot delete the Activity since there are some associated Sessions that you must to delete first
+alert.error.deletesession: You cannot delete the Session since there are some associated Reservations that you must to reject or cancel first
 
 alert.success.updatesettings: Your changes have been saved successfully
 
@@ -837,7 +838,9 @@ back.session.button.create: Create a new session
 back.session.button.generate: Generate new sessions
 back.session.button.read: Show this session
 back.session.button.update: Edit this session
-back.session.button.delete: Delete this session
+back.session.button.enable: Enable
+back.session.button.lock: Lock
+back.session.button.delete: Delete
 
 back.reservation.button.index: Back to the list
 back.reservation.button.create: Create a new reservation

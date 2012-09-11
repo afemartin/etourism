@@ -219,10 +219,10 @@ back_session_update:
     defaults: { _controller: "PFCDTourismBundle:Session:backUpdate" }
     requirements: { id: \d+ }
 
-back_session_delete:
-    pattern:  /session/{id}/delete
-    defaults: { _controller: "PFCDTourismBundle:Session:backDelete" }
-    requirements: { _method: post, id: \d+ }
+back_session_status:
+    pattern:  /session/{id}/status/{status}
+    defaults: { _controller: "PFCDTourismBundle:Session:backStatus" }
+    requirements: { _method: post, id: \d+, status: \d+ }
 
 
 ################################################################################

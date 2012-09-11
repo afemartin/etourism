@@ -341,6 +341,7 @@ alert.warning.paymentpriceupdated: El precio del pago ha cambiado de %old_price%
 
 alert.error.deleteorganization: No puede eliminar la Organización ya que existen algunas Actividades asociadas que debe eliminar primero
 alert.error.deleteactivity: No puede eliminar la Actividad ya que existen algunas Sesiones asociadas que debe eliminar primero
+alert.error.deletesession: No puede eliminar la Sesión ya que existen algunas Reservas asociadas que debe rechazar o cancelar primero
   
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
@@ -837,7 +838,9 @@ back.session.button.create: Añadir una nueva sesión
 back.session.button.generate: Generar nuevas sesiones
 back.session.button.read: Mostrar esta sesión
 back.session.button.update: Editar esta sesión
-back.session.button.delete: Eliminar esta sesión
+back.session.button.enable: Activar
+back.session.button.lock: Bloquear
+back.session.button.delete: Eliminar
 
 back.reservation.button.index: Volver atrás
 back.reservation.button.create: Añadir una nueva reserva

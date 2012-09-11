@@ -22,7 +22,7 @@ class SessionGeneratorType extends AbstractType
         {
             $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'empty_value' => 'Select an activity'));
         }
-        elseif ($options['domain'] == Constants::BACK && $options['organization'] != null)
+        elseif ($options['domain'] == Constants::BACK)
         {
             $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'empty_value' => 'Select an activity',
                 'query_builder' => function(EntityRepository $er) use ($options) {
@@ -31,7 +31,7 @@ class SessionGeneratorType extends AbstractType
                             ->andWhere('a.status IN (:status)')
                             ->orderBy('a.title', 'ASC')
                             ->setParameter('organization', $options['organization'])
-                            ->setParameter('status', array(Activity::STATUS_PENDING, Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
+                            ->setParameter('status', array(Activity::STATUS_ENABLED, Activity::STATUS_LOCKED));
                 }));
         }
 
@@ -42,7 +42,7 @@ class SessionGeneratorType extends AbstractType
         $builder->add('startTime3', 'time', array('required' => false, 'hours' => range(0, 23), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
         $builder->add('startTime4', 'time', array('required' => false, 'hours' => range(0, 23), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
         $builder->add('daysWeek', 'choice', array('choices' => array(Constants::MONDAY => 'dayweek.3dig.' . Constants::MONDAY, Constants::TUESDAY => 'dayweek.3dig.' . Constants::TUESDAY, Constants::WEDNESDAY => 'dayweek.3dig.' . Constants::WEDNESDAY, Constants::THURSDAY => 'dayweek.3dig.' . Constants::THURSDAY, Constants::FRIDAY => 'dayweek.3dig.' . Constants::FRIDAY, Constants::SATURDAY => 'dayweek.3dig.' . Constants::SATURDAY, Constants::SUNDAY => 'dayweek.3dig.' . Constants::SUNDAY), 'multiple' => true, 'expanded' => true));
-        $builder->add('status', 'choice', array('choices' => array(Session::STATUS_PENDING => 'entity.session.field.status.' . Session::STATUS_PENDING, Session::STATUS_ENABLED => 'entity.session.field.status.' . Session::STATUS_ENABLED, Session::STATUS_LOCKED => 'entity.session.field.status.' . Session::STATUS_LOCKED, Session::STATUS_DELETED => 'entity.session.field.status.' . Session::STATUS_DELETED), 'help' => 'form.session.field.status.help'));
+        $builder->add('status', 'choice', array('choices' => array(Session::STATUS_ENABLED => 'entity.session.field.status.' . Session::STATUS_ENABLED, Session::STATUS_LOCKED => 'entity.session.field.status.' . Session::STATUS_LOCKED), 'help' => 'form.session.field.status.help'));
     }
 
     public function getDefaultOptions(array $options)

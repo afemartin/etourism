@@ -28,6 +28,41 @@
             <td>{{ session.note }}</td>
         </tr>
         <tr>
+            <th>{{ 'Reservations'|trans }}</th>
+            <td>
+                {% if session.reservations|length > 0 %}
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th>{{ 'View'|trans }}</th>
+                            <th>{{ 'User'|trans }}</th>
+                            <th>{{ 'Persons'|trans }}</th>
+                            <th>{{ 'Note'|trans }}</th>
+                            <th>{{ 'Created'|trans }}</th>
+                            <th>{{ 'Updated'|trans }}</th>
+                            <th>{{ 'Payment'|trans }}</th>
+                            <th>{{ 'Status'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for reservation in session.reservations %}
+                    <tr class="status-{{ reservation.status }}">
+                        <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}"><i class="icon-eye-open"></i></a></td>
+                        <td>{% if reservation.user %}<a href="{{ path('back_user_read', { 'id': reservation.user.id }) }}">{{ reservation.user.firstname }}</a>{% endif %}</td>
+                        <td>{{ reservation.persons }}</td>
+                        <td>{{ reservation.note }}</td>
+                        <td>{% if reservation.created %}{{ reservation.created|date('Y-m-d') }}{% endif %}</td>
+                        <td>{% if reservation.updated %}{{ reservation.updated|date('Y-m-d') }}{% endif %}</td>
+                        <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
+                        <td>{{ reservation.statusText|trans }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
             <th>{{ 'Created'|trans }}</th>
             <td>{{ session.created|date('Y-m-d H:i:s') }}</td>
         </tr>
@@ -37,19 +72,40 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ session.statusText|trans }} <a data-original-title="{{ 'form.session.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>
+                {{ session.statusText|trans }} <a data-original-title="{{ 'form.session.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
+                {% if delete_form %}
+                <div class="pull-right">
+                    <form id="delete_session_form" style="margin: 0 0 0 5px;" action="{{ path('back_session_status', { 'id': session.id, 'status': delete_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(delete_form) }}
+                        <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.session.button.delete'|trans }}</button>
+                    </form>
+                </div>
+                {{ macros.modalConfirm('delete_session_form', 'delete_modal') }}
+                {% endif %}
+                {% if lock_form %}
+                <div class="pull-right">
+                    <form style="margin: 0 0 0 5px;" action="{{ path('back_session_status', { 'id': session.id, 'status': lock_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(lock_form) }}
+                        <button class="btn btn-mini" type="submit"><i class="icon-ban-circle"></i> {{ 'back.session.button.lock'|trans }}</button>
+                    </form>
+                </div>
+                {% endif %}
+                {% if enable_form %}
+                <div class="pull-right">
+                    <form style="margin: 0 0 0 5px;" action="{{ path('back_session_status', { 'id': session.id, 'status': enable_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(enable_form) }}
+                        <button class="btn btn-mini btn-success" type="submit"><i class="icon-ok-circle icon-white"></i> {{ 'back.session.button.enable'|trans }}</button>
+                    </form>
+                </div>
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
 
 <a class="btn btn-primary" href="{{ path('back_session_update', { 'id': session.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.session.button.update'|trans }}</a>
-<a class="btn btn-inverse" href="{{ path('back_session_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.session.button.index'|trans }}</a>
-<form id="delete_session_form" class="pull-right" action="{{ path('back_session_delete', { 'id': session.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.session.button.delete'|trans }}</button>
-</form>
-
-{{ macros.modalConfirm('delete_session_form', 'delete_modal') }}
+<a class="btn btn-inverse pull-right" href="{{ path('back_session_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.session.button.index'|trans }}</a>
 {% endblock %}
 
 {% block javascripts %}
