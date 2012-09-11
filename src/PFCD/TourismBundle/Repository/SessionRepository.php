@@ -75,6 +75,36 @@ class SessionRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    public function findRecentAndFuture($activity, $status = null, $limit = null)
+    {
+        $qb = $this->createQueryBuilder('s');
+        
+        $qb->select('s');
+
+        $qb->andWhere('s.activity = :activity');
+        $qb->setParameter('activity', $activity);
+        
+        $dateStart = new DateTime();
+        $dateStart->sub(new DateInterval('P7D'));
+        $dateStart->setTime(0, 0, 0);
+                    
+        $qb->andWhere('s.date >= :start_date');
+        $qb->setParameter('start_date', $dateStart);
+        
+        if ($status !== null && !empty($status))
+        {
+            $qb->andWhere('s.status IN (:status)');
+            $qb->setParameter('status', $status);
+        }
+
+        $qb->orderBy('s.date', 'ASC');
+        $qb->addOrderBy('s.time', 'ASC');
+        
+        if ($limit) $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
+    
     const DATE_FORMAT = "Y-m-d";
 
     public function findAvailability($activity, $year, $month)

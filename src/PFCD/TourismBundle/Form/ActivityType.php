@@ -18,17 +18,20 @@ class ActivityType extends AbstractType
     {
         $step = 5; // 5 minutes step for time inputs
         
-        if ($options['domain'] == Constants::ADMIN)
+        if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_CREATE)
         {
             $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
         }
         $builder->add('title', 'text', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
-        $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
-        $builder->add('currency', 'choice', array('choices' => $options['supported_currencies'], 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
-        $builder->add('capacity', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.capacity.help'));
-        $builder->add('duration', 'time', array('required' => false, 'hours' => range(0, 11), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact'), 'help' => 'form.activity.field.duration.help'));
+        if ($options['type'] == Constants::FORM_CREATE || $options['status'] == Activity::STATUS_PENDING)
+        {
+            $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
+            $builder->add('currency', 'choice', array('choices' => $options['supported_currencies'], 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
+            $builder->add('capacity', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.capacity.help'));
+            $builder->add('duration', 'time', array('required' => false, 'hours' => range(0, 11), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact'), 'help' => 'form.activity.field.duration.help'));
+        }
         $builder->add('note', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.activity.field.note.help'));
         if ($options['organization'] != null)
         {
@@ -44,15 +47,11 @@ class ActivityType extends AbstractType
         }
         $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.activity.field.languages.help'));
         $builder->add('file', 'file', array('required' => false, 'label' => 'Image', 'help' => 'form.activity.field.image.help'));
-        if ($options['type'] == Constants::FORM_UPDATE)
-        {
-            $builder->add('status', 'choice', array('choices' => array(Activity::STATUS_PENDING => 'entity.activity.field.status.' . Activity::STATUS_PENDING, Activity::STATUS_ENABLED => 'entity.activity.field.status.' . Activity::STATUS_ENABLED, Activity::STATUS_LOCKED => 'entity.activity.field.status.' . Activity::STATUS_LOCKED, Activity::STATUS_DELETED => 'entity.activity.field.status.' . Activity::STATUS_DELETED), 'help' => 'form.activity.field.status.help'));
-        }
     }
 
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'organization' => null, 'language' => 'en', 'supported_languages' => array(), 'supported_currencies' => array());
+        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'status' => Activity::STATUS_ENABLED, 'organization' => null, 'language' => 'en', 'supported_languages' => array(), 'supported_currencies' => array());
     }
     
     public function getName()

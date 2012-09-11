@@ -158,10 +158,10 @@ back_activity_media:
     defaults: { _controller: "PFCDTourismBundle:Activity:backMedia" }
     requirements: { id: \d+ }
 
-back_activity_delete:
-    pattern:  /activity/{id}/delete
-    defaults: { _controller: "PFCDTourismBundle:Activity:backDelete" }
-    requirements: { _method: post, id: \d+ }
+back_activity_status:
+    pattern:  /activity/{id}/status/{status}
+    defaults: { _controller: "PFCDTourismBundle:Activity:backStatus" }
+    requirements: { _method: post, id: \d+, status: \d+ }
 
 
 ################################################################################

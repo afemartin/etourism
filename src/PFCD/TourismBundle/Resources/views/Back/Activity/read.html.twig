@@ -76,21 +76,42 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ activity.statusText|trans }} <a data-original-title="{{ 'form.activity.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>
+                {{ activity.statusText|trans }} <a data-original-title="{{ 'form.activity.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
+                {% if delete_form %}
+                <div class="pull-right">
+                    <form id="delete_activity_form" style="margin: 0 0 0 5px;" action="{{ path('back_activity_status', { 'id': activity.id, 'status': delete_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(delete_form) }}
+                        <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.activity.button.delete'|trans }}</button>
+                    </form>
+                </div>
+                {{ macros.modalConfirm('delete_activity_form', 'delete_modal') }}
+                {% endif %}
+                {% if lock_form %}
+                <div class="pull-right">
+                    <form style="margin: 0 0 0 5px;" action="{{ path('back_activity_status', { 'id': activity.id, 'status': lock_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(lock_form) }}
+                        <button class="btn btn-mini" type="submit"><i class="icon-ban-circle"></i> {{ 'back.activity.button.lock'|trans }}</button>
+                    </form>
+                </div>
+                {% endif %}
+                {% if enable_form %}
+                <div class="pull-right">
+                    <form style="margin: 0 0 0 5px;" action="{{ path('back_activity_status', { 'id': activity.id, 'status': enable_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(enable_form) }}
+                        <button class="btn btn-mini btn-success" type="submit"><i class="icon-ok-circle icon-white"></i> {{ 'back.activity.button.enable'|trans }}</button>
+                    </form>
+                </div>
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
 
 <a class="btn btn-primary" href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.activity.button.update'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.activity.button.media'|trans }}</a>
-<a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a>
 <a class="btn btn-info" href="{{ path('back_activity_preview', { 'id': activity.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.activity.button.preview'|trans }}</a>
-<form id="delete_activity_form" class="pull-right" action="{{ path('back_activity_delete', { 'id': activity.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.activity.button.delete'|trans }}</button>
-</form>
-
-{{ macros.modalConfirm('delete_activity_form', 'delete_modal') }}
+<a class="btn btn-inverse pull-right" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a>
 {% endblock %}
 
 {% block javascripts %}

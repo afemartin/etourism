@@ -340,6 +340,7 @@ alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un ema
 alert.warning.paymentpriceupdated: El precio del pago ha cambiado de %old_price% a %new_price%, debería comprobar que todo es correcto y contactar con el usuario que realizó esta reserva
 
 alert.error.deleteorganization: No puede eliminar la Organización ya que existen algunas Actividades asociadas que debe eliminar primero
+alert.error.deleteactivity: No puede eliminar la Actividad ya que existen algunas Sesiones asociadas que debe eliminar primero
   
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
@@ -821,7 +822,9 @@ back.activity.button.read: Mostrar esta actividad
 back.activity.button.preview: Vista previa
 back.activity.button.update: Editar información
 back.activity.button.media: Editar multimedia
-back.activity.button.delete: Eliminar esta actividad
+back.activity.button.enable: Activar
+back.activity.button.lock: Bloquear
+back.activity.button.delete: Eliminar
 
 back.media.button.addimage: Añadir nueva imagen
 back.media.button.help: Ayuda

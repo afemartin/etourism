@@ -11,6 +11,7 @@ use PFCD\TourismBundle\Form\ActivityType;
 use PFCD\TourismBundle\Form\MediaType;
 use PFCD\TourismBundle\Entity\Comment;
 use PFCD\TourismBundle\Form\CommentType;
+use PFCD\TourismBundle\Entity\Session;
 
 use PFCD\TourismBundle\Entity\OrganizationFilter;
 use PFCD\TourismBundle\Form\OrganizationFilterType;
@@ -40,8 +41,9 @@ class ActivityController extends Controller
         }
         else
         {
-            $organization = $this->get('security.context')->getToken()->getUser()->getId();
-            $activities = $em->getRepository('PFCDTourismBundle:Activity')->findByOrganization($organization);
+            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+            $filter['status'] = array(Activity::STATUS_PENDING, Activity::STATUS_ENABLED, Activity::STATUS_LOCKED);
+            $activities = $em->getRepository('PFCDTourismBundle:Activity')->findBy($filter);
         }
 
         return $this->render('PFCDTourismBundle:Back/Activity:index.html.twig', array(
@@ -115,14 +117,18 @@ class ActivityController extends Controller
 
         if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
-        $deleteForm = $this->createDeleteForm($id);
-        
+        $enableFormView = ($activity->getStatus() == Activity::STATUS_PENDING || $activity->getStatus() == Activity::STATUS_LOCKED) ? $this->createChangeStatusForm($id, Activity::STATUS_ENABLED)->createView() : null;        
+        $lockFormView = ($activity->getStatus() == Activity::STATUS_ENABLED) ? $this->createChangeStatusForm($id, Activity::STATUS_LOCKED)->createView() : null;
+        $deleteFormView = ($activity->getStatus() != Activity::STATUS_DELETED) ? $this->createChangeStatusForm($id, Activity::STATUS_DELETED)->createView() : null;
+
         $translations = $em->getRepository('StofDoctrineExtensionsBundle:Translation')->findTranslations($activity);
         
         return $this->render('PFCDTourismBundle:Back/Activity:read.html.twig', array(
             'activity'     => $activity,
             'translations' => $translations,
-            'delete_form'  => $deleteForm->createView(),
+            'enable_form'  => $enableFormView,
+            'lock_form'    => $lockFormView,
+            'delete_form'  => $deleteFormView,
         ));
     }
 
@@ -171,6 +177,7 @@ class ActivityController extends Controller
 
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
+        $options['status'] = $activity->getStatus();
         $options['organization'] = $activity->getOrganization()->getId();
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
@@ -282,9 +289,9 @@ class ActivityController extends Controller
     }
 
     /**
-     * Deletes a Activity entity
+     * Changes the status of the Activity entity
      */
-    public function backDeleteAction($id)
+    public function backStatusAction($id, $status)
     {
         $filter['id'] = $id;
                 
@@ -293,7 +300,7 @@ class ActivityController extends Controller
             $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         }
         
-        $form = $this->createDeleteForm($id);
+        $form = $this->createChangeStatusForm($id, $status);
         
         $request = $this->getRequest();
 
@@ -306,7 +313,52 @@ class ActivityController extends Controller
 
             if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
-            $activity->setStatus(Activity::STATUS_DELETED);
+            switch ($status)
+            {
+                case Activity::STATUS_ENABLED:
+                    if ($activity->getStatus() != Activity::STATUS_PENDING && $activity->getStatus() != Activity::STATUS_LOCKED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Activity::STATUS_LOCKED:
+                    if ($activity->getStatus() != Activity::STATUS_ENABLED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Activity::STATUS_DELETED:
+                    if ($activity->getStatus() == Activity::STATUS_DELETED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    
+                    // since there can be a lot of existing old sessions we will only search the recent and future sessions
+                    // we can find too many sessions to display so we will only display the 10 first sessions found
+                    $sessions = $em->getRepository('PFCDTourismBundle:Session')->findRecentAndFuture($activity->getId(), array(Session::STATUS_ENABLED, Session::STATUS_LOCKED), 10);
+                    
+                    if ($sessions)
+                    {
+                        $error = $this->get('translator')->trans('alert.error.deleteactivity') . ':';
+                        
+                        $error .= '<ul>';
+                        foreach ($sessions as $session) $error .= '<li>' .  $this->get('translator')->trans('Session') . ' [ ' . $session->getDate()->format('d/m/Y') . ' - ' . $session->getTime()->format('H:i') . ' ] (' . $this->get('translator')->trans($session->getStatusText()) . ')</li>';
+                        $error .= (count($sessions) == 10) ? '<li>...</li></ul>' : '</ul>';
+                            
+                        $this->get('session')->setFlash('alert-error', $error);
+                        
+                        return $this->redirect($this->generateUrl('back_activity_read', array('id' => $id)));
+                    }
+                    break;
+                    
+                default:
+                    throw new AccessDeniedException();
+                    break;
+            }
+            
+            $activity->setStatus($status);
             $em->persist($activity);
             $em->flush();
         }
@@ -449,9 +501,9 @@ class ActivityController extends Controller
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/
     
-    private function createDeleteForm($id)
+    private function createChangeStatusForm($id, $status)
     {
-        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
+        return $this->createFormBuilder(array('id' => $id, 'status' => $status))->add('id', 'hidden')->add('status', 'hidden')->getForm();
     }
     
 }
