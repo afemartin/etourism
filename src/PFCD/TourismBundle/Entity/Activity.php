@@ -78,9 +78,14 @@ class Activity
     private $capacity;
     
     /**
-     * @ORM\Column(name="duration", type="time", nullable=true)
+     * @ORM\Column(name="duration_days", type="smallint")
      */
-    private $duration;
+    private $durationDays;
+    
+    /**
+     * @ORM\Column(name="duration_time", type="time")
+     */
+    private $durationTime;
 
     /**
      * @ORM\Column(name="geolocation", type="string", length=32, nullable=true)
@@ -151,6 +156,7 @@ class Activity
     
     public function __construct()
     {
+        $this->durationDays = 0;
         $this->status = self::STATUS_PENDING;
         $this->gallery = new ArrayCollection();
         $this->sessions = new ArrayCollection();
@@ -344,23 +350,43 @@ class Activity
     }
 
     /**
-     * Set duration
+     * Set durationDays
      *
-     * @param smallint $duration
+     * @param smallint $durationDays
      */
-    public function setDuration($duration)
+    public function setDurationDays($durationDays)
     {
-        $this->duration = $duration;
+        $this->durationDays = $durationDays;
     }
 
     /**
-     * Get duration
+     * Get durationDays
      *
      * @return smallint 
      */
-    public function getDuration()
+    public function getDurationDays()
     {
-        return $this->duration;
+        return $this->durationDays;
+    }
+
+    /**
+     * Set durationTime
+     *
+     * @param smallint $durationTime
+     */
+    public function setDurationTime($durationTime)
+    {
+        $this->durationTime = $durationTime;
+    }
+
+    /**
+     * Get durationTime
+     *
+     * @return smallint 
+     */
+    public function getDurationTime()
+    {
+        return $this->durationTime;
     }
     
     /**

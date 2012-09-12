@@ -46,9 +46,25 @@ class Session
     private $dayOfWeek;
 
     /**
-     * @ORM\Column(name="time", type="time", nullable=true)
+     * @ORM\Column(name="time", type="time")
      */
     private $time;
+    
+    /**
+     * This field will be calculated and used to check range of dates between
+     * sessions to know if the resources are already reserved or available
+     * 
+     * @ORM\Column(name="start_datetime", type="datetime")
+     */
+    private $startDatetime;
+    
+    /**
+     * This field will be calculated and used to check range of dates between
+     * sessions to know if the resources are already reserved or available
+     * 
+     * @ORM\Column(name="end_datetime", type="datetime")
+     */
+    private $endDatetime;
 
     /**
      * @ORM\Column(name="note", type="string", nullable=true)
@@ -180,6 +196,46 @@ class Session
     public function getTime()
     {
         return $this->time;
+    }
+
+    /**
+     * Set startDatetime
+     *
+     * @param datetime $startDatetime
+     */
+    public function setStartDatetime($startDatetime)
+    {
+        $this->startDatetime = $startDatetime;
+    }
+
+    /**
+     * Get startDatetime
+     *
+     * @return datetime 
+     */
+    public function getStartDatetime()
+    {
+        return $this->startDatetime;
+    }
+
+    /**
+     * Set endDatetime
+     *
+     * @param datetime $endDatetime
+     */
+    public function setEndDatetime($endDatetime)
+    {
+        $this->endDatetime = $endDatetime;
+    }
+
+    /**
+     * Get endDatetime
+     *
+     * @return datetime 
+     */
+    public function getEndDatetime()
+    {
+        return $this->endDatetime;
     }
     
     /**

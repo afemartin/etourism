@@ -423,7 +423,8 @@ form.organization.field.status.help: >
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
 form.activity.field.price.help: Este es el precio de la actividad por persona. Puede modificarlo en cualquier momento, pero los pagos generados previamente mantendrán el precio anterior
 form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad. Si decide reducir la capacidad asegurese que ninguna sesión actual vaya a sobrepasar la nueva capacidad
-form.activity.field.duration.help: Esta es la duración de la actividad en horas y minutos. Si la duración de la actividad no se puede indicar con las horas dadas, deje vacío este campo y especifique la duración en la "Descripción completa"
+form.activity.field.durationdays.help: Esta es la duración de la actividad en días. Tiene que usarlo en cambinación con el campo "Duración en horas y minutos". Si la actividad no dura más de un día simplemente escriba 0
+form.activity.field.durationtime.help: Esta es la duración de la actividad en horas y minutos. Tiene que usarlo en cambinación con el campo "Duración en días"
 form.activity.field.resources.help: Seleccione los recursos necesarios para realizar la actividad. Puede añadir nuevos recursos en la sección "<i class="icon-wrench icon-white"></i> Recursos"
 form.activity.field.languages.help: Estos son los idiomas en los que la actividad se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
 form.activity.field.note.help: Puede usar este campo para anotar información relevante y privada acerca de la actividad
@@ -564,7 +565,8 @@ Address: Dirección
 Postalcode: Código postal
 Phone: Teléfono
 Locale: Idioma
-Day: Dia
+Day: Día
+Days: Días
 Month: Mes
 Year: Año
 
@@ -625,6 +627,8 @@ Currency: Moneda
 Free: Gratis
 Capacity: Capacidad
 Duration: Duración
+Durationdays: Duración en días
+Durationtime: Duración en horas y minutos
 Datestart: Fecha inicio
 Dateend: Fecha fin
 Timestart: Hora inicio

@@ -27,7 +27,8 @@ class ActivityType extends AbstractType
             $builder->add('price', 'money', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.price.help'));
             $builder->add('currency', 'choice', array('choices' => $options['supported_currencies'], 'empty_value' => 'Select a currency', 'attr' => array('class' => 'input-medium')));
             $builder->add('capacity', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.capacity.help'));
-            $builder->add('duration', 'time', array('hours' => range(0, 23), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact'), 'help' => 'form.activity.field.duration.help'));
+            $builder->add('durationDays', 'integer', array('attr' => array('class' => 'input-mini'), 'help' => 'form.activity.field.durationdays.help'));
+            $builder->add('durationTime', 'time', array('hours' => range(0, 23), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact'), 'help' => 'form.activity.field.durationtime.help'));
         }
         $builder->add('note', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.activity.field.note.help'));
         $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.activity.field.languages.help'));

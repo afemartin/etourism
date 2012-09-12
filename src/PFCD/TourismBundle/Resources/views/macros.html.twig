@@ -1,8 +1,14 @@
 {# reusable macros to avoid code replication #}
 
-{% macro timeToDuration(time) %}
+{% macro timeToDuration(days, time) %}
+{% set days = days %}
 {% set hours = time|date('G') %}
 {% set minutes = time|date('i') %}
+{% if days > 1 %}
+    {{ days }} {{ 'Days'|trans }}
+{% elseif days == 1 %}
+    {{ days }} {{ 'Day'|trans }}
+{% endif %}
 {% if hours > 1 %}
     {{ hours }} {{ 'Hours'|trans }}
 {% elseif hours == 1 %}

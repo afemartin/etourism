@@ -31,8 +31,8 @@
 <div class="info-details row">
     <div class="span9">
         <p><b>{{ 'Price'|trans }}</b>: {% if activity.price %}{{ activity.price|number_format_currency(activity.currency) }}/{{ 'Person'|trans }}{% else %}{{ 'Free'|trans }}{% endif %}</p>
-        {% if activity.duration and activity.duration|date('H:i') != '00:00' %}
-        <p><b>{{ 'Duration'|trans }}</b>: {{ macros.timeToDuration(activity.duration) }}</p>
+        {% if activity.durationTime and activity.durationTime|date('H:i') != '00:00' and activity.days > 0 %}
+        <p><b>{{ 'Duration'|trans }}</b>: {{ macros.timeToDuration(activity.durationDays, activity.durationTime) }}</p>
         {% endif %}
         <p><b>{{ 'Capacity'|trans }}</b>: {{ activity.capacity }} {{ 'Persons'|trans }}</p>
     </div>
