@@ -34,7 +34,7 @@ class PaymentFilterType extends AbstractType
         $builder->add('dateEnd', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
         $builder->add('sessionDateStart', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
         $builder->add('sessionDateEnd', 'date', array('required' => false, 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
-        $builder->add('status', 'choice', array('choices' => array(Payment::STATUS_PENDING_P => 'entity.payment.field.status.' . Payment::STATUS_PENDING_P, Payment::STATUS_PAID => 'entity.payment.field.status.' . Payment::STATUS_PAID, Payment::STATUS_PENDING_R => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R, Payment::STATUS_REFUNDED => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R), 'multiple' => true, 'expanded' => true));
+        $builder->add('status', 'choice', array('required' => false, 'choices' => array(Payment::STATUS_PENDING_P => 'entity.payment.field.status.' . Payment::STATUS_PENDING_P, Payment::STATUS_PAID => 'entity.payment.field.status.' . Payment::STATUS_PAID, Payment::STATUS_PENDING_R => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R, Payment::STATUS_REFUNDED => 'entity.payment.field.status.' . Payment::STATUS_PENDING_R), 'multiple' => true, 'expanded' => true));
     }
 
     public function getDefaultOptions(array $options)
