@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use PFCD\TourismBundle\Entity\Resource;
-use PFCD\TourismBundle\Entity\ResourceCategory;
+use PFCD\TourismBundle\Entity\Category;
 use PFCD\TourismBundle\Entity\Session;
 
 /**
@@ -27,7 +27,7 @@ class Resource
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ResourceCategory", inversedBy="resources")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="resources")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
@@ -293,9 +293,9 @@ class Resource
     /**
      * Set category
      *
-     * @param ResourceCategory $category
+     * @param Category $category
      */
-    public function setCategory(ResourceCategory $category)
+    public function setCategory(Category $category)
     {
         $this->category = $category;
     }
@@ -303,7 +303,7 @@ class Resource
     /**
      * Get category
      *
-     * @return ResourceCategory 
+     * @return Category 
      */
     public function getCategory()
     {

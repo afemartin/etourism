@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilder;
 
 use PFCD\TourismBundle\Constants;
 
-class ResourceCategoryType extends AbstractType
+class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
@@ -15,7 +15,7 @@ class ResourceCategoryType extends AbstractType
         {
             $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
         }
-        $builder->add('name', 'text', array('attr' => array('class' => 'input-xlarge'), 'help' => 'form.resourcecategory.field.name.help'));
+        $builder->add('name', 'text', array('attr' => array('class' => 'input-xlarge'), 'help' => 'form.category.field.name.help'));
     }
 
     public function getDefaultOptions(array $options)

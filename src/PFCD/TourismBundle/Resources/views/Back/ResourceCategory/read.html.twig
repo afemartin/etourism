@@ -5,8 +5,8 @@
 {% set sectiontab = 'resource' %}{% set helptooltip = 1 %}
 
 {% block body %}
-<h1>{{ 'back.resourcecategory.read.title'|trans }}</h1>
-<p>{{ 'back.resourcecategory.read.subtitle'|trans }}</p>
+<h1>{{ 'back.category.read.title'|trans }}</h1>
+<p>{{ 'back.category.read.subtitle'|trans }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
     <colgroup class="first-column"></colgroup>
@@ -27,25 +27,25 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ category.statusText|trans }} <a data-original-title="{{ 'form.resourcecategory.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>{{ category.statusText|trans }} <a data-original-title="{{ 'form.category.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
         </tr>
     </tbody>
 </table>
 
 <a class="btn btn-inverse" href="{{ path('back_resource_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.resource.button.index'|trans }}</a>
-<form id="delete_resource_category_form" class="pull-right" action="{{ path('back_resource_category_delete', { 'id': category.id }) }}" method="post">
+<form id="delete_category_form" class="pull-right" action="{{ path('back_category_delete', { 'id': category.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.resource.button.delete'|trans }}</button>
 </form>
 
-{{ macros.modalConfirm('delete_resource_category_form', 'delete_modal') }}
+{{ macros.modalConfirm('delete_category_form', 'delete_modal') }}
 {% endblock %}
 
 {% block javascripts %}
 {{ parent() }}
 <script type="text/javascript">
-    $('#delete_resource_category_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
-    $('#delete_modal').on('show', function() { $('#delete_resource_category_form').data('show-confirm', true); });
-    $('#delete_modal').on('hide', function() { $('#delete_resource_category_form').data('show-confirm', false); });
+    $('#delete_category_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
+    $('#delete_modal').on('show', function() { $('#delete_category_form').data('show-confirm', true); });
+    $('#delete_modal').on('hide', function() { $('#delete_category_form').data('show-confirm', false); });
 </script>
 {% endblock %}

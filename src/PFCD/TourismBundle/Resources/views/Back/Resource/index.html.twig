@@ -33,7 +33,7 @@
     <tr class="status-{{ resource.status }}">
         <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}"><i class="icon-eye-open"></i></a></td>
         <td>{{ resource.name }}</td>
-        <td><a href="{{ path('back_resource_category_read', { 'id': resource.category.id }) }}">{{ resource.category.name }}</a></td>
+        <td><a href="{{ path('back_category_read', { 'id': resource.category.id }) }}">{{ resource.category.name }}</a></td>
         <td>{{ resource.note|truncate(50) }}</td>
         <td>{% if resource.conflict %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
         <td>{% if resource.created %}{{ resource.created|date('Y-m-d') }}{% endif %}</td>
@@ -48,6 +48,6 @@
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="{{ path('back_resource_category_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.resourcecategory.button.create'|trans }}</a>
+<a class="btn btn-primary" href="{{ path('back_category_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.category.button.create'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_resource_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.resource.button.create'|trans }}</a>
 {% endblock %}

@@ -9,9 +9,9 @@ use PFCD\TourismBundle\Entity\Organization;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="resource_category")
+ * @ORM\Table(name="category")
  */
-class ResourceCategory
+class Category
 {
     const STATUS_ENABLED = 1;   // The resource is available rigth now
     const STATUS_DELETED = 3;   // The resource wont be available anymore
@@ -40,7 +40,7 @@ class ResourceCategory
      * @ORM\Column(name="status", type="smallint")
      */
     private $status;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Resource", mappedBy="category")
      */
@@ -109,7 +109,7 @@ class ResourceCategory
      */
     public function getStatusText()
     {
-        return 'entity.resourcecategory.field.status.' . $this->status;
+        return 'entity.category.field.status.' . $this->status;
     }
 
     /**

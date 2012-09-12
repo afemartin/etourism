@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use PFCD\TourismBundle\Constants;
 
-use PFCD\TourismBundle\Entity\ResourceCategory;
-use PFCD\TourismBundle\Form\ResourceCategoryType;
+use PFCD\TourismBundle\Entity\Category;
+use PFCD\TourismBundle\Form\CategoryType;
 use PFCD\TourismBundle\Entity\Resource;
 
 /**
- * ResourceCategory controller
+ * Category controller
  */
-class ResourceCategoryController extends Controller
+class CategoryController extends Controller
 {
     
     /**************************************************************************
@@ -21,15 +21,15 @@ class ResourceCategoryController extends Controller
      **************************************************************************/
     
     /**
-     * Displays a form to create a new CategoryResource entity
+     * Displays a form to create a new Category entity
      * Also displays a list with the current enabled categories
      */
     public function backCreateAction()
     {
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         
-        $category = new ResourceCategory();
-        $form = $this->createForm(new ResourceCategoryType(), $category, $options);
+        $category = new Category();
+        $form = $this->createForm(new CategoryType(), $category, $options);
         
         $request = $this->getRequest();
         
@@ -51,7 +51,7 @@ class ResourceCategoryController extends Controller
                 $em->persist($category);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('back_resource_category_create'));
+                return $this->redirect($this->generateUrl('back_category_create'));
             }
         }    
 
@@ -59,16 +59,16 @@ class ResourceCategoryController extends Controller
 
         if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
         {
-            $categories = $em->getRepository('PFCDTourismBundle:ResourceCategory')->findAll();
+            $categories = $em->getRepository('PFCDTourismBundle:Category')->findAll();
         }
         else
         {
             $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-            $filter['status'] = ResourceCategory::STATUS_ENABLED;
-            $categories = $em->getRepository('PFCDTourismBundle:ResourceCategory')->findBy($filter);
+            $filter['status'] = Category::STATUS_ENABLED;
+            $categories = $em->getRepository('PFCDTourismBundle:Category')->findBy($filter);
         }
         
-        return $this->render('PFCDTourismBundle:Back/ResourceCategory:create.html.twig', array(
+        return $this->render('PFCDTourismBundle:Back/Category:create.html.twig', array(
             'categories' => $categories,
             'category'   => $category,
             'form'       => $form->createView()
@@ -76,7 +76,7 @@ class ResourceCategoryController extends Controller
     }
     
     /**
-     * Finds and displays a ResourceCategory entity
+     * Finds and displays a Category entity
      */
     public function backReadAction($id)
     {
@@ -89,20 +89,20 @@ class ResourceCategoryController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
 
-        $category = $em->getRepository('PFCDTourismBundle:ResourceCategory')->findOneBy($filter);
+        $category = $em->getRepository('PFCDTourismBundle:Category')->findOneBy($filter);
 
-        if (!$category) throw $this->createNotFoundException('Unable to find ResourceCategory entity.');
+        if (!$category) throw $this->createNotFoundException('Unable to find Category entity.');
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('PFCDTourismBundle:Back/ResourceCategory:read.html.twig', array(
+        return $this->render('PFCDTourismBundle:Back/Category:read.html.twig', array(
             'category'    => $category,
             'delete_form' => $deleteForm->createView(),
         ));
     }
     
     /**
-     * Deletes a ResourceCategory entity
+     * Deletes a Category entity
      */
     public function backDeleteAction($id)
     {
@@ -122,7 +122,7 @@ class ResourceCategoryController extends Controller
         if ($form->isValid())
         {
             $em = $this->getDoctrine()->getEntityManager();
-            $category = $em->getRepository('PFCDTourismBundle:ResourceCategory')->findOneBy($filter);
+            $category = $em->getRepository('PFCDTourismBundle:Category')->findOneBy($filter);
 
             if (!$category) throw $this->createNotFoundException('Unable to find Resource entity.');
             
@@ -143,10 +143,10 @@ class ResourceCategoryController extends Controller
 
                 $this->get('session')->setFlash('alert-error', $error);
 
-                return $this->redirect($this->generateUrl('back_resource_category_read', array('id' => $id)));
+                return $this->redirect($this->generateUrl('back_category_read', array('id' => $id)));
             }
             
-            $category->setStatus(ResourceCategory::STATUS_DELETED);
+            $category->setStatus(Category::STATUS_DELETED);
             $em->persist($category);
             $em->flush();
         }
@@ -154,7 +154,7 @@ class ResourceCategoryController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         
-        return $this->render('PFCDTourismBundle:Back/ResourceCategory:read.html.twig', array(
+        return $this->render('PFCDTourismBundle:Back/Category:read.html.twig', array(
             'category'    => $category,
             'delete_form' => $deleteForm->createView(),
         ));

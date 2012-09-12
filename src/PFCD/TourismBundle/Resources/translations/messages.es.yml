@@ -268,10 +268,10 @@ back.resource.read.subtitle: En esta lista se muestra información detallada sob
 back.resource.update.title: Editar detalles
 back.resource.update.subtitle: Rellene este formulario para añadir o modificar detalles del recurso
 
-back.resourcecategory.create.title: Añadir categoría
-back.resourcecategory.create.subtitle: Rellene este formulario para crear una nueva categoría
-back.resourcecategory.read.title: Detalles de la categoría
-back.resourcecategory.read.subtitle: En esta lista se muestra información detallada sobre la categoría
+back.category.create.title: Añadir categoría
+back.category.create.subtitle: Rellene este formulario para crear una nueva categoría
+back.category.read.title: Detalles de la categoría
+back.category.read.subtitle: En esta lista se muestra información detallada sobre la categoría
 
 back.statistic.title: Estadísticas
 back.statistic.subtitle: Aquí se muestran unas gráficas con la información más relevante de los resultados obtenidos
@@ -442,8 +442,8 @@ form.resource.field.status.help: >
   <b>No disponible:</b> El recurso no está disponible desde la fecha de inicio de bloqueo hasta la fecha de fin de bloqueo<hr/>
   <b>Eliminado:</b> El recurso no estará disponible de nuevo
 
-form.resourcecategory.field.name.help: El nombre de la categoría debe ser corto y suficientemente claro para clasificar todos los recursos que puedan ser usados independientemente por la misma actividad
-form.resourcecategory.field.status.help: >
+form.category.field.name.help: El nombre de la categoría debe ser corto y suficientemente claro para clasificar todos los recursos que puedan ser usados independientemente por la misma actividad
+form.category.field.status.help: >
   <b>Activada:</b> La categoría está disponible para crear recursos asociados<hr/>
   <b>Eliminada:</b> La categoría no es visible
   
@@ -667,8 +667,8 @@ Dateendlock: Fecha fin bloqueo
 
 Select a category: Seleccione una categoría
 
-entity.resourcecategory.field.status.1: Activada
-entity.resourcecategory.field.status.3: Eliminada
+entity.category.field.status.1: Activada
+entity.category.field.status.3: Eliminada
 
 entity.resource.field.status.1: Disponible
 entity.resource.field.status.3: Eliminado
@@ -876,7 +876,7 @@ back.payment.button.delete: Eliminar este pago
 
 back.resource.button.index: Volver atrás
 back.resource.button.create: Añadir un nuevo recurso
-back.resourcecategory.button.create: Añadir una nueva categoría
+back.category.button.create: Añadir una nueva categoría
 back.resource.button.read: Mostrar este recurso
 back.resource.button.update: Editar este recurso
 back.resource.button.delete: Eliminar este recurso

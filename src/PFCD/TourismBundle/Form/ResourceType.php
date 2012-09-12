@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityRepository;
 
 use PFCD\TourismBundle\Constants;
 
-use PFCD\TourismBundle\Entity\ResourceCategory;
+use PFCD\TourismBundle\Entity\Category;
 
 class ResourceType extends AbstractType
 {
@@ -17,18 +17,18 @@ class ResourceType extends AbstractType
     {
         if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('category', 'entity', array('class' => 'PFCDTourismBundle:ResourceCategory', 'property' => 'name', 'empty_value' => 'Select a category'));
+            $builder->add('category', 'entity', array('class' => 'PFCDTourismBundle:Category', 'property' => 'name', 'empty_value' => 'Select a category'));
         }
         elseif ($options['domain'] == Constants::BACK && $options['type'] == Constants::FORM_CREATE)
         {
-            $builder->add('category', 'entity', array('class' => 'PFCDTourismBundle:ResourceCategory', 'property' => 'name', 'empty_value' => 'Select a category',
+            $builder->add('category', 'entity', array('class' => 'PFCDTourismBundle:Category', 'property' => 'name', 'empty_value' => 'Select a category',
                 'query_builder' => function(EntityRepository $er) use ($options) {
                         return $er->createQueryBuilder('rc')
                                   ->where('rc.organization = :organization')
                                   ->andWhere('rc.status = :status')
                                   ->orderBy('rc.name', 'ASC')
                                   ->setParameter('organization', $options['organization'])
-                                  ->setParameter('status', ResourceCategory::STATUS_ENABLED);
+                                  ->setParameter('status', Category::STATUS_ENABLED);
                 }));
         }
         if ($options['type'] == Constants::FORM_CREATE)

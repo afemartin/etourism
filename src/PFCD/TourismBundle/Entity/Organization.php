@@ -189,7 +189,7 @@ class Organization implements AdvancedUserInterface
     private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity="ResourceCategory", mappedBy="organization")
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="organization")
      */
     private $resources;
     
