@@ -3,11 +3,13 @@
 namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Form\ResourceType;
+use PFCD\TourismBundle\Entity\Session;
 
 /**
  * Resource controller
@@ -88,16 +90,22 @@ class ResourceController extends Controller
     {
         $filter['id'] = $id;
                 
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
-        
         $em = $this->getDoctrine()->getEntityManager();
 
         $resource = $em->getRepository('PFCDTourismBundle:Resource')->findOneBy($filter);
 
         if (!$resource) throw $this->createNotFoundException('Unable to find Resource entity.');
+        
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $organization = $this->get('security.context')->getToken()->getUser()->getId();
+            
+            // verify that the selected resource belong to the logged organization
+            if ($resource->getCategory() && $resource->getCategory()->getOrganization()->getId() != $organization)
+            {
+                throw new AccessDeniedException();
+            }
+        }
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -161,11 +169,6 @@ class ResourceController extends Controller
     {
         $filter['id'] = $id;
                 
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
-        
         $form = $this->createDeleteForm($id);
         
         $request = $this->getRequest();
@@ -178,6 +181,35 @@ class ResourceController extends Controller
             $resource = $em->getRepository('PFCDTourismBundle:Resource')->findOneBy($filter);
 
             if (!$resource) throw $this->createNotFoundException('Unable to find Resource entity.');
+            
+            if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+            {
+                $organization = $this->get('security.context')->getToken()->getUser()->getId();
+
+                // verify that the selected resource belong to the logged organization
+                if ($resource->getCategory() && $resource->getCategory()->getOrganization()->getId() != $organization)
+                {
+                    throw new AccessDeniedException();
+                }
+            }
+            
+            // check that does not exist any enabled (or locked) session that require this resource
+            // since there can be a lot of existing old sessions we will only search the recent and future sessions
+            // we can find too many sessions to display so we will only display the 10 first sessions found
+            $sessions = $em->getRepository('PFCDTourismBundle:Session')->findRecentAndFuture(null, $resource->getId(), array(Session::STATUS_ENABLED, Session::STATUS_LOCKED), 10);
+
+            if ($sessions)
+            {
+                $error = $this->get('translator')->trans('alert.error.deleteresource') . ':';
+
+                $error .= '<ul>';
+                foreach ($sessions as $session) $error .= '<li>' .  $this->get('translator')->trans('Activity') . ': ' . $session->getActivity()->getTitle() .' - '.  $this->get('translator')->trans('Session') . ' [ ' . $session->getDate()->format('d/m/Y') . ' - ' . $session->getTime()->format('H:i') . ' ] (' . $this->get('translator')->trans($session->getStatusText()) . ')</li>';
+                $error .= (count($sessions) == 10) ? '<li>...</li></ul>' : '</ul>';
+
+                $this->get('session')->setFlash('alert-error', $error);
+
+                return $this->redirect($this->generateUrl('back_resource_read', array('id' => $id)));
+            }
 
             $resource->setStatus(Resource::STATUS_DELETED);
             $em->persist($resource);

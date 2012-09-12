@@ -66,23 +66,27 @@ class SessionRepository extends EntityRepository
             $qb->setParameter('status', $status);
         }
 
-//        $qb->orderBy('s.date', 'ASC');
-//        $qb->addOrderBy('s.time', 'ASC');
-
-        // var_dump($qb->getDQL());
-        // var_dump($qb->getQuery()->getSQL());
-
         return $qb->getQuery()->getResult();
     }
     
-    public function findRecentAndFuture($activity, $status = null, $limit = null)
+    public function findRecentAndFuture($activity = null, $resource = null, $status = null, $limit = null)
     {
         $qb = $this->createQueryBuilder('s');
         
         $qb->select('s');
 
-        $qb->andWhere('s.activity = :activity');
-        $qb->setParameter('activity', $activity);
+        if ($activity !== null)
+        {
+            $qb->andWhere('s.activity = :activity');
+            $qb->setParameter('activity', $activity);
+        }
+        
+        if ($resource !== null)
+        {
+            $qb->leftJoin('s.resources', 'r');
+            $qb->andWhere('r.id = :resource');
+            $qb->setParameter('resource', $resource);
+        }
         
         $dateStart = new DateTime();
         $dateStart->sub(new DateInterval('P7D'));
@@ -101,7 +105,7 @@ class SessionRepository extends EntityRepository
         $qb->addOrderBy('s.time', 'ASC');
         
         if ($limit) $qb->setMaxResults($limit);
-
+        
         return $qb->getQuery()->getResult();
     }
     

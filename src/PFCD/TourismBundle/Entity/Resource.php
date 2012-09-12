@@ -131,6 +131,16 @@ class Resource
     }
 
     /**
+     * Get name and category name to easily diferenciate between them
+     *
+     * @return string 
+     */
+    public function getNameAndCategory()
+    {
+        return '[' . $this->category->getName() . '] ' . $this->name;
+    }
+
+    /**
      * Set note
      *
      * @param string $note

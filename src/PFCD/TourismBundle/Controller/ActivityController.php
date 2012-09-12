@@ -58,10 +58,6 @@ class ActivityController extends Controller
     {
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
         $options['supported_currencies'] = $this->container->getParameter('currencies');
@@ -178,7 +174,6 @@ class ActivityController extends Controller
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         $options['status'] = $activity->getStatus();
-        $options['organization'] = $activity->getOrganization()->getId();
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
         $options['supported_currencies'] = $this->container->getParameter('currencies');
@@ -337,7 +332,7 @@ class ActivityController extends Controller
                     
                     // since there can be a lot of existing old sessions we will only search the recent and future sessions
                     // we can find too many sessions to display so we will only display the 10 first sessions found
-                    $sessions = $em->getRepository('PFCDTourismBundle:Session')->findRecentAndFuture($activity->getId(), array(Session::STATUS_ENABLED, Session::STATUS_LOCKED), 10);
+                    $sessions = $em->getRepository('PFCDTourismBundle:Session')->findRecentAndFuture($activity->getId(), null, array(Session::STATUS_ENABLED, Session::STATUS_LOCKED), 10);
                     
                     if ($sessions)
                     {

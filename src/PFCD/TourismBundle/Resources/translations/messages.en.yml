@@ -349,6 +349,7 @@ alert.error.deleteactivity: You cannot delete the Activity since there are some 
 alert.error.deletesession: You cannot delete the Session since there are some associated Reservations that you must to reject or cancel before
 
 alert.error.deletecategory: You cannot delete the Category since there are some associated Resources that you must to delete before
+alert.error.deleteresource: You cannot delete the Resource since there are some associated Sessions that you must to delete before
 
 alert.success.updatesettings: Your changes have been saved successfully
 

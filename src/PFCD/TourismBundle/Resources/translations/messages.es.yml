@@ -349,6 +349,7 @@ alert.error.deleteactivity: No puede eliminar la Actividad ya que existen alguna
 alert.error.deletesession: No puede eliminar la Sesión ya que existen algunas Reservas asociadas que debe rechazar o cancelar antes
 
 alert.error.deletecategory: No puede eliminar la Categoría ya que existen algunos Recursos asociados que debe eliminar antes
+alert.error.deleteresource: No puede eliminar el Recurso ya que existen algunas Sessiones asociadas que debe eliminar antes
   
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
