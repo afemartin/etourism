@@ -437,7 +437,7 @@ form.resource.field.note.help: Puede usar este campo para anotar información re
 form.resource.field.conflict.help: Marque esta casilla si quiere comprobar que este recurso no será necesitado para realizar dos o mas actividades al mismo tiempo
 form.resource.field.status.help: >
   <b>Disponible:</b> El recurso está disponible ahora<hr/>
-  <b>No disponible:</b> El recurso no está disponible ahora<hr/>
+  <b>No disponible:</b> El recurso no está disponible desde la fecha de inicio de bloqueo hasta la fecha de fin de bloqueo<hr/>
   <b>Eliminado:</b> El recurso no estará disponible de nuevo
 
 form.resourcecategory.field.name.help: El nombre de la categoría debe ser corto y suficientemente claro para clasificar todos los recursos que puedan ser usados independientemente por la misma actividad
@@ -447,7 +447,6 @@ form.resourcecategory.field.status.help: >
   
 form.session.field.note.help: Puede usar este campo para anotar información relevante acerca de la sesión
 form.session.field.status.help: >
-  <b>Pendiente:</b> La sesión no es visible<hr/>
   <b>Activada:</b> La sesión es visible y admite reservas<hr/>
   <b>Bloqueada:</b> La sesión es visible pero no admite reservas<hr/>
   <b>Eliminada:</b> La sesión no es visible

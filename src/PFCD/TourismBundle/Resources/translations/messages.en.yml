@@ -437,7 +437,7 @@ form.resource.field.note.help: You can use this field to record relevant informa
 form.resource.field.conflict.help: Mark this box if you want to check that this resource will not be required at the same time by two or more different activities
 form.resource.field.status.help: >
   <b>Available:</b> The resource is available right now<hr/>
-  <b>Not available:</b> The resource is not available right now<hr/>
+  <b>Not available:</b> The resource is not available from the start lock date to the end lock date<hr/>
   <b>Deleted:</b> The resource will not be available anymore
 
 form.resourcecategory.field.name.help: The name of this category must short and clear enough to classify all the resources that can be used independently for the same activity
@@ -447,7 +447,6 @@ form.resourcecategory.field.status.help: >
 
 form.session.field.note.help: You can use this field to record relevant information about this session
 form.session.field.status.help: >
-  <b>Pending:</b> The session is not visible<hr/>
   <b>Enabled:</b> The session is visible and allow reservations<hr/>
   <b>Locked:</b> The session is visible but do not allow reservations<hr/>
   <b>Deleted:</b> The session is not visible
