@@ -50,7 +50,7 @@ class BackController extends Controller
         
         $status = array(Session::STATUS_ENABLED, Session::STATUS_LOCKED);
                 
-        $sessions = $em->getRepository('PFCDTourismBundle:Session')->findAllFiltered($organization, $dateStart, $dateEnd, null, null, $status);
+        $sessions = $em->getRepository('PFCDTourismBundle:Session')->findAllFiltered($organization, null, $dateStart, $dateEnd, null, null, $status);
         
         $status = Resource::STATUS_ENABLED;
         
