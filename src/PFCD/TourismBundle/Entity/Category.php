@@ -24,7 +24,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="resources")
+     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="categories")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      */
     private $organization;

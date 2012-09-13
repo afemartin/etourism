@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 use PFCD\TourismBundle\Entity\Activity;
-use PFCD\TourismBundle\Entity\Resource;
+use PFCD\TourismBundle\Entity\Category;
 use PFCD\TourismBundle\Entity\Article;
 
 /**
@@ -191,7 +191,7 @@ class Organization implements AdvancedUserInterface
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="organization")
      */
-    private $resources;
+    private $categories;
     
     /**
      * @ORM\OneToMany(targetEntity="Article", mappedBy="organization")
@@ -849,23 +849,23 @@ class Organization implements AdvancedUserInterface
     }
 
     /**
-     * Add resources
+     * Add categories
      *
-     * @param Resource $resources
+     * @param Category $categories
      */
-    public function addResource(Resource $resources)
+    public function addCategory(Category $categories)
     {
-        $this->resources[] = $resources;
+        $this->categories[] = $categories;
     }
 
     /**
-     * Get resources
+     * Get categories
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getResources()
+    public function getCategories()
     {
-        return $this->resources;
+        return $this->categories;
     }
 
     /**
