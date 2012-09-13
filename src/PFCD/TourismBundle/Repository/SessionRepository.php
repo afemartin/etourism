@@ -69,7 +69,7 @@ class SessionRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function findRecentAndFuture($activity = null, $resource = null, $status = null, $limit = null)
+    public function findRecentAndFuture($activity = null, $status = null, $limit = null)
     {
         $qb = $this->createQueryBuilder('s');
         
@@ -79,13 +79,6 @@ class SessionRepository extends EntityRepository
         {
             $qb->andWhere('s.activity = :activity');
             $qb->setParameter('activity', $activity);
-        }
-        
-        if ($resource !== null)
-        {
-            $qb->leftJoin('s.resources', 'r');
-            $qb->andWhere('r.id = :resource');
-            $qb->setParameter('resource', $resource);
         }
         
         $dateStart = new DateTime();
