@@ -5,9 +5,8 @@ namespace PFCD\TourismBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Entity\Category;
-use PFCD\TourismBundle\Entity\Session;
+use PFCD\TourismBundle\Entity\Reservation;
 
 /**
  * @ORM\Entity(repositoryClass="PFCD\TourismBundle\Repository\ResourceRepository")
@@ -45,7 +44,7 @@ class Resource
     /**
      * @var boolean true means that this resource it is unique and may be shared
      *              by several activities, so it is necessary to check if it is
-     *              already required by another session of another activity
+     *              already required by another reservation of another activity
      * 
      * @ORM\Column(name="conflict", type="boolean", nullable=true)
      */
@@ -79,14 +78,14 @@ class Resource
     private $status;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Session", mappedBy="resources")
+     * @ORM\ManyToMany(targetEntity="Reservation", mappedBy="resources")
      */
-    private $sessions;
+    private $reservations;
 
     public function __construct()
     {
         $this->status = self::STATUS_ENABLED;
-        $this->sessions = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
@@ -311,23 +310,23 @@ class Resource
     }
 
     /**
-     * Add sessions
+     * Add reservation
      *
-     * @param Session $sessions
+     * @param Reservation $reservation
      */
-    public function addSession(Session $sessions)
+    public function addReservation(Reservation $reservation)
     {
-        $this->sessions[] = $sessions;
+        $this->reservations[] = $reservation;
     }
 
     /**
-     * Get sessions
+     * Get reservations
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getSessions()
+    public function getReservations()
     {
-        return $this->sessions;
+        return $this->reservations;
     }
 
 }

@@ -89,12 +89,6 @@ class Session
     private $status;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Resource", inversedBy="sessions")
-     * @ORM\JoinTable(name="session_resource")
-     */
-    private $resources;
-    
-    /**
      * @ORM\OneToMany(targetEntity="Reservation", mappedBy="session")
      */
     private $reservations;
@@ -326,26 +320,6 @@ class Session
     public function getStatusText()
     {
         return 'entity.session.field.status.' . $this->status;
-    }
-    
-    /**
-     * Add resources
-     *
-     * @param Resource $resources
-     */
-    public function addResource(Resource $resources)
-    {
-        $this->resources[] = $resources;
-    }
-    
-    /**
-     * Get resources
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getResources()
-    {
-        return $this->resources;
     }
            
     /**

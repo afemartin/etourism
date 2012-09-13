@@ -75,6 +75,12 @@ class Reservation
      */
     private $payment;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Resource", inversedBy="reservations")
+     * @ORM\JoinTable(name="reservation_resource")
+     */
+    private $resources;
+        
     public function __construct()
     {
         $this->status = self::STATUS_REQUESTED;
@@ -279,6 +285,26 @@ class Reservation
     public function getPayment()
     {
         return $this->payment;
+    }
+    
+    /**
+     * Add resource
+     *
+     * @param Resource $resource
+     */
+    public function addResource(Resource $resource)
+    {
+        $this->resources[] = $resource;
+    }
+    
+    /**
+     * Get resources
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getResources()
+    {
+        return $this->resources;
     }
 
 }
