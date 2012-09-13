@@ -151,15 +151,7 @@ class CategoryController extends Controller
             $em->flush();
         }
         
-        $deleteForm = $this->createDeleteForm($id);
-
-        
-        return $this->render('PFCDTourismBundle:Back/Category:read.html.twig', array(
-            'category'    => $category,
-            'delete_form' => $deleteForm->createView(),
-        ));
-
-        return $this->redirect($this->generateUrl('back_resource_index'));
+        return $this->redirect($this->generateUrl('back_category_create'));
     }
     
     
