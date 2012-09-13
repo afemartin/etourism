@@ -55,6 +55,10 @@
             <td>{% if activity.durationTime %}{{ macros.timeToDuration(activity.durationDays, activity.durationTime) }}{% endif %}</td>
         </tr>
         <tr>
+            <th>{{ 'Categories'|trans }}</th>
+            <td>{% for category in activity.categories %}<a href="{{ path('back_category_read', { 'id': category.id }) }}">{{ category.name }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
+        </tr>
+        <tr>
             <th>{{ 'Languages'|trans }}</th>
             <td>{% for language in activity.languages %}{{ macros.languageFlag(language) }} {{ language|locale }}{% if not loop.last %} - {% endif %}{% endfor %}</td>
         </tr>
