@@ -12,11 +12,11 @@
     <div class="span12">
         <h3>{{ 'back.home.nextevents'|trans }} <small>{{ 'back.home.nextevents.small'|trans }}</small></h3>
     </div>
-    <div class="span6">
+    <div class="span12">
         <table id="summary_sessions" class="table table-bordered table-condensed">
             <thead>
                 <tr>
-                    <th colspan="6"><h4><i class="icon-calendar"></i> {{ 'Sessions'|trans }} <small><a href="{{ path('back_session_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
+                    <th colspan="8"><h4><i class="icon-calendar"></i> {{ 'Sessions'|trans }} <small><a href="{{ path('back_session_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
                 </tr>
                 <tr>
                     <th>{{ 'View'|trans }}</th>
@@ -25,6 +25,7 @@
                     <th>{{ 'Time'|trans }}</th>
                     <th>{{ 'Persons'|trans }}</th>
                     <th>{{ 'Capacity'|trans }}</th>
+                    <th>{{ 'Note'|trans }}</th>
                     <th>{{ 'Status'|trans }}</th>
                 </tr>
             </thead>
@@ -32,7 +33,7 @@
             {% for session in sessions %}
             <tr class="status-{{ session.status }}">
                 <td><a href="{{ path('back_session_read', { 'id': session.id }) }}"><i class="icon-eye-open"></i></a></td>
-                <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title|truncate(25) }}</a></td>
+                <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title|truncate(50) }}</a></td>
                 <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
                 {% set total_persons = 0 %}
@@ -41,38 +42,41 @@
                 {% endfor %}
                 <td>{{ total_persons }}</td>
                 <td>{{ ((total_persons/session.activity.capacity)*100)|number_format }}%</td>
+                <td>{{ session.note|truncate(25) }}</td>
                 <td>{{ session.statusText|trans }}</td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="span6">
+    <div class="span12">
         <table id="summary_resources" class="table table-bordered table-condensed">
             <thead>
                 <tr>
-                    <th colspan="6"><h4><i class="icon-wrench"></i> {{ 'Resources'|trans }} <small><a href="{{ path('back_resource_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
+                    <th colspan="7"><h4><i class="icon-wrench"></i> {{ 'Resources'|trans }} <small><a href="{{ path('back_resource_index') }}">({{ 'back.home.viewmore'|trans }})</a></small></h4></th>
                 </tr>
                 <tr>
                     <th>{{ 'View'|trans }}</th>
+                    <th>{{ 'Category'|trans }}</th>
                     <th>{{ 'Name'|trans }}</th>
                     <th>{{ macros.languageFlag(app.session.locale) }} {{ 'Activity'|trans }}</th>
                     <th>{{ 'Session date'|trans }}</th>
                     <th>{{ 'Session time'|trans }}</th>
+                    <th>{{ 'Note'|trans }}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for resource in resources %}
-                    {% for activity in resource.activities %}
-                        {% for session in activity.sessions %}
-                        <tr class="status-{{ resource.status }}">
-                            <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}"><i class="icon-eye-open"></i></a></td>
-                            <td>{{ resource.name }}</td>
-                            <td><a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title|truncate(25) }}</a></td>
-                            <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
-                            <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
-                        </tr>
-                        {% endfor %}
+                    {% for reservation in resource.reservations %}
+                    <tr class="status-{{ resource.status }}">
+                        <td><a href="{{ path('back_resource_read', { 'id': resource.id }) }}"><i class="icon-eye-open"></i></a></td>
+                        <td><a href="{{ path('back_category_read', { 'id': resource.category.id }) }}">{{ resource.category.name }}</a></td>
+                        <td>{{ resource.name }}</td>
+                        <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(50) }}</a></td>
+                        <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %}</td>
+                        <td>{% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% endif %}</td>
+                        <td>{{ resource.note|truncate(25) }}</td>
+                    </tr>
                     {% endfor %}
                 {% endfor %}
             </tbody>
@@ -163,16 +167,16 @@
 <script src="{{ asset('js/tablesorter.min.js') }}"></script>
 <script type="text/javascript">
     {% if sessions %}
-        $('#summary_sessions').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[2,0],[3,0]] });
+        $('#summary_sessions').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} , 7: {sorter: false} }, sortList: [[2,0],[3,0]] });
     {% endif %}
     {% if resources %}
-        $('#summary_resources').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[3,0],[4,0]] });
+        $('#summary_resources').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} , 7: {sorter: false} }, sortList: [[4,0],[5,0]] });
     {% endif %}
     {% if reservations %}
-        $('#summary_reservations').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[7,1]] });
+        $('#summary_reservations').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} , 7: {sorter: false} }, sortList: [[7,1]] });
     {% endif %}
     {% if payments %}
-        $('#summary_payments').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} }, sortList: [[8,1]] });
+        $('#summary_payments').tablesorter({ headers: { 0: {sorter: false}, 1: {sorter: false} , 8: {sorter: false} }, sortList: [[8,1]] });
     {% endif %}
 </script>
 {% endblock %}
