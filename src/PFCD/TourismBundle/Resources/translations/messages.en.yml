@@ -32,7 +32,6 @@ Menu: Menu
 Sessions: Sessions
 Reservations: Reservations
 Payments: Payments
-Statistics: Statistics
 Comments: Comments
 Users: Users
 Settings: Settings
@@ -272,9 +271,6 @@ back.category.create.title: Category creation
 back.category.create.subtitle: Use this form to create manually a new category
 back.category.read.title: Category details
 back.category.read.subtitle: In this list there is detailed information stored about this category
-
-back.statistic.title: Statistics
-back.statistic.subtitle: These are the graphs of the most important information about the obtained results
 
 back.article.index.title: Article list
 back.article.index.subtitle: In this list there are all the activities registered in the system

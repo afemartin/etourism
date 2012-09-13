@@ -32,7 +32,6 @@ Menu: Menu
 Sessions: Sesiones
 Reservations: Reservas
 Payments: Pagos
-Statistics: Estadísticas
 Comments: Comentarios
 Users: Usuarios
 Settings: Ajustes
@@ -272,9 +271,6 @@ back.category.create.title: Añadir categoría
 back.category.create.subtitle: Rellene este formulario para crear una nueva categoría
 back.category.read.title: Detalles de la categoría
 back.category.read.subtitle: En esta lista se muestra información detallada sobre la categoría
-
-back.statistic.title: Estadísticas
-back.statistic.subtitle: Aquí se muestran unas gráficas con la información más relevante de los resultados obtenidos
 
 back.article.index.title: Lista de noticias
 back.article.index.subtitle: En esta lista se encuentran las noticias registradas en el sistema

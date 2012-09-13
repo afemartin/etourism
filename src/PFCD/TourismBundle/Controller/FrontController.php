@@ -35,6 +35,90 @@ class FrontController extends Controller
     }
 
     /**
+     * Display a contact form and send a enquiry to the webmaster when the form is submitted and valid
+     */
+    public function contactAction()
+    {
+        $enquiry = new Enquiry();
+        
+        $options['type'] = Constants::ENQUIRY_FULL;
+        
+        if ($this->get('security.context')->isGranted('ROLE_USER'))
+        {
+            $options['type'] = Constants::ENQUIRY_MINI;
+            
+            $user = $this->get('security.context')->getToken()->getUser();
+            $enquiry->setName($user->getFirstname() . ' ' . $user->getLastname());
+            $enquiry->setEmail($user->getEmail());
+        }
+        
+        $form = $this->createForm(new EnquiryType(), $enquiry, $options);
+
+        $request = $this->getRequest();
+        
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bindRequest($request);
+
+            if ($form->isValid())
+            {
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName())))
+                        ->setFrom($enquiry->getEmail())
+                        ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
+                        ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)), 'text/html');
+                
+                $this->get('mailer')->send($message);
+
+                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.contactenquiry'));
+
+                return $this->redirect($this->generateUrl('front_contact'));
+            }
+        }
+
+        return $this->render('PFCDTourismBundle:Front/Home:contact.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * Display About page
+     */
+    public function aboutAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
+
+        // if there is non existent settings, create it
+        if (!$settings) $settings = new Settings();
+        
+        $content = $settings->getAboutDesc();
+        
+        return $this->render('PFCDTourismBundle:Front/Home:about.html.twig', array(
+            'content' => $content
+        ));
+    }
+    
+    /**
+     * Called from the template sidebar.html.yml to retrieve the list of most recent activities and article
+     */
+    public function sidebarAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $locale = $this->get('session')->getLocale();
+        
+        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($locale, null, null, array(Activity::STATUS_ENABLED), array(Organization::STATUS_ENABLED), 'a.created', 'DESC', 5);
+        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($locale, null, null, array(Article::STATUS_ENABLED), array(Organization::STATUS_ENABLED), 'a.created', 'DESC', 5);
+
+        return $this->render('PFCDTourismBundle:Front/Home:sidebar.html.twig', array(
+            'activities' => $activities,
+            'articles'   => $articles
+        ));
+    }
+
+    /**
      * Show the login page of the webpage for users
      */
     public function loginAction()
@@ -191,90 +275,6 @@ class FrontController extends Controller
 
         return $this->render('PFCDTourismBundle:Front/Home:resetPassword.html.twig', array(
             'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * Display a contact form and send a enquiry to the webmaster when the form is submitted and valid
-     */
-    public function contactAction()
-    {
-        $enquiry = new Enquiry();
-        
-        $options['type'] = Constants::ENQUIRY_FULL;
-        
-        if ($this->get('security.context')->isGranted('ROLE_USER'))
-        {
-            $options['type'] = Constants::ENQUIRY_MINI;
-            
-            $user = $this->get('security.context')->getToken()->getUser();
-            $enquiry->setName($user->getFirstname() . ' ' . $user->getLastname());
-            $enquiry->setEmail($user->getEmail());
-        }
-        
-        $form = $this->createForm(new EnquiryType(), $enquiry, $options);
-
-        $request = $this->getRequest();
-        
-        if ($request->getMethod() == 'POST')
-        {
-            $form->bindRequest($request);
-
-            if ($form->isValid())
-            {
-                $message = \Swift_Message::newInstance()
-                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.contactenquiry.subject', array('%name%' => $enquiry->getName())))
-                        ->setFrom($enquiry->getEmail())
-                        ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
-                        ->setBody($this->renderView('PFCDTourismBundle:Mail:contact.txt.twig', array('enquiry' => $enquiry)), 'text/html');
-                
-                $this->get('mailer')->send($message);
-
-                $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.contactenquiry'));
-
-                return $this->redirect($this->generateUrl('front_contact'));
-            }
-        }
-
-        return $this->render('PFCDTourismBundle:Front/Home:contact.html.twig', array(
-            'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * Display About page
-     */
-    public function aboutAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $settings = $em->getRepository('PFCDTourismBundle:Settings')->find(1);
-
-        // if there is non existent settings, create it
-        if (!$settings) $settings = new Settings();
-        
-        $content = $settings->getAboutDesc();
-        
-        return $this->render('PFCDTourismBundle:Front/Home:about.html.twig', array(
-            'content' => $content
-        ));
-    }
-    
-    /**
-     * Called from the template sidebar.html.yml to retrieve the list of most recent activities and article
-     */
-    public function sidebarAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $locale = $this->get('session')->getLocale();
-        
-        $activities = $em->getRepository('PFCDTourismBundle:Activity')->findListFront($locale, null, null, array(Activity::STATUS_ENABLED), array(Organization::STATUS_ENABLED), 'a.created', 'DESC', 5);
-        $articles = $em->getRepository('PFCDTourismBundle:Article')->findListFront($locale, null, null, array(Article::STATUS_ENABLED), array(Organization::STATUS_ENABLED), 'a.created', 'DESC', 5);
-
-        return $this->render('PFCDTourismBundle:Front/Home:sidebar.html.twig', array(
-            'activities' => $activities,
-            'articles'   => $articles
         ));
     }
     
