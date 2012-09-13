@@ -247,8 +247,8 @@ back.reservation.create.title: Añadir reserva
 back.reservation.create.subtitle: Rellene este formulario para crear una nueva reserva
 back.reservation.read.title: Detalles de la reserva
 back.reservation.read.subtitle: En esta lista se muestra información detallada sobre la reserva
-back.reservation.update.title: Editar detalles
-back.reservation.update.subtitle: Rellene este formulario para añadir o modificar detalles de la reserva
+back.reservation.accept.title: Confirmar la reserva
+back.reservation.accept.subtitle: Rellene este formulario para completar el proceso de reserva seleccionando los recursos que va a utilizar esta reserva y aceptando la reserva. Un vez que confirme la reserva se generará automáticamente el pago asociado
 
 back.payment.index.title: Lista de pagos
 back.payment.index.subtitle: En esta lista se encuentran los pagos registrados en el sistema
@@ -342,15 +342,15 @@ alert.success.createorganization: Su petición de registro ha sido enviada corre
 alert.success.reservationaccepted: El pago para la actividad ha sido creado con éxito y se ha enviado un email al usuario para que proceda a realizar el pago de la reserva
 
 alert.success.paymentupdated: El pago ha sido actualizado y se ha enviado un email a la organización con su comentario acerca del pago
-alert.warning.paymentpriceupdated: El precio del pago ha cambiado de %old_price% a %new_price%, debería comprobar que todo es correcto y contactar con el usuario que realizó esta reserva
 
 alert.error.deleteorganization: No puede eliminar la Organización ya que existen algunas Actividades asociadas que debe eliminar antes
 alert.error.deleteactivity: No puede eliminar la Actividad ya que existen algunas Sesiones asociadas que debe eliminar antes
 alert.error.deletesession: No puede eliminar la Sesión ya que existen algunas Reservas asociadas que debe rechazar o cancelar antes
 
 alert.error.deletecategorywithresources: No puede eliminar la Categoría ya que existen algunos Recursos asociados que debe eliminar antes
-alert.error.deletecategorywithactivities: No puede eliminar el Recurso ya que existen algunas Sessiones asociadas que debe eliminar antes
-  
+alert.error.deletecategorywithactivities: No puede eliminar la Categoría ya está asociada a algunas Actividades que debe eliminar antes
+alert.error.deleteresource: No puede eliminar el Recurso ya que existen algunas Reservas asociadas que debe rechazar o cancelar antes
+
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
 alert.error.reservation.lockeduser: Su cuenta de usuario está bloqueada. Por este motivo no puede crear nuevas reservas. Para más información <a href="%link%">contacte</a> con el administrador
@@ -453,7 +453,6 @@ form.session.field.status.help: >
   <b>Bloqueada:</b> La sesión es visible pero no admite reservas<hr/>
   <b>Eliminada:</b> La sesión no es visible
 
-form.reservation.field.persons.help: Si incrementa/decrementa el número de personas, el precio del pago (si está pendiente de pagar) será automáticamente incrementado/decrementado proporcionalmente
 form.reservation.field.resources.help: Seleccione los recursos necesarios para confirmar la reserva (al menos uno de cada categoría). Puede añadir nuevos recursos en la sección "<i class="icon-wrench icon-white"></i> Recursos"
 form.reservation.field.note.help: Puede usar este campo para anotar información relevante acerca de la reserva
 form.reservation.field.status.help: >
@@ -666,6 +665,8 @@ Conflict: Comprobar conflictos
 Datestartlock: Fecha inicio bloqueo
 Dateendlock: Fecha fin bloqueo
 
+Lock period: Periodo bloqueado
+
 Select a category: Seleccione una categoría
 
 entity.category.field.status.1: Activada
@@ -799,6 +800,7 @@ OK: Aceptar
 Cancel: Cancelar
 Send: Enviar
 
+Accept reservation: Aceptar la reserva
 Save changes: Guardar cambios
 Save changes and send comment: Guardar cambios y enviar comentario
 Cancel changes: Cancelar cambios
@@ -866,8 +868,9 @@ back.session.button.delete: Eliminar
 back.reservation.button.index: Volver atrás
 back.reservation.button.create: Añadir una nueva reserva
 back.reservation.button.read: Mostrar esta reserva
-back.reservation.button.update: Editar esta reserva
-back.reservation.button.delete: Eliminar esta reserva
+back.reservation.button.accept: Seleccionar recursos
+back.reservation.button.reject: Rechazar
+back.reservation.button.cancel: Cancelar
 
 back.payment.button.index: Volver atrás
 back.payment.button.create: Añadir un nuevo pago
@@ -877,10 +880,11 @@ back.payment.button.delete: Eliminar este pago
 
 back.resource.button.index: Volver atrás
 back.resource.button.create: Añadir un nuevo recurso
-back.category.button.create: Añadir una nueva categoría
 back.resource.button.read: Mostrar este recurso
 back.resource.button.update: Editar este recurso
 back.resource.button.delete: Eliminar este recurso
+
+back.category.button.create: Añadir una nueva categoría
 
 back.article.button.index: Volver atrás
 back.article.button.create: Añadir una nueva noticia

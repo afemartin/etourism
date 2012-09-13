@@ -247,8 +247,8 @@ back.reservation.create.title: Reservation creation
 back.reservation.create.subtitle: Use this form to create manually a new reservation
 back.reservation.read.title: Reservation details
 back.reservation.read.subtitle: In this list there is detailed information stored about this reservation
-back.reservation.update.title: Reservation edit
-back.reservation.update.subtitle: Use this form to edit the reservation information
+back.reservation.accept.title: Confrim the reservation
+back.reservation.accept.subtitle: Use this form to complete the reservation process by selecting the required resources to do the activity and accept the reservation. Once you confirm the reservation the associated payment will be generated
 
 back.payment.index.title: Payment list
 back.payment.index.subtitle: In this list there are all the payments registered in the system
@@ -342,7 +342,6 @@ alert.success.createorganization: Your registration request was successfully sen
 alert.success.reservationaccepted: The payment for the activity has been created successfully and an email has been sent to the user to proceed to the payment of the reservation
 
 alert.success.paymentupdated: The payment has been updated and an email has been sent to the organization with your comment about the payment
-alert.warning.paymentpriceupdated: Payment price has change from %old_price% to %new_price%, you should check that everything it is correct and then contact with the user that made this reservation
 
 alert.error.deleteorganization: You cannot delete the Organization since there are some associated Activities that you must to delete before
 alert.error.deleteactivity: You cannot delete the Activity since there are some associated Sessions that you must to delete before
@@ -350,7 +349,7 @@ alert.error.deletesession: You cannot delete the Session since there are some as
 
 alert.error.deletecategorywithresources: You cannot delete the Category since there are some associated Resources that you must to delete before
 alert.error.deletecategorywithactivities: You cannot delete the Category since there it is associated to some Activities that you must to delete before
-alert.error.deleteresource: You cannot delete the Resource since there are some associated Sessions that you must to delete before
+alert.error.deleteresource: You cannot delete the Resource since there are some associated Reservations that you must to reject or cancel before
 
 alert.success.updatesettings: Your changes have been saved successfully
 
@@ -454,7 +453,6 @@ form.session.field.status.help: >
   <b>Locked:</b> The session is visible but do not allow reservations<hr/>
   <b>Deleted:</b> The session is not visible
   
-form.reservation.field.persons.help: If you increase/decrease the number of persons, the price of the payment (if it is pending to pay) will automatically increase/decrease proportionally
 form.reservation.field.resources.help: Select the required resources to confirm the reservation (at least one from each category). You can add new resources in the "<i class="icon-wrench icon-white"></i> Resources" section
 form.reservation.field.note.help: You can use this field to record relevant information about this reservation
 form.reservation.field.status.help: >
@@ -667,6 +665,8 @@ Conflict: Check conflicts
 Datestartlock: Lock start date
 Dateendlock: Lock end date
 
+Lock period: Locked period
+
 Select a category: Select a category
 
 entity.category.field.status.1: Enabled
@@ -800,6 +800,7 @@ OK: OK
 Cancel: Cancel
 Send: Send
 
+Accept reservation: Accept the reservation
 Save changes: Save changes
 Save changes and send comment: Save changes and send comment
 Cancel changes: Cancel changes
@@ -867,8 +868,9 @@ back.session.button.delete: Delete
 back.reservation.button.index: Back to the list
 back.reservation.button.create: Create a new reservation
 back.reservation.button.read: Show this reservation
-back.reservation.button.update: Edit this reservation
-back.reservation.button.delete: Delete this reservation
+back.reservation.button.accept: Select resources
+back.reservation.button.reject: Reject
+back.reservation.button.cancel: Cancel
 
 back.payment.button.index: Back to the list
 back.payment.button.create: Create a new payment
