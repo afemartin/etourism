@@ -26,41 +26,39 @@
             <td>{{ resource.name }}</td>
         </tr>
         <tr>
+            <th>{{ 'Lock period'|trans }}</th>
+            <td>{{ 'From'|trans }}: {% if resource.dateStartLock %}{{ resource.dateStartLock|date('Y-m-d') }}{% endif %} - {{ 'To'|trans }}: {% if resource.dateEndLock %}{{ resource.dateStartLock|date('Y-m-d') }}{% endif %}</td>
+        </tr>
+        <tr>
             <th>{{ 'Note'|trans }}</th>
             <td>{{ resource.note }}</td>
         </tr>
         <tr>
             <th>{{ 'Sessions'|trans }}</th>
             <td>
-                {% if resource.sessions|length > 0 %}
+                {% if resource.reservations|length > 0 %}
                 <table class="table table-bordered table-condensed">
                     <thead>
                         <tr>
                             <th>{{ 'View'|trans }}</th>
+                            <th>{{ 'User'|trans }}</th>
                             <th>{{ 'Activity'|trans }}</th>
-                            <th>{{ 'Date'|trans }}</th>
-                            <th>{{ 'Time'|trans }}</th>
+                            <th>{{ 'Session'|trans }}</th>
                             <th>{{ 'Persons'|trans }}</th>
-                            <th>{{ 'Capacity'|trans }}</th>
                             <th>{{ 'Note'|trans }}</th>
                             <th>{{ 'Status'|trans }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for session in resource.sessions %}
-                    <tr class="status-{{ session.status }}">
-                        <td><a href="{{ path('back_session_read', { 'id': session.id }) }}"><i class="icon-eye-open"></i></a></td>
-                        <td><a href="{{ path('back_activity_read', { 'id': session.activity.id }) }}">{{ session.activity.title|truncate(25) }}</a></td>
-                        <td>{% if session.date %}{{ session.date|date('Y-m-d') }}{% endif %}</td>
-                        <td>{% if session.time %}{{ session.time|date('H:i') }}{% endif %}</td>
-                        {% set total_persons = 0 %}
-                        {% for reservation in session.reservations %}
-                        {% set total_persons = total_persons + reservation.persons %}
-                        {% endfor %}
-                        <td>{{ total_persons }}</td>
-                        <td>{{ ((total_persons/session.activity.capacity)*100)|number_format }}%</td>
-                        <td>{{ session.note|truncate(25) }}</td>
-                        <td>{{ session.statusText|trans }}</td>
+                    {% for reservation in resource.reservations %}
+                    <tr class="status-{{ reservation.status }}">
+                        <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}"><i class="icon-eye-open"></i></a></td>
+                        <td>{% if reservation.user %}<a href="{{ path('back_user_read', { 'id': reservation.user.id }) }}">{{ reservation.user.firstname }}</a>{% endif %}</td>
+                        <td><a href="{{ path('back_activity_read', { 'id': reservation.session.activity.id }) }}">{{ reservation.session.activity.title|truncate(25) }}</a></td>
+                        <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %} {% if reservation.session.time %}({{ reservation.session.time|date('H:i') }}){% endif %}</td>
+                        <td>{{ reservation.persons }}</td>
+                        <td>{{ reservation.note|truncate(25) }}</td>
+                        <td>{{ reservation.statusText|trans }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
