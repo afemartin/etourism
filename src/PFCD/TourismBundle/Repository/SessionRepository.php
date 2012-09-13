@@ -20,8 +20,8 @@ class SessionRepository extends EntityRepository
         
         $qb->select('s, r');
 
-        $qb->leftJoin('s.reservations', 'r', 'WITH', 'r.status IN (:status_reservation)');
-        $qb->setParameter('status_reservation', array(Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED));
+        $qb->leftJoin('s.reservations', 'r', 'WITH', 'r.status IN (:status_r)');
+        $qb->setParameter('status_r', array(Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED));
         
         if ($organization !== null)
         {
