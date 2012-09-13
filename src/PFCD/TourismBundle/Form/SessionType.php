@@ -40,20 +40,6 @@ class SessionType extends AbstractType
             $builder->add('date', 'date', array('widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'attr' => array('class' => 'input-small datepicker-bootstrap')));
             $builder->add('time', 'time', array('hours' => range(0, 23), 'minutes' => range(0, 60-$step, $step), 'empty_value' => array('hour' => 'Hour', 'minute' => 'Minute' ), 'attr' => array('class' => 'time-choice-compact')));
         }
-        if ($options['type'] == Constants::FORM_CREATE)
-        {
-            $builder->add('resources', 'entity', array('attr' => array('style' => 'display: inline-block'), 'class' => 'PFCDTourismBundle:Resource', 'property' => 'nameAndCategory', 'multiple' => true, 'expanded' => true, 'help' => 'form.activity.field.resources.help',
-                'query_builder' => function(EntityRepository $er) use ($options) {
-                    return $er->createQueryBuilder('r')
-                            ->innerJoin('r.category', 'c')
-                            ->where('c.organization = :organization')
-                            ->setParameter('organization', $options['organization'])
-                            ->andWhere('r.status = :status')
-                            ->setParameter('status', Resource::STATUS_ENABLED)
-                            ->orderBy('c.name', 'ASC')
-                            ->addOrderBy('r.name', 'ASC');
-                }));
-        }
         $builder->add('note', 'textarea', array('required' => false, 'attr' => array('class' => 'input-xxlarge'), 'help' => 'form.session.field.note.help'));
         if (($options['domain'] == Constants::ADMIN || $options['domain'] == Constants::BACK) && $options['type'] == Constants::FORM_CREATE)
         {
