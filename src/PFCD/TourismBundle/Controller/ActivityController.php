@@ -342,7 +342,7 @@ class ActivityController extends Controller
                     
                     // since there can be a lot of existing old sessions we will only search the recent and future sessions
                     // we can find too many sessions to display so we will only display the 10 first sessions found
-                    $sessions = $em->getRepository('PFCDTourismBundle:Session')->findRecentAndFuture($activity->getId(), null, array(Session::STATUS_ENABLED, Session::STATUS_LOCKED), 10);
+                    $sessions = $em->getRepository('PFCDTourismBundle:Session')->findRecentAndFuture($activity->getId(), array(Session::STATUS_ENABLED, Session::STATUS_LOCKED), 10);
                     
                     if ($sessions)
                     {
