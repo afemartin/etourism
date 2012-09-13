@@ -36,6 +36,10 @@
             <td>{% if reservation.payment %}<a href="{{ path('back_payment_read', { 'id': reservation.payment.id }) }}"><i class="icon-inbox"></i></a>{% endif %}</td>
         </tr>
         <tr>
+            <th>{{ 'Resources'|trans }}</th>
+            <td>{% for resource in reservation.resources %}<a href="{{ path('back_resource_read', { 'id': resource.id }) }}">{{ resource.name }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
+        </tr>
+        <tr>
             <th>{{ 'Note'|trans }}</th>
             <td>{{ reservation.note }}</td>
         </tr>
@@ -49,26 +53,44 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ reservation.statusText|trans }} <a data-original-title="{{ 'form.reservation.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>
+                {{ reservation.statusText|trans }} <a data-original-title="{{ 'form.reservation.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
+                {% if reject_form %}
+                <div class="pull-right">
+                    <form id="reject_reservation_form" style="margin: 0 0 0 5px;" action="{{ path('back_reservation_status', { 'id': reservation.id, 'status': reject_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(reject_form) }}
+                        <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.reservation.button.reject'|trans }}</button>
+                    </form>
+                </div>
+                {{ macros.modalConfirm('reject_reservation_form', 'reject_modal') }}
+                <a class="btn btn-mini btn-success pull-right" href="{{ path('back_reservation_accept', { 'id': reservation.id }) }}"><i class="icon-ok-circle icon-white"></i> {{ 'back.reservation.button.accept'|trans }}</a>
+                {% endif %}
+                {% if cancel_form %}
+                <div class="pull-right">
+                    <form id="cancel_reservation_form" style="margin: 0 0 0 5px;" action="{{ path('back_reservation_status', { 'id': reservation.id, 'status': cancel_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(cancel_form) }}
+                        <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.reservation.button.cancel'|trans }}</button>
+                    </form>
+                </div>
+                {{ macros.modalConfirm('cancel_reservation_form', 'cancel_modal') }}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="{{ path('back_reservation_update', { 'id': reservation.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.reservation.button.update'|trans }}</a>
 <a class="btn btn-inverse" href="{{ path('back_reservation_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.reservation.button.index'|trans }}</a>
-<form id="delete_reservation_form" class="pull-right" action="{{ path('back_reservation_delete', { 'id': reservation.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.reservation.button.delete'|trans }}</button>
-</form>
-
-{{ macros.modalConfirm('delete_reservation_form', 'delete_modal') }}
 {% endblock %}
 
 {% block javascripts %}
 {{ parent() }}
 <script type="text/javascript">
-    $('#delete_reservation_form').submit(function() { if (!$(this).data('show-confirm')) { $('#delete_modal').modal('show'); return false; } });
-    $('#delete_modal').on('show', function() { $('#delete_reservation_form').data('show-confirm', true); });
-    $('#delete_modal').on('hide', function() { $('#delete_reservation_form').data('show-confirm', false); });
+    $('#reject_reservation_form').submit(function() { if (!$(this).data('show-confirm')) { $('#reject_modal').modal('show'); return false; } });
+    $('#reject_modal').on('show', function() { $('#reject_reservation_form').data('show-confirm', true); });
+    $('#reject_modal').on('hide', function() { $('#reject_reservation_form').data('show-confirm', false); });
+    
+    $('#cancel_reservation_form').submit(function() { if (!$(this).data('show-confirm')) { $('#cancel_modal').modal('show'); return false; } });
+    $('#cancel_modal').on('show', function() { $('#cancel_reservation_form').data('show-confirm', true); });
+    $('#cancel_modal').on('hide', function() { $('#cancel_reservation_form').data('show-confirm', false); });
 </script>
 {% endblock %}

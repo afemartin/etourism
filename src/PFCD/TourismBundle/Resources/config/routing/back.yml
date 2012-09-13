@@ -261,15 +261,15 @@ back_reservation_read:
     defaults: { _controller: "PFCDTourismBundle:Reservation:backRead" }
     requirements: { _method: get, id: \d+ }
 
-back_reservation_update:
-    pattern:  /reservation/{id}/edit
-    defaults: { _controller: "PFCDTourismBundle:Reservation:backUpdate" }
+back_reservation_accept:
+    pattern:  /reservation/{id}/accept
+    defaults: { _controller: "PFCDTourismBundle:Reservation:backAccept" }
     requirements: { id: \d+ }
 
-back_reservation_delete:
-    pattern:  /reservation/{id}/delete
-    defaults: { _controller: "PFCDTourismBundle:Reservation:backDelete" }
-    requirements: { _method: post, id: \d+ }
+back_reservation_status:
+    pattern:  /reservation/{id}/status/{status}
+    defaults: { _controller: "PFCDTourismBundle:Reservation:backStatus" }
+    requirements: { _method: post, id: \d+, status: \d+ }
 
 
 ################################################################################
