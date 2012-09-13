@@ -348,7 +348,8 @@ alert.error.deleteorganization: You cannot delete the Organization since there a
 alert.error.deleteactivity: You cannot delete the Activity since there are some associated Sessions that you must to delete before
 alert.error.deletesession: You cannot delete the Session since there are some associated Reservations that you must to reject or cancel before
 
-alert.error.deletecategory: You cannot delete the Category since there are some associated Resources that you must to delete before
+alert.error.deletecategorywithresources: You cannot delete the Category since there are some associated Resources that you must to delete before
+alert.error.deletecategorywithactivities: You cannot delete the Category since there it is associated to some Activities that you must to delete before
 alert.error.deleteresource: You cannot delete the Resource since there are some associated Sessions that you must to delete before
 
 alert.success.updatesettings: Your changes have been saved successfully
@@ -425,7 +426,7 @@ form.activity.field.price.help: This will be the price of the activity per perso
 form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity. If you reduce the previous capacity make sure that no current sessions will exceed the new capacity
 form.activity.field.durationdays.help: This is the duration of the activity in days. You have to use it in combination with the "Duration in days". If the activity does not long more than one day just fill with 0
 form.activity.field.durationtime.help: This is the duration of the activity in hours and minutes. You have to use it in combination with the "Duration in hours and minutes"
-form.activity.field.resources.help: Select the required resources to do the activity. You can add new resources in the "<i class="icon-wrench icon-white"></i> Resources" section
+form.activity.field.categories.help: Select the required resource categories to do the activity. You can add new categories in the "<i class="icon-wrench icon-white"></i> Resources" section
 form.activity.field.languages.help: These are the languages ​​in which the activity will be displayed to users. Be sure to translate all fields before activating a new language
 form.activity.field.note.help: You can use this field to record relevant and private information about this activity
 form.activity.field.status.help: >
@@ -454,6 +455,7 @@ form.session.field.status.help: >
   <b>Deleted:</b> The session is not visible
   
 form.reservation.field.persons.help: If you increase/decrease the number of persons, the price of the payment (if it is pending to pay) will automatically increase/decrease proportionally
+form.reservation.field.resources.help: Select the required resources to confirm the reservation (at least one from each category). You can add new resources in the "<i class="icon-wrench icon-white"></i> Resources" section
 form.reservation.field.note.help: You can use this field to record relevant information about this reservation
 form.reservation.field.status.help: >
   <b>Requested:</b> The reservation is requested by the user<hr/>

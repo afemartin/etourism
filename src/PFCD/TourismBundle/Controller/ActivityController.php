@@ -58,6 +58,11 @@ class ActivityController extends Controller
     {
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            // parameter used to filter and show only the categories that belong to the logged organization
+            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
         $options['supported_currencies'] = $this->container->getParameter('currencies');
@@ -174,6 +179,11 @@ class ActivityController extends Controller
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         $options['status'] = $activity->getStatus();
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            // parameter used to filter and show only the categories that belong to the logged organization
+            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        }
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
         $options['supported_currencies'] = $this->container->getParameter('currencies');

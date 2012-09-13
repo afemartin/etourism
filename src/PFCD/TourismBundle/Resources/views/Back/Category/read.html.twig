@@ -18,8 +18,12 @@
         </tr>
         {% endif %}
         <tr>
-            <th>{{ 'Category'|trans }}</th>
+            <th>{{ 'Name'|trans }}</th>
             <td>{{ category.name }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'Activities'|trans }}</th>
+            <td>{% for activity in category.activities %}<a href="{{ path('back_activity_read', { 'id': activity.id }) }}">{{ activity.title }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</td>
         </tr>
         <tr>
             <th>{{ 'Resources'|trans }}</th>

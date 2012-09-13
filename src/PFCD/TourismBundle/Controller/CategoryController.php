@@ -9,6 +9,7 @@ use PFCD\TourismBundle\Constants;
 use PFCD\TourismBundle\Entity\Category;
 use PFCD\TourismBundle\Form\CategoryType;
 use PFCD\TourismBundle\Entity\Resource;
+use PFCD\TourismBundle\Entity\Activity;
 
 /**
  * Category controller
@@ -126,6 +127,19 @@ class CategoryController extends Controller
 
             if (!$category) throw $this->createNotFoundException('Unable to find Resource entity.');
             
+            // check that does not exist any active activity that already select this category
+            $activities = $category->getActivities();
+            
+            foreach ($activities as $activity)
+            {
+                if ($activity->getStatus() != Activity::STATUS_DELETED)
+                {
+                    $this->get('session')->setFlash('alert-error', $this->get('translator')->trans('alert.error.deletecategorywithactivities'));
+
+                    return $this->redirect($this->generateUrl('back_category_read', array('id' => $id)));
+                }
+            }
+            
             // check that does not exist any enabled (or locked) resource
             unset($filter);
             $filter['category'] = $category->getId();
@@ -135,7 +149,7 @@ class CategoryController extends Controller
             
             if ($resources)
             {
-                $error = $this->get('translator')->trans('alert.error.deletecategory') . ':';
+                $error = $this->get('translator')->trans('alert.error.deletecategorywithresources') . ':';
 
                 $error .= '<ul>';
                 foreach ($resources as $resource) $error .= '<li>' . $resource->getName() . ' (' . $this->get('translator')->trans($resource->getStatusText()) . ')</li>';

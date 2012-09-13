@@ -45,6 +45,11 @@ class Category
      * @ORM\OneToMany(targetEntity="Resource", mappedBy="category")
      */
     private $resources;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Activity", mappedBy="categories")
+     */
+    private $activities;
 
     public function __construct()
     {
@@ -150,6 +155,26 @@ class Category
     public function getResources()
     {
         return $this->resources;
+    }
+    
+    /**
+     * Add activity
+     *
+     * @param Activity $activity
+     */
+    public function addActivity(Activity $activity)
+    {
+        $this->activities[] = $activity;
+    }
+
+    /**
+     * Get activities
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getActivities()
+    {
+        return $this->activities;
     }
 
 }

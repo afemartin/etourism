@@ -154,6 +154,12 @@ class Activity
      */
     private $comments;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="activities")
+     * @ORM\JoinTable(name="activity_category")
+     */
+    private $categories;
+    
     public function __construct()
     {
         $this->durationDays = 0;
@@ -681,6 +687,26 @@ class Activity
     public function getComments()
     {
         return $this->comments;
+    }
+    
+    /**
+     * Add category
+     *
+     * @param Category $category
+     */
+    public function addCategory(Category $category)
+    {
+        $this->categories[] = $category;
+    }
+    
+    /**
+     * Get categories
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
     
 }
