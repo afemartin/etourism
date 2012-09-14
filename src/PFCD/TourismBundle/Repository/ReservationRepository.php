@@ -135,19 +135,16 @@ class ReservationRepository extends EntityRepository
     }
     
         
-    public function findConflictsWithLockPeriod($resource = null, $dateStart = null, $dateEnd = null, $status = null, $limit = null)
+    public function findConflictsWithResources($resource, $dateStart = null, $dateEnd = null, $status = null, $limit = null)
     {
         $qb = $this->createQueryBuilder('r');
         
         $qb->select('r, s');
 
-        if ($resource !== null)
-        {
-            $qb->innerJoin('r.session', 's');
-            $qb->innerJoin('r.resources', 're');
-            $qb->andWhere('re.id = :resource');
-            $qb->setParameter('resource', $resource);
-        }
+        $qb->innerJoin('r.session', 's');
+        $qb->innerJoin('r.resources', 're');
+        $qb->andWhere('re.id = :resource');
+        $qb->setParameter('resource', $resource);
         
         if ($dateStart !== null)
         {

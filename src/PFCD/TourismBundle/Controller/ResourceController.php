@@ -190,7 +190,7 @@ class ResourceController extends Controller
                     if ($dateStartLock == null || $dateStartLock < $dateNow) $dateStartLock = $dateNow;
                     
                     // now we finally have a proper data range to use it inside the query
-                    $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findConflictsWithLockPeriod($resource->getId(), $dateStartLock, $dateEndLock, array(Reservation::STATUS_ACCEPTED), 10);
+                    $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findConflictsWithResources($resource->getId(), $dateStartLock, $dateEndLock, array(Reservation::STATUS_ACCEPTED), 10);
                     
                     if ($reservations)
                     {
