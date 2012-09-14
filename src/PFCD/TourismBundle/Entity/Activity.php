@@ -167,6 +167,7 @@ class Activity
         $this->gallery = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->categories = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());

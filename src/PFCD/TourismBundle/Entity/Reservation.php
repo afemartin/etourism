@@ -3,6 +3,7 @@
 namespace PFCD\TourismBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Entity\Session;
@@ -84,6 +85,7 @@ class Reservation
     public function __construct()
     {
         $this->status = self::STATUS_REQUESTED;
+        $this->resources = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());

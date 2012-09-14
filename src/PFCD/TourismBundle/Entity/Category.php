@@ -55,6 +55,7 @@ class Category
     {
         $this->status = self::STATUS_ENABLED;
         $this->resources = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     /**
