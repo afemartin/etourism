@@ -29,7 +29,14 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $users = $em->getRepository('PFCDTourismBundle:User')->findAll();
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            $users = $em->getRepository('PFCDTourismBundle:User')->findAll();
+        }
+        else
+        {
+            $users = $em->getRepository('PFCDTourismBundle:User')->findByStatus(User::STATUS_ENABLED);
+        }
 
         return $this->render('PFCDTourismBundle:Back/User:index.html.twig', array(
             'users' => $users
