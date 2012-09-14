@@ -4,6 +4,7 @@ namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Constants;
 
@@ -114,17 +115,16 @@ class SessionController extends Controller
 
     /**
      * Displays a form to create a new Session entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
      */
     public function backCreateAction()
     {
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
         
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            // parameter used to filter and show only the activies that belong to the logged organization
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
+        // parameter used to filter and show only the activies that belong to the logged organization
+        $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         
         $session = new Session();
         $form = $this->createForm(new SessionType(), $session, $options);
@@ -139,15 +139,12 @@ class SessionController extends Controller
             {
                 $em = $this->getDoctrine()->getEntityManager();
 
-                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+                $id = $this->get('security.context')->getToken()->getUser()->getId();
+
+                // verify that the reserved activity belong to the logged organization
+                if ($session->getActivity()->getOrganization()->getId() != $id)
                 {
-                    $id = $this->get('security.context')->getToken()->getUser()->getId();
-                    
-                    // verify that the reserved activity belong to the logged organization
-                    if ($session->getActivity()->getOrganization()->getId() != $id)
-                    {
-                        throw new AccessDeniedException();
-                    }
+                    throw new AccessDeniedException();
                 }
                 
                 // define the start datetime and end datetime to make easier to check conflicts
@@ -179,16 +176,15 @@ class SessionController extends Controller
 
     /**
      * Displays a form to create a group of Session entities and store them when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
      */
     public function backGenerateAction()
     {
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::BACK;
         
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            // parameter used to filter and show only the activies that belong to the logged organization
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
+        // parameter used to filter and show only the activies that belong to the logged organization
+        $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         
         $sessionGenerator = new SessionGenerator();
         $form = $this->createForm(new SessionGeneratorType(), $sessionGenerator, $options);
@@ -203,15 +199,12 @@ class SessionController extends Controller
             {
                 $em = $this->getDoctrine()->getEntityManager();
 
-                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+                $id = $this->get('security.context')->getToken()->getUser()->getId();
+
+                // verify that the reserved activity belong to the logged organization
+                if ($sessionGenerator->getActivity()->getOrganization()->getId() != $id)
                 {
-                    $id = $this->get('security.context')->getToken()->getUser()->getId();
-                    
-                    // verify that the reserved activity belong to the logged organization
-                    if ($sessionGenerator->getActivity()->getOrganization()->getId() != $id)
-                    {
-                        throw new AccessDeniedException();
-                    }
+                    throw new AccessDeniedException();
                 }
                 
                 // generate the array of sessions based on the given parameters
@@ -302,6 +295,8 @@ class SessionController extends Controller
         $session = $em->getRepository('PFCDTourismBundle:Session')->find($id);
 
         if (!$session) throw $this->createNotFoundException('Unable to find Session entity.');
+        
+        if ($session->getStatus() == Session::STATUS_DELETED) throw new AccessDeniedException();
         
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
         {

@@ -82,13 +82,17 @@
     </tbody>
 </table>
 
+{% if is_granted('ROLE_ORGANIZATION') %}
 <a class="btn btn-primary" href="{{ path('back_session_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.session.button.create'|trans }}</a>
 <a id="generate_sessions" class="btn btn-primary" href="{{ path('back_session_generate') }}"  rel="popover" data-original-title="{{ 'popover.generatesessions.title'|trans }}" data-content="{{ 'popover.generatesessions.content'|trans }}"><i class="icon-plus icon-white"></i> {{ 'back.session.button.generate'|trans }}</a>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}
 {{ parent() }}
+{% if is_granted('ROLE_ORGANIZATION') %}
 <script type="text/javascript">
     $('#generate_sessions').popover();
 </script>
+{% endif %}
 {% endblock%}  
