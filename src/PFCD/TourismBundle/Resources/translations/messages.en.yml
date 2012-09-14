@@ -246,7 +246,7 @@ back.reservation.create.title: Reservation creation
 back.reservation.create.subtitle: Use this form to create manually a new reservation
 back.reservation.read.title: Reservation details
 back.reservation.read.subtitle: In this list there is detailed information stored about this reservation
-back.reservation.accept.title: Confrim the reservation
+back.reservation.accept.title: Confirm the reservation
 back.reservation.accept.subtitle: Use this form to complete the reservation process by selecting the required resources to do the activity and accept the reservation. Once you confirm the reservation the associated payment will be generated
 
 back.payment.index.title: Payment list
