@@ -10,7 +10,7 @@ Join: Unirse
 
 
 ################################################################################
-##### Barras de navegacion
+##### Barras de navegación
 ################################################################################
 
 Home: Portada
@@ -28,7 +28,7 @@ Latest news: Últimas noticias
 front.advertise.join.title: Únase, registre su organización
 front.advertise.join.content: Si conoce alguna organización de cooperación que pueda estar interesada en usar esta página para ofrecer sus actividades, avíseles que pueden <a href="%link%">registrarse aqui</a>
 
-Menu: Menu
+Menu: Menú
 Sessions: Sesiones
 Reservations: Reservas
 Payments: Pagos
@@ -191,7 +191,7 @@ back.changepassword.title: Cambiar contraseña
 back.changepassword.subtitle: Introduzca su contraseña actual y la nueva contraseña que quiere guardar para sustituir a la anterior
 
 back.home.title: Portada
-back.home.subtitle: Aqui se muestra un resumen con la información más relevante acerca del estado de las actividades
+back.home.subtitle: Aquí se muestra un resumen con la información más relevante acerca del estado de las actividades
 back.home.nextevents: Próximos eventos
 back.home.nextevents.small: Información sobre las sesiones y recursos necesarios para los próximos 14 días
 back.home.lastevents: Últimos eventos
@@ -391,7 +391,7 @@ modal.help.session.content: >
 
 modal.help.reservation.title: Acerca de los reservas
 modal.help.reservation.content: >
-  <p>Descripción sobre lss reservas</p>
+  <p>Descripción sobre las reservas</p>
 
 modal.help.payment.title: Acerca de los pagos
 modal.help.payment.content: >
@@ -426,8 +426,8 @@ form.organization.field.status.help: >
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
 form.activity.field.price.help: Este es el precio de la actividad por persona. Puede modificarlo en cualquier momento, pero los pagos generados previamente mantendrán el precio anterior
 form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad. Si decide reducir la capacidad asegurese que ninguna sesión actual vaya a sobrepasar la nueva capacidad
-form.activity.field.durationdays.help: Esta es la duración de la actividad en días. Tiene que usarlo en cambinación con el campo "Duración en horas y minutos". Si la actividad no dura más de un día simplemente escriba 0
-form.activity.field.durationtime.help: Esta es la duración de la actividad en horas y minutos. Tiene que usarlo en cambinación con el campo "Duración en días"
+form.activity.field.durationdays.help: Esta es la duración de la actividad en días. Tiene que usarlo en combinación con el campo "Duración en horas y minutos". Si la actividad no dura más de un día simplemente escriba 0
+form.activity.field.durationtime.help: Esta es la duración de la actividad en horas y minutos. Tiene que usarlo en combinación con el campo "Duración en días"
 form.activity.field.categories.help: Seleccione las categorías de recursos necesarios para realizar la actividad. Puede añadir nuevas categorías en la sección "<i class="icon-wrench icon-white"></i> Recursos"
 form.activity.field.languages.help: Estos son los idiomas en los que la actividad se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
 form.activity.field.note.help: Puede usar este campo para anotar información relevante y privada acerca de la actividad
@@ -439,7 +439,7 @@ form.activity.field.status.help: >
 
 form.resource.field.name.help: El nombre del recurso debe ser suficiente para identificarlo en la lista de recursos que se mostrará en cada actividad
 form.resource.field.note.help: Puede usar este campo para anotar información relevante acerca del recurso
-form.resource.field.conflict.help: Marque esta casilla si quiere comprobar que este recurso no será necesitado para realizar dos o mas actividades al mismo tiempo
+form.resource.field.conflict.help: Marque esta casilla si quiere comprobar que este recurso no será necesitado para realizar dos o más actividades al mismo tiempo
 form.resource.field.status.help: >
   <b>Disponible:</b> El recurso está disponible ahora<hr/>
   <b>No disponible:</b> El recurso no está disponible desde la fecha de inicio de bloqueo hasta la fecha de fin de bloqueo<hr/>
@@ -545,7 +545,7 @@ Languages: Idiomas
 
 
 ################################################################################
-##### Common entity fields (Form)
+##### Campos comunes de entidades (Formulario)
 ################################################################################
 
 Id: ID
@@ -680,7 +680,7 @@ entity.resource.field.status.3: Eliminado
 
 
 ################################################################################
-##### Sesion (Formularion)
+##### Sesion (Formulario)
 ################################################################################
 
 Starttime1: Hora inicio 1

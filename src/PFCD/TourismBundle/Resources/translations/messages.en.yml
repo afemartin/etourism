@@ -167,7 +167,7 @@ front.payment.help.cash: You can pay with cash at the moment you start the activ
 front.payment.read.title: Payment details
 front.payment.read.subtitle: In this list there are detailed information stored about your payment
 front.payment.update.title: Edit payment
-front.payment.update.subtitle: Use this form to edit your payment. You can select the payment method you preffer (unless the activity description says something against it) and you also can add a comment in order to inform or ask anything about the payment status
+front.payment.update.subtitle: Use this form to edit your payment. You can select the payment method you prefer (unless the activity description says something against it) and you also can add a comment in order to inform or ask anything about the payment status
 
 front.article.index.title: Article list
 front.article.index.subtitle: In this list there are all the articles published in the system
@@ -362,7 +362,7 @@ alert.error.reservation.lockedsession: This session is not able to receive reser
 alert.error.reservation.capacityexceeded: You tried to create a reservation for more persons than the remaining available places. For more information about availability <a href="%link%">contact</a> with the organization
 alert.error.reservation.invalidsession: You must select a session to create the reservation
 alert.error.reservation.insufficientresources: You must select at least one Resource from each Category. If any category has no resources available you must create new ones or unlock any unavailable resource
-alert.error.reservation.resourcesconflict: You cannot confirm the reservation since some Resources seem to be already required by another reservations that overlap with this one. Select another group of resorces or unlock any unavailable resource
+alert.error.reservation.resourcesconflict: You cannot confirm the reservation since some Resources seem to be already required by another reservation that overlaps with this one. Select another group of resources or unlock any unavailable resource
 
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you do not remember your password we will send you a link to your email account in order to allow you to set a new password
@@ -591,7 +591,7 @@ entity.user.field.status.3: Deleted
 
 Email: Email
 Organizationname: Organization name
-Acronim: Acronim
+Acronym: Acronym
 Country: Country
 City: City
 Address: Address
