@@ -20,7 +20,7 @@
 </div>
 
 {% if error is defined and error %}
-<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ error|trans }}</div>
+<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ error|trans|raw }}</div>
 {% endif %}
 
 <form class="form-horizontal" action="{{ path('back_reservation_accept', { 'id': reservation.id }) }}" method="post" {{ form_enctype(edit_form) }}>
