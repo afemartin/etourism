@@ -362,6 +362,7 @@ alert.error.reservation.lockedsession: This session is not able to receive reser
 alert.error.reservation.capacityexceeded: You tried to create a reservation for more persons than the remaining available places. For more information about availability <a href="%link%">contact</a> with the organization
 alert.error.reservation.invalidsession: You must select a session to create the reservation
 alert.error.reservation.insufficientresources: You must select at least one Resource from each Category. If any category has no resources available you must create new ones or unlock any unavailable resource
+alert.error.reservation.resourcesconflict: You cannot confirm the reservation since some Resources seem to be already required by another reservations that overlap with this one. Select another group of resorces or unlock any unavailable resource
 
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you do not remember your password we will send you a link to your email account in order to allow you to set a new password

@@ -149,14 +149,11 @@ class ReservationController extends Controller
                     return $this->render('PFCDTourismBundle:Back/Reservation:create.html.twig', array(
                         'reservation' => $reservation,
                         'form'        => $form->createView(),
-                        'error'       => true,
+                        'error'       => 'alert.error.reservation.invalidsession'
                     ));
                 }
                 
                 $reservation->setSession($session);
-                
-                // if the reservation is made by organization administrator it is automatically accepted
-                $reservation->setStatus(Reservation::STATUS_ACCEPTED);
                 
                 if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
                 {
@@ -168,33 +165,17 @@ class ReservationController extends Controller
                         throw new AccessDeniedException();
                     }
                 }
-
-                // we have to save payment in 2 steps since we can not relate them until inversed-side entity exist at the DDBB
                 
                 $em->persist($reservation);
                 $em->flush();
                 
-                // we create the payment only if the activity has a price
-                
-                if ($reservation->getSession()->getActivity()->getPrice())
-                {
-                    $payment = new Payment();
-                    $payment->setPrice($session->getActivity()->getPrice() * $reservation->getPersons());
-                    $payment->setCurrency($session->getActivity()->getCurrency());
-                    $payment->setReservation($reservation);
-
-                    $em->persist($payment);
-                    $em->flush(); 
-                }
-
-                return $this->redirect($this->generateUrl('back_reservation_read', array('id' => $reservation->getId())));
+                return $this->redirect($this->generateUrl('back_reservation_accept', array('id' => $reservation->getId())));
             }
         }    
 
         return $this->render('PFCDTourismBundle:Back/Reservation:create.html.twig', array(
             'reservation' => $reservation,
             'form'        => $form->createView(),
-            'error'       => false,
         ));
     }
 
@@ -220,18 +201,20 @@ class ReservationController extends Controller
             }
         }
         
-        $deleteForm = $this->createDeleteForm($id);
+        $rejectFormView = ($reservation->getStatus() == Reservation::STATUS_REQUESTED) ? $this->createChangeStatusForm($id, Reservation::STATUS_REJECTED)->createView() : null;        
+        $cancelFormView = ($reservation->getStatus() == Reservation::STATUS_ACCEPTED) ? $this->createChangeStatusForm($id, Reservation::STATUS_CANCELED)->createView() : null;
 
         return $this->render('PFCDTourismBundle:Back/Reservation:read.html.twig', array(
             'reservation' => $reservation,
-            'delete_form' => $deleteForm->createView(),
+            'reject_form' => $rejectFormView,
+            'cancel_form' => $cancelFormView,
         ));
     }
     
     /**
-     * Edits an existent Reservation entity and store it when the form is submitted and valid
+     * Confirm a requested reservation and choose the selected resources
      */
-    public function backUpdateAction($id)
+    public function backAcceptAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
@@ -250,25 +233,19 @@ class ReservationController extends Controller
             }
         }
         
-        $capacity = $reservation->getSession()->getActivity()->getCapacity();
-        
-        foreach ($reservation->getSession()->getReservations() as $prev_reservation)
+        // forbid accept a reservation that was previously accepted, rejected or canceled
+        if ($reservation->getStatus() != Reservation::STATUS_REQUESTED)
         {
-            if ($prev_reservation->getStatus() == Reservation::STATUS_REQUESTED || $prev_reservation->getStatus() == Reservation::STATUS_ACCEPTED)
-            {
-                $capacity -= $prev_reservation->getPersons();
-            }
+            throw new AccessDeniedException();
         }
         
-        $prevPersons = $reservation->getPersons();
-
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
-
+        $options['organization'] = $reservation->getSession()->getActivity()->getOrganization()->getId();
+        $options['activity'] = $reservation->getSession()->getActivity()->getId();
+        $options['session_start'] = $reservation->getSession()->getStartDatetime();
+        $options['session_end'] = $reservation->getSession()->getEndDatetime();
+        
         $editForm = $this->createForm(new ReservationType(), $reservation, $options);
 
         $request = $this->getRequest();
@@ -279,31 +256,71 @@ class ReservationController extends Controller
 
             if ($editForm->isValid())
             {
-                $sessionId = $editForm->get('session')->getData();
+                // check that the reservation created by the organization have the correct amount of resources
                 
-                if ($sessionId)
+                $categories = array();
+                
+                foreach ($reservation->getSession()->getActivity()->getCategories() as $category)
                 {
-                    $session = $em->getRepository('PFCDTourismBundle:Session')->find($sessionId);
-
-                    if (!$session)
-                    {
-                        return $this->render('PFCDTourismBundle:Back/Reservation:update.html.twig', array(
-                            'reservation' => $reservation,
-                            'edit_form'   => $editForm->createView(),
-                            'capacity'    => $capacity,
-                            'error'       => true,
-                        ));
-                    }
-
-                    $reservation->setSession($session);
+                    $categories[$category->getId()] = false;
                 }
                 
-                $nextStatus = $reservation->getStatus();
+                foreach ($reservation->getResources() as $resource)
+                {
+                    $categories[$resource->getCategory()->getId()] = true;
+                }
                 
+                foreach ($categories as $isSelected)
+                {
+                    if (!$isSelected)
+                    {
+                        return $this->render('PFCDTourismBundle:Back/Reservation:accept.html.twig', array(
+                            'reservation' => $reservation,
+                            'edit_form'   => $editForm->createView(),
+                            'error'       => 'alert.error.reservation.insufficientresources'
+                        ));
+                    }
+                }
+                
+                // check that each selected resource (with check of conflicts) does not have several reservations (with the same assigned resource) that overlaps
+                
+                $dateStart = $reservation->getSession()->getStartDatetime();
+                $dateEnd = $reservation->getSession()->getEndDatetime();
+                
+                $error = $this->get('translator')->trans('alert.error.reservation.resourcesconflict') . ': <ul>';
+                
+                $errorsFound = 0;
+                
+                foreach ($reservation->getResources() as $resource)
+                {
+                    // do not check conflicts for resources that did not activate that option
+                    if ($resource->getConflict())
+                    {
+                        $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findConflictsWithResources($resource->getId(), $dateStart, $dateEnd, array(Reservation::STATUS_ACCEPTED), 5);
+                        
+                        $errorsFound += count($reservations);
+                        
+                        foreach ($reservations as $reservation) $error .= '<li>'.  $this->get('translator')->trans('Resource') . ' [ ' . $resource->getCategory()->getName() . ' - ' . $resource->getName() . ' ] - ' . $this->get('translator')->trans('Activity') . ': ' . $reservation->getSession()->getActivity()->getTitle() .' - '. $this->get('translator')->trans('Session') . ' [ ' . $reservation->getSession()->getDate()->format('d/m/Y') . ' - ' . $reservation->getSession()->getTime()->format('H:i') . ' ] - ' . $this->get('translator')->trans('Reservation') . ' [ ' . ($reservation->getUser() ? ($reservation->getUser()->getFullname() . ' ; ') : '') . $reservation->getPersons() . ' ' . $this->get('translator')->trans('Persons') . ' ] (' . $this->get('translator')->trans($reservation->getStatusText()) . ')</li>';
+                        $error .= (count($reservations) == 5) ? '<li>...</li>' : '';
+                    }
+                }
+                
+                $error .= '</u>'; 
+                
+                if ($errorsFound > 0)
+                {
+                    return $this->render('PFCDTourismBundle:Back/Reservation:accept.html.twig', array(
+                            'reservation' => $reservation,
+                            'edit_form'   => $editForm->createView(),
+                            'error'       => $error
+                        ));
+                }
+                
+                $reservation->setStatus(Reservation::STATUS_ACCEPTED);
                 $em->persist($reservation);
                 $em->flush();
                 
-                if ($nextStatus == Reservation::STATUS_ACCEPTED && $reservation->getPayment() == null && $reservation->getSession()->getActivity()->getPrice())
+                if ($reservation->getPayment() == null && $reservation->getSession()->getActivity()->getPrice())
                 {
                     // we have to save payment in 2 steps since we can not relate them until inversed-side entity exist at the DDBB
                     
@@ -333,39 +350,23 @@ class ReservationController extends Controller
                         $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.reservationaccepted'));
                     }
                 }
-                elseif ($reservation->getPayment() != null && $reservation->getPayment()->getStatus() == Payment::STATUS_PENDING_P && $prevPersons != $reservation->getPersons())
-                {
-                    // if the payment exist, it was not paid yet and the number of persons have been modified then we recalculate the price
-                    
-                    $payment = $reservation->getPayment();
-                    $oldPrice = $payment->getPrice();
-                    $newPrice = ($oldPrice / $prevPersons) * $reservation->getPersons();
-                    $payment->setPrice($newPrice);
-                    
-                    $em->persist($payment);
-                    $em->flush();
-                    
-                    $this->get('session')->setFlash('alert-warning', $this->get('translator')->trans('alert.warning.paymentpriceupdated', array('%old_price%' => $oldPrice, '%new_price%' => $newPrice)));
-                }
-
+                
                 return $this->redirect($this->generateUrl('back_reservation_read', array('id' => $id)));
             }
         }    
 
-        return $this->render('PFCDTourismBundle:Back/Reservation:update.html.twig', array(
+        return $this->render('PFCDTourismBundle:Back/Reservation:accept.html.twig', array(
             'reservation' => $reservation,
             'edit_form'   => $editForm->createView(),
-            'capacity'    => $capacity,
-            'error'       => false,
         ));
     }
 
     /**
-     * Deletes a Reservation entity
+     * Changes the status of the Reservation entity
      */
-    public function backDeleteAction($id)
+    public function backStatusAction($id, $status)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createChangeStatusForm($id, $status);
         
         $request = $this->getRequest();
 
@@ -388,8 +389,29 @@ class ReservationController extends Controller
                     throw new AccessDeniedException();
                 }
             }
+            
+            switch ($status)
+            {
+                case Reservation::STATUS_REJECTED:
+                    if ($reservation->getStatus() != Reservation::STATUS_REQUESTED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Reservation::STATUS_CANCELED:
+                    if ($reservation->getStatus() != Reservation::STATUS_ACCEPTED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                default:
+                    throw new AccessDeniedException();
+                    break;
+            }
         
-            $reservation->setStatus(Reservation::STATUS_REJECTED);
+            $reservation->setStatus($status);
             $em->persist($reservation);
             $em->flush();
         }
@@ -570,6 +592,11 @@ class ReservationController extends Controller
     /**************************************************************************
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/
+    
+    private function createChangeStatusForm($id, $status)
+    {
+        return $this->createFormBuilder(array('id' => $id, 'status' => $status))->add('id', 'hidden')->add('status', 'hidden')->getForm();
+    }
     
     private function createDeleteForm($id)
     {
