@@ -108,10 +108,12 @@
     </tbody>
 </table>
 
+<a class="btn btn-inverse" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a>
+{% if activity.status = 3%}
 <a class="btn btn-primary" href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.activity.button.update'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.activity.button.media'|trans }}</a>
 <a class="btn btn-info" href="{{ path('back_activity_preview', { 'id': activity.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.activity.button.preview'|trans }}</a>
-<a class="btn btn-inverse pull-right" href="{{ path('back_activity_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.activity.button.index'|trans }}</a>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}

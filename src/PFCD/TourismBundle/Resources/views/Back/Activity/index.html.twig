@@ -57,5 +57,7 @@
     </tbody>
 </table>
 
+{% if is_granted('ROLE_ORGANIZATION') %}
 <a class="btn btn-primary" href="{{ path('back_activity_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.activity.button.create'|trans }}</a>
+{% endif %}
 {% endblock %}

@@ -3,6 +3,8 @@
 namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Constants;
 
@@ -53,16 +55,14 @@ class ActivityController extends Controller
 
     /**
      * Displays a form to create a new Activity entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
      */
     public function backCreateAction()
     {
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            // parameter used to filter and show only the categories that belong to the logged organization
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
+        $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
         $options['supported_currencies'] = $this->container->getParameter('currencies');
@@ -80,12 +80,9 @@ class ActivityController extends Controller
             {
                 $em = $this->getDoctrine()->getEntityManager();
 
-                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-                {
-                    $id = $this->get('security.context')->getToken()->getUser()->getId();
-                    $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-                    $activity->setOrganization($organization);
-                }
+                $id = $this->get('security.context')->getToken()->getUser()->getId();
+                $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+                $activity->setOrganization($organization);
 
                 $em->persist($activity);
                 $em->flush();
@@ -151,6 +148,8 @@ class ActivityController extends Controller
 
         if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
         
+        if ($activity->getStatus() == Activity::STATUS_DELETED) throw new AccessDeniedException();
+                
         $this->get('session')->setFlash('alert-info', $this->get('translator')->trans('alert.info.activitypreview'));
         
         return $this->render('PFCDTourismBundle:Back/Activity:preview.html.twig', array(
@@ -176,14 +175,12 @@ class ActivityController extends Controller
 
         if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
 
+        if ($activity->getStatus() == Activity::STATUS_DELETED) throw new AccessDeniedException();
+        
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
         $options['status'] = $activity->getStatus();
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            // parameter used to filter and show only the categories that belong to the logged organization
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
+        $options['organization'] = $activity->getOrganization()->getId();
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
         $options['supported_currencies'] = $this->container->getParameter('currencies');
@@ -234,6 +231,8 @@ class ActivityController extends Controller
         $activity = $em->getRepository('PFCDTourismBundle:Activity')->findOneBy($filter);
 
         if (!$activity) throw $this->createNotFoundException('Unable to find Activity entity.');
+        
+        if ($activity->getStatus() == Activity::STATUS_DELETED) throw new AccessDeniedException();
 
         $options['entity'] = Constants::ACTIVITY;
         $options['language'] = $this->get('session')->getLocale();

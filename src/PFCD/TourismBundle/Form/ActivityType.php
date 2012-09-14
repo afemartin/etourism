@@ -18,10 +18,6 @@ class ActivityType extends AbstractType
     {
         $step = 5; // 5 minutes step for time inputs
         
-        if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_CREATE)
-        {
-            $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
-        }
         $builder->add('title', 'text', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
