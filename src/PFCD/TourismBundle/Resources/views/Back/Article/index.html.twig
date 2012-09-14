@@ -49,5 +49,7 @@
     </tbody>
 </table>
 
+{% if is_granted('ROLE_ORGANIZATION') %}
 <a class="btn btn-primary" href="{{ path('back_article_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.article.button.create'|trans }}</a>
+{% endif %}
 {% endblock %}

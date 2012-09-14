@@ -3,6 +3,8 @@
 namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Constants;
 
@@ -51,10 +53,12 @@ class ArticleController extends Controller
 
     /**
      * Displays a form to create a new Article entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
      */
     public function backCreateAction()
     {
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
         $options['language'] = $this->get('session')->getLocale();
         $options['supported_languages'] = $this->container->getParameter('locales');
@@ -72,12 +76,9 @@ class ArticleController extends Controller
             {
                 $em = $this->getDoctrine()->getEntityManager();
 
-                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-                {
-                    $id = $this->get('security.context')->getToken()->getUser()->getId();
-                    $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-                    $article->setOrganization($organization);
-                }
+                $id = $this->get('security.context')->getToken()->getUser()->getId();
+                $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+                $article->setOrganization($organization);
 
                 $em->persist($article);
                 $em->flush();
@@ -139,6 +140,8 @@ class ArticleController extends Controller
 
         if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
         
+        if ($article->getStatus() == Article::STATUS_DELETED) throw new AccessDeniedException();
+        
         $this->get('session')->setFlash('alert-info', $this->get('translator')->trans('alert.info.articlepreview'));
         
         return $this->render('PFCDTourismBundle:Back/Article:preview.html.twig', array(
@@ -163,6 +166,8 @@ class ArticleController extends Controller
         $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
         if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
+        
+        if ($article->getStatus() == Article::STATUS_DELETED) throw new AccessDeniedException();
 
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
@@ -215,6 +220,8 @@ class ArticleController extends Controller
         $article = $em->getRepository('PFCDTourismBundle:Article')->findOneBy($filter);
 
         if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
+        
+        if ($article->getStatus() == Article::STATUS_DELETED) throw new AccessDeniedException();
 
         $options['entity'] = Constants::ARTICLE;
         $options['language'] = $this->get('session')->getLocale();

@@ -20,7 +20,7 @@ class ArticleType extends AbstractType
         $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
-            $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'entity.article.field.status.' . Article::STATUS_PENDING, Article::STATUS_ENABLED => 'entity.article.field.status.' . Article::STATUS_ENABLED, Article::STATUS_DELETED => 'entity.article.field.status.' . Article::STATUS_DELETED), 'help' => 'form.article.field.status.help'));
+            $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'entity.article.field.status.' . Article::STATUS_PENDING, Article::STATUS_ENABLED => 'entity.article.field.status.' . Article::STATUS_ENABLED), 'help' => 'form.article.field.status.help'));
         }
     }
 

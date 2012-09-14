@@ -56,21 +56,28 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ article.statusText|trans }} <a data-original-title="{{ 'form.article.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>
+                {{ article.statusText|trans }} <a data-original-title="{{ 'form.article.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
+                {% if article.status != 3 %}
+                <div class="pull-right">
+                    <form id="delete_article_form" style="margin: 0 0 0 5px;" action="{{ path('back_article_delete', { 'id': article.id }) }}" method="post">
+                        {{ form_widget(delete_form) }}
+                        <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.article.button.delete'|trans }}</button>
+                    </form>
+                </div>
+                {{ macros.modalConfirm('delete_article_form', 'delete_modal') }}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
 
+<a class="btn btn-inverse" href="{{ path('back_article_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.article.button.index'|trans }}</a>
+{% if article.status != 3 %}
 <a class="btn btn-primary" href="{{ path('back_article_update', { 'id': article.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.article.button.update'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_article_media', { 'id': article.id }) }}"><i class="icon-picture icon-white"></i> {{ 'back.article.button.media'|trans }}</a>
-<a class="btn btn-inverse" href="{{ path('back_article_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.article.button.index'|trans }}</a>
 <a class="btn btn-info" href="{{ path('back_article_preview', { 'id': article.id }) }}"><i class="icon-eye-open icon-white"></i> {{ 'back.article.button.preview'|trans }}</a>
-<form id="delete_article_form" class="pull-right" action="{{ path('back_article_delete', { 'id': article.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.article.button.delete'|trans }}</button>
-</form>
-
-{{ macros.modalConfirm('delete_article_form', 'delete_modal') }}
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}
