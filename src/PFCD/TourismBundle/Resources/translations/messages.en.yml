@@ -347,6 +347,8 @@ alert.error.deletecategorywithresources: You cannot delete the Category since th
 alert.error.deletecategorywithactivities: You cannot delete the Category since there it is associated to some Activities that you must to delete before
 alert.error.deleteresource: You cannot delete the Resource since there are some associated Reservations that you must to reject or cancel before
 
+alert.error.updatelockperiod: You cannot lock the Resource for that period since there are some associated Reservations that require this resource. You must reject or cancel the reservations before
+
 alert.success.updatesettings: Your changes have been saved successfully
 
 alert.error.reservation.lockeduser: Your user account is locked. You cannot create new reservations. For more information <a href="%link%">contact</a> the site administrator

@@ -9,7 +9,7 @@ use PFCD\TourismBundle\Constants;
 
 use PFCD\TourismBundle\Entity\Resource;
 use PFCD\TourismBundle\Form\ResourceType;
-use PFCD\TourismBundle\Entity\Session;
+use PFCD\TourismBundle\Entity\Reservation;
 
 /**
  * Resource controller
@@ -121,12 +121,8 @@ class ResourceController extends Controller
     public function backUpdateAction($id)
     {
         $filter['id'] = $id;
+        $filter['status'] = Resource::STATUS_ENABLED;
                 
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
-        
         $em = $this->getDoctrine()->getEntityManager();
 
         $resource = $em->getRepository('PFCDTourismBundle:Resource')->findOneBy($filter);
@@ -142,12 +138,66 @@ class ResourceController extends Controller
         
         if ($request->getMethod() == 'POST')
         {
+            // retrieve the original values for the start and end lock dates
+            $prevDateStartLock = $resource->getDateStartLock();
+            $prevDateEndLock = $resource->getDateEndLock();
+            
             $editForm->bindRequest($request);
 
             if ($editForm->isValid())
             {
+                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+                {
+                    $organization = $this->get('security.context')->getToken()->getUser()->getId();
+
+                    // verify that the selected resource belong to the logged organization
+                    if ($resource->getCategory() && $resource->getCategory()->getOrganization()->getId() != $organization)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                }
                 
-                // TODO: Check for conflict in case the locked date range is modified
+                // check that the resource updated has no been assignated to any
+                // reservation (accepted) that overlap with the new lock period
+                // it does not get affected by the check conflicts flag
+                
+                $dateStartLock = $resource->getDateStartLock();
+                $dateEndLock = $resource->getDateEndLock();
+                
+                // it works fine filtering everything properly
+                if (($dateStartLock || $dateEndLock) && ($prevDateStartLock != $dateStartLock || $prevDateEndLock != $dateEndLock))
+                {
+                    // it is supposed that a locked period takes full days
+                    if ($dateStartLock) $dateStartLock->setTime(0, 0, 0);
+                    if ($dateEndLock) $dateEndLock->setTime(23, 59, 59);
+                    
+                    $dateNow = new \DateTime();
+                    $dateNow->setTime(0, 0, 0);
+                    
+                    if ((($dateStartLock && $dateEndLock) && ($dateStartLock > $dateEndLock)) || ($dateEndLock && ($dateNow > $dateEndLock)))
+                    {
+                        $this->get('session')->setFlash('alert-error', 'alert.error.daterange');
+                        return $this->redirect($this->generateUrl('back_resource_update', array('id' => $id)));
+                    }
+                    
+                    if ($dateStartLock == null || $dateStartLock < $dateNow) $dateStartLock = $dateNow;
+                    
+                    // now we finally have a proper data range to use it inside the query
+                    $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findConflictsWithLockPeriod($resource->getId(), $dateStartLock, $dateEndLock, array(Reservation::STATUS_ACCEPTED), 10);
+                    
+                    if ($reservations)
+                    {
+                        $error = $this->get('translator')->trans('alert.error.updatelockperiod') . ':';
+
+                        $error .= '<ul>';
+                        foreach ($reservations as $reservation) $error .= '<li>' .  $this->get('translator')->trans('Activity') . ': ' . $reservation->getSession()->getActivity()->getTitle() .' - '.  $this->get('translator')->trans('Session') . ' [ ' . $reservation->getSession()->getDate()->format('d/m/Y') . ' - ' . $reservation->getSession()->getTime()->format('H:i') . ' ] (' . $this->get('translator')->trans($reservation->getStatusText()) . ')</li>';
+                        $error .= (count($reservations) == 10) ? '<li>...</li></ul>' : '</ul>';
+
+                        $this->get('session')->setFlash('alert-error', $error);
+
+                        return $this->redirect($this->generateUrl('back_resource_update', array('id' => $id)));
+                    }
+                }
                 
                 $em->persist($resource);
                 $em->flush();
@@ -193,18 +243,18 @@ class ResourceController extends Controller
                 }
             }
             
-            // check that does not exist any enabled (or locked) session that require this resource
-            // since there can be a lot of existing old sessions we will only search the recent and future sessions
-            // we can find too many sessions to display so we will only display the 10 first sessions found
-            $sessions = $em->getRepository('PFCDTourismBundle:Session')->findRecentAndFuture(null, $resource->getId(), array(Session::STATUS_ENABLED, Session::STATUS_LOCKED), 10);
+            // check that does not exist any enabled (or locked) reservation that require this resource
+            // since there can be a lot of existing old reservations we will only search the recent and future reservations
+            // we can find too many reservations to display so we will only display the 10 first reservations found
+            $reservations = $em->getRepository('PFCDTourismBundle:Reservation')->findRecentAndFuture($resource->getId(), array(Reservation::STATUS_ACCEPTED), 10);
 
-            if ($sessions)
+            if ($reservations)
             {
                 $error = $this->get('translator')->trans('alert.error.deleteresource') . ':';
 
                 $error .= '<ul>';
-                foreach ($sessions as $session) $error .= '<li>' .  $this->get('translator')->trans('Activity') . ': ' . $session->getActivity()->getTitle() .' - '.  $this->get('translator')->trans('Session') . ' [ ' . $session->getDate()->format('d/m/Y') . ' - ' . $session->getTime()->format('H:i') . ' ] (' . $this->get('translator')->trans($session->getStatusText()) . ')</li>';
-                $error .= (count($sessions) == 10) ? '<li>...</li></ul>' : '</ul>';
+                foreach ($reservations as $reservation) $error .= '<li>' .  $this->get('translator')->trans('Activity') . ': ' . $reservation->getSession()->getActivity()->getTitle() .' - '.  $this->get('translator')->trans('Session') . ' [ ' . $reservation->getSession()->getDate()->format('d/m/Y') . ' - ' . $reservation->getSession()->getTime()->format('H:i') . ' ] (' . $this->get('translator')->trans($reservation->getStatusText()) . ')</li>';
+                $error .= (count($reservations) == 10) ? '<li>...</li></ul>' : '</ul>';
 
                 $this->get('session')->setFlash('alert-error', $error);
 

@@ -68,6 +68,36 @@ class ReservationRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    public function findRecentAndFuture($resource, $status = null, $limit = null)
+    {
+        $qb = $this->createQueryBuilder('r');
+        
+        $qb->select('r');
+
+        $qb->leftJoin('r.session', 's');
+        $qb->leftJoin('r.resources', 're');
+        $qb->andWhere('re.id = :resource');
+        $qb->setParameter('resource', $resource);
+        
+        $dateStart = new \DateTime();
+        $dateStart->setTime(0, 0, 0);
+                    
+        $qb->andWhere('s.endDatetime > :start_date');
+        $qb->setParameter('start_date', $dateStart);
+        
+        if ($status !== null && !empty($status))
+        {
+            $qb->andWhere('r.status IN (:status)');
+            $qb->setParameter('status', $status);
+        }
+
+        $qb->orderBy('s.date', 'ASC');
+        $qb->addOrderBy('s.time', 'ASC');
+        
+        if ($limit) $qb->setMaxResults($limit);
+        
+        return $qb->getQuery()->getResult();
+    }
     
     public function findUpdatedReservations($organization = null, $dateStart = null, $dateEnd = null, $status = null)
     {
@@ -101,6 +131,47 @@ class ReservationRepository extends EntityRepository
             $qb->setParameter('status', $status);
         }
 
+        return $qb->getQuery()->getResult();
+    }
+    
+        
+    public function findConflictsWithLockPeriod($resource = null, $dateStart = null, $dateEnd = null, $status = null, $limit = null)
+    {
+        $qb = $this->createQueryBuilder('r');
+        
+        $qb->select('r, s');
+
+        if ($resource !== null)
+        {
+            $qb->innerJoin('r.session', 's');
+            $qb->innerJoin('r.resources', 're');
+            $qb->andWhere('re.id = :resource');
+            $qb->setParameter('resource', $resource);
+        }
+        
+        if ($dateStart !== null)
+        {
+            $qb->andWhere('s.endDatetime > :start_date');
+            $qb->setParameter('start_date', $dateStart);
+        }
+        
+        if ($dateEnd !== null)
+        {
+            $qb->andWhere('s.startDatetime < :end_date');
+            $qb->setParameter('end_date', $dateEnd);
+        }
+        
+        if ($status !== null && !empty($status))
+        {
+            $qb->andWhere('s.status IN (:status)');
+            $qb->setParameter('status', $status);
+        }
+
+        $qb->orderBy('s.date', 'ASC');
+        $qb->addOrderBy('s.time', 'ASC');
+        
+        if ($limit) $qb->setMaxResults($limit);
+        
         return $qb->getQuery()->getResult();
     }
     

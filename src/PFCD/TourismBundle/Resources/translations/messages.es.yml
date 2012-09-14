@@ -347,6 +347,8 @@ alert.error.deletecategorywithresources: No puede eliminar la Categoría ya que 
 alert.error.deletecategorywithactivities: No puede eliminar la Categoría ya está asociada a algunas Actividades que debe eliminar antes
 alert.error.deleteresource: No puede eliminar el Recurso ya que existen algunas Reservas asociadas que debe rechazar o cancelar antes
 
+alert.error.updatelockperiod: No puede bloquear el Recurso para ese periodo ya que existen algunas Reservas asociadas que necesitan este recurso. Debe rechazar o cancelar las reservas antes
+
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
 alert.error.reservation.lockeduser: Su cuenta de usuario está bloqueada. Por este motivo no puede crear nuevas reservas. Para más información <a href="%link%">contacte</a> con el administrador
