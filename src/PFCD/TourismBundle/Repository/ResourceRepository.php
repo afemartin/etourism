@@ -13,7 +13,7 @@ class ResourceRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('r');
         
-        $qb->select('r, c, s');
+        $qb->select('r, c, re, s');
         
         $qb->innerJoin('r.category', 'c');
         $qb->where('1 = 1');
@@ -24,21 +24,22 @@ class ResourceRepository extends EntityRepository
             $qb->setParameter('organization', $organization);
         }
         
-        $qb->innerJoin('r.sessions', 's');
-        $qb->innerJoin('s.reservations', 'r2');
-        $qb->andWhere('r2.status = :status');
+        $qb->innerJoin('r.reservations', 're');
+        $qb->andWhere('re.status = :status');
         $qb->setParameter('status', Reservation::STATUS_ACCEPTED);
+        
+        $qb->leftJoin('re.session', 's');
         
         if ($dateStart !== null)
         {
-            $qb->andWhere('s.date >= :start_date');
+            $qb->andWhere('s.endDatetime > :start_date');
             $qb->setParameter('start_date', $dateStart);
         }
         
         if ($dateEnd !== null)
         {
-            $qb->andWhere('s.date <= :start_end');
-            $qb->setParameter('start_end', $dateEnd);
+            $qb->andWhere('s.startDatetime < :end_date');
+            $qb->setParameter('end_date', $dateEnd);
         }
         
         if ($status !== null && !empty($status))
