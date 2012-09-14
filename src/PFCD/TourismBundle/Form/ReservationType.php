@@ -21,7 +21,7 @@ class ReservationType extends AbstractType
         {
             $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'property_path' => false, 'empty_value' => 'Select an activity'));
         }
-        elseif ($options['domain'] == Constants::BACK && $options['organization'] != null && $options['type'] == Constants::FORM_CREATE)
+        elseif ($options['domain'] == Constants::BACK && $options['type'] == Constants::FORM_CREATE)
         {
             $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'property_path' => false, 'empty_value' => 'Select an activity',
                 'query_builder' => function(EntityRepository $er) use ($options) {
@@ -37,7 +37,7 @@ class ReservationType extends AbstractType
         {
             $builder->add('persons', 'integer', array('attr' => array('class' => 'input-mini')));
         }
-        if ($options['activity'] != null && $options['type'] == Constants::FORM_UPDATE)
+        if ($options['type'] == Constants::FORM_UPDATE)
         {
             $builder->add('resources', 'entity', array('attr' => array('style' => 'display: inline-block'), 'class' => 'PFCDTourismBundle:Resource', 'property' => 'nameAndCategory', 'multiple' => true, 'expanded' => true, 'help' => 'form.reservation.field.resources.help',
                 'query_builder' => function(EntityRepository $er) use ($options) {
@@ -48,9 +48,15 @@ class ReservationType extends AbstractType
                             ->setParameter('activity', $options['activity'])
                             ->andWhere('r.status = :status')
                             ->setParameter('status', Resource::STATUS_ENABLED)
+                            ->andWhere('((r.dateStartLock IS     null AND r.dateEndLock IS     null) OR
+                                         (r.dateStartLock IS     null AND r.dateEndLock IS NOT null AND r.dateEndLock <= :session_start) OR
+                                         (r.dateStartLock IS NOT null AND r.dateEndLock IS     null AND r.dateStartLock >= :session_end) OR
+                                         (r.dateStartLock IS NOT null AND r.dateEndLock IS NOT null AND (r.dateEndLock <= :session_start OR r.dateStartLock >= :session_end)))')
+                            ->setParameter('session_start', $options['session_start'])
+                            ->setParameter('session_end', $options['session_end'])
                             ->orderBy('c.name', 'ASC')
                             ->addOrderBy('r.name', 'ASC');
-                }));
+                   }));
         }
         if ($options['domain'] == Constants::FRONT)
         {
@@ -68,7 +74,7 @@ class ReservationType extends AbstractType
 
     public function getDefaultOptions(array $options)
     {
-        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'validation_groups' => 'Default', 'organization' => null, 'activity' => null);
+        return array('domain' => Constants::BACK, 'type' => Constants::FORM_CREATE, 'session_start' => null, 'session_end' => null, 'validation_groups' => 'Default', 'organization' => null, 'activity' => null);
     }
     
     public function getName()
