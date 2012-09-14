@@ -60,6 +60,6 @@
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="{{ path('back_payment_update', { 'id': payment.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.payment.button.update'|trans }}</a>
 <a class="btn btn-inverse" href="{{ path('back_payment_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.payment.button.index'|trans }}</a>
+<a class="btn btn-primary" href="{{ path('back_payment_update', { 'id': payment.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.payment.button.update'|trans }}</a>
 {% endblock %}
