@@ -51,12 +51,12 @@ class Resource
     private $conflict;
     
     /**
-     * @ORM\Column(name="date_start_lock", type="date", nullable=true)
+     * @ORM\Column(name="date_start_lock", type="datetime", nullable=true)
      */
     private $dateStartLock;
     
     /**
-     * @ORM\Column(name="date_end_lock", type="date", nullable=true)
+     * @ORM\Column(name="date_end_lock", type="datetime", nullable=true)
      */
     private $dateEndLock;
     
@@ -182,7 +182,7 @@ class Resource
     /**
      * Set dateStartLock
      *
-     * @param date $dateStartLock
+     * @param datetime $dateStartLock
      */
     public function setDateStartLock($dateStartLock)
     {
@@ -192,7 +192,7 @@ class Resource
     /**
      * Get dateStartLock
      *
-     * @return date 
+     * @return datetime 
      */
     public function getDateStartLock()
     {

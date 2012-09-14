@@ -70,6 +70,13 @@ class ResourceController extends Controller
             {
                 $em = $this->getDoctrine()->getEntityManager();
                 
+                $dateStartLock = $resource->getDateStartLock();
+                $dateEndLock = $resource->getDateEndLock();
+                
+                // it is supposed that a locked period takes full days
+                if ($dateStartLock) $dateStartLock->setTime(0, 0, 0);
+                if ($dateEndLock) $dateEndLock->setTime(23, 59, 59);
+                
                 $em->persist($resource);
                 $em->flush();
 
@@ -164,13 +171,13 @@ class ResourceController extends Controller
                 $dateStartLock = $resource->getDateStartLock();
                 $dateEndLock = $resource->getDateEndLock();
                 
+                // it is supposed that a locked period takes full days
+                if ($dateStartLock) $dateStartLock->setTime(0, 0, 0);
+                if ($dateEndLock) $dateEndLock->setTime(23, 59, 59);
+                
                 // it works fine filtering everything properly
                 if (($dateStartLock || $dateEndLock) && ($prevDateStartLock != $dateStartLock || $prevDateEndLock != $dateEndLock))
                 {
-                    // it is supposed that a locked period takes full days
-                    if ($dateStartLock) $dateStartLock->setTime(0, 0, 0);
-                    if ($dateEndLock) $dateEndLock->setTime(23, 59, 59);
-                    
                     $dateNow = new \DateTime();
                     $dateNow->setTime(0, 0, 0);
                     
