@@ -3,7 +3,7 @@
 {% block title %}{{ organization.name }}{% endblock%}
 
 {% block body %}
-<h1>{{ organization.name }} {% if organization.acronim %}({{ organization.acronim }}){% endif %}</h1>
+<h1>{{ organization.name }} {% if organization.acronym %}({{ organization.acronym }}){% endif %}</h1>
 <h6>{% if organization.country and organization.city and organization.foundationyear %}{{ 'front.organization.read.subtitle'|trans({'%country%': organization.country|country, '%city%': organization.city, '%year%': organization.foundationyear}) }}{% endif %}</h6>
 {% if app.session.locale in organization.languages %}
 <div class="info-container row">

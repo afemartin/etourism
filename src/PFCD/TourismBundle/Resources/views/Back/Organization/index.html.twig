@@ -15,7 +15,7 @@
             <th>{{ 'Username'|trans }}</th>
             <th>{{ 'Email'|trans }}</th>
             <th>{{ 'Name'|trans }}</th>
-            <th>{{ 'Acronim'|trans }}</th>
+            <th>{{ 'Acronym'|trans }}</th>
             <th>{{ 'Country'|trans }}</th>
             <th>{{ 'City'|trans }}</th>
             <th>{{ 'Languages'|trans }}</th>
@@ -32,7 +32,7 @@
         <td>{{ organization.username }}</td>
         <td>{{ organization.email }}</td>
         <td>{{ organization.name }}</td>
-        <td>{{ organization.acronim }}</td>
+        <td>{{ organization.acronym }}</td>
         <td>{{ organization.country|country }}</td>
         <td>{{ organization.city }}</td>
         <td>{% for language in organization.languages %}{{ macros.languageFlag(language) }}{% endfor %}</td>

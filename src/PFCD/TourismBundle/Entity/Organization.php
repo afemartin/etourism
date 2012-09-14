@@ -63,9 +63,9 @@ class Organization implements AdvancedUserInterface
     private $name;
 
     /**
-     * @ORM\Column(name="acronim", type="string", length=8, nullable=true)
+     * @ORM\Column(name="acronym", type="string", length=8, nullable=true)
      */
-    private $acronim;
+    private $acronym;
 
     /**
      * @Gedmo\Translatable
@@ -365,23 +365,23 @@ class Organization implements AdvancedUserInterface
     }
 
     /**
-     * Set acronim
+     * Set acronym
      *
-     * @param string $acronim
+     * @param string $acronym
      */
-    public function setAcronim($acronim)
+    public function setAcronym($acronym)
     {
-        $this->acronim = $acronim;
+        $this->acronym = $acronym;
     }
 
     /**
-     * Get acronim
+     * Get acronym
      *
      * @return string 
      */
-    public function getAcronim()
+    public function getAcronym()
     {
-        return $this->acronim;
+        return $this->acronym;
     }
 
     /**

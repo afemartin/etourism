@@ -23,7 +23,7 @@ class OrganizationType extends AbstractType
         }
         $builder->add('email', 'email', array('attr' => array('class' => 'input-xlarge')));
         $builder->add('name', 'text', array('attr' => array('class' => 'input-xxlarge'), 'label' => 'Organizationname'));
-        $builder->add('acronim', 'text', array('required' => false, 'attr' => array('class' => 'input-medium')));
+        $builder->add('acronym', 'text', array('required' => false, 'attr' => array('class' => 'input-medium')));
         $builder->add('shortDesc', 'textarea', array('attr' => array('class' => 'input-xxlarge'), 'translatable' => $options['language']));
         if ($options['type'] == Constants::FORM_UPDATE)
         {
