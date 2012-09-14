@@ -104,8 +104,10 @@
     </tbody>
 </table>
 
+<a class="btn btn-inverse" href="{{ path('back_session_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.session.button.index'|trans }}</a>
+{% if session.status != 3 %}
 <a class="btn btn-primary" href="{{ path('back_session_update', { 'id': session.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.session.button.update'|trans }}</a>
-<a class="btn btn-inverse pull-right" href="{{ path('back_session_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.session.button.index'|trans }}</a>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}

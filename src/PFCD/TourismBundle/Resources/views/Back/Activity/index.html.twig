@@ -47,8 +47,8 @@
         {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_organization_read', { 'id': activity.organization.id }) }}">{{ activity.organization.name }}</a></td>
         {% endif %}
-        <td><a href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil"></i></a></td>
-        <td><a href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture"></i></a></td>
+        <td>{% if activity.status != 3 %}<a href="{{ path('back_activity_update', { 'id': activity.id }) }}"><i class="icon-pencil"></i></a>{% endif %}</td>
+        <td>{% if activity.status != 3 %}<a href="{{ path('back_activity_media', { 'id': activity.id }) }}"><i class="icon-picture"></i></a>{% endif %}</td>
         <td><a href="{{ path('back_session_index', { 'activityId': activity.id }) }}"><i class="icon-calendar"></i></a></td>
         <td><a href="{{ path('back_reservation_index', { 'activityId': activity.id }) }}"><i class="icon-book"></i></a></td>
         <td><a href="{{ path('back_comment_activity', { 'id': activity.id }) }}"><i class="icon-comment"></i></a></td>

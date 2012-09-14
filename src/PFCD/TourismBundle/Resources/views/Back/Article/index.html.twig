@@ -41,8 +41,8 @@
         {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_organization_read', { 'id': article.organization.id }) }}">{{ article.organization.name }}</a></td>
         {% endif %}
-        <td><a href="{{ path('back_article_update', { 'id': article.id }) }}"><i class="icon-pencil"></i></a></td>
-        <td><a href="{{ path('back_article_media', { 'id': article.id }) }}"><i class="icon-picture"></i></a></td>
+        <td>{% if article.status != 3 %}<a href="{{ path('back_article_update', { 'id': article.id }) }}"><i class="icon-pencil"></i></a>{% endif %}</td>
+        <td>{% if article.status != 3 %}<a href="{{ path('back_article_media', { 'id': article.id }) }}"><i class="icon-picture"></i></a>{% endif %}</td>
         <td><a href="{{ path('back_comment_article', { 'id': article.id }) }}"><i class="icon-comment"></i></a></td>
     </tr>
     {% endfor %}

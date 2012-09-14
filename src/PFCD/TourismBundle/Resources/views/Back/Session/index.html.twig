@@ -76,7 +76,7 @@
         {% if is_granted('ROLE_ADMIN') %}
         <td><a href="{{ path('back_organization_read', { 'id': session.activity.organization.id }) }}">{{ session.activity.organization.name }}</a></td>
         {% endif %}
-        <td><a href="{{ path('back_session_update', { 'id': session.id }) }}"><i class="icon-edit"></i></a></td>
+        <td>{% if session.status != 3 %}<a href="{{ path('back_session_update', { 'id': session.id }) }}"><i class="icon-edit"></i></a>{% endif %}</td>
     </tr>
     {% endfor %}
     </tbody>
