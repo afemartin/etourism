@@ -8,6 +8,7 @@
             <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('css/styles.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('css/flags.css') }}" type="text/css" rel="stylesheet" />
+            <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -15,8 +16,8 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <img class="logo pull-left" src="{{ asset('img/logo.png')}}" /> 
-                    <a class="brand" href="{{ path('front_index') }}">{{ domain_name }}</a>
+                    <img class="logo pull-left" src="{{ asset('img/logo.png') }}" /> 
+                    <a style="font-family: 'Gochi Hand'; font-size: 24px; padding: 8px 20px;" class="brand" href="{{ path('front_index') }}">{{ domain_name }}</a>
                     <div class="pull-right">
                         {% if is_granted('ROLE_USER') %}
                         {{ 'Welcome'|trans }} <a class="" href="{{ path('front_user_read', { 'id': app.user.id }) }}">{{ app.user.firstname }}</a> <a class="btn btn-danger" href="{{ path('front_logout') }}"><i class="icon-off icon-white"></i> {{ 'Logout'|trans }}</a>
@@ -33,9 +34,9 @@
                 <button class="close" data-dismiss="alert">×</button>
                 {{ 'alert.info.beta'|trans }}
             </div>
-            <header class="well">
-                <h1>{% block header_title %}{{ domain_name }}{% endblock %}</h1>
-                <h2>{% block header_subtitle %}{{ 'front.header.subtitle'|trans }}{% endblock %}</h2>
+                <header class="well" style="height: 140px; background-image: url('{{ asset('img/header.jpg') }}'); border: none; box-shadow: 0px 0px 5px black">
+                <h1 style="font-family: 'Gochi Hand'; font-size: 46px; text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white">{% block header_title %}{{ domain_name }}{% endblock %}</h1>
+                <h2 style="font-family: 'Gochi Hand'; font-size: 30px; text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white">{% block header_subtitle %}{{ 'front.header.subtitle'|trans }}{% endblock %}</h2>
             </header>
             {% block navbar %}
             <div class="navbar">
