@@ -149,6 +149,20 @@ class SessionController extends Controller
                         throw new AccessDeniedException();
                     }
                 }
+                
+                // define the start datetime and end datetime to make easier to check conflicts
+                $date = $session->getDate();
+                $time = $session->getTime();
+                
+                $startDatetime = $date->setTime($time->format('H'), $time->format('i'));
+                $session->setStartDatetime($startDatetime);
+                
+                $durationDays = $session->getActivity()->getDurationDays();
+                $durationTime = $session->getActivity()->getDurationTime();
+               
+                $endDatetime = clone $startDatetime;
+                $endDatetime->add(new \DateInterval('P' . $durationDays . 'DT' . $durationTime->format('H') . 'H' . $durationTime->format('i') . 'M'));
+                $session->setEndDatetime($endDatetime);
 
                 $em->persist($session);
                 $em->flush();
