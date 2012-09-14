@@ -8,4 +8,4 @@ reservation.persons.error: You must select at least one person
 
 activity.price.error: You must select a valid price for the activity or 0 if the activity is free
 activity.capacity.error: You must select a valid capacity for the activity. At least it should be 1 person
-activity.durationdays.error: You must select a valid duration in days for the activity. At least it should be 0 days
+activity.durationdays.error: You must select a valid duration in days for the activity. It can be between 0 days and 28 days

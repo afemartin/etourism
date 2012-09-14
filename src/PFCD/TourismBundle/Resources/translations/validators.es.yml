@@ -8,4 +8,4 @@ reservation.persons.error: Debe seleccionar al menos una persona
 
 activity.price.error: Debe seleccionar un precio válido para la actividad o 0 si la actividad es gratuita
 activity.capacity.error: Debe seleccionar un número válido de personas para la actividad. Como mínimo 1 persona
-activity.durationdays.error: Debe seleccionar un número válido de días para la actividad. Como mínimo 0 días
+activity.durationdays.error: Debe seleccionar un número válido de días para la actividad. Puede ser entre 0 días y 28 días

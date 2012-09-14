@@ -37,6 +37,7 @@ PFCD\TourismBundle\Entity\Activity:
             - Min:      { limit: 1, message: "activity.capacity.error", groups: [Default] }
         durationDays:
             - Min:      { limit: 0, message: "activity.durationdays.error", groups: [Default] }
+            - Max:      { limit: 28, message: "activity.durationdays.error", groups: [Default] }
         file:
             - Image:    { maxSize: 32k }
             
