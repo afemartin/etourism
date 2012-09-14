@@ -248,6 +248,7 @@ back.reservation.read.title: Detalles de la reserva
 back.reservation.read.subtitle: En esta lista se muestra información detallada sobre la reserva
 back.reservation.accept.title: Confirmar la reserva
 back.reservation.accept.subtitle: Rellene este formulario para completar el proceso de reserva seleccionando los recursos que va a utilizar esta reserva y aceptando la reserva. Un vez que confirme la reserva se generará automáticamente el pago asociado
+back.reservation.summary.categories: Categorías requeridas
 
 back.payment.index.title: Lista de pagos
 back.payment.index.subtitle: En esta lista se encuentran los pagos registrados en el sistema
@@ -349,6 +350,8 @@ alert.error.deleteresource: No puede eliminar el Recurso ya que existen algunas 
 
 alert.error.updatelockperiod: No puede bloquear el Recurso para ese periodo ya que existen algunas Reservas asociadas que necesitan este recurso. Debe rechazar o cancelar las reservas antes
 
+alert.error.daterange: Debe seleccionar un rango válido de fechas
+
 alert.success.updatesettings: Los cambios han sido guardados con éxito
 
 alert.error.reservation.lockeduser: Su cuenta de usuario está bloqueada. Por este motivo no puede crear nuevas reservas. Para más información <a href="%link%">contacte</a> con el administrador
@@ -358,6 +361,7 @@ alert.error.reservation.lockedsession: Esta sesión no admite reservas en este m
 
 alert.error.reservation.capacityexceeded: Ha intentado crear una reserva para más personas que plazas restantes disponibles. Para más información sobre disponibilidad <a href="%link%">contacte</a> con la organización
 alert.error.reservation.invalidsession: Debe seleccionar una sesión para efectuar la reserva
+alert.error.reservation.insufficientresources: Debe seleccionar al menos un Recurso de cada Categoría. Si alguna categoría no tiene recursos disponibles deberá crear recursos nuevos o desbloquear alguno de los que estén ocupados
 
 popover.resetpassword.title: Restablecer mi contraseña
 popover.resetpassword.content: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña

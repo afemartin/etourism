@@ -248,6 +248,7 @@ back.reservation.read.title: Reservation details
 back.reservation.read.subtitle: In this list there is detailed information stored about this reservation
 back.reservation.accept.title: Confirm the reservation
 back.reservation.accept.subtitle: Use this form to complete the reservation process by selecting the required resources to do the activity and accept the reservation. Once you confirm the reservation the associated payment will be generated
+back.reservation.summary.categories: Categories required
 
 back.payment.index.title: Payment list
 back.payment.index.subtitle: In this list there are all the payments registered in the system
@@ -349,6 +350,8 @@ alert.error.deleteresource: You cannot delete the Resource since there are some 
 
 alert.error.updatelockperiod: You cannot lock the Resource for that period since there are some associated Reservations that require this resource. You must reject or cancel the reservations before
 
+alert.error.daterange: You have to select a valid range of dates
+
 alert.success.updatesettings: Your changes have been saved successfully
 
 alert.error.reservation.lockeduser: Your user account is locked. You cannot create new reservations. For more information <a href="%link%">contact</a> the site administrator
@@ -358,6 +361,7 @@ alert.error.reservation.lockedsession: This session is not able to receive reser
 
 alert.error.reservation.capacityexceeded: You tried to create a reservation for more persons than the remaining available places. For more information about availability <a href="%link%">contact</a> with the organization
 alert.error.reservation.invalidsession: You must select a session to create the reservation
+alert.error.reservation.insufficientresources: You must select at least one Resource from each Category. If any category has no resources available you must create new ones or unlock any unavailable resource
 
 popover.resetpassword.title: Reset my password
 popover.resetpassword.content: If you do not remember your password we will send you a link to your email account in order to allow you to set a new password

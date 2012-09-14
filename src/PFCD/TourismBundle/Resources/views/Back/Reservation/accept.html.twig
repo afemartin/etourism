@@ -16,7 +16,12 @@
     <p><b>{{ 'front.reservation.summary.sessiontime'|trans }}</b>: {% if reservation.session.time %}{{ reservation.session.time|date('H:i') }}{% else %}{{ 'front.reservation.summary.sessiontime.undefined'|trans }}{% endif %}</p>
     <p><b>{{ 'front.payment.summary.persons'|trans }}</b>: {{ reservation.persons }} {{ 'Persons'|trans }}</p>
     <p><b>{{ 'front.payment.summary.price'|trans }}</b>: {{ (reservation.session.activity.price * reservation.persons)|number_format_currency(reservation.session.activity.currency) }} {% if reservation.persons > 1 %}<small>({{ reservation.session.activity.price|number_format_currency(reservation.session.activity.currency) }}/{{ 'Person'|trans }})</small>{% endif %}</p>
+    <p><b>{{ 'back.reservation.summary.categories'|trans }}</b>: {% for category in reservation.session.activity.categories %}{{ category.name }}{% if not loop.last %} - {% endif %}{% endfor %}</p>
 </div>
+
+{% if error is defined and error %}
+<div class="alert alert-error fade in"><button class="close" data-dismiss="alert">×</button>{{ error|trans }}</div>
+{% endif %}
 
 <form class="form-horizontal" action="{{ path('back_reservation_accept', { 'id': reservation.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
