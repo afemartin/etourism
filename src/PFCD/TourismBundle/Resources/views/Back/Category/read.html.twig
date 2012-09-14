@@ -31,18 +31,23 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ category.statusText|trans }} <a data-original-title="{{ 'form.category.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>
+                {{ category.statusText|trans }} <a data-original-title="{{ 'form.category.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
+                {% if category.status != 3 %}
+                <div class="pull-right">
+                    <form id="delete_category_form" style="margin: 0 0 0 5px;" action="{{ path('back_category_delete', { 'id': category.id }) }}" method="post">
+                        {{ form_widget(delete_form) }}
+                        <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.category.button.delete'|trans }}</button>
+                    </form>
+                </div>
+                {{ macros.modalConfirm('delete_category_form', 'delete_modal') }}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
 
 <a class="btn btn-inverse" href="{{ path('back_resource_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.resource.button.index'|trans }}</a>
-<form id="delete_category_form" class="pull-right" action="{{ path('back_category_delete', { 'id': category.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.resource.button.delete'|trans }}</button>
-</form>
-
-{{ macros.modalConfirm('delete_category_form', 'delete_modal') }}
 {% endblock %}
 
 {% block javascripts %}

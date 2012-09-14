@@ -3,6 +3,8 @@
 namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Constants;
 
@@ -24,10 +26,12 @@ class CategoryController extends Controller
     /**
      * Displays a form to create a new Category entity
      * Also displays a list with the current enabled categories
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
      */
     public function backCreateAction()
     {
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::BACK;
         
         $category = new Category();
         $form = $this->createForm(new CategoryType(), $category, $options);
@@ -42,12 +46,9 @@ class CategoryController extends Controller
             {
                 $em = $this->getDoctrine()->getEntityManager();
 
-                if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-                {
-                    $id = $this->get('security.context')->getToken()->getUser()->getId();
-                    $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-                    $category->setOrganization($organization);
-                }
+                $id = $this->get('security.context')->getToken()->getUser()->getId();
+                $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+                $category->setOrganization($organization);
 
                 $em->persist($category);
                 $em->flush();
@@ -58,16 +59,9 @@ class CategoryController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
 
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
-        {
-            $categories = $em->getRepository('PFCDTourismBundle:Category')->findAll();
-        }
-        else
-        {
-            $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-            $filter['status'] = Category::STATUS_ENABLED;
-            $categories = $em->getRepository('PFCDTourismBundle:Category')->findBy($filter);
-        }
+        $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
+        $filter['status'] = Category::STATUS_ENABLED;
+        $categories = $em->getRepository('PFCDTourismBundle:Category')->findBy($filter);
         
         return $this->render('PFCDTourismBundle:Back/Category:create.html.twig', array(
             'categories' => $categories,

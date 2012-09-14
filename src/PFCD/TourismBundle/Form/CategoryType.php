@@ -11,10 +11,6 @@ class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        if ($options['domain'] == Constants::ADMIN)
-        {
-            $builder->add('organization', 'entity', array('class' => 'PFCDTourismBundle:Organization', 'property' => 'name'));
-        }
         $builder->add('name', 'text', array('attr' => array('class' => 'input-xlarge'), 'help' => 'form.category.field.name.help'));
     }
 
