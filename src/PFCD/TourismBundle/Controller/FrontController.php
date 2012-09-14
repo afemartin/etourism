@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 use PFCD\TourismBundle\Constants;
 
+use PFCD\TourismBundle\Entity\Settings;
 use PFCD\TourismBundle\Entity\User;
 use PFCD\TourismBundle\Entity\Organization;
 use PFCD\TourismBundle\Entity\Activity;
