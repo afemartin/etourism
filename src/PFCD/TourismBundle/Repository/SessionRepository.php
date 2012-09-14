@@ -82,10 +82,9 @@ class SessionRepository extends EntityRepository
         }
         
         $dateStart = new DateTime();
-        $dateStart->sub(new DateInterval('P7D'));
         $dateStart->setTime(0, 0, 0);
                     
-        $qb->andWhere('s.date >= :start_date');
+        $qb->andWhere('s.endDatetime >= :start_date');
         $qb->setParameter('start_date', $dateStart);
         
         if ($status !== null && !empty($status))

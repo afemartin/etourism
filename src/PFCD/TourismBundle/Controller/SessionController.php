@@ -396,11 +396,10 @@ class SessionController extends Controller
                     }
                     
                     $dateStart = new \DateTime();
-                    $dateStart->sub(new \DateInterval('P7D'));
                     $dateStart->setTime(0, 0, 0);
                     
                     // if the session is an old one you can delete the session without have to check if there is any reservation requested or accepted
-                    if ($session->getDate() > $dateStart)
+                    if ($session->getEndDatetime() > $dateStart)
                     {
                         $filter['session'] = $session->getId();
                         $filter['status'] = array(Reservation::STATUS_REQUESTED, Reservation::STATUS_ACCEPTED);
