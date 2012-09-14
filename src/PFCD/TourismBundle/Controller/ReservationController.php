@@ -115,10 +115,12 @@ class ReservationController extends Controller
 
     /**
      * Displays a form to create a new Reservation entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
      */
     public function backCreateAction()
     {
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
         
         if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
@@ -234,10 +236,7 @@ class ReservationController extends Controller
         }
         
         // forbid accept a reservation that was previously accepted, rejected or canceled
-        if ($reservation->getStatus() != Reservation::STATUS_REQUESTED)
-        {
-            throw new AccessDeniedException();
-        }
+        if ($reservation->getStatus() != Reservation::STATUS_REQUESTED) throw new AccessDeniedException();
         
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;

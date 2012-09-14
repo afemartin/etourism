@@ -17,11 +17,7 @@ class ReservationType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_CREATE)
-        {
-            $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'property_path' => false, 'empty_value' => 'Select an activity'));
-        }
-        elseif ($options['domain'] == Constants::BACK && $options['type'] == Constants::FORM_CREATE)
+        if ($options['domain'] == Constants::BACK && $options['type'] == Constants::FORM_CREATE)
         {
             $builder->add('activity', 'entity', array('attr' => array('class' => 'input-xlarge'), 'class' => 'PFCDTourismBundle:Activity', 'property' => 'titleAndStatus', 'property_path' => false, 'empty_value' => 'Select an activity',
                 'query_builder' => function(EntityRepository $er) use ($options) {
