@@ -48,10 +48,10 @@ class ReservationType extends AbstractType
                             ->setParameter('activity', $options['activity'])
                             ->andWhere('r.status = :status')
                             ->setParameter('status', Resource::STATUS_ENABLED)
-                            ->andWhere('((r.dateStartLock IS     null AND r.dateEndLock IS     null) OR
-                                         (r.dateStartLock IS     null AND r.dateEndLock IS NOT null AND r.dateEndLock <= :session_start) OR
-                                         (r.dateStartLock IS NOT null AND r.dateEndLock IS     null AND r.dateStartLock >= :session_end) OR
-                                         (r.dateStartLock IS NOT null AND r.dateEndLock IS NOT null AND (r.dateEndLock <= :session_start OR r.dateStartLock >= :session_end)))')
+                            ->andWhere('(r.dateStartLock IS     null AND r.dateEndLock IS     null) OR
+                                        (r.dateStartLock IS     null AND r.dateEndLock IS NOT null AND r.dateEndLock <= :session_start) OR
+                                        (r.dateStartLock IS NOT null AND r.dateEndLock IS     null AND r.dateStartLock >= :session_end) OR
+                                        (r.dateStartLock IS NOT null AND r.dateEndLock IS NOT null AND (r.dateEndLock <= :session_start OR r.dateStartLock >= :session_end))')
                             ->setParameter('session_start', $options['session_start'])
                             ->setParameter('session_end', $options['session_end'])
                             ->orderBy('c.name', 'ASC')
