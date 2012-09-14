@@ -15,11 +15,7 @@ class ResourceType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        if ($options['domain'] == Constants::ADMIN && $options['type'] == Constants::FORM_CREATE)
-        {
-            $builder->add('category', 'entity', array('class' => 'PFCDTourismBundle:Category', 'property' => 'name', 'empty_value' => 'Select a category'));
-        }
-        elseif ($options['domain'] == Constants::BACK && $options['type'] == Constants::FORM_CREATE)
+        if ($options['domain'] == Constants::BACK && $options['type'] == Constants::FORM_CREATE)
         {
             $builder->add('category', 'entity', array('class' => 'PFCDTourismBundle:Category', 'property' => 'name', 'empty_value' => 'Select a category',
                 'query_builder' => function(EntityRepository $er) use ($options) {

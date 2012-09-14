@@ -4,6 +4,7 @@ namespace PFCD\TourismBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use PFCD\TourismBundle\Constants;
 
@@ -45,17 +46,16 @@ class ResourceController extends Controller
 
     /**
      * Displays a form to create a new Resource entity and store it when the form is submitted and valid
+     * 
+     * @Secure(roles="ROLE_ORGANIZATION")
      */
     public function backCreateAction()
     {
-        $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
+        $options['domain'] = Constants::BACK;
         $options['type'] = Constants::FORM_CREATE;
                 
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            // parameter used to filter and show only the resources that belong to the logged organization
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
+        // parameter used to filter and show only the resources that belong to the logged organization
+        $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         
         $resource = new Resource();
         $form = $this->createForm(new ResourceType(), $resource, $options);

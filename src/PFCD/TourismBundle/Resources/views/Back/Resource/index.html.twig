@@ -48,6 +48,8 @@
     </tbody>
 </table>
 
+{% if is_granted('ROLE_ORGANIZATION') %}
 <a class="btn btn-primary" href="{{ path('back_category_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.category.button.create'|trans }}</a>
 <a class="btn btn-primary" href="{{ path('back_resource_create') }}"><i class="icon-plus icon-white"></i> {{ 'back.resource.button.create'|trans }}</a>
+{% endif %}
 {% endblock %}
