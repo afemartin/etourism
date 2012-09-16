@@ -299,8 +299,8 @@ class ReservationController extends Controller
                         
                         $errorsFound += count($reservations);
                         
-                        foreach ($reservations as $reservation) $error .= '<li>'.  $this->get('translator')->trans('Resource') . ' [ ' . $resource->getCategory()->getName() . ' - ' . $resource->getName() . ' ] - ' . $this->get('translator')->trans('Activity') . ': ' . $reservation->getSession()->getActivity()->getTitle() .' - '. $this->get('translator')->trans('Session') . ' [ ' . $reservation->getSession()->getDate()->format('d/m/Y') . ' - ' . $reservation->getSession()->getTime()->format('H:i') . ' ] - ' . $this->get('translator')->trans('Reservation') . ' [ ' . ($reservation->getUser() ? ($reservation->getUser()->getFullname() . ' ; ') : '') . $reservation->getPersons() . ' ' . $this->get('translator')->trans('Persons') . ' ] (' . $this->get('translator')->trans($reservation->getStatusText()) . ')</li>';
-                        $error .= (count($reservations) == 5) ? '<li>...</li>' : '';
+                        foreach ($reservations as $reservation_conflict) $error .= '<li>'.  $this->get('translator')->trans('Resource') . ' [ ' . $resource->getCategory()->getName() . ' - ' . $resource->getName() . ' ] - ' . $this->get('translator')->trans('Activity') . ': ' . $reservation_conflict->getSession()->getActivity()->getTitle() .' - '. $this->get('translator')->trans('Session') . ' [ ' . $reservation_conflict->getSession()->getDate()->format('d/m/Y') . ' - ' . $reservation_conflict->getSession()->getTime()->format('H:i') . ' ] - ' . $this->get('translator')->trans('Reservation') . ' [ ' . ($reservation_conflict->getUser() ? ($reservation_conflict->getUser()->getFullname() . ' ; ') : '') . $reservation_conflict->getPersons() . ' ' . $this->get('translator')->trans('Persons') . ' ] (' . $this->get('translator')->trans($reservation_conflict->getStatusText()) . ')</li>';
+                        $error .= (count($reservation_conflict) == 5) ? '<li>...</li>' : '';
                     }
                 }
                 
