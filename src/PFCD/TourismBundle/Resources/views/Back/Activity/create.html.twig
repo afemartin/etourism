@@ -17,3 +17,10 @@
     </div>
 </form>
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $('.fileupload').fileuploader();
+</script>
+{% endblock %}
