@@ -52,6 +52,37 @@
             <td>{{ user.phone }}</td>
         </tr>
         <tr>
+            <th>{{ 'Reservations'|trans }}</th>
+            <td>
+                {% if user.reservations|length > 0 %}
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th>{{ 'View'|trans }}</th>
+                            <th>{{ 'Activity'|trans }}</th>
+                            <th>{{ 'Session'|trans }}</th>
+                            <th>{{ 'Persons'|trans }}</th>
+                            <th>{{ 'Note'|trans }}</th>
+                            <th>{{ 'Status'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for reservation in user.reservations %}
+                    <tr class="status-{{ reservation.status }}">
+                        <td><a href="{{ path('back_reservation_read', { 'id': reservation.id }) }}"><i class="icon-eye-open"></i></a></td>
+                        <td>{{ reservation.session.activity.title|truncate(25) }}</td>
+                        <td>{% if reservation.session.date %}{{ reservation.session.date|date('Y-m-d') }}{% endif %} {% if reservation.session.time %}({{ reservation.session.time|date('H:i') }}){% endif %}</td>
+                        <td>{{ reservation.persons }}</td>
+                        <td>{{ reservation.note|truncate(25) }}</td>
+                        <td>{{ reservation.statusText|trans }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
             <th>{{ 'Locale'|trans }}</th>
             <td>{{ user.locale|locale }}</td>
         </tr>
