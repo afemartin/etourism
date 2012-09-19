@@ -161,10 +161,6 @@ class PaymentController extends Controller
 
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
-        {
-            $options['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
-        }
         $options['supported_currencies'] = $this->container->getParameter('currencies');
 
         $editForm = $this->createForm(new PaymentType(), $payment, $options);
