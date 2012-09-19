@@ -83,11 +83,17 @@ class ActivityController extends Controller
                 $id = $this->get('security.context')->getToken()->getUser()->getId();
                 $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
                 $activity->setOrganization($organization);
+                
+                $activity->setImage();
 
                 $em->persist($activity);
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('back_activity_read', array('id' => $activity->getId())));
+            }
+            else
+            {
+                $activity->setFile(null);
             }
         }    
 

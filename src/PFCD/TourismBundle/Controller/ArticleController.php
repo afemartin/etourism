@@ -80,10 +80,16 @@ class ArticleController extends Controller
                 $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
                 $article->setOrganization($organization);
 
+                $article->setImage();
+                
                 $em->persist($article);
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('back_article_read', array('id' => $article->getId())));
+            }
+            else
+            {
+                $article->setFile(null);
             }
         }    
 
