@@ -58,15 +58,23 @@
             <th>{{ 'Status'|trans }}</th>
             <td>
                 {{ article.statusText|trans }} <a data-original-title="{{ 'form.article.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
-                {% if article.status != 3 %}
+                {% if delete_form %}
                 <div class="pull-right">
-                    <form id="delete_article_form" style="margin: 0 0 0 5px;" action="{{ path('back_article_delete', { 'id': article.id }) }}" method="post">
+                    <form id="delete_article_form" style="margin: 0 0 0 5px;" action="{{ path('back_article_status', { 'id': article.id, 'status': delete_form.vars.value.status }) }}" method="post">
                         {{ form_widget(delete_form) }}
                         <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.article.button.delete'|trans }}</button>
                     </form>
                 </div>
                 {{ macros.modalConfirm('delete_article_form', 'delete_modal') }}
                 {% endif %}
+                {% if enable_form %}
+                <div class="pull-right">
+                    <form style="margin: 0 0 0 5px;" action="{{ path('back_article_status', { 'id': article.id, 'status': enable_form.vars.value.status }) }}" method="post">
+                        {{ form_widget(enable_form) }}
+                        <button class="btn btn-mini btn-success" type="submit"><i class="icon-ok-circle icon-white"></i> {{ 'back.article.button.enable'|trans }}</button>
+                    </form>
+                </div>
+                {% endif %}                
             </td>
         </tr>
     </tbody>

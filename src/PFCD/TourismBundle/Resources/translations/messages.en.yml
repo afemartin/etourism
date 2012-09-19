@@ -831,7 +831,7 @@ back.user.button.index: Back to the list
 back.user.button.create: Create a new user
 back.user.button.read: Show this user
 back.user.button.update: Edit this user
-back.user.button.delete: Delete this user
+back.user.button.delete: Delete
 
 back.organization.button.index: Back to the list
 back.organization.button.create: Create a new organization
@@ -879,15 +879,15 @@ back.payment.button.index: Back to the list
 back.payment.button.create: Create a new payment
 back.payment.button.read: Show this payment
 back.payment.button.update: Edit this payment
-back.payment.button.delete: Delete this payment
 
 back.resource.button.index: Back to the list
 back.resource.button.create: Create a new resource
 back.resource.button.read: Show this resource
 back.resource.button.update: Edit this resource
-back.resource.button.delete: Delete this resource
+back.resource.button.delete: Delete
 
 back.category.button.create: Create a new category
+back.category.button.delete: Delete
 
 back.article.button.index: Back to the list
 back.article.button.create: Create an article
@@ -895,7 +895,8 @@ back.article.button.read: Show this article
 back.article.button.preview: Preview
 back.article.button.update: Edit information
 back.article.button.media: Edit multimedia
-back.article.button.delete: Delete this article
+back.article.button.enable: Enable
+back.article.button.delete: Delete
 
 back.form.imageupload.button.upload: Upload
 back.form.imageupload.button.reload: Change

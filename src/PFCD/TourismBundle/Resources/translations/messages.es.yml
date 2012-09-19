@@ -831,7 +831,7 @@ back.user.button.index: Volver atrás
 back.user.button.create: Añadir un nuevo usuario
 back.user.button.read: Mostrar este usuario
 back.user.button.update: Editar este usuario
-back.user.button.delete: Eliminar este usuario
+back.user.button.delete: Eliminar
 
 back.organization.button.index: Volver atrás
 back.organization.button.create: Añadir una nueva organización
@@ -879,15 +879,15 @@ back.payment.button.index: Volver atrás
 back.payment.button.create: Añadir un nuevo pago
 back.payment.button.read: Mostrar este pago
 back.payment.button.update: Editar este pago
-back.payment.button.delete: Eliminar este pago
 
 back.resource.button.index: Volver atrás
 back.resource.button.create: Añadir un nuevo recurso
 back.resource.button.read: Mostrar este recurso
 back.resource.button.update: Editar este recurso
-back.resource.button.delete: Eliminar este recurso
+back.resource.button.delete: Eliminar
 
 back.category.button.create: Añadir una nueva categoría
+back.category.button.delete: Eliminar
 
 back.article.button.index: Volver atrás
 back.article.button.create: Añadir una nueva noticia
@@ -895,7 +895,8 @@ back.article.button.read: Mostrar esta noticia
 back.article.button.preview: Vista previa
 back.article.button.update: Editar información
 back.article.button.media: Editar multimedia
-back.article.button.delete: Eliminar esta noticia
+back.article.button.enable: Activar
+back.article.button.delete: Eliminar
 
 back.form.imageupload.button.upload: Subir
 back.form.imageupload.button.reload: Cambiar

@@ -320,10 +320,10 @@ back_article_media:
     defaults: { _controller: "PFCDTourismBundle:Article:backMedia" }
     requirements: { id: \d+ }
 
-back_article_delete:
-    pattern:  /article/{id}/delete
-    defaults: { _controller: "PFCDTourismBundle:Article:backDelete" }
-    requirements: { _method: post, id: \d+ }
+back_article_status:
+    pattern:  /article/{id}/status/{status}
+    defaults: { _controller: "PFCDTourismBundle:Article:backStatus" }
+    requirements: { _method: post, id: \d+, status: \d+ }
 
 
 ################################################################################

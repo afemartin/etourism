@@ -117,14 +117,16 @@ class ArticleController extends Controller
 
         if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
 
-        $deleteForm = $this->createDeleteForm($id);
+        $enableFormView = ($article->getStatus() == Article::STATUS_PENDING) ? $this->createChangeStatusForm($id, Article::STATUS_ENABLED)->createView() : null;        
+        $deleteFormView = ($article->getStatus() != Article::STATUS_DELETED) ? $this->createChangeStatusForm($id, Article::STATUS_DELETED)->createView() : null;
 
         $translations = $em->getRepository('StofDoctrineExtensionsBundle:Translation')->findTranslations($article);
         
         return $this->render('PFCDTourismBundle:Back/Article:read.html.twig', array(
             'article'      => $article,
             'translations' => $translations,
-            'delete_form'  => $deleteForm->createView(),
+            'enable_form'  => $enableFormView,
+            'delete_form'  => $deleteFormView,
         ));
     }
 
@@ -288,9 +290,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * Deletes a Article entity
+     * Changes the status of the Article entity
      */
-    public function backDeleteAction($id)
+    public function backStatusAction($id, $status)
     {
         $filter['id'] = $id;
                 
@@ -299,7 +301,7 @@ class ArticleController extends Controller
             $filter['organization'] = $this->get('security.context')->getToken()->getUser()->getId();
         }
         
-        $form = $this->createDeleteForm($id);
+        $form = $this->createChangeStatusForm($id, $status);
         
         $request = $this->getRequest();
 
@@ -312,7 +314,28 @@ class ArticleController extends Controller
 
             if (!$article) throw $this->createNotFoundException('Unable to find Article entity.');
 
-            $article->setStatus(Article::STATUS_DELETED);
+            switch ($status)
+            {
+                case Article::STATUS_ENABLED:
+                    if ($article->getStatus() != Article::STATUS_PENDING)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                case Article::STATUS_DELETED:
+                    if ($article->getStatus() == Article::STATUS_DELETED)
+                    {
+                        throw new AccessDeniedException();
+                    }
+                    break;
+                    
+                default:
+                    throw new AccessDeniedException();
+                    break;
+            }
+            
+            $article->setStatus($status);
             $em->persist($article);
             $em->flush();
         }
@@ -404,9 +427,9 @@ class ArticleController extends Controller
      ***** COMMON FUNCTIONS ***************************************************
      **************************************************************************/
     
-    private function createDeleteForm($id)
+    private function createChangeStatusForm($id, $status)
     {
-        return $this->createFormBuilder(array('id' => $id))->add('id', 'hidden')->getForm();
+        return $this->createFormBuilder(array('id' => $id, 'status' => $status))->add('id', 'hidden')->add('status', 'hidden')->getForm();
     }
     
 }

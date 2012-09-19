@@ -65,22 +65,25 @@
         </tr>
         <tr>
             <th>{{ 'Status'|trans }}</th>
-            <td>{{ user.statusText|trans }} <a data-original-title="{{ 'form.user.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a></td>
+            <td>
+                {{ user.statusText|trans }} <a data-original-title="{{ 'form.user.field.status.help'|trans }}" rel="tooltip" class="field-help-tooltip"><i class="icon-info-sign"></i></a>
+                {% if is_granted('ROLE_ADMIN') and user.status != 3 %}
+                <div class="pull-right">
+                    <form id="delete_user_form" style="margin: 0 0 0 5px;" action="{{ path('back_user_delete', { 'id': user.id }) }}" method="post">
+                        {{ form_widget(delete_form) }}
+                        <button class="btn btn-mini btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.user.button.delete'|trans }}</button>
+                    </form>
+                </div>
+                {{ macros.modalConfirm('delete_user_form', 'delete_modal') }}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
 
-{% if is_granted('ROLE_ADMIN') %}
-<a class="btn btn-primary" href="{{ path('back_user_update', { 'id': user.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.user.button.update'|trans }}</a>
-{% endif %}
 <a class="btn btn-inverse" href="{{ path('back_user_index') }}"><i class="icon-list-alt icon-white"></i> {{ 'back.user.button.index'|trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
-<form id="delete_user_form" class="pull-right" action="{{ path('back_user_delete', { 'id': user.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> {{ 'back.user.button.delete'|trans }}</button>
-</form>
-
-{{ macros.modalConfirm('delete_user_form', 'delete_modal') }}
+<a class="btn btn-primary" href="{{ path('back_user_update', { 'id': user.id }) }}"><i class="icon-pencil icon-white"></i> {{ 'back.user.button.update'|trans }}</a>
 {% endif %}
 {% endblock %}
 
