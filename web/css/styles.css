@@ -6,10 +6,6 @@ html {
     overflow-y: scroll;
 }
 
-body {
-    background-image: url('../img/background.jpg');
-}
-
 .container.main {
     padding: 60px 20px 20px 20px;
 }
