@@ -23,7 +23,7 @@ PFCD\TourismBundle\Entity\Organization:
         shortDesc:
             - NotBlank: { groups: [Update] }
         file:
-            - Image:    { maxSize: 32k }
+            - Image:    { maxSize: 64k }
             
 PFCD\TourismBundle\Entity\Activity:
     properties:
@@ -39,7 +39,7 @@ PFCD\TourismBundle\Entity\Activity:
             - Min:      { limit: 0, message: "activity.durationdays.error", groups: [Default] }
             - Max:      { limit: 28, message: "activity.durationdays.error", groups: [Default] }
         file:
-            - Image:    { maxSize: 32k }
+            - Image:    { maxSize: 64k }
             
 PFCD\TourismBundle\Entity\Article:
     properties:
@@ -48,7 +48,7 @@ PFCD\TourismBundle\Entity\Article:
         shortDesc:
             - NotBlank: { groups: [Default] }
         file:
-            - Image:    { maxSize: 32k }
+            - Image:    { maxSize: 64k }
             
 PFCD\TourismBundle\Entity\Reservation:
     properties:
@@ -58,4 +58,4 @@ PFCD\TourismBundle\Entity\Reservation:
 PFCD\TourismBundle\Entity\Image:
     properties:
         file:
-            - Image:    { maxSize: 256k }
+            - Image:    { maxSize: 512k }
