@@ -450,7 +450,7 @@ class OrganizationController extends Controller
 
                 $template = 'registration.txt.twig';
                 $message = \Swift_Message::newInstance()
-                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.registration.subject'))
+                        ->setSubject('[' . $this->container->getParameter('pfcd_tourism.domain_name') . '] ' . $this->get('translator')->trans('email.registration.subject', array('%name%' => $organization->getName())))
                         ->setFrom($organization->getEmail())
                         ->setTo($this->container->getParameter('pfcd_tourism.emails.incoming_email'))
                         ->setBody($this->renderView('PFCDTourismBundle:Mail:' . $template, array('organization' => $organization)));
