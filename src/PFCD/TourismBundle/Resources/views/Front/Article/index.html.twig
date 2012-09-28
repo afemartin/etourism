@@ -6,7 +6,7 @@
 
 {% block body %}
 <div class="row">
-    <div class="span">
+    <div class="span9">
         {% if countryfilter %}
         <form class="form-inline pull-right" style="margin: 5px 0" action="{{ path('front_article_index') }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form.country) }}
