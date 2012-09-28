@@ -30,8 +30,8 @@
         
     {% if organization.donate or organization.email %}
     <div class="span9" style="text-align:right">
-        {% if organization.donate and organization.status == 1 %}
-        <a class="btn btn-mini" href="{{ path('front_organization_donate', { 'id': organization.id }) }}" target="_blank"><i class="icon-gift"></i> {{ 'Donate'|trans }}</a>
+        {% if organization.donate and organization.bankname and organization.bankaccount and organization.status == 1 %}
+    <a class="btn btn-mini" href="{{ path('front_organization_donate', { 'id': organization.id }) }}" target="_blank"><i class="icon-gift"></i> {{ 'Donate'|trans }}</a>
         {% endif %}
         {% if organization.email %}
         <a class="btn btn-mini" href="{{ path('front_organization_contact', { 'id': organization.id }) }}" target="_blank"><i class="icon-envelope"></i> {{ 'Contact'|trans }}</a>
