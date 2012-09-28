@@ -18,10 +18,6 @@ class ArticleType extends AbstractType
         $builder->add('fullDesc', 'textarea', array('required' => false, 'attr' => array('class' => 'wysihtml5-bootstrap input-xxlarge'), 'translatable' => $options['language']));
         $builder->add('languages', 'choice', array('attr' => array('style' => 'display: inline-block'), 'choices' => $options['supported_languages'], 'multiple' => true, 'expanded' => true, 'localelist' => true, 'help' => 'form.article.field.languages.help'));
         $builder->add('file', 'file', array('required' => false, 'label' => 'Image'));
-        if ($options['type'] == Constants::FORM_UPDATE)
-        {
-            $builder->add('status', 'choice', array('choices' => array(Article::STATUS_PENDING => 'entity.article.field.status.' . Article::STATUS_PENDING, Article::STATUS_ENABLED => 'entity.article.field.status.' . Article::STATUS_ENABLED), 'help' => 'form.article.field.status.help'));
-        }
     }
 
     public function getDefaultOptions(array $options)
