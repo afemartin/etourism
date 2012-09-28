@@ -19,7 +19,7 @@
     <h3>{{ 'front.payment.help.title'|trans }}:</h3>
     <hr style="margin: 0 0 5px"/>
     <p>
-        {% if payment.reservation.session.activity.organization.donate and payment.reservation.session.activity.organization.bankname and payment.reservation.session.activity.organization.bankaccount and payment.reservation.session.activity.organization.status == 1 %}
+        {% if payment.reservation.session.activity.organization.bankname and payment.reservation.session.activity.organization.bankaccount and payment.reservation.session.activity.organization.status == 1 %}
             <b>{{ 'Bank transfer'|trans }}</b>:
             {{ 'front.payment.help.banktransfer'|trans({'%bankname%': payment.reservation.session.activity.organization.bankname, '%bankaccount%': payment.reservation.session.activity.organization.bankaccount})|raw }}
         {% else %}
