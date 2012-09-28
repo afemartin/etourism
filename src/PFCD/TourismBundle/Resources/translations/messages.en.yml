@@ -69,7 +69,7 @@ back.header.subtitle: Administration Panel
 front.login.title: User sign in
 front.login.subtitle: Please fill the following information to sign in to your user account. If you have not created your account yet <a href="%link%">sign up here</a>
 
-front.rememberpassword.title: Remember password
+front.rememberpassword.title: I forgot my password
 front.rememberpassword.subtitle: If you do not remember your password fill your email and we will send to you a link to allow you to set a new password
 
 front.resetpassword.title: Reset password
@@ -181,7 +181,7 @@ front.comment.title.organization: <a class="label label-info" href="%link%">%nam
 front.comment.title.admin: <span class="label label-inverse">Administrator</span> at %date%
 front.comment.forbidden: You need to <a href="%login%">sign in</a> as a user to add comments. If you do not have a user account yet you can <a href="%register%">sign up here</a>
 
-back.rememberpassword.title: Remember password
+back.rememberpassword.title: I forgot my password
 back.rememberpassword.subtitle: Please fill your email account to send a link to your email account in order to allow you to set a new password
 
 back.resetpassword.title: Reset password
@@ -190,7 +190,7 @@ back.resetpassword.subtitle: Insert your new password
 back.changepassword.title: Change password
 back.changepassword.subtitle: Insert your current password and the insert the new password that will replace the old one
 
-back.home.title: Home page
+back.home.title: Home
 back.home.subtitle: This is the summary of the most important information about your activities status
 back.home.nextevents: Next events
 back.home.nextevents.small: Information about the sessions and resources required for the next 14 days
@@ -375,35 +375,57 @@ modal.defaultconfirm.front.content: <p>This action is <b>not reversible</b>. Ple
 modal.defaultconfirm.back.content: <p>This action is <b>not reversible</b>. Please, make sure you really want to perform this action</p>
 
 modal.generatesessions.title: Are you sure you want generate all this sessions?
-modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time it will be created only one session per day without start time established.</p><br/><p>If you are sure about it please click "Generate"</p>
+modal.generatesessions.content: <p>You will be generating a series of sessions between the indicated dates, only the days of the week that you checked and at the start times you establish for each daily session.</p><p>Make sure you select a properly range of dates and one day of the week. If you do not select any start time nor any day of the week no sessions will be created.</p><br/><p>If you are sure about it please click "Generate"</p>
 
-modal.help.resource.title: About the resources
+modal.help.resource.title: About the resources and categories
 modal.help.resource.content: >
-  <p>Description about resources</p>
+  <p>The resources are the ones available by the
+  organization to carry out its activities. These resources must belong to one of the
+  resource categories previously created by the organization. The categories are
+  associated with activities to specify what kind of resources will be required to
+  carry out the activity and the resources are associated to reservations before to
+  being accepted for knowing when to be quiet and when available.</p>
 
 modal.help.activity.title: About the activities
 modal.help.activity.content: >
-  <p>Description about activities</p>
+  <p>The touristic activities offered by your organization through the
+  platform. These activities have basic descriptive information such as "title",
+  "description", "duration", "price", etc. according to which the users can decide
+  whether they are interested or not in the activity.</p>
 
 modal.help.session.title: About the sessions
 modal.help.session.content: >
-  <p>Description about sessions</p>
+  <p>It is the realization of the activity on a specific date and time. Your
+  organization has to define the sessions in which you will be carrying out activities
+  so that users can reserve the session that they prefer. A session is basically a "start
+  date" and "start time" related to a concrete activity.</p>
 
 modal.help.reservation.title: About the reservations
 modal.help.reservation.content: >
-  <p>Description about reservations</p>
+  <p>Are the requests made by users (registered) to your organization
+  requesting participation in an activity. Once the organization receives the
+  reservation request decides whether to accept it (when all the resources required
+  have been chosen) or reject it manually. The organization can also create manual
+  reservations for any of its activities.</p>
 
 modal.help.payment.title: About the payments
 modal.help.payment.content: >
-  <p>Description about payments</p>
+  <p>Once a reservation is accepted a payment will be automatically
+  generated (if the activity has price) as "pending to paid" until the organization
+  receives proper payment and manually mark the payment as "paid" confirming
+  that the reservation has been made and paid successfully.</p>
 
 modal.help.article.title: About the articles
 modal.help.article.content: >
-  <p>Description about articles</p>
+  <p>Are the news or articles published by your organization. They are a way of
+  spreading the cooperation projects carried out with the aim of publicizing your
+  work.</p>
 
 modal.help.comment.title: About the comments
 modal.help.comment.content: >
-  <p>Description about comments</p>
+  <p>These are the comments posted by users (registered) giving opinions
+  or asking questions about activities and articles published by your organization.
+  You can also post comments in order to answer any questions from users.</p>
 
 form.user.field.status.help: >
   <b>Pending:</b> The user has registered in the system but the account has not been validated yet. Cannot access to the user private section<hr/>
@@ -424,12 +446,12 @@ form.organization.field.status.help: >
   <b>Deleted:</b> The organization is not visible. It cannot access to the administrator panel
   
 form.activity.field.image.help: This image will be display at the list of activities. Please upload an image with an exact width of 160 pixels and smaller than 32Kb
-form.activity.field.price.help: This will be the price of the activity per person. You can modify it at any time, but payments previously generated keep the previous price
-form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity. If you reduce the previous capacity make sure that no current sessions will exceed the new capacity
-form.activity.field.durationdays.help: This is the duration of the activity in days. You have to use it in combination with the "Duration in days". If the activity does not long more than one day just fill with 0
-form.activity.field.durationtime.help: This is the duration of the activity in hours and minutes. You have to use it in combination with the "Duration in hours and minutes"
-form.activity.field.categories.help: Select the required resource categories to do the activity. You can add new categories in the "<i class="icon-wrench icon-white"></i> Resources" section
-form.activity.field.languages.help: These are the languages ​​in which the activity will be displayed to users. Be sure to translate all fields before activating a new language
+form.activity.field.price.help: This will be the price of the activity per person. You will not be able to modify it once you enable the activity
+form.activity.field.capacity.help: This is the maximum number of persons that will be able to participate at each session of the activity. You will not be able to modify it once you enable the activity
+form.activity.field.durationdays.help: This is the duration of the activity in days. You have to use it in combination with the "Duration in days". If the activity does not long more than one day just fill with 0. You will not be able to modify it once you enable the activity
+form.activity.field.durationtime.help: This is the duration of the activity in hours and minutes. You have to use it in combination with the "Duration in hours and minutes". You will not be able to modify it once you enable the activity
+form.activity.field.categories.help: Select the required resource categories to do the activity. You can add new categories in the "<i class="icon-wrench icon-white"></i> Resources" section. You will not be able to modify it once you enable the activity
+form.activity.field.languages.help: These are the languages in which the activity will be displayed to users. Be sure to translate all fields before activating a new language
 form.activity.field.note.help: You can use this field to record relevant and private information about this activity
 form.activity.field.status.help: >
   <b>Pending:</b> The activity is not visible (only in "Preview" mode)<hr/>
@@ -812,7 +834,7 @@ Read more: Read more
 
 Preview: Preview
 
-Remember password: Remember password
+Remember password: I forgot my password
 Reset password: Reset password
 Change password: Change password
 

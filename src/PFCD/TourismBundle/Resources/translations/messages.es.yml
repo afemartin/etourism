@@ -69,7 +69,7 @@ back.header.subtitle: Panel de Administración
 front.login.title: Acceso de usuario
 front.login.subtitle: Rellene los siguientes campos para acceder a su cuenta de usuario. Si aún no ha creado su cuenta <a href="%link%">regístrese aquí</a>
 
-front.rememberpassword.title: Recordar contraseña
+front.rememberpassword.title: He olvidado mi contraseña
 front.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 
 front.resetpassword.title: Restablecer contraseña
@@ -181,7 +181,7 @@ front.comment.title.organization: <a class="label label-info" href="%link%">%nam
 front.comment.title.admin: <span class="label label-inverse">Administrador</span> a las %date%
 front.comment.forbidden: Necesita <a href="%login%">identificarse</a> como usuario para añadir comentarios. Si aún no ha creado su cuenta <a href="%register%">regístrese aquí</a>
 
-back.rememberpassword.title: Recordar contraseña
+back.rememberpassword.title: He olvidado mi contraseña
 back.rememberpassword.subtitle: Si no recuerda su contraseña, indique su email y le enviaremos un enlace para que pueda restablecer su contraseña
 
 back.resetpassword.title: Restablecer contraseña
@@ -375,35 +375,57 @@ modal.defaultconfirm.front.content: <p>Esta acción <b>no es reversible</b>. Por
 modal.defaultconfirm.back.content: <p>Esta acción <b>no es reversible</b>. Por favor, asegúrese de que realmente quiere realizar esta acción</p>
 
 modal.generatesessions.title: ¿Está seguro que quiere generar las siguientes sesiones?
-modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegúrese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio se creará una única sesión diaria sin hora de inicio establecida.</p><br/><p>Si está seguro de ello pulse "Generar"</p>
+modal.generatesessions.content: <p>Se generará una serie de sesiones comprendidas entre las fechas indicadas, solo los días de la semana que haya seleccionado y a las horas de comienzo que haya establecido para cada sesión diaria.</p><p>Asegúrese de seleccionar un rango de fechas adecuado, al menos una hora de comienzo y un día de la semana. Si no selecciona ninguna hora de inicio o ningún día de la semana no se creará ninguna sesión.</p><br/><p>Si está seguro de ello pulse "Generar"</p>
 
-modal.help.resource.title: Acerca de los recursos
+modal.help.resource.title: Acerca de los recursos y categorías
 modal.help.resource.content: >
-  <p>Descripción sobre los recursos</p>
+  <p>Los recursos son los que dispone su organización para
+  llevar a cabo las actividades. Estos recursos deben pertenecer a una de las
+  categorías de recursos previamente creadas por la organización. Las categorías se
+  asocian a las actividades para saber qué tipo de recursos será necesario reservar
+  para realizar la actividad y los recursos se asignaran a las reservas previamente a
+  ser aceptadas para saber cuándo estarán reservados y cuando disponibles.</p>
 
 modal.help.activity.title: Acerca de las actividades
 modal.help.activity.content: >
-  <p>Descripción sobre las actividades</p>
+  <p>Son las actividades turísticas que ofrece su organización a través
+  de la plataforma. Estas actividades tienen una información básica como "titulo",
+  "descripción", "duración", "precio", etc. en función de la cual los usuarios podrán
+  decidir si les interesa o no realizar dicha actividad.</p>
 
 modal.help.session.title: Acerca de las sesiones
 modal.help.session.content: >
-  <p>Descripción sobre las sesiones</p>
+  <p>Es la realización de la actividad en una fecha y a una hora concretas.
+  Su organización define las sesiones en las que se van a realizar las actividades
+  de manera que los usuarios puedan reservar la que más les interese. Una sesión
+  consiste básicamente en una "fecha de inicio" y "hora de inicio".</p>
 
-modal.help.reservation.title: Acerca de los reservas
+modal.help.reservation.title: Acerca de las reservas
 modal.help.reservation.content: >
-  <p>Descripción sobre las reservas</p>
+  <p>Son las peticiones que realizan los usuarios (registrados) a su
+  organización solicitando la participación en una actividad. Una vez que su
+  organización recibe la petición de reserva decide si aceptarla (una vez asignados
+  los recursos necesarios) o rechazarla manualmente.</p>
 
 modal.help.payment.title: Acerca de los pagos
 modal.help.payment.content: >
-  <p>Descripción sobre los pagos</p>
+  <p>Una vez una reserva de una actividad es aceptada se genera
+  automáticamente el pago correspondiente como "pendiente de pago" hasta que la
+  organización reciba correctamente el pago y marque el pago manualmente como
+  "pagado" confirmando así que la reserva se ha efectuado y pagado con éxito.</p>
 
 modal.help.article.title: Acerca de las noticias
 modal.help.article.content: >
-  <p>Descripción sobre las noticias</p>
+  <p>Son las noticias publicadas por su organización que no tienen por qué
+  involucrar actividad alguna. Son una manera de difundir los proyectos de
+  cooperación realizados con el objetivo de dar a conocer su trabajo.</p>
 
 modal.help.comment.title: Acerca de los comentarios
 modal.help.comment.content: >
-  <p>Descripción sobre los comentarios</p>
+  <p>Son comentarios escritos por usuarios (registrados) dando su
+  opinión o realizando preguntas sobre las actividades y noticias publicadas por
+  su organización. Usted también pueden escribir comentarios para
+  así responder a las posibles dudas de los usuarios.</p>
   
 form.user.field.status.help: >
   <b>Pendiente:</b> El usuario se ha registrado en el sistema pero la cuenta no se ha validado aún. No puede acceder a la zona privada de usuario<hr/>
@@ -424,11 +446,11 @@ form.organization.field.status.help: >
   <b>Eliminada:</b> La organización no es visible. No puede acceder al panel de administración
 
 form.activity.field.image.help: Esta imagen se mostrará en la lista de actividades. Por favor, suba una imagen con un ancho exacto de 160 pixeles y menor de 32Kb
-form.activity.field.price.help: Este es el precio de la actividad por persona. Puede modificarlo en cualquier momento, pero los pagos generados previamente mantendrán el precio anterior
-form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad. Si decide reducir la capacidad asegurese que ninguna sesión actual vaya a sobrepasar la nueva capacidad
-form.activity.field.durationdays.help: Esta es la duración de la actividad en días. Tiene que usarlo en combinación con el campo "Duración en horas y minutos". Si la actividad no dura más de un día simplemente escriba 0
-form.activity.field.durationtime.help: Esta es la duración de la actividad en horas y minutos. Tiene que usarlo en combinación con el campo "Duración en días"
-form.activity.field.categories.help: Seleccione las categorías de recursos necesarios para realizar la actividad. Puede añadir nuevas categorías en la sección "<i class="icon-wrench icon-white"></i> Recursos"
+form.activity.field.price.help: Este es el precio de la actividad por persona. No podrá modificarlo una vez que active la actividad
+form.activity.field.capacity.help: Este es el número máximo de personas que podrán participar en cada sesión de la actividad. No podrá modificarla una vez que active la actividad
+form.activity.field.durationdays.help: Esta es la duración de la actividad en días. Tiene que usarlo en combinación con el campo "Duración en horas y minutos". Si la actividad no dura más de un día simplemente escriba 0. No podrá modificarla una vez que active la actividad
+form.activity.field.durationtime.help: Esta es la duración de la actividad en horas y minutos. Tiene que usarlo en combinación con el campo "Duración en días". No podrá modificarla una vez que active la actividad
+form.activity.field.categories.help: Seleccione las categorías de recursos necesarios para realizar la actividad. Puede añadir nuevas categorías en la sección "<i class="icon-wrench icon-white"></i> Recursos". No podrá modificarlos una vez que active la actividad
 form.activity.field.languages.help: Estos son los idiomas en los que la actividad se mostrará a los usuarios. Asegúrese de traducir todos los campos antes de activar un nuevo idioma
 form.activity.field.note.help: Puede usar este campo para anotar información relevante y privada acerca de la actividad
 form.activity.field.status.help: >
@@ -812,7 +834,7 @@ Read more: Leer más
 
 Preview: Vista previa
 
-Remember password: Recordar contraseña
+Remember password: He olvidado mi contraseña
 Reset password: Restablecer contraseña
 Change password: Cambiar contraseña
 
