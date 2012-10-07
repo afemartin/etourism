@@ -155,30 +155,37 @@ class OrganizationController extends Controller
      */
     public function backUpdateAction($id)
     {
-        // @FIXME: Here we can not use setTranslationFallback(false) because that makes
-        // the fields do not store at the DDBB, created issue at stof/StofDoctrineExtensionsBundle
-        // Issue #145: [translatable] Wrong behavior with Entity that ...
-        // https://github.com/stof/StofDoctrineExtensionsBundle/issues/145
         $em = $this->getDoctrine()->getEntityManager();
 
-        $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
-
-        if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
-
-        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION') && $id != $this->get('security.context')->getToken()->getUser()->getId())
-        {
-            throw new AccessDeniedException();
-        }
+        // Issue #145: [translatable] Wrong behavior with logged Entity ...
+        // https://github.com/stof/StofDoctrineExtensionsBundle/issues/145
         
+        if ($this->get('security.context')->isGranted('ROLE_ORGANIZATION'))
+        {
+            $organization = $this->get('security.context')->getToken()->getUser();
+           
+            if ($id != $organization->getId()) throw new AccessDeniedException();
+           
+            $em->refresh($organization);
+        }
+        else
+        {
+            $organization = $em->getRepository('PFCDTourismBundle:Organization')->find($id);
+
+            if (!$organization) throw $this->createNotFoundException('Unable to find Organization entity.');
+        }
+       
+        $locale = $this->get('session')->getLocale();
+       
         $options['domain'] = $this->get('security.context')->isGranted('ROLE_ADMIN') ? Constants::ADMIN : Constants::BACK;
         $options['type'] = Constants::FORM_UPDATE;
-        $options['language'] = $this->get('session')->getLocale();
+        $options['language'] = $locale;
         $options['supported_languages'] = $this->container->getParameter('locales');
-        
+       
         $editForm = $this->createForm(new OrganizationType(), $organization, $options);
-        
+       
         $request = $this->getRequest();
-        
+       
         if ($request->getMethod() == 'POST')
         {
             $editForm->bindRequest($request);
@@ -186,7 +193,26 @@ class OrganizationController extends Controller
             if ($editForm->isValid())
             {
                 $organization->setLogo();
-
+               
+                // since the translatable fields from Organization entity does
+                // not persist properly we have to persist them manually
+               
+                // for some reason if we do not store an empty value in the
+                // organization Symfony2 will think it is not necessary to
+                // update the translatable fields later
+                $organization->setShortDesc('');
+                $organization->setFullDesc('');
+                $organization->setDonateDesc('');
+                $em->persist($organization);
+               
+                $repository = $em->getRepository('StofDoctrineExtensionsBundle:Translation');
+               
+                $postData = $request->request->get('organization');
+              
+                $repository->translate($organization, 'shortDesc' , $locale, $postData['shortDesc'])
+                           ->translate($organization, 'fullDesc'  , $locale, $postData['fullDesc'])
+                           ->translate($organization, 'donateDesc', $locale, $postData['donateDesc']);
+               
                 $em->persist($organization);
                 $em->flush();
 
@@ -197,7 +223,7 @@ class OrganizationController extends Controller
                 $organization->setFile(null);
             }
         }
-       
+      
         return $this->render('PFCDTourismBundle:Back/Organization:update.html.twig', array(
             'organization' => $organization,
             'edit_form'    => $editForm->createView(),
