@@ -157,7 +157,7 @@ class BackController extends Controller
 
                 $this->get('session')->setFlash('alert-success', $this->get('translator')->trans('alert.success.supportenquiry'));
 
-                return $this->redirect($this->generateUrl('front_contact'));
+                return $this->redirect($this->generateUrl('back_support'));
             }
         }
 
